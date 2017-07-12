@@ -174,10 +174,10 @@
             }
         },
         mounted(){
-            this.lanrenzhijia()
+            this.lanrenzhijia(".drop-menu-effect");
         },
-        methods:{
-            lanrenzhijia (_this){
+        methods: {
+            lanrenzhijia(_this){
                 $(_this).each(function () {
                     var $this = $(this);
                     var theMenu = $this.find(".submenu");
@@ -197,14 +197,21 @@
                     );
                 });
             }
+
         }
     }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+    .header{
+        width: 100%;
+        height:60px;
+        background: #666;
+        line-height: 60px;
+    }
     .navbox {
-        height: 40px;
+        height: 60px;
         position: relative;
         z-index: 9;
         margin: auto;
@@ -215,13 +222,13 @@
     .nav {
         width: 1002px;
         margin: 0 auto;
-        height: 40px;
+        height: 60px;
         list-style: none;
     }
 
     .nav li {
         float: left;
-        height: 40px;
+        height: 60px;
         position: relative;
         list-style: none;
     }
@@ -237,7 +244,7 @@
     .nav li a span {
         float: left;
         display: block;
-        line-height: 40px;
+        line-height: 60px;
         font-size: 14px;
         color: #ffffff;
         cursor: pointer;
@@ -249,7 +256,7 @@
         text-decoration: none;
         width: 143px;
 
-        height: 40px;
+        height: 60px;
     }
 
     .nav li.selected .submenu {
@@ -259,7 +266,7 @@
     .nav li .submenu {
         display: none;
         position: absolute;
-        top: 40px;
+        top: 60px;
         left: -9px;
     }
 
