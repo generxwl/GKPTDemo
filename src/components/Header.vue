@@ -12,12 +12,12 @@
 
                                     <div class="mj_menu_news_li3">
                                         <div class="mj_menu_li_txt">
-                                            <a href="#">污染地图</a>
+                                            <a href="#/pollutionmap">污染地图</a>
                                         </div>
                                     </div>
                                     <div class="mj_menu_news_li3">
                                         <div class="mj_menu_li_txt">
-                                            <a href="#">超级站</a>
+                                            <a href="#/superstation">超级站</a>
                                         </div>
                                     </div>
                                     <div class="mj_menu_news_li3">
@@ -27,7 +27,6 @@
                                             <a href="#">省控点</a>
                                         </div>
                                     </div>
-
                                     <div style="clear:both; height:0px; overflow:hidden;"></div>
                                 </div>
                             </div>
@@ -80,9 +79,9 @@
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li">
                                         <div class="mj_menu_li_txt">
-                                            <a href="#">气象站</a><br/>
+                                            <a href="#/weatherstation">气象站</a><br/>
                                             <a href="#">网格预测</a><br/>
-                                            <a href="#">动态风场</a><br/>
+                                            <a href="#/weather">动态风场</a><br/>
                                             <a href="#">城市天气预报</a>
                                         </div>
                                     </div>
@@ -198,6 +197,7 @@
         height:60px;
         background-color: rgba(0, 0, 254, 1);
         line-height: 60px;
+        border-bottom: 3px solid #777;
     }
     .navbox {
         height: 60px;
@@ -233,7 +233,7 @@
         float: left;
         display: block;
         line-height: 60px;
-        font-size: 14px;
+        font-size: 18px;
         color: #ffffff;
         cursor: pointer;
         width: 143px;

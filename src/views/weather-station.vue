@@ -15,7 +15,7 @@
 
 <script>
     export default {
-        name: 'hello',
+        name: 'weatherstation',
         data () {
             return {
                 weatherstationURL:'http://60.10.151.97:8090/new/module/weatherpoint.php',

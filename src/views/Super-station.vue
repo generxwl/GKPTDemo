@@ -1,5 +1,5 @@
 <template>
-  <div class="superstationURL">
+  <div class="superstation">
       <v-header></v-header>
       <iframe
               frameborder="0"
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'hello',
+  name: 'superstation',
   data () {
     return {
         superstationURL:'http://60.10.151.97:8090/new/module/superpoint.php',
@@ -27,7 +27,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-    .superstationURL{
+    .superstation{
         width: 100%;
         height: 100%;
     }

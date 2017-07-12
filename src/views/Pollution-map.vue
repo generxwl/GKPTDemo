@@ -16,7 +16,7 @@
 
 <script>
     export default {
-        name: 'hello',
+        name: 'Pollutionmap',
         data () {
             return {
                 PollutionmapURL:'http://m.zq12369.com/palmmap.php',

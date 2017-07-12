@@ -15,10 +15,10 @@
 
 <script>
 export default {
-  name: 'hello',
+  name: 'weather',
   data () {
     return {
-        weatherURL:'https://airwise.zc12369.com/#2017/06/05/0400Z/wind/surface/level/overlay=aqi/argo=recent/orthographic=108.94,34.27,1189/loc=108.944,34.265',
+        weatherURL:'https://airwise.zc12369.com/',
         woaini:''
     }
   }
