@@ -1,10 +1,12 @@
 <template>
     <div class="header">
-        <div class="left"></div>
-        <div class="right">
-            <div class="navbox">
+            <div class="navbox" style="width:1200px;">
+                <!--环境监测-->
+                <div class="logo">
+                     <img src="" alt="logo廊坊立体空监管系统">
+                </div>
                 <div class="nav">
-                    <!--环境监测-->
+                    <!---->
                     <li class="drop-menu-effect"><a href="#"><span>环境监测</span></a>
                         <div class="submenu">
                             <div class="mj_menu_pro_bg">
@@ -148,8 +150,6 @@
 
                 </div>
             </div>
-
-        </div>
     </div>
 </template>
 
@@ -198,23 +198,36 @@
         background-color: rgba(0, 0, 254, 1);
         line-height: 60px;
         border-bottom: 3px solid #777;
+
     }
     .navbox {
+        display: flex;
+        flex-wrap:nowrap;
+        flex-direction: row;
         height: 60px;
         position: relative;
         z-index: 9;
         margin: auto;
         font-family: '微软雅黑';
-    }
-
-    .nav {
-        width: 1002px;
-        margin: 0 auto;
-        height: 60px;
-        list-style: none;
+        .logo{
+            float: left;
+            width: 16vw;
+            height: 30px;
+            img{
+                height: 20px;
+            }
+        }
+        .nav {
+            float: left;
+            width:860px;
+            height: 60px;
+            list-style: none;
+            margin-left: 100px;
+        }
     }
 
     .nav li {
+        text-align: center;
         float: left;
         height: 60px;
         position: relative;
