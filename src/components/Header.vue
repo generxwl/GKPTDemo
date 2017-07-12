@@ -4,10 +4,8 @@
         <div class="right">
             <div class="navbox">
                 <div class="nav">
-
-                    <li class="drop-menu-effect"><a href="#"><span>网站首页</span></a></li>
-
-                    <li class="drop-menu-effect"><a href="#"><span>明景产品</span></a>
+                    <!--环境监测-->
+                    <li class="drop-menu-effect"><a href="#"><span>环境监测</span></a>
                         <div class="submenu">
                             <div class="mj_menu_pro_bg">
                                 <div class="mj_menu_pro_main">
@@ -64,8 +62,8 @@
                             </div>
                         </div>
                     </li>
-
-                    <li class="drop-menu-effect"><a href="#"><span>资讯中心</span></a>
+                    <!--传感网溯源-->
+                    <li class="drop-menu-effect"><a href="#"><span>传感网溯源</span></a>
                         <div class="submenu">
                             <div class="mj_menu_news_bg">
                                 <div class="mj_menu_news_main">
@@ -82,8 +80,8 @@
                             </div>
                         </div>
                     </li>
-
-                    <li class="drop-menu-effect"><a href="#"><span>下载中心</span></a>
+                    <!--污染源管控-->
+                    <li class="drop-menu-effect"><a href="#"><span>污染源管控</span></a>
                         <div class="submenu">
                             <div class="mj_menu_news_bg">
                                 <div class="mj_menu_news_main">
@@ -103,8 +101,8 @@
                             </div>
                         </div>
                     </li>
-
-                    <li class="drop-menu-effect"><a href="#"><span>企业概况</span></a>
+                    <!--气象预报-->
+                    <li class="drop-menu-effect"><a href="#"><span>气象预报</span></a>
                         <div class="submenu">
                             <div class="mj_menu_news_bg">
                                 <div class="mj_menu_news_main">
@@ -123,8 +121,8 @@
                             </div>
                         </div>
                     </li>
-
-                    <li class="drop-menu-effect"><a href="#"><span>联系我们</span></a>
+                    <!--全民举报-->
+                    <li class="drop-menu-effect"><a href="#"><span>全民举报</span></a>
                         <div class="submenu" style="left:-347px;">
                             <div class="mj_menu_news_bg">
                                 <div class="mj_menu_news_main">
@@ -141,8 +139,8 @@
                             </div>
                         </div>
                     </li>
-
-                    <li class="drop-menu-effect"><a href="#"><span>工程技术中心</span></a>
+                    <!--数据研判-->
+                    <li class="drop-menu-effect"><a href="#"><span>数据研判</span></a>
                         <div class="submenu" style="left:-347px;">
                             <div class="mj_menu_news_bg">
                                 <div class="mj_menu_news_main">
@@ -207,7 +205,7 @@
     .header{
         width: 100%;
         height:60px;
-        background: #666;
+        background-color: rgba(0, 0, 254, 1);
         line-height: 60px;
     }
     .navbox {
@@ -215,7 +213,6 @@
         position: relative;
         z-index: 9;
         margin: auto;
-        background: #554b4a;
         font-family: '微软雅黑';
     }
 
@@ -281,7 +278,8 @@
     .mj_menu_pro_bg {
         width: 825px;
         height: 235px;
-
+        border:solid 1px #666 ;
+        border-top: none;
     }
 
     .mj_menu_pro_main {
@@ -318,7 +316,8 @@
     .mj_menu_news_bg {
         width: 480px;
         height: 185px;
-
+        border:solid 1px #666 ;
+        border-top: none;
     }
 
     .mj_menu_news_main {
