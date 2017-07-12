@@ -6,8 +6,9 @@ import router from './router'
 import store from './store'
 //
 import Header from './components/Header'
+import Paneldata from './components/Paneldata'
 Vue.component('v-header', Header)
-
+Vue.component('v-paneldata', Paneldata)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

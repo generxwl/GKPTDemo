@@ -9,54 +9,25 @@
                         <div class="submenu">
                             <div class="mj_menu_pro_bg">
                                 <div class="mj_menu_pro_main">
-                                    <div class="mj_menu_pro_li">
+
+                                    <div class="mj_menu_news_li3">
                                         <div class="mj_menu_li_txt">
-                                            <a href="#"><font>摄像机（网络高清）</font></a><br/>
-                                            <a href="#">网络高清摄像机系列</a><br/>
-                                            <a href="#">网络高清球型摄像机系列</a><br/>
-                                            <a href="#">网络高清云台摄像机系列</a>
-                                            <p><font>摄像机（SDI高清）</font><br/>
-                                                <a href="#">SDI数字高清摄像机系列</a><br/>
-                                                <a href="#">SDI数字高清球型摄像机系列</a><br/>
-                                                <a href="#">SDI数字高清云台摄像机系列</a></p>
+                                            <a href="#">污染地图</a>
                                         </div>
                                     </div>
-                                    <div class="mj_menu_pro_li" style="padding-left:48px;">
+                                    <div class="mj_menu_news_li3">
                                         <div class="mj_menu_li_txt">
-                                            <a href="#"><font>摄像机（模拟）</font></a><br/>
-                                            <a href="#">摄像机系列</a><br/>
-                                            <a href="#">智能分析系列</a><br/>
-                                            <a href="#">夜视监控系列</a><br/>
-                                            <a href="#">云台摄像机系列</a><br/>
-                                            <a href="#">高速球型摄像机系列</a>
-                                            <p><a href="#"><font>存储产品</font></a></p>
+                                            <a href="#">超级站</a>
                                         </div>
                                     </div>
-                                    <div class="mj_menu_pro_li" style="padding:20px 0px 0px 48px;">
+                                    <div class="mj_menu_news_li3">
                                         <div class="mj_menu_li_txt">
-                                            <a href="#">中低速球型摄像机系列</a><br/>
-                                            <a href="#">监视器系列</a><br/>
-                                            <a href="#">控制键盘系列</a><br/>
-                                            <a href="#">支架系列</a>
-                                            <p style="padding-top:24px;"><a href="#"><font>编解码产品</font></a></p>
+                                            <font>监测点</font><br/>
+                                            <a href="#">国控点</a><br/>
+                                            <a href="#">省控点</a>
                                         </div>
                                     </div>
-                                    <div class="mj_menu_pro_li" style="padding-left:48px;">
-                                        <div class="mj_menu_li_txt">
-                                            <a href="#"><font>行业解决方案</font></a><br/>
-                                            <a href="#">车载系统解决方案</a><br/>
-                                            <a href="#">行业产品</a>
-                                            <p style="padding-top:66px;"><a href="#"><font>智能交通产品</font></a></p>
-                                        </div>
-                                    </div>
-                                    <div class="mj_menu_pro_li" style="padding-left:48px;">
-                                        <div class="mj_menu_li_txt">
-                                            <a href="#"><font>防爆产品</font></a><br/>
-                                            <a href="#">防爆产品（高清）</a><br/>
-                                            <a href="#">防爆产品（模拟）</a>
-                                            <p style="padding-top:66px;"><a href="#"><font>平台软件</font></a></p>
-                                        </div>
-                                    </div>
+
                                     <div style="clear:both; height:0px; overflow:hidden;"></div>
                                 </div>
                             </div>
@@ -69,12 +40,10 @@
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li">
                                         <div class="mj_menu_li_txt">
-                                            <a href="#">公司新闻</a><br/>
-                                            <a href="#">行业新闻</a><br/>
-                                            <a href="#">展会信息</a></div>
+                                            <a href="#">视频监控</a><br/>
+                                            <a href="#">城市热点</a>
+                                        </div>
                                     </div>
-                                    <div class="mj_menu_news_img"><br/>
-                                        <font>资讯中心</font></div>
                                     <div style="clear:both; height:0px; overflow:hidden;"></div>
                                 </div>
                             </div>
@@ -87,15 +56,18 @@
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li">
                                         <div class="mj_menu_li_txt">
-                                            <a href="#">总览</a><br/>
-                                            <a href="#">认证证书下载</a><br/>
-                                            <a href="#">说明书下载</a><br/>
-                                            <a href="#">协议下载</a><br/>
-                                            <a href="#">样本目录下载</a><br/>
-                                            <a href="#">其它</a></div>
+                                            <font>污染源监测</font><br/>
+                                            <a href="#">点源</a><br/>
+                                            <a href="#">移动源</a><br/>
+                                            <a href="#">扬尘面源</a>
+                                         </div>
                                     </div>
-                                    <div class="mj_menu_news_img"><br/>
-                                        <font>下载中心</font></div>
+                                    <div class="mj_menu_news_li">
+                                        <div class="mj_menu_li_txt">
+                                            <font>源清单地图</font><br/>
+                                            <a href="#">源清单地图</a>
+                                        </div>
+                                    </div>
                                     <div style="clear:both; height:0px; overflow:hidden;"></div>
                                 </div>
                             </div>
@@ -107,15 +79,14 @@
                             <div class="mj_menu_news_bg">
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li">
-                                        <div class="mj_menu_li_txt"><a href="#">公司简介</a><br/>
-                                            <a href="#">质量方针</a><br/>
-                                            <a href="#">企业理念</a><br/>
-                                            <a href="#">发展历程</a><br/>
-                                            <a href="#">公司荣誉</a><br/>
-                                            <a href="#">企业风采</a></div>
+                                        <div class="mj_menu_li_txt">
+                                            <a href="#">气象站</a><br/>
+                                            <a href="#">网格预测</a><br/>
+                                            <a href="#">动态风场</a><br/>
+                                            <a href="#">城市天气预报</a>
+                                        </div>
                                     </div>
-                                    <div class="mj_menu_news_img"><br/>
-                                        <font>公司概况</font></div>
+
                                     <div style="clear:both; height:0px; overflow:hidden;"></div>
                                 </div>
                             </div>
@@ -127,13 +98,12 @@
                             <div class="mj_menu_news_bg">
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li2">
-                                        <div class="mj_menu_li_txt"><a href="#">联系方式</a><br/>
-                                            <a href="#">智能地图</a><br/>
-                                            <a href="#">人才招聘</a><br/>
-                                            <a href="#">在线留言</a></div>
+                                        <div class="mj_menu_li_txt">
+                                            <a href="#">群众举报</a><br/>
+                                            <a href="#">巡查员举报</a>
+                                        </div>
                                     </div>
-                                    <div class="mj_menu_news_img2"><br/>
-                                        <font>联系我们</font></div>
+
                                     <div style="clear:both; height:0px; overflow:hidden;"></div>
                                 </div>
                             </div>
@@ -145,11 +115,32 @@
                             <div class="mj_menu_news_bg">
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li3">
-                                        <div class="mj_menu_li_txt"><a href="#">工程实例名录</a><br/>
-                                            <a href="#">部分案例图片</a></div>
+                                        <div class="mj_menu_li_txt">
+                                            <font>传感网统计</font><br/>
+                                            <a href="#">曲线对比</a><br/>
+                                            <a href="#">均值比</a><br/>
+                                            <a href="#">环比分析</a>
+                                        </div>
                                     </div>
-                                    <div class="mj_menu_news_img3"><br/>
-                                        <font>工程科技研究中心</font></div>
+                                    <div class="mj_menu_news_li3">
+                                        <div class="mj_menu_li_txt">
+                                            <font>数据对比</font><br/>
+                                            <a href="#">小时均值比</a><br/>
+                                            <a href="#">日均值比</a><br/>
+                                            <a href="#">污染物对比</a><br/>
+                                            <a href="#">固定源统计</a><br/>
+                                            <a href="#">扬尘源统计</a><br/>
+                                            <a href="#">区县打分</a>
+                                        </div>
+                                    </div>
+                                    <div class="mj_menu_news_li3">
+                                        <div class="mj_menu_li_txt">
+                                            <font>城市排名</font><br/>
+                                            <a href="#">城市排名</a><br/>
+                                            <a href="#">同期变化率</a><br/>
+                                            <a href="#">百分位对比</a>
+                                        </div>
+                                    </div>
                                     <div style="clear:both; height:0px; overflow:hidden;"></div>
                                 </div>
                             </div>
@@ -276,14 +267,15 @@
     }
 
     .mj_menu_pro_bg {
-        width: 825px;
+        width: 325px;
         height: 235px;
+        background: #fff;
         border:solid 1px #666 ;
         border-top: none;
     }
 
     .mj_menu_pro_main {
-        width: 765px;
+        width: 305px;
         margin: auto;
         padding-top: 12px;
     }
@@ -316,6 +308,7 @@
     .mj_menu_news_bg {
         width: 480px;
         height: 185px;
+        background: #fff;
         border:solid 1px #666 ;
         border-top: none;
     }
