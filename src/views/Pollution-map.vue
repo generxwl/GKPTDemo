@@ -1,0 +1,34 @@
+<template>
+    <div class="Pollutionmap">
+        <v-header></v-header>
+        <iframe
+                frameborder="0"
+                width="100%"
+                height="90%"
+                :src="PollutionmapURL"
+                scrolling="no"
+        >
+
+        </iframe>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: 'hello',
+        data () {
+            return {
+                PollutionmapURL:'http://m.zq12369.com/palmmap.php',
+                woaini:''
+            }
+        }
+    }
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss" scoped>
+    .Pollutionmap{
+        width: 100%;
+        height: 100%;
+    }
+</style>
