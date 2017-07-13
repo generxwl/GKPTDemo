@@ -3,7 +3,7 @@
             <div class="navbox" style="width:1200px;">
                 <!--环境监测-->
                 <div class="logo">
-                     <img src="" alt="logo廊坊立体空监管系统">
+                     <img src="../assets/logo.png" alt="logo">
                 </div>
                 <div class="nav">
                     <!---->
@@ -34,6 +34,7 @@
                             </div>
                         </div>
                     </li>
+
                     <!--传感网溯源-->
                     <li class="drop-menu-effect"><a href="#"><span>传感网溯源</span></a>
                         <div class="submenu">
@@ -50,6 +51,7 @@
                             </div>
                         </div>
                     </li>
+
                     <!--污染源管控-->
                     <li class="drop-menu-effect"><a href="#"><span>污染源管控</span></a>
                         <div class="submenu">
@@ -74,6 +76,7 @@
                             </div>
                         </div>
                     </li>
+
                     <!--气象预报-->
                     <li class="drop-menu-effect"><a href="#"><span>气象预报</span></a>
                         <div class="submenu">
@@ -93,9 +96,10 @@
                             </div>
                         </div>
                     </li>
+
                     <!--全民举报-->
                     <li class="drop-menu-effect"><a href="#"><span>全民举报</span></a>
-                        <div class="submenu" style="left:-347px;">
+                        <div class="submenu" style="left:-358px;">
                             <div class="mj_menu_news_bg">
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li2">
@@ -110,9 +114,10 @@
                             </div>
                         </div>
                     </li>
+
                     <!--数据研判-->
                     <li class="drop-menu-effect"><a href="#"><span>数据研判</span></a>
-                        <div class="submenu" style="left:-347px;">
+                        <div class="submenu" style="left:-358px;">
                             <div class="mj_menu_news_bg">
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li3">
@@ -148,6 +153,22 @@
                         </div>
                     </li>
 
+                    <li class="drop-menu-effect" style="width: auto"><a href="#"><span><i class="iconfont icon-shezhi"></i></span></a>
+                        <div class="submenu" style="left:-414px;">
+                            <div class="mj_menu_news_bg">
+                                <div class="mj_menu_news_main">
+                                    <div class="mj_menu_news_li2">
+                                        <div class="mj_menu_li_txt">
+                                            <a href="#">进入后台</a><br/>
+                                            <a href="#">退出系统</a>
+                                        </div>
+                                    </div>
+
+                                    <div style="clear:both; height:0px; overflow:hidden;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 </div>
             </div>
     </div>
@@ -195,12 +216,21 @@
     .header{
         width: 100%;
         height:60px;
-        background-color: rgba(0, 0, 254, 1);
+        background-color: #1080cc;
         line-height: 60px;
-        border-bottom: 3px solid #777;
+        border-bottom: 2px solid #0c598f;
 
     }
+    @media screen and (max-width: 1000px) {
+        .navbox .logo{
+            display:none;
+        }
+        .nav{
+            margin-left:0;
+        }
+    }
     .navbox {
+        width: 100%;
         display: flex;
         flex-wrap:nowrap;
         flex-direction: row;
@@ -212,21 +242,32 @@
         .logo{
             float: left;
             width: 16vw;
-            height: 30px;
+            margin-top: 10px;
+            margin-left: -4vw;
             img{
-                height: 20px;
+                height: auto;
+                display: inline-block;
             }
         }
         .nav {
+            display: flex;
             float: left;
-            width:860px;
+            width:1100px;
             height: 60px;
             list-style: none;
-            margin-left: 100px;
+            margin-left: 200px;
+            li:hover{
+                background: #fff;
+               span{
+                   color:#1080cc ;
+               }
+            }
         }
+
     }
 
     .nav li {
+        width: auto;
         text-align: center;
         float: left;
         height: 60px;
@@ -244,12 +285,12 @@
 
     .nav li a span {
         float: left;
-        display: block;
+        display: inline-block;
         line-height: 60px;
         font-size: 18px;
         color: #ffffff;
         cursor: pointer;
-        width: 143px;
+        padding: 0 25px;
         text-align: center;
     }
 
@@ -268,7 +309,7 @@
         display: none;
         position: absolute;
         top: 60px;
-        left: -9px;
+        left: 0px;
     }
 
     .nav li .submenu li {
@@ -283,7 +324,7 @@
         width: 325px;
         height: 235px;
         background: #fff;
-        border:solid 1px #666 ;
+
         border-top: none;
     }
 
@@ -309,20 +350,20 @@
     }
 
     .mj_menu_li_txt a {
+        font-size: 14px;
         color: #696969;
         text-decoration: none;
     }
 
     .mj_menu_li_txt a:hover {
-        color: #696969;
-        text-decoration: underline;
+        color: #1080cc;
+        /*text-decoration: underline;*/
     }
 
     .mj_menu_news_bg {
         width: 480px;
         height: 185px;
         background: #fff;
-        border:solid 1px #666 ;
         border-top: none;
     }
 

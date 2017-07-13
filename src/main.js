@@ -7,6 +7,8 @@ import store from './store'
 //公用组件导入
 import Header from './components/Header'
 import Paneldata from './components/Paneldata'
+//inconfont字体css
+import './assets/font/iconfont.css'
 //公共组件全局注册
 Vue.component('v-header', Header);
 Vue.component('v-paneldata', Paneldata);
