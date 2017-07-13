@@ -159,8 +159,8 @@
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li2">
                                         <div class="mj_menu_li_txt">
-                                            <a href="#">进入后台</a><br/>
-                                            <a href="#">退出系统</a>
+                                            <a href="#"><i class="iconfont icon-fangzi-copy"></i>进入后台</a><br/>
+                                            <a href="#"><i class="iconfont icon-kaiguan"></i>退出系统</a>
                                         </div>
                                     </div>
 
@@ -266,33 +266,33 @@
 
     }
 
-    .nav li {
-        width: auto;
-        text-align: center;
-        float: left;
-        height: 60px;
-        position: relative;
-        list-style: none;
+    .nav {
+        li {
+            width: auto;
+            text-align: center;
+            float: left;
+            height: 60px;
+            position: relative;
+            list-style: none;
+            &.last {
+                background: none;
+            }
+            a {
+                text-decoration: none;
+                span {
+                    float: left;
+                    display: inline-block;
+                    line-height: 60px;
+                    font-size: 18px;
+                    color: #ffffff;
+                    cursor: pointer;
+                    padding: 0 25px;
+                    text-align: center;
+                }
+            }
+        }
     }
 
-    .nav li.last {
-        background: none;
-    }
-
-    .nav li a {
-        text-decoration: none;
-    }
-
-    .nav li a span {
-        float: left;
-        display: inline-block;
-        line-height: 60px;
-        font-size: 18px;
-        color: #ffffff;
-        cursor: pointer;
-        padding: 0 25px;
-        text-align: center;
-    }
 
     .mj_hover_menu {
         text-decoration: none;
@@ -301,24 +301,29 @@
         height: 60px;
     }
 
-    .nav li.selected .submenu {
-        display: block;
+    .nav {
+        li {
+            &.selected {
+                .submenu {
+                    display: block;
+                }
+            }
+            .submenu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0px;
+                li {
+                    float: none;
+                    padding: 0;
+                    background: none;
+                    height: auto;
+                    border-bottom: dotted 0px #bebebe;
+                }
+            }
+        }
     }
 
-    .nav li .submenu {
-        display: none;
-        position: absolute;
-        top: 60px;
-        left: 0px;
-    }
-
-    .nav li .submenu li {
-        float: none;
-        padding: 0;
-        background: none;
-        height: auto;
-        border-bottom: dotted 0px #BEBEBE;
-    }
 
     .mj_menu_pro_bg {
         width: 325px;
@@ -337,28 +342,24 @@
     .mj_menu_pro_li {
         float: left;
     }
-
     .mj_menu_li_txt {
         line-height: 22px;
         font-size: 12px;
         color: #696969;
+        font {
+            font-size: 14px;
+            color: #bb1721;
+        }
+        a {
+            font-size: 14px;
+            color: #696969;
+            text-decoration: none;
+            &:hover {
+                color: #1080cc;
+            }
+        }
     }
 
-    .mj_menu_li_txt font {
-        font-size: 14px;
-        color: #bb1721;
-    }
-
-    .mj_menu_li_txt a {
-        font-size: 14px;
-        color: #696969;
-        text-decoration: none;
-    }
-
-    .mj_menu_li_txt a:hover {
-        color: #1080cc;
-        /*text-decoration: underline;*/
-    }
 
     .mj_menu_news_bg {
         width: 480px;
