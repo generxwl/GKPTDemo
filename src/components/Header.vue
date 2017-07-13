@@ -22,7 +22,7 @@
                                             <a href="#/superstation">超级站</a>
                                         </div>
                                     </div>
-                                    <div class="mj_menu_news_li3">
+                                    <div class="mj_menu_news_li3" style="border-left:none">
                                         <div class="mj_menu_li_txt">
                                             <font>监测点</font><br/>
                                             <a href="#">国控点</a><br/>
@@ -38,7 +38,7 @@
                     <!--传感网溯源-->
                     <li class="drop-menu-effect"><a href="#"><span>传感网溯源</span></a>
                         <div class="submenu">
-                            <div class="mj_menu_news_bg">
+                            <div class="mj_menu_news_bg" style="height: 80px; ">
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li">
                                         <div class="mj_menu_li_txt">
@@ -55,7 +55,7 @@
                     <!--污染源管控-->
                     <li class="drop-menu-effect"><a href="#"><span>污染源管控</span></a>
                         <div class="submenu">
-                            <div class="mj_menu_news_bg">
+                            <div class="mj_menu_news_bg" style="height: 130px">
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li">
                                         <div class="mj_menu_li_txt">
@@ -80,7 +80,7 @@
                     <!--气象预报-->
                     <li class="drop-menu-effect"><a href="#"><span>气象预报</span></a>
                         <div class="submenu">
-                            <div class="mj_menu_news_bg">
+                            <div class="mj_menu_news_bg" style="height: 135px">
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li">
                                         <div class="mj_menu_li_txt">
@@ -100,7 +100,7 @@
                     <!--全民举报-->
                     <li class="drop-menu-effect"><a href="#"><span>全民举报</span></a>
                         <div class="submenu" style="left:-358px;">
-                            <div class="mj_menu_news_bg">
+                            <div class="mj_menu_news_bg" style="height: 80px">
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li2">
                                         <div class="mj_menu_li_txt">
@@ -155,7 +155,7 @@
 
                     <li class="drop-menu-effect" style="width: auto"><a href="#"><span><i class="iconfont icon-shezhi"></i></span></a>
                         <div class="submenu" style="left:-414px;">
-                            <div class="mj_menu_news_bg">
+                            <div class="mj_menu_news_bg" style="height: 80px">
                                 <div class="mj_menu_news_main">
                                     <div class="mj_menu_news_li2">
                                         <div class="mj_menu_li_txt">
@@ -297,7 +297,6 @@
     .mj_hover_menu {
         text-decoration: none;
         width: 143px;
-
         height: 60px;
     }
 
@@ -327,7 +326,7 @@
 
     .mj_menu_pro_bg {
         width: 325px;
-        height: 235px;
+        height: 100px;
         background: #fff;
 
         border-top: none;
@@ -335,7 +334,7 @@
 
     .mj_menu_pro_main {
         width: 305px;
-        margin: auto;
+       /* margin: auto;*/
         padding-top: 12px;
     }
 
@@ -375,9 +374,9 @@
     }
 
     .mj_menu_news_li {
-        padding: 0px 30px;
+        padding: 0px 30px 0 20px;
         margin-right: 30px;
-        height: 150px;
+        height: auto;
         float: left;
         border-right: solid 1px #cccccc;
     }
@@ -391,8 +390,8 @@
     }
 
     .mj_menu_news_li2 {
-        padding: 0px 30px;
-        height: 150px;
+        padding: 0px  30px;
+        height: auto;
         float: right;
         border-left: solid 1px #cccccc;
     }
@@ -408,7 +407,7 @@
 
     .mj_menu_news_li3 {
         padding: 0px 25px;
-        height: 150px;
+        height: auto;
         float: right;
         border-left: solid 1px #cccccc;
     }
