@@ -2,16 +2,7 @@
     <div class="index-box">
         <!--首页部分-->
         <v-header></v-header>
-       <!-- <iframe
-                frameborder="0"
-                width="100%"
-                height="90%"
-                :src="PollutionmapURL"
-                scrolling="no"
-        >
 
-        </iframe>-->
-        <!--数据面板-->
         <v-paneldata></v-paneldata>
     </div>
 </template>

@@ -6,6 +6,7 @@ import Dynamicwindfield from '@/views/Dynamic-wind-field'
 import SuperStation from '@/views/Super-station'
 import Pollutionmap from '@/views/Pollution-map'
 import WeatherStation from '@/views/weather-station'
+import NationwidePH from '@/views/Nationwide-PH'
 Vue.use(Router)
 
 export default new Router({
@@ -34,6 +35,11 @@ export default new Router({
             path: '/superstation',
             name: 'superstation',
             component: SuperStation
+        },
+        {
+            path: '/nationwidePH',
+            name: 'nationwidePH',
+            component: NationwidePH
         }
     ]
 })
