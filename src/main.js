@@ -8,9 +8,9 @@ import store from './store'
 import Header from './components/Header'
 import Paneldata from './components/Paneldata'
 //公共组件全局注册
-Vue.component('v-header', Header)
-Vue.component('v-paneldata', Paneldata)
-Vue.config.productionTip = false
+Vue.component('v-header', Header);
+Vue.component('v-paneldata', Paneldata);
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 //大页面模块
-import Weather from '@/views/weather'
+import Dynamicwindfield from '@/views/Dynamic-wind-field'
 import SuperStation from '@/views/Super-station'
 import Pollutionmap from '@/views/Pollution-map'
 import WeatherStation from '@/views/weather-station'
@@ -12,12 +12,12 @@ export default new Router({
         {
             path: '/',
             name: 'weather',
-            component: Weather
+            component: Dynamicwindfield
         },
         {
             path: '/weather',
             name: 'weather',
-            component: Weather
+            component: Dynamicwindfield
         },
         {
             path: '/weatherstation',

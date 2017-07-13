@@ -1,7 +1,14 @@
 <template>
     <div class="Paneldata">
         <div class="panel">
-
+            <!---->
+            <div class="panel_top">
+                <!--数据展示板块-->
+            </div>
+            <!---->
+            <div class="panel_buttom">
+                <!--又切换功能显示-->
+            </div>
         </div>
     </div>
 </template>
