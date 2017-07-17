@@ -3,7 +3,7 @@
             <div class="navbox" style="width:1200px;">
                 <!--环境监测-->
                 <div class="logo">
-                     <img src="../assets/logo.png" alt="logo">
+                     <img src="../assets/img/logo.png" alt="logo">
                 </div>
                 <div class="nav">
                     <!---->
