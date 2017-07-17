@@ -144,7 +144,8 @@
                                             <font>城市排名</font><br/>
                                             <a href="#">城市排名</a><br/>
                                             <a href="#">同期变化率</a><br/>
-                                            <a href="#">百分位对比</a>
+                                            <a href="#">百分位对比</a><br/>
+                                            <a href="#/nationwidePH">PH值分布图</a>
                                         </div>
                                     </div>
                                     <div style="clear:both; height:0px; overflow:hidden;"></div>
