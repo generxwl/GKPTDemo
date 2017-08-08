@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-//大页面模块
+import Login from '@/views/Login'
 import Index from '@/views/Index-kuang'
 import Dynamicwindfield from '@/views/Dynamic-wind-field'
 import SuperStation from '@/views/Super-station'
@@ -13,6 +13,11 @@ export default new Router({
     routes: [
         {
             path: '/',
+            name: 'Login',
+            component: Login
+        },
+        {
+            path: '/index',
             name: 'index',
             component: Index
         },
