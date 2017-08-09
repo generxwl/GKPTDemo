@@ -1,5 +1,6 @@
 <template>
     <div class="login">
+        <!--登录页-->
         <div class="form">
             <div class="input">
                 <img src="../assets/img/login-logo.png" alt="">

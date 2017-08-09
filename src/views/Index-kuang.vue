@@ -3,7 +3,7 @@
         <!--首页部分-->
         <v-header></v-header>
 
-        <v-paneldata></v-paneldata>
+        <!-- <v-paneldata></v-paneldata> -->
     </div>
 </template>
 
