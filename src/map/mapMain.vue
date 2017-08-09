@@ -1,0 +1,91 @@
+<template>
+  <div class="map-content">
+    <div id="map"></div>
+    <layer-switch></layer-switch>
+    <pollution-target></pollution-target>
+    <map-handle></map-handle>
+  </div>
+</template>
+<script>
+  import BMap from 'BMap'
+  import LayerSwitch from '@/map/controls/LayerSwitch'
+  import PollutionTarget from '@/map/controls/PollutionTarget'
+  import MapHandle from '@/map/controls/MapHandle'
+  import {bus} from '@/js/bus.js'
+
+  export default {
+    name: 'mapMain',
+    data() {
+      return {
+        name: 'DR',
+        map: undefined
+      }
+    },
+    created() {
+    },
+    mounted() {
+      this.ready();
+      this.event();
+    },
+    methods: {
+      ready: function () {
+        let map = new BMap.Map('map');
+        map.centerAndZoom('廊坊', 10);
+        map.enableScrollWheelZoom();
+        this.map = map;
+//        let trafficControl = new BMapLib.TrafficControl({
+//          showPanel: false //是否显示路况提示面板
+//        })
+//        this.map.addControl(trafficControl)
+//        trafficControl.showTraffic()
+
+        bus.$emit('getMap', map);
+        map.addEventListener('tilesloaded', function () {
+          bus.$emit('tilesLoaded', map);
+        });
+        map.addEventListener('zoomend', function (pms) {
+        });
+      },
+      event() {
+        bus.$on('setCenter', this.setCenter);
+      },
+      setCenter(geo) {
+        geo = typeof geo === 'string' ? JSON.parse(geo) : geo;
+        if (geo && this.map) {
+          let pt = new BMap.Point(geo.lng, geo.lat);
+          this.map.panTo(pt, false);
+        }
+      }
+    },
+    components: {LayerSwitch,PollutionTarget,MapHandle}//GridMap
+  }
+
+</script>
+<style scoped>
+  .map-content {
+    height: calc(100% - 60px);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+  }
+
+  #map {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+  }
+
+  .BMap_cpyCtrl {
+    display: none;
+  }
+
+  .anchorBL {
+    display: none;
+  }
+
+</style>

@@ -1,0 +1,404 @@
+{
+  "displayFieldName" : "FCNAME",
+  "fieldAliases" : {
+    "OBJECTID" : "OBJECTID",
+    "FCNAME" : "FCNAME",
+    "xianji" : "xianji",
+    "wanggezhan" : "wanggezhan",
+    "gridcode" : "gridcode",
+    "ORIG_FID" : "ORIG_FID"
+  },
+  "geometryType" : "esriGeometryPoint",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "FCNAME",
+      "type" : "esriFieldTypeString",
+      "alias" : "FCNAME",
+      "length" : 64
+    },
+    {
+      "name" : "xianji",
+      "type" : "esriFieldTypeString",
+      "alias" : "xianji",
+      "length" : 50
+    },
+    {
+      "name" : "wanggezhan",
+      "type" : "esriFieldTypeString",
+      "alias" : "wanggezhan",
+      "length" : 50
+    },
+    {
+      "name" : "gridcode",
+      "type" : "esriFieldTypeString",
+      "alias" : "gridcode",
+      "length" : 20
+    },
+    {
+      "name" : "ORIG_FID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "ORIG_FID"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID" : 1,
+        "FCNAME" : "爱民东道办事处",
+        "xianji" : "广阳区",
+        "wanggezhan" : "蔡巍",
+        "gridcode" : "131003004000",
+        "ORIG_FID" : 1
+      },
+      "geometry" : {
+        "x" : 116.68479031793015,
+        "y" : 39.53119235507296
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 2,
+        "FCNAME" : "银河北路街道办事处",
+        "xianji" : "广阳区",
+        "wanggezhan" : "邢跃武",
+        "gridcode" : "131003005000",
+        "ORIG_FID" : 2
+      },
+      "geometry" : {
+        "x" : 116.69494693235094,
+        "y" : 39.519371612806879
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 3,
+        "FCNAME" : "解放道街道办事处",
+        "xianji" : "广阳区",
+        "wanggezhan" : "李萍",
+        "gridcode" : "131003006000",
+        "ORIG_FID" : 3
+      },
+      "geometry" : {
+        "x" : 116.70866754163774,
+        "y" : 39.521624301608938
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 4,
+        "FCNAME" : "新源道街道办事处",
+        "xianji" : "广阳区",
+        "wanggezhan" : "王宝发",
+        "gridcode" : "131003007000",
+        "ORIG_FID" : 4
+      },
+      "geometry" : {
+        "x" : 116.71030777653675,
+        "y" : 39.545823272708219
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 5,
+        "FCNAME" : "九州镇人民政府",
+        "xianji" : "广阳区",
+        "wanggezhan" : "魏玉生",
+        "gridcode" : "131003002000",
+        "ORIG_FID" : 5
+      },
+      "geometry" : {
+        "x" : 116.56434940912004,
+        "y" : 39.50193573432648
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 6,
+        "FCNAME" : "白家务办事处",
+        "xianji" : "广阳区",
+        "wanggezhan" : "韩亚川",
+        "gridcode" : "131003001000",
+        "ORIG_FID" : 6
+      },
+      "geometry" : {
+        "x" : 116.46330250978497,
+        "y" : 39.499677180928472
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 7,
+        "FCNAME" : "万庄镇政府",
+        "xianji" : "广阳区",
+        "wanggezhan" : "于建全",
+        "gridcode" : "131003003000",
+        "ORIG_FID" : 7
+      },
+      "geometry" : {
+        "x" : 116.5758144256863,
+        "y" : 39.571293535444113
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 8,
+        "FCNAME" : "新开路街道办事处",
+        "xianji" : "广阳区",
+        "wanggezhan" : "杨则涛",
+        "gridcode" : "131003008000",
+        "ORIG_FID" : 8
+      },
+      "geometry" : {
+        "x" : 116.72481047743031,
+        "y" : 39.51811570612756
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 9,
+        "FCNAME" : "北旺乡",
+        "xianji" : "广阳区",
+        "wanggezhan" : "魏连城",
+        "gridcode" : "131003010000",
+        "ORIG_FID" : 9
+      },
+      "geometry" : {
+        "x" : 116.77219087960725,
+        "y" : 39.506046742847786
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 10,
+        "FCNAME" : "南尖塔",
+        "xianji" : "广阳区",
+        "wanggezhan" : "王鹏",
+        "gridcode" : "131003011000",
+        "ORIG_FID" : 10
+      },
+      "geometry" : {
+        "x" : 116.67460383432899,
+        "y" : 39.560221698797704
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 11,
+        "FCNAME" : "南尖塔",
+        "xianji" : "广阳区",
+        "wanggezhan" : "王鹏",
+        "gridcode" : "131003011000",
+        "ORIG_FID" : 11
+      },
+      "geometry" : {
+        "x" : 116.70982295411545,
+        "y" : 39.538423138067685
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 12,
+        "FCNAME" : "北史家务乡",
+        "xianji" : "安次区",
+        "wanggezhan" : " ",
+        "gridcode" : "131002001000",
+        "ORIG_FID" : 12
+      },
+      "geometry" : {
+        "x" : 116.72386516100494,
+        "y" : 39.479379730803373
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 13,
+        "FCNAME" : "落垡镇\r\n",
+        "xianji" : "安次区",
+        "wanggezhan" : " ",
+        "gridcode" : "131002100000",
+        "ORIG_FID" : 13
+      },
+      "geometry" : {
+        "x" : 116.80018415047482,
+        "y" : 39.412199719218563
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 14,
+        "FCNAME" : "码头镇",
+        "xianji" : "安次区",
+        "wanggezhan" : " ",
+        "gridcode" : "131002101000",
+        "ORIG_FID" : 14
+      },
+      "geometry" : {
+        "x" : 116.79904779372441,
+        "y" : 39.315745943319314
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 15,
+        "FCNAME" : "葛渔城镇",
+        "xianji" : "安次区",
+        "wanggezhan" : " ",
+        "gridcode" : "131002102000",
+        "ORIG_FID" : 15
+      },
+      "geometry" : {
+        "x" : 116.84437129975015,
+        "y" : 39.25109794698318
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 16,
+        "FCNAME" : "东沽港镇",
+        "xianji" : "安次区",
+        "wanggezhan" : " ",
+        "gridcode" : "131002103000",
+        "ORIG_FID" : 16
+      },
+      "geometry" : {
+        "x" : 116.80299113863123,
+        "y" : 39.181376655236818
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 17,
+        "FCNAME" : "廊坊市辖区3街道",
+        "xianji" : "安次区",
+        "wanggezhan" : " ",
+        "gridcode" : "131002104000",
+        "ORIG_FID" : 17
+      },
+      "geometry" : {
+        "x" : 116.6490536246688,
+        "y" : 39.515650534398446
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 18,
+        "FCNAME" : "廊坊市辖区6街道",
+        "xianji" : "安次区",
+        "wanggezhan" : " ",
+        "gridcode" : "131002105000",
+        "ORIG_FID" : 18
+      },
+      "geometry" : {
+        "x" : 116.68510033327959,
+        "y" : 39.510318054876279
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 19,
+        "FCNAME" : "杨税务乡",
+        "xianji" : "安次区",
+        "wanggezhan" : " ",
+        "gridcode" : "131002200000",
+        "ORIG_FID" : 19
+      },
+      "geometry" : {
+        "x" : 116.65815462950036,
+        "y" : 39.448001781694813
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 20,
+        "FCNAME" : "仇庄乡",
+        "xianji" : "安次区",
+        "wanggezhan" : " ",
+        "gridcode" : "131002201000",
+        "ORIG_FID" : 20
+      },
+      "geometry" : {
+        "x" : 116.73441113405374,
+        "y" : 39.411969037942526
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 21,
+        "FCNAME" : "调河头乡",
+        "xianji" : "安次区",
+        "wanggezhan" : " ",
+        "gridcode" : "131002202000",
+        "ORIG_FID" : 21
+      },
+      "geometry" : {
+        "x" : 116.71293200745765,
+        "y" : 39.286855122404688
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 22,
+        "FCNAME" : "管道局农场",
+        "xianji" : "安次区",
+        "wanggezhan" : " ",
+        "gridcode" : "131002600000",
+        "ORIG_FID" : 22
+      },
+      "geometry" : {
+        "x" : 116.77410557596886,
+        "y" : 39.258373070926268
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 23,
+        "FCNAME" : "综合执法局",
+        "xianji" : "廊坊市开发区",
+        "wanggezhan" : "仝庆",
+        "gridcode" : "131083001000",
+        "ORIG_FID" : 23
+      },
+      "geometry" : {
+        "x" : 116.75382252142288,
+        "y" : 39.574587463387672
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 24,
+        "FCNAME" : "耀华道办事处",
+        "xianji" : "廊坊市开发区",
+        "wanggezhan" : "赵宝强",
+        "gridcode" : "131083002000",
+        "ORIG_FID" : 24
+      },
+      "geometry" : {
+        "x" : 116.75107326650016,
+        "y" : 39.548571859775677
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 25,
+        "FCNAME" : "云鹏道办事处",
+        "xianji" : "廊坊市开发区",
+        "wanggezhan" : "张卫兵",
+        "gridcode" : "131083003000",
+        "ORIG_FID" : 25
+      },
+      "geometry" : {
+        "x" : 116.70687842050006,
+        "y" : 39.611259718901238
+      }
+    }
+  ]
+}

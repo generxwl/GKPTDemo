@@ -28,5 +28,19 @@ export default {
         width: 100%!important;
       }
     }
+  /*圆圈进度*/
+  .el-progress-circle{
+    width: 80px!important;
+    height: 80px!important;
+  }
+  /*长进度*/
+  .el-progress-bar{
+
+  }
+  .table{
+  .cell{
+    font-size: 12px;
+  }
+  }
   }
 </style>

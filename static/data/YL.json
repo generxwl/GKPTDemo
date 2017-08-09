@@ -1,0 +1,86 @@
+{
+  "displayFieldName" : "FCNAME",
+  "fieldAliases" : {
+    "OBJECTID" : "OBJECTID",
+    "FCNAME" : "FCNAME",
+    "xianji" : "xianji",
+    "gridcode" : "gridcode",
+    "ORIG_FID" : "ORIG_FID"
+  },
+  "geometryType" : "esriGeometryPoint",
+  "spatialReference" : {
+    "wkid" : 4326,
+    "latestWkid" : 4326
+  },
+  "fields" : [
+    {
+      "name" : "OBJECTID",
+      "type" : "esriFieldTypeOID",
+      "alias" : "OBJECTID"
+    },
+    {
+      "name" : "FCNAME",
+      "type" : "esriFieldTypeString",
+      "alias" : "FCNAME",
+      "length" : 64
+    },
+    {
+      "name" : "xianji",
+      "type" : "esriFieldTypeString",
+      "alias" : "xianji",
+      "length" : 50
+    },
+    {
+      "name" : "gridcode",
+      "type" : "esriFieldTypeString",
+      "alias" : "gridcode",
+      "length" : 20
+    },
+    {
+      "name" : "ORIG_FID",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "ORIG_FID"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "OBJECTID" : 1,
+        "FCNAME" : "安次区",
+        "xianji" : "安次区",
+        "gridcode" : "131002000000",
+        "ORIG_FID" : 1
+      },
+      "geometry" : {
+        "x" : 116.75335804290717,
+        "y" : 39.341841127677355
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 2,
+        "FCNAME" : "广阳区",
+        "xianji" : "广阳区",
+        "gridcode" : "131003000000",
+        "ORIG_FID" : 2
+      },
+      "geometry" : {
+        "x" : 116.57581347439645,
+        "y" : 39.564579244620916
+      }
+    },
+    {
+      "attributes" : {
+        "OBJECTID" : 3,
+        "FCNAME" : "开发区",
+        "xianji" : "开发区",
+        "gridcode" : "131083000000",
+        "ORIG_FID" : 3
+      },
+      "geometry" : {
+        "x" : 116.75344982428214,
+        "y" : 39.577360973291945
+      }
+    }
+  ]
+}

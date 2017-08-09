@@ -1,0 +1,33 @@
+{
+    "data": {
+        "allCount": 0,
+        "itemList": [
+            {
+                "museumCode": "1001",
+                "museumName": "太原馆",
+                "regionName": "山西"
+            },
+            {
+                "museumCode": "1002",
+                "museumName": "西安馆",
+                "regionName": "陕西"
+            },
+            {
+                "museumCode": "1003",
+                "museumName": "廊坊馆",
+                "regionName": "河北"
+            },
+            {
+                "museumCode": "1004",
+                "museumName": "郑州馆",
+                "regionName": "河南"
+            },
+            {
+                "museumCode": "1005",
+                "museumName": "青岛馆",
+                "regionName": "山东"
+            }
+        ]
+    },
+    "status": "1"
+}
