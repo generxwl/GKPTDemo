@@ -157,6 +157,7 @@
 </template>
 
 <script>
+    import {bus} from '@/js/bus.js'
     export default {
         name: 'paneldata',
         data () {
@@ -235,9 +236,15 @@
                     flag = true;
                 }
             })
-            //
+            //传递数据
+            bus.$on('refreshRanking',this.setdata)
         },
-        methods: {}
+        methods: {
+            setdata(data, type){
+                console.log('nnnnnnnn')
+                console.log(data)
+            }
+        }
     }
 </script>
 

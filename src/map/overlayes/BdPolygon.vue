@@ -36,7 +36,6 @@ export default {
     ready() {
       let t = this
       for (let j = 0, count = this.layers.length; j < count; j++) {
-        console.log(j)
         let layer = t.layers[j]
         let url = layer.url
         let visible = layer.hasVisible

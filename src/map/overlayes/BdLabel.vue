@@ -38,6 +38,10 @@ export default {
       bus.$on('getMap', this.getMap)
       bus.$on('tilesLoaded', this.labelInit)
       bus.$on('setLabelVisible', this.setLabelVisible)
+
+      bus.$on('getSenseMap', this.getMap)
+      bus.$on('tilesSenseLoaded', this.labelInit)
+      //bus.$on('setLabelVisible', this.setLabelVisible)
     },
     labelInit(map) {
       if (this.hasLoad) {

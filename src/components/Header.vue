@@ -17,7 +17,7 @@
                     <a>传感网</a>
                     <div class="Twoitem">
                         <a>视频监控</a><br/>
-                        <a>传感器</a>
+                        <a href="#/SensorNetwork">传感器</a>
                     </div>
                 </li>
                 <li>
@@ -169,7 +169,7 @@
                     padding: 0 10px;
                     font-size: 20px;
                     font-family: '宋体';
-
+                    cursor: pointer;
                 }
                 :hover {
                     text-decoration: none;
@@ -191,6 +191,7 @@
                         color: #666;
                         font-size: 14px;
                         font-family: "Microsoft YaHei";
+                        cursor: pointer;
                     }
                     :hover {
                         color: #1080cc;
@@ -212,6 +213,7 @@
                         color: #666;
                         font-size: 14px;
                         font-family: "Microsoft YaHei";
+                        cursor: pointer;
                     }
                     :hover {
                         color: #1080cc;
@@ -236,6 +238,7 @@
                             color: #666;
                             font-size: 14px;
                             font-family: "Microsoft YaHei";
+                            cursor: pointer;
                         }
                         :hover {
                             color: #1080cc;
@@ -261,6 +264,7 @@
                         color: #666;
                         font-size: 14px;
                         font-family: "Microsoft YaHei";
+                        cursor: pointer;
                     }
                     :hover {
                         color: #1080cc;
@@ -285,6 +289,7 @@
                             color: #666;
                             font-size: 14px;
                             font-family: "Microsoft YaHei";
+                            cursor: pointer;
                         }
                         :hover {
                             color: #1080cc;
@@ -310,6 +315,7 @@
                         font-size: 12px;
                         font-family: "Microsoft YaHei";
                         margin-left: -17px;
+                        cursor: pointer;
                     }
                     :hover {
                         color: #1080cc;

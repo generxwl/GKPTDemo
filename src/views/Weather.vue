@@ -107,7 +107,9 @@
         data () {
             return {}
         },
-        mounted(){}
+        mounted(){
+
+        }
     }
 </script>
 

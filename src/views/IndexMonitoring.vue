@@ -2,37 +2,39 @@
   <div class="index-box">
     <!--首页部分-->
     <v-header></v-header>
-    <map-view
-            v-loading.fullscreen.lock="fullscreenLoading"
-            element-loading-text="监测点地图拼命加载中"
-    ></map-view>
-     <v-paneldata></v-paneldata>
+    <monitor-map
+      v-loading.fullscreen.lock="fullscreenLoading"
+      element-loading-text="监测点地图拼命加载中"
+    ></monitor-map>
+
+    <v-paneldata></v-paneldata>
   </div>
 </template>
 
 <script>
-  import MapView from '@/map/mapMain' //0809
+  import MonitorMap from '@/map/MonitorMapMain' //0809
 
   export default {
     name: 'index',
     data () {
       return {
-          fullscreenLoading: false
+        fullscreenLoading: false
       }
     },
-      mounted(){
-          this.openFullScreen()
-      },
-      methods: {
-          //加载动画
-          openFullScreen() {
-              this.fullscreenLoading = true;
-              setTimeout(() => {
-                  this.fullscreenLoading = false;
-              }, 2000);
-          }
-      },
-    components: {MapView}//0809
+    mounted(){
+      this.openFullScreen()
+
+    },
+    methods: {
+      //加载动画
+      openFullScreen() {
+        this.fullscreenLoading = true;
+        setTimeout(() => {
+          this.fullscreenLoading = false;
+        }, 2000);
+      }
+    },
+    components: {MonitorMap}//0809
   }
 </script>
 

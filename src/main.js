@@ -7,6 +7,7 @@ import store from './store'
 //公用组件导入
 import Header from './components/Header'
 import Paneldata from './components/Paneldata'
+import PaneldataCgw from './components/Paneldata-cgw'
 //引入ElementUI
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
@@ -16,6 +17,7 @@ import './assets/font/iconfont.css'
 //公共组件全局注册
 Vue.component('v-header', Header);
 Vue.component('v-paneldata', Paneldata);
+Vue.component('v-paneldatcgw', PaneldataCgw);
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

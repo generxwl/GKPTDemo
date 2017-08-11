@@ -1,17 +1,17 @@
 <template>
-  <div class="target-content">
+  <div class="sense-target-content">
     <ul>
       <li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index"><img :title="item.name" :src="index===0?item.checked:item.src"/></li>
     </ul>
-    <pollution-manager></pollution-manager>
+    <sense-manager></sense-manager>
   </div>
 </template>
 <script>
-  import PollutionManager from '@/map/handle/PollutionManager'
+  import SenseManager from '@/map/handle/SenseManager'
   import {bus} from '@/js/bus.js'
 
   export default {
-    name: 'PollutionTarget',
+    name: 'SensePollutionTarget',
     data () {
       return {
         targets: [
@@ -50,31 +50,6 @@
             value: 'O3',
             src: 'static/imgs/map/o3.png',
             checked: 'static/imgs/map/o31.png'
-          }, {
-            name: '综指',
-            value: 'INDEX',
-            src: 'static/imgs/map/综合指数.png',
-            checked: 'static/imgs/map/综合指数1.png'
-          }, {
-            name: '温度',
-            value: 'TEMP',
-            src: 'static/imgs/map/温度.png',
-            checked: 'static/imgs/map/温度1.png'
-          }, {
-            name: '湿度',
-            value: 'HUMI',
-            src: 'static/imgs/map/湿度.png',
-            checked: 'static/imgs/map/湿度1.png'
-          }, {
-            name: '风向',
-            value: 'WD',
-            src: 'static/imgs/map/风向.png',
-            checked: 'static/imgs/map/风向1.png'
-          }, {
-            name: '风力',
-            value: 'WS',
-            src: 'static/imgs/map/风力.png',
-            checked: 'static/imgs/map/风力1.png'
           }
         ]
       };
@@ -95,8 +70,6 @@
         let item = targets[index];
         childElement.style.backgroundColor = '#FFF';
         imgElement.src = item.checked;
-
-        bus.$emit('switchRender', type);
       },
       resetImg(){
         let targets = this.$data.targets;
@@ -109,11 +82,11 @@
         })
       }
     },
-    components: {PollutionManager}
+    components: {SenseManager}
   };
 </script>
 <style scoped>
-  .target-content {
+  .sense-target-content {
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
     border-radius: 1px;
@@ -124,7 +97,7 @@
     z-index: 1;
   }
 
-  .target-content ul {
+  .sense-target-content ul {
     background-color: #1080CC;
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
@@ -133,7 +106,7 @@
     width: 42px;
   }
 
-  .target-content li {
+  .sense-target-content li {
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
     border-radius: 1px;
@@ -145,11 +118,11 @@
     cursor: pointer;
   }
 
-  .target-content li:first-child {
+  .sense-target-content li:first-child {
     background-color: #fff;
   }
 
-  .target-content li img {
+  .sense-target-content li img {
     margin: 10px 0;
   }
 </style>

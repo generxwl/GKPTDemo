@@ -13,7 +13,7 @@
         item: 'AQI',
         lsRenderOverlay: [],
         lsSearchInfoWindow: [],
-        lsRenderMarker:[]
+        lsRenderMarker: []
       }
     },
     created () {
@@ -73,7 +73,6 @@
           if (result.status === 200) {
             if (typeof result.data === 'string') {
               let data = JSON.parse(decode_result(result.data));
-              console.log(data);
               if (data.total > 0) {
                 t.data = data.rows;
                 t.render(data.rows, type);
@@ -416,7 +415,7 @@
           t.showCityPointChart(i, city, pointname);
         });
         this.lsSearchInfoWindow.push(searchInfoWindow);
-        if(value > 80){
+        if (value > 80) {
 //0811
 //          let myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
 //          let marker2 = new BMap.Marker(point,{icon:myIcon,size:{width:0,height:0}});  // 创建标注
@@ -711,5 +710,18 @@
     font-size: 12px;
     text-align: left;
     border: 1px solid #ddd;
+  }
+
+  .BMapLib_SearchInfoWindow .BMapLib_bubble_title {
+    background-color: #1080cc;
+    color:#fff;
+  }
+
+  .BMapLib_SearchInfoWindow .BMapLib_bubble_tools div {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  .BMapLib_SearchInfoWindow .BMapLib_sendToPhone {
+    background: none;
   }
 </style>

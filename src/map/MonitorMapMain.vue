@@ -1,6 +1,6 @@
 <template>
-  <div class="map-content">
-    <div id="map"></div>
+  <div class="monitor-map-content">
+    <div id="monitor_map"></div>
     <layer-switch></layer-switch>
     <pollution-target></pollution-target>
     <map-handle></map-handle>
@@ -14,7 +14,7 @@
   import {bus} from '@/js/bus.js'
 
   export default {
-    name: 'mapMain',
+    name: 'MonitorMapMain',
     data() {
       return {
         name: 'DR',
@@ -22,14 +22,16 @@
       }
     },
     created() {
+        console.log('create')
     },
     mounted() {
       this.ready();
       this.event();
+      console.log('start')
     },
     methods: {
       ready: function () {
-        let map = new BMap.Map('map');
+        let map = new BMap.Map('monitor_map');
         map.centerAndZoom('廊坊', 10);
         map.enableScrollWheelZoom();
         this.map = map;
@@ -62,7 +64,7 @@
 
 </script>
 <style scoped>
-  .map-content {
+  .monitor-map-content {
     height: calc(100% - 60px);
     width: 100%;
     margin: 0;
@@ -71,7 +73,7 @@
     position: absolute;
   }
 
-  #map {
+  #monitor_map {
     height: 100%;
     width: 100%;
     margin: 0;
