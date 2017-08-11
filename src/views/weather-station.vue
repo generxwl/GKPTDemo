@@ -8,6 +8,8 @@
             height="90%"
             :src="weatherstationURL"
             scrolling="no"
+            v-loading.fullscreen.lock="fullscreenLoading"
+            element-loading-text="气象站拼命加载中"
     >
 
     </iframe>
@@ -20,9 +22,21 @@
         data () {
             return {
                 weatherstationURL:'http://60.10.151.97:8090/new/module/weatherpoint.php',
-                woaini:''
+                fullscreenLoading: false
             }
-        }
+        },
+        mounted(){
+            this.openFullScreen()
+        },
+        methods: {
+            //加载动画
+            openFullScreen() {
+                this.fullscreenLoading = true;
+                setTimeout(() => {
+                    this.fullscreenLoading = false;
+                }, 2000);
+            }
+        },
     }
 </script>
 

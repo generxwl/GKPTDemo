@@ -12,7 +12,8 @@
         type: 'POINT',
         item: 'AQI',
         lsRenderOverlay: [],
-        lsSearchInfoWindow: []
+        lsSearchInfoWindow: [],
+        lsRenderMarker:[]
       }
     },
     created () {
@@ -283,6 +284,7 @@
           position: point,
           offset: new BMap.Size(-15, -15)
         };
+
         let label = new BMap.Label(value + '<div class="arrow" style="width: 0;  height: 0; border-left: 8px solid transparent; border-top: 8px solid; border-right: 8px solid transparent; color:' + bgcolor + '; position: absolute;  margin-top:-2px;margin-left:8px  " ></div>', opts)  // 创建文本标注对象
         let maplevel = this.map.getZoom();
         let link = '';
@@ -414,13 +416,24 @@
           t.showCityPointChart(i, city, pointname);
         });
         this.lsSearchInfoWindow.push(searchInfoWindow);
+        if(value > 80){
+//0811
+//          let myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
+//          let marker2 = new BMap.Marker(point,{icon:myIcon,size:{width:0,height:0}});  // 创建标注
+//          this.map.addOverlay(marker2);
+//          this.lsRenderMarker.push(marker2)
+        }
       },
       clearRenderOverlay () {
         this.lsSearchInfoWindow.length = 0;
         for (let i = 0, length = this.lsRenderOverlay.length; i < length; i++) {
           this.map.removeOverlay(this.lsRenderOverlay[i]);
         }
+        for (let i = 0, length = this.lsRenderMarker.length; i < length; i++) {
+          this.map.removeOverlay(this.lsRenderMarker[i]);
+        }
         this.lsRenderOverlay = [];
+        this.lsRenderMarker = [];
       },
       showSearchInfoWindow (geo, name) {
         geo = typeof geo === 'string' ? JSON.parse(geo) : geo;

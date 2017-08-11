@@ -11,7 +11,7 @@ export default {
     return {
       layers: [{
         url: '/static/data/Y.json',
-        hasVisible: false,
+        hasVisible: true,
         geometry: []
       }, {
         url: '/static/data/E.json',

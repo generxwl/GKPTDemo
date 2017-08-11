@@ -3,7 +3,7 @@
     <ul>
       <li class="title"><b class="b-icon"></b><span>图层控制</span></li>
       <li v-for="(layer,key,index) in layers" :id="layer.id">
-        <input :data-attr="key" title="" @click="radioClick" name="layer" type="radio" />{{layer.name}}</li>
+        <input :data-attr="key" title="" @click="radioClick" name="layer" type="radio" :checked="key===0?true:false" />{{layer.name}}</li>
     </ul>
     <bd-polygon></bd-polygon>
     <bd-label></bd-label>

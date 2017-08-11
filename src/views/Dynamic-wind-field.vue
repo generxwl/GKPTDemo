@@ -1,12 +1,12 @@
 <template>
-  <div class="weather">
+  <div class="DynamicWindField">
       <!--动态风场-->
       <v-header></v-header>
       <iframe
               frameborder="0"
               width="100%"
               height="90%"
-              :src="weatherURL"
+              :src="DWFURL"
               scrolling="no"
       >
 
@@ -16,10 +16,10 @@
 
 <script>
 export default {
-  name: 'weather',
+  name: 'DynamicWindField',
   data () {
     return {
-        weatherURL:'https://airwise.zc12369.com/',
+        DWFURL:'https://airwise.zc12369.com/',
         woaini:''
     }
   }
@@ -28,7 +28,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-    .weather{
+    .DynamicWindField{
         width: 100%;
         height: 100%;
     }

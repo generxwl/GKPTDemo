@@ -8,6 +8,8 @@
               height="90%"
               :src="superstationURL"
               scrolling="no"
+              v-loading.fullscreen.lock="fullscreenLoading"
+              element-loading-text="超级站拼命加载中"
       >
 
       </iframe>
@@ -20,9 +22,21 @@ export default {
   data () {
     return {
         superstationURL:'http://60.10.151.97:8090/new/module/superpoint.php',
-        woaini:''
+        fullscreenLoading: false
     }
-  }
+  },
+    mounted(){
+        this.openFullScreen()
+    },
+    methods: {
+        //加载动画
+        openFullScreen() {
+            this.fullscreenLoading = true;
+            setTimeout(() => {
+                this.fullscreenLoading = false;
+            }, 4000);
+        }
+    }
 }
 </script>
 

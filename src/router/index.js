@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/views/Login'
-import Index from '@/views/Index-kuang'
+import Index from '@/views/IndexMonitoring'
 import Dynamicwindfield from '@/views/Dynamic-wind-field'
 import SuperStation from '@/views/Super-station'
 import Pollutionmap from '@/views/Pollution-map'
 import WeatherStation from '@/views/weather-station'
-import NationwidePH from '@/views/Nationwide-PH'
+import Weather from '@/views/Weather'
 Vue.use(Router)
 
 export default new Router({
@@ -22,8 +22,8 @@ export default new Router({
             component: Index
         },
         {
-            path: '/weather',
-            name: 'weather',
+            path: '/DTweather',
+            name: 'DTweather',
             component: Dynamicwindfield
         },
         {
@@ -42,9 +42,9 @@ export default new Router({
             component: SuperStation
         },
         {
-            path: '/nationwidePH',
-            name: 'nationwidePH',
-            component: NationwidePH
+            path: '/Weather',
+            name: 'Weather',
+            component: Weather
         }
     ]
 })
