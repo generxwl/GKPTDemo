@@ -10,7 +10,7 @@ export default {
     return {
       labels: [{
         name: '一级网格',
-        hasVisible: false,
+        hasVisible: true,
         maxZoom: 12,
         minZoom: 0,
         url: '/static/data/YL.json',
