@@ -3,11 +3,16 @@
  */
 import axios from 'axios';
 //上线正式
+import {
+    GetLfAirResource,//首页面板天气模块数据
+} from './resource'
 export default {
-    /*获取静态数据*/
-    // getDataList() {
-    //     return axios.get('/api/testmock',{
-    //
-    //     })
-    // }
+  //首页天气面板数据
+  GetLfAirData() {
+    return axios.get(GetLfAirResource,{
+
+      }
+    )
+  },
+
 }

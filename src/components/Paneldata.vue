@@ -158,6 +158,7 @@
 
 <script>
     import {bus} from '@/js/bus.js'
+    import api from '../api/index'
     export default {
         name: 'paneldata',
         data () {
@@ -216,15 +217,18 @@
             }
         },
         created(){
-            this.$axios({
-                url: '/static/data/tables.json',
-                method: 'GET',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                data: {}
-            }).then(res => {
+//            this.$axios({
+//                url: '/static/data/tables.json',
+//                method: 'GET',
+//                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//                data: {}
+//            }).then(res => {
+//                console.log(res)
+//            }, res=> {
+//                console.log('失败了')
+//            })
+            api.GetLfAirData().then(res=>{
                 console.log(res)
-            }, res=> {
-                console.log('失败了')
             })
         },
         mounted(){

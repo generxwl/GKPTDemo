@@ -9,6 +9,8 @@ import SuperStation from '@/views/Super-station'//超级站
 import Pollutionmap from '@/views/Pollution-map'//污染地图
 import WeatherStation from '@/views/weather-station'//气象站
 import Weather from '@/views/Weather'//天气预报
+import DustEmissionStatistics from '@/views/DataAnalysis/DustEmissionStatistics'//扬尘源统计
+import DistrictsCounties from '@/views/DataAnalysis/DistrictsCounties'//区县打分
 Vue.use(Router)
 
 export default new Router({
@@ -57,6 +59,16 @@ export default new Router({
             path: '/Weather',
             name: 'Weather',
             component: Weather
+        },
+        {
+            path: '/DistrictsCounties',
+            name: 'DistrictsCounties',
+            component: DistrictsCounties
+        },
+        {
+            path: '/DustEmissionStatistics',
+            name: 'DustEmissionStatistics',
+            component: DustEmissionStatistics
         }
     ]
 })

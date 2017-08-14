@@ -61,8 +61,8 @@
                             <a>日均值比</a><br/>
                             <a>污染物对比</a><br/>
                             <a>固定源统计</a><br/>
-                            <a>扬尘源统计</a><br/>
-                            <a>区县打分</a>
+                            <a href="#/DustEmissionStatistics">扬尘源统计</a><br/>
+                            <a href="#/DistrictsCounties">区县打分</a>
                         </div>
                         <div>
                             <font>传感网统计</font><br/>

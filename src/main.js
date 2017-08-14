@@ -12,6 +12,7 @@ import Header from './components/Header'
 import Paneldata from './components/Paneldata'
 import PaneldataCgw from './components/Paneldata-cgw'
 import PaneldataOnlineList from './components/Paneldata-OnlineList'
+import OnlineList from './components/OnlineList'
 //引入ElementUI
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
@@ -23,6 +24,7 @@ Vue.component('v-header', Header);
 Vue.component('v-paneldata', Paneldata);
 Vue.component('v-paneldatcgw', PaneldataCgw);
 Vue.component('v-paneldatycy', PaneldataOnlineList);
+Vue.component('v-onlinelist', OnlineList);
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

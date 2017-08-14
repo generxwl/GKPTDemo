@@ -13,6 +13,46 @@
       >
 
       </iframe>
+      <!--弹出框-->
+      <div class="dingwei">
+          <el-button type="primary" @click="MaintenanceOpen()">运维记录</el-button>
+      </div>
+      <div class="tanchukuang" v-if="tanchu">
+          <div class="fadess"></div>
+          <div class="succ-pop">
+              <div class="title">
+              <a>运维记录</a><i class="iconfont icon-31guanbi rightbuton" @click="MaintenanceShut">关闭</i>
+              </div>
+              <div class="item-input">
+                  <strong>设备名称</strong><input type="text">
+              </div>
+              <div class="item-input">
+                  <strong>设备参数</strong><input type="text">
+              </div>
+              <div class="item-input">
+                  <strong>最近运维时间</strong><input type="text">
+              </div>
+              <div class="item-input">
+                  <strong>负责人</strong><input type="text">
+              </div>
+              <div class="item-input">
+                  <strong>设备型号</strong><input type="text">
+              </div>
+              <div class="item-input">
+                  <strong>用途简述</strong><input type="text">
+              </div>
+              <div class="item-input">
+                  <strong>备品备件更换情况</strong><input type="text">
+              </div>
+              <div class="item-input">
+                  <strong>巡查周期（天）</strong><input type="text">
+              </div>
+              <div class="item-input">
+                  <el-button type="primary" >提交</el-button>
+                  <el-button >重置</el-button>
+              </div>
+          </div>
+      </div>
   </div>
 </template>
 
@@ -21,8 +61,9 @@ export default {
   name: 'superstation',
   data () {
     return {
-        superstationURL:'http://60.10.151.97:8090/new/module/superpoint.php',
-        fullscreenLoading: false
+        superstationURL:'http://60.10.151.97:8090/new/hiddenWeb_2.php',
+        fullscreenLoading: false,
+        tanchu:false
     }
   },
     mounted(){
@@ -35,7 +76,15 @@ export default {
             setTimeout(() => {
                 this.fullscreenLoading = false;
             }, 4000);
-        }
+        },
+        //运维弹出
+        MaintenanceOpen() {
+            this.tanchu = true;
+        },
+        //运维关闭
+        MaintenanceShut(){
+            this.tanchu = false
+        },
     }
 }
 </script>
@@ -45,6 +94,71 @@ export default {
     .superstation{
         width: 100%;
         height: 100%;
+        position: relative;
+        .dingwei{
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+        }
+        .tanchukuang{
+            /*灰色遮罩层*/
+            .fadess{
+                width:100%;
+                height:100%;
+                background:rgba(0, 0, 0, 0.8);
+                position: fixed;
+                left: 0;
+                top: 0;
+                z-index: 998;
+            }
+            /*弹出层*/
+            .succ-pop {
+                width: 490px;
+                height: 390px;
+                background: #fff;
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                margin-left: -200px;
+                margin-top: -150px;
+                z-index: 999;
+                border-radius: 5px;
+                border: solid 1px #357ebd;
+                .title{
+                    width: 100%;
+                    height: 32px;
+                    line-height: 30px;
+                    text-align: left;
+                    background:#1080cc;
+                    a{
+                        color: #fff;
+                        font-size: 18px;
+                        padding-left: 20px;
+                    }
+                    .rightbuton{
+                        float: right;
+                        padding-right: 10px;
+                        i{
+                            display: inline-block;
+                            width: 20px;
+                            height: 20px;
+                            color: #fff;
+                            font-size: 20px;
+                        }
+                    }
+                }
+                .item-input{
+                    margin-left: -20px;
+                    margin-top: 10px;
+                    strong{
+                        display:inline-block;
+                        width: 130px;
+                        text-align: right;
+                        padding-right: 10px;
+                    }
 
+                }
+            }
+        }
     }
 </style>
