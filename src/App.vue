@@ -47,6 +47,10 @@
         .el-progress-bar {
 
         }
+        /*表格*/
+        .el-table__body-wrapper{
+            overflow: inherit;
+        }
         .table {
             .cell {
                 font-size: 12px;

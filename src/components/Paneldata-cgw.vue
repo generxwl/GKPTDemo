@@ -6,7 +6,7 @@
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
                 <img id="shrink" src="../assets/img/右.png" v-if="you"/>
                 <div class="main">
-                    <div class="kbiaoti">大气监测点排名</div>
+                    <div class="kbiaoti">监测点排名</div>
                     <div class="bluexian"></div>
                     <!--选项查询-->
                     <div class="first">
@@ -32,7 +32,40 @@
                         </div>
                     </div>
                     <!--排名-->
-
+                    <div class="table_container">
+                        <el-table
+                                :data="tableData"
+                                border
+                                stripe
+                                highlight-current-row
+                                style="width: 400px">
+                            <el-table-column
+                                    property="ranking"
+                                    label="排名"
+                                    width="80">
+                            </el-table-column>
+                            <el-table-column
+                                    property="InControl"
+                                    label="名称"
+                                    width="220">
+                            </el-table-column>
+                            <el-table-column
+                                    property="aqi"
+                                    label="AQI"
+                                    width="100">
+                            </el-table-column>
+                        </el-table>
+                        <div class="Pagination" style="text-align: left;margin-top: 10px;">
+                            <el-pagination
+                                    @size-change="handleSizeChange"
+                                    @current-change="handleCurrentChange"
+                                    :current-page="currentPage"
+                                    :page-size="5"
+                                    layout="total, prev, pager, next"
+                                    :total="count">
+                            </el-pagination>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,28 +82,54 @@
                 tableData: [{
                     ranking: '1',//排名
                     InControl: '北华航天工业学院',//国控点
-                    AirQualityGrade: '重度污染',//空气等级
                     aqi: '303',//aqi
-                    PrimaryPollutant: 'PM2.5'//首要污染物
                 }, {
                     ranking: '2',//排名
                     InControl: '河北工业大学',//国控点
-                    AirQualityGrade: '轻度污染',//空气等级
                     aqi: '303',//aqi
-                    PrimaryPollutant: 'PM2.5'//首要污染物
                 }, {
                     ranking: '3',//排名
                     InControl: '廊坊第十中学',//国控点
-                    AirQualityGrade: '良',//空气等级
                     aqi: '303',//aqi
-                    PrimaryPollutant: 'PM2.5'//首要污染物
                 }, {
                     ranking: '4',//排名
                     InControl: '新世纪中学',//国控点
-                    AirQualityGrade: '良',//空气等级
                     aqi: '303',//aqi
-                    PrimaryPollutant: 'PM2.5'//首要污染物
-                }],
+                },{
+                    ranking: '5',//排名
+                    InControl: '廊坊第十中学',//国控点
+                    aqi: '303',//aqi
+                },
+                    {
+                        ranking: '6',//排名
+                        InControl: '廊坊第十中学',//国控点
+                        aqi: '303',//aqi
+                    },
+                    {
+                        ranking: '7',//排名
+                        InControl: '廊坊第十中学',//国控点
+                        aqi: '303',//aqi
+                    },
+                    {
+                        ranking: '8',//排名
+                        InControl: '廊坊第十中学',//国控点
+                        aqi: '303',//aqi
+                    },
+                    {
+                        ranking: '9',//排名
+                        InControl: '廊坊第十中学',//国控点
+                        aqi: '303',//aqi
+                    },
+                    {
+                        ranking: '10',//排名
+                        InControl: '廊坊第十中学',//国控点
+                        aqi: '303',//aqi
+                    }],
+                currentRow: null,
+                offset: 0,
+                limit: 10,
+                count: 61,
+                currentPage: 6,
                 pickerOptions1: {
                     shortcuts: [{
                         text: '今天',
@@ -94,8 +153,28 @@
                     }]
                 },
                 value1: '',
-                value2: ''
+                value2: '',
+                handleSizeChange(val) {
+                    console.log(`每页 ${val} 条`);
+                },
+                handleCurrentChange(val) {
+                    this.currentPage = val;
+                    this.offset = (val - 1)*this.limit;
+                    //this.getUsers()
+                },
             }
+        },
+        created(){
+            this.$axios({
+                url: '/static/data/tables.json',
+                method: 'GET',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                data: {}
+            }).then(res => {
+                console.log(res)
+            }, res=> {
+                console.log('失败了')
+            })
         },
         mounted(){
             //右侧收放
@@ -212,6 +291,9 @@
                     text-align: left;
                     margin-left: 16px;
                     border-left: solid 3px #2a6496;
+                }
+                .table_container{
+                    margin-left: 16px;
                 }
             }
         }

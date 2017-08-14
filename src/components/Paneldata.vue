@@ -215,6 +215,18 @@
                 value2: ''
             }
         },
+        created(){
+            this.$axios({
+                url: '/static/data/tables.json',
+                method: 'GET',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                data: {}
+            }).then(res => {
+                console.log(res)
+            }, res=> {
+                console.log('失败了')
+            })
+        },
         mounted(){
             //右侧收放
             let that = this;

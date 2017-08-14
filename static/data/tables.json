@@ -1,0 +1,458 @@
+{
+  "code": 200,
+  "msg": "获取成功",
+  "datas": {
+    "jiancedianPH": [
+      {
+        "pm2.5": "53",
+        "pm10": "98",
+        "SO2": "16",
+        "CO": "1.100",
+        "NO2": "42",
+        "O3": "72"
+      }
+    ],
+    "jiancedianWeather": [
+      {
+        "WeatherIcon":"",
+        "temperature": "53",
+        "humidity": "98",
+        "windPower": "16",
+       "rainfall": "1.100"
+      }
+    ],
+    "jiancedian_class": {
+      "guokongdian": [
+        {
+          "ranking": "1",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "2",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "3",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "4",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "5",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "6",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "7",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "8",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "9",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "10",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        }
+      ],
+      "shengkongdian": [
+        {
+          "ranking": "1",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "2",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "3",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "4",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "5",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "6",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "7",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "8",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "9",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        },
+        {
+          "ranking": "10",
+          "InControl": "北华航天工业学院",
+          "AirQualityGrade": "重度污染",
+          "aqi": "303",
+          "PrimaryPollutant": "pm2.5"
+        }
+      ],
+      "guanxincity": [
+        {
+          "cate_type": "1",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "2",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "3",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "4",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "5",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "6",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "7",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "8",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "9",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "10",
+          "cate_name": "河北工业大学"
+        }
+      ],
+      "daoshucity": [
+        {
+          "cate_type": "1",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "2",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "3",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "4",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "5",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "6",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "7",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "8",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "9",
+          "cate_name": "河北工业大学"
+        },
+        {
+          "cate_type": "10",
+          "cate_name": "河北工业大学"
+        }
+      ]
+    },
+    "chuangan": {
+      "recommend_goods": [
+        {
+          "ranking": "1",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "2",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "3",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "4",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "5",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "6",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "7",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "8",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "9",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "10",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "11",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "12",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "13",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "1",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "1",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "1",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        },
+        {
+          "ranking": "1",
+          "InControl": "北华航天工业学院",
+          "aqi": "303"
+        }
+      ]
+    },
+    "yangchen": {
+      "recommend_goods": [
+        {
+          "ranking": "1",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "2",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "3",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "4",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "5",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "6",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "7",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "8",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "9",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "10",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "11",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "12",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "13",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "14",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "15",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "16",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "17",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "18",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "19",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "20",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "21",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        },
+        {
+          "ranking": "22",
+          "InControl": "北华航天工业学院",
+          "pm": "303"
+        }
+      ]
+    }
+  }
+}

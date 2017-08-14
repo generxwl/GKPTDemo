@@ -22,7 +22,7 @@
       }
     },
     created() {
-        console.log('create')
+      console.log('create')
     },
     mounted() {
       this.ready();
@@ -59,7 +59,7 @@
         }
       }
     },
-    components: {LayerSwitch,PollutionTarget,MapHandle}//GridMap
+    components: {LayerSwitch, PollutionTarget, MapHandle}//GridMap
   }
 
 </script>

@@ -3,9 +3,11 @@
     <ul>
       <li v-for="(item,index) in target" :data-type="item.name" @click="liClickEvent">{{item.value}}</li>
     </ul>
+    <hot-layer></hot-layer>
   </div>
 </template>
 <script>
+  import HotLayer from '@/map/handle/HotLayer'
   import {bus} from '@/js/bus.js'
 
   export default {
@@ -14,10 +16,12 @@
       return {
         target: [{
           name: 'HotMap',
-          value: '热力图'
+          value: '热力图',
+          hasChecked: true
         }, {
           name: 'PointMap',
-          value: '点位图'
+          value: '点位图',
+          hasChecked: false
         }]
       };
     },
@@ -29,18 +33,56 @@
       ready(){
       },
       liClickEvent(e){
-          let element = e.currentTarget;
+        let element = e.currentTarget;
+        if (element) {
+          this.resetLi();
           let type = element.getAttribute('data-type');
-          switch(type.toUpperCase()){
+          element.style.backgroundColor = '#fff';
+          element.style.color = '#1080CC';
+          switch (type.toUpperCase()) {
             case 'HOTMAP':
-                break;
+              break;
             case 'POINTMAP':
-                break;
+              break;
           }
+        }
+      },
+      resetLi(){
+        jQuery.find('.sense-switch-content li').forEach(function (value, index) {
+          value.style.backgroundColor = '#1080CC';
+          value.style.color = '#fff';
+        });
       }
     },
-    compoents: {}
+    components: {HotLayer}
   };
 </script>
 <style scoped>
+  .sense-switch-content {
+    position: absolute;
+    height: 37px;
+    z-index: 1;
+    top: 20px;
+    left: 360px;
+  }
+
+  .sense-switch-content ul {
+    height: 37px;
+    border: solid 1px #1080CC;
+  }
+
+  .sense-switch-content li {
+    list-style: none;
+    float: left;
+    height: 35px;
+    width: 120px;
+    line-height: 35px;
+    color: #fff;
+    background-color: #1080CC;
+  }
+
+  .sense-switch-content li:first-child {
+    color: #1080CC;
+    background-color: #fff;
+  }
 </style>

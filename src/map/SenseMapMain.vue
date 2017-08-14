@@ -1,14 +1,20 @@
 <template>
   <div class="sense-map-content">
     <div id="sense_map"></div>
-    <layer-switch></layer-switch>
+    <layer-switch class="layer-switch"></layer-switch>
     <sense-pollution></sense-pollution>
+    <sense-switch></sense-switch>
+    <sense-map-handle></sense-map-handle>
+    <!--<history-handle></history-handle>-->
   </div>
 </template>
 <script>
   import BMap from 'BMap'
   import LayerSwitch from '@/map/controls/LayerSwitch'
   import SensePollution from '@/map/controls/SensePollutionTarget'
+  import SenseSwitch from '@/map/controls/SenseSwitch'
+  import SenseMapHandle from '@/map/controls/SenseMapHandle'
+  import HistoryHandle from '@/map/controls/HistoryHandle'
   import {bus} from '@/js/bus.js'
 
   export default {
@@ -32,7 +38,7 @@
           });
         }
     },
-    components:{LayerSwitch,SensePollution}
+    components:{LayerSwitch,SensePollution,SenseSwitch,SenseMapHandle,HistoryHandle}
   };
 </script>
 <style scoped>
@@ -52,5 +58,9 @@
     padding: 0;
     overflow: hidden;
     position: absolute;
+  }
+
+  .layer-switch{
+    bottom:50px !important;
   }
 </style>

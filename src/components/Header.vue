@@ -27,7 +27,7 @@
                             <font>动态源清单</font><br/>
                             <a>企业在线监测</a><br/>
                             <a>机动车</a><br/>
-                            <a>扬尘在线监测</a>
+                            <a href="#/DustOnline">扬尘在线监测</a>
                         </div>
                         <div>
                             <font>静态源清单</font>

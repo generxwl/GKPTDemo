@@ -8,7 +8,7 @@
 <script>
   import {bus} from '@/js/bus.js'
   export default {
-    name: 'MapHandle',
+    name: 'SenseMapHandle',
     data () {
       return {
         map: undefined,
@@ -33,7 +33,7 @@
             type: 'HANDLE',
             src: 'static/imgs/map/Handle.png',
             checked: 'static/imgs/map/Handle1.png'
-          },{
+          }, {
             name: '地域',
             type: 'REGION',
             src: 'static/imgs/map/Region.png',
@@ -45,7 +45,7 @@
     beforeCreate(){
     },
     created(){
-      bus.$on('getMap', this.getMap);
+      bus.$on('getSenseMap', this.getMap);
     },
     mounted(){
       let t = this;
@@ -60,6 +60,9 @@
         this.map = map;
       },
       liClickEvent(e){
+        if (!this.map) {
+          bus.$on('getSenseMap', this.getMap);
+        }
         this.resetImg();
         let childElement = e.currentTarget;
         let imgElement = childElement.querySelector('img');
@@ -79,25 +82,25 @@
               this.map.setZoom(zoom - 1);
               break;
             case 'EXTENT':
-                this.map.centerAndZoom('廊坊', 10);
+              this.map.centerAndZoom('廊坊', 10);
               break;
             case 'HANDLE':
-                this.map.setDefaultCursor();
+              this.map.setDefaultCursor();
               break;
             case 'REGION':
-                break;
+              break;
           }
         }
-        if(type.toUpperCase() !== 'REGION') {
+        if (type.toUpperCase() !== 'REGION') {
           this.resetImg();
         }
       },
       resetImg(){
         let targets = this.$data.handleItems;
-        jQuery.find('.map-handle li').forEach(function (value, index) {
+        jQuery.find('.sense-map-handle li').forEach(function (value, index) {
           value.style.backgroundColor = '#1080CC';
         });
-        jQuery.find('.map-handle li>img').forEach(function (value, index) {
+        jQuery.find('.sense-map-handle li>img').forEach(function (value, index) {
           let target = targets[index];
           value.src = target.src;
         })
