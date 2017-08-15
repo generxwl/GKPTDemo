@@ -13,7 +13,7 @@
           <span>所属区域</span>
           <el-select v-model="value4" clearable placeholder="请选择">
           <el-option
-                  v-for="item in options"
+                  v-for="item in oneoptions"
                   :key="item.value"
                   :label="item.label"
                   :value="item.value">
@@ -23,7 +23,7 @@
         <div class="cxtime">
           <el-select v-model="value4" clearable placeholder="请选择">
             <el-option
-                    v-for="item in options"
+                    v-for="item in oneoptions"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value">
@@ -35,20 +35,20 @@
                   placeholder="起始时间"
                   v-model="startTime"
                   :picker-options="{
-        start: '08:30',
-        step: '00:15',
-        end: '18:30'
-      }">
-          </el-time-select>
-          <el-time-select
-                  placeholder="结束时间"
-                  v-model="endTime"
-                  :picker-options="{
-        start: '08:30',
-        step: '00:15',
-        end: '18:30',
-        minTime: startTime
-      }">
+                  start: '08:30',
+                  step: '00:15',
+                  end: '18:30'
+                }">
+                      </el-time-select>
+                      <el-time-select
+                              placeholder="结束时间"
+                              v-model="endTime"
+                              :picker-options="{
+                  start: '08:30',
+                  step: '00:15',
+                  end: '18:30',
+                  minTime: startTime
+                }">
           </el-time-select>
         </div>
         <div class="button">
@@ -97,7 +97,7 @@
       <div class="fadess"></div>
       <div class="succ-pop">
         <div class="title">
-          <a>风向占比</a><i class="iconfont icon-31guanbi rightbuton" @click="guanbitanchukuang">关闭</i>
+          <a>风向占比</a><div class="el-icon-close" @click="guanbitanchukuang"></div>
         </div>
         <!---->
         <canvas id="wcanvas">
@@ -121,11 +121,10 @@
       <el-pagination
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
-              :current-page="currentPage4"
-              :page-sizes="[100, 200, 300, 400]"
-              :page-size="100"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="400">
+              :current-page="currentPage"
+              :page-size="pagesize"
+              layout="total, prev, pager, next, jumper"
+              :total="totalCount">
       </el-pagination>
     </div>
   </div>
@@ -140,63 +139,33 @@
         fullscreenLoading: false,
           tanchu:false,
           currentPage4: 100,
-          tableData: [{
-              Construction: '酒仙桥商场',
-              position: '北京市朝阳区酒仙桥商场56号',
-              pm10: '100',
-              pm25: '78',
-              windDirection: '查看'
-          },  {
-              Construction: '酒仙桥商场',
-              position: '北京市朝阳区酒仙桥商场56号',
-              pm10: '100',
-              pm25: '78',
-              windDirection: '查看'
-          },  {
-              Construction: '酒仙桥商场',
-              position: '北京市朝阳区酒仙桥商场56号',
-              pm10: '100',
-              pm25: '78',
-              windDirection: '查看'
-          },  {
-              Construction: '酒仙桥商场',
-              position: '北京市朝阳区酒仙桥商场56号',
-              pm10: '100',
-              pm25: '78',
-              windDirection: '查看'
-          },  {
-              Construction: '酒仙桥商场',
-              position: '北京市朝阳区酒仙桥商场56号',
-              pm10: '100',
-              pm25: '78',
-              windDirection: '查看'
-          },  {
-              Construction: '酒仙桥商场',
-              position: '北京市朝阳区酒仙桥商场56号',
-              pm10: '100',
-              pm25: '78',
-              windDirection: '查看'
-          },  {
-              Construction: '酒仙桥商场',
-              position: '北京市朝阳区酒仙桥商场56号',
-              pm10: '100',
-              pm25: '78',
-              windDirection: '查看'
+          tableData: [],
+          allData:[],
+          currentRow: null,
+          pagesize: 10,
+          currentPage: 1,
+          totalCount:0,
+          oneoptions: [{
+              value: '选项1',
+              label: '全部'
           }, {
-              Construction: '酒仙桥商场',
-              position: '北京市朝阳区酒仙桥商场56号',
-              pm10: '100',
-              pm25: '78',
-              windDirection: '查看'
+              value: '选项2',
+              label: '广安区'
           }, {
-              Construction: '酒仙桥商场',
-              position: '北京市朝阳区酒仙桥商场56号',
-              pm10: '100',
-              pm25: '78',
-              windDirection: '查看'
-          }]
+              value: '选项3',
+              label: '安次区'
+          }, {
+              value: '选项4',
+              label: '开发区'
+          }],
+          startTime: '',
+          endTime: '',
+          value4: ''
       }
     },
+      created(){
+          this.initlistData()
+      },
     mounted(){
       this.openFullScreen()
       //饼图canvas
@@ -209,13 +178,6 @@
           this.fullscreenLoading = false;
         }, 2000);
       },
-      //
-        handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
-        },
-        handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
-        },
         //弹出框
         tanchukuang() {
           let that = this;
@@ -290,9 +252,49 @@
 
 
 
+        },
+        initlistData(){
+            this.$axios({
+                url: '/static/data/tables.json',
+                method: 'GET',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                data: {}
+            }).then(res => {
+                let dt = res.data.datas.YCYtongji.recommend_goods;
+                this.totalCount = dt.length;
+                this.allData = dt;
+                this.setPageTable(10,1);
+                console.log(dt);
+
+            }, res=> {
+                console.log('失败了')
+            })
+        },
+        //每页显示数据量变更
+        handleSizeChange(val) {
+            //this.pagesize = val;
+        },
+
+        //页码变更
+        handleCurrentChange(val) {
+            this.setPageTable(10,val);
+            console.log(val)
+        },
+        setPageTable(pageSize,pageNum){
+            let rtValue = [];
+            let startNum = pageSize*(pageNum-1);
+            for(let i=0;i<pageSize;i++){
+                if((startNum+i+1) > this.allData.length)
+                    break;
+                rtValue.push(this.allData[startNum+i]);
+            }
+            this.tableData = rtValue;
         }
+
     },
-    components: {}//0809
+    components: {
+
+    }//0809
   }
 </script>
 
@@ -340,16 +342,13 @@
             font-size: 18px;
             padding-left: 20px;
           }
-          .rightbuton{
+          div{
+            margin-top: 8px;
             float: right;
-            padding-right: 10px;
-            i{
-              display: inline-block;
-              width: 20px;
-              height: 20px;
-              color: #fff;
-              font-size: 20px;
-            }
+            width: 24px;
+            height: 24px;
+            color: #fff;
+            margin-right: 6px;
           }
         }
         ul{
@@ -371,7 +370,7 @@
       }
     }
     .chaxun{
-      width: 96%;
+      width: 1300px;
       height: 100px;
       margin: 0 auto;
 
@@ -423,6 +422,8 @@
 
     }
     .tables{
+
+      width: 1300px;
       margin-top: 30px;
       margin-bottom: 20px;
       .wbiaoti{
@@ -440,7 +441,6 @@
         margin-top: 30px;
         margin-bottom:0px;
       }
-      width: 96%;
       height: auto;
       margin: 0 auto;
     }

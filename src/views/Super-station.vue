@@ -21,7 +21,7 @@
           <div class="fadess"></div>
           <div class="succ-pop">
               <div class="title">
-              <a>运维记录</a><i class="iconfont icon-31guanbi rightbuton" @click="MaintenanceShut">关闭</i>
+              <a>运维记录</a><div class="el-icon-close" @click="MaintenanceShut"></div>
               </div>
               <div class="item-input">
                   <strong>设备名称</strong><input type="text">
@@ -47,10 +47,10 @@
               <div class="item-input">
                   <strong>巡查周期（天）</strong><input type="text">
               </div>
-              <div class="item-input">
-                  <el-button type="primary" >提交</el-button>
-                  <el-button >重置</el-button>
-              </div>
+              <!--<div class="item-input">-->
+                  <!--<el-button type="primary" >提交</el-button>-->
+                  <!--<el-button >重置</el-button>-->
+              <!--</div>-->
           </div>
       </div>
   </div>
@@ -135,21 +135,19 @@ export default {
                         font-size: 18px;
                         padding-left: 20px;
                     }
-                    .rightbuton{
+                    div{
+                        margin-top: 8px;
                         float: right;
-                        padding-right: 10px;
-                        i{
-                            display: inline-block;
-                            width: 20px;
-                            height: 20px;
-                            color: #fff;
-                            font-size: 20px;
-                        }
+                        width: 24px;
+                        height: 24px;
+                        color: #fff;
+                        margin-right: 6px;
                     }
+
                 }
                 .item-input{
                     margin-left: -20px;
-                    margin-top: 10px;
+                    margin-top: 16px;
                     strong{
                         display:inline-block;
                         width: 130px;

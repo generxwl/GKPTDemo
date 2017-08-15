@@ -56,5 +56,14 @@
                 font-size: 12px;
             }
         }
+        //
+        .el-pagination{
+            margin-top: 20px;
+        }
+        .DustEmissionStatistics{
+            .cell{
+                text-align: left!important;
+            }
+        }
     }
 </style>

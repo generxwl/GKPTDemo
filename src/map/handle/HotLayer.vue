@@ -9,6 +9,7 @@
     data () {
       return {
         hotLayer: undefined,
+        hasVisible:true,
         hotConfig: {
           radius: 20
         }
@@ -21,7 +22,8 @@
     },
     methods: {
       ready(){
-        bus.$on('tilesSenseLoaded', this.loaded)
+        bus.$on('tilesSenseLoaded', this.loaded);
+        bus.$on('setHotLayerVisible',this.hotLayerToggle);
       },
       loaded(map){
         if (!this.map) {
@@ -90,9 +92,15 @@
       loadHotLayer(data){
         if (!this.hotLayer) {
           this.hotLayer = new BMapLib.HeatmapOverlay(this.hotConfig);
+          this.hotLayerToggle(this.hasVisible);
           this.map.addOverlay(this.hotLayer);
           this.hotLayer.setDataSet({data: data, max: 100});
         }
+      },
+      clearHotLayer(){
+          if(this.hotLayer){
+              this.map.removeOverlay(this.hotLayer);
+          }
       },
       hotLayerToggle(hasVisible){
         if (this.hotLayer) {

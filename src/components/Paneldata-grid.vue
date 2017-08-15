@@ -1,18 +1,19 @@
 <template>
-    <div class="PaneldataOnlineList">
+    <div class="PaneldataGrid">
         <div id="list">
             <img class="qianren" src="../assets/img/千人计划logo.png" alt="">
             <div class="panel">
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
                 <img id="shrink" src="../assets/img/右.png" v-if="you"/>
                 <div class="main">
-                    <div class="kbiaoti">工地监测点排名</div>
+                    <div class="kbiaoti">监测点排名</div>
                     <div class="bluexian"></div>
                     <!--选项查询-->
                     <div class="first">
                         <div class="tables">
                             <!--选项-->
-                            <a href="##" class="bai">当前时间</a>
+                            <a href="##" class="bai">实时</a>
+                            <a href="##">累计</a>
                         </div>
                         <div class="shijian">
                             <!--时间选择-->
@@ -39,30 +40,28 @@
                                 highlight-current-row
                                 style="width: 400px">
                             <el-table-column
-                                    property="ranking"
-                                    label="排名"
+                                    property="InControl"
+                                    label="名称"
+                                    width="280">
+                            </el-table-column>
+                            <el-table-column
+                                    property="hangye"
+                                    label="行业"
                                     width="80">
                             </el-table-column>
                             <el-table-column
-                                    property="InControl"
-                                    label="名称"
-                                    width="220">
-                            </el-table-column>
-                            <el-table-column
-                                    property="pm"
-                                    label="PM2.5"
-                                    width="100">
+                                    property="actions"
+                                    label="查看地址"
+                                    width="40">
                             </el-table-column>
                         </el-table>
-                        <!--分页条-->
                         <div class="Pagination" style="text-align: left;margin-top: 10px;">
                             <el-pagination
                                     @size-change="handleSizeChange"
                                     @current-change="handleCurrentChange"
                                     :current-page="currentPage"
-                                    :page-sizes="[10, 20]"
                                     :page-size="pagesize"
-                                    layout="total, sizes, prev, pager, next"
+                                    layout="total, prev, pager, next"
                                     :total="totalCount">
                             </el-pagination>
                         </div>
@@ -75,18 +74,13 @@
 
 <script>
     export default {
-        name: 'PaneldataOnlineList',
+        name: 'PaneldataGrid',
         data () {
             return {
                 zuo:false,
                 you:true,
-                tableData: [
-//                 {
-//                    ranking: '1',//排名
-//                    InControl: '北华航天工业学院',//国控点
-//                    pm: '303',//aqi
-//                }
-                ],
+                tableData:[],
+                allData:[],
                 currentRow: null,
                 pagesize: 10,
                 currentPage: 1,
@@ -118,7 +112,7 @@
             }
         },
         created(){
-            this.initlistData()
+           this.initlistData()
         },
         mounted(){
             //右侧收放
@@ -151,42 +145,35 @@
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     data: {}
                 }).then(res => {
-                    this.totalCount = res.data.datas.yangchen.recommend_goods.length
-                    this.getdataLists()
-                    //console.log(this.count)
+                    let dt = res.data.datas.chuangan.recommend_goods;
+                    this.totalCount = dt.length;
+                    this.allData = dt;
+                    this.setPageTable(10,1);
+                    console.log(dt);
+
                 }, res=> {
                     console.log('失败了')
                 })
             },
             //每页显示数据量变更
             handleSizeChange(val) {
-                this.pagesize = val;
+                //this.pagesize = val;
             },
 
             //页码变更
             handleCurrentChange(val) {
-                this.currentPage = val;
-                this.getdataLists();
+                this.setPageTable(10,val);
+                console.log(val)
             },
-            getdataLists(){
-                this.$axios({
-                    url: '/static/data/tables.json',
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    data: {}
-                }).then(res => {
-                    let Users = res.data.datas.yangchen.recommend_goods;
-                    this.tableData = [];
-                    Users.forEach(item => {
-                        const tableData = {};
-                        tableData.ranking = item.ranking;
-                        tableData.InControl = item.InControl;
-                        tableData.pm = item.pm;
-                        this.tableData.push(tableData);
-                    })
-                }, res=> {
-                    console.log('失败了')
-                })
+            setPageTable(pageSize,pageNum){
+                let rtValue = [];
+                let startNum = pageSize*(pageNum-1);
+                for(let i=0;i<pageSize;i++){
+                    if((startNum+i+1) > this.allData.length)
+                        break;
+                    rtValue.push(this.allData[startNum+i]);
+                }
+                this.tableData = rtValue;
             }
         }
     }
@@ -195,7 +182,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
-    .PaneldataOnlineList {
+    .PaneldataGrid {
         width: 410px;
         height: auto;
         background-color: #666;
@@ -249,8 +236,7 @@
                             color: #666;
                             display: inline-block;
                             line-height: 34px;
-                            width: 90px;
-                            margin-right: 30px;
+                            width: 60px;
                             height: 34px;
                             border: solid 1px #ccc;
                             background: #f1f1f1;

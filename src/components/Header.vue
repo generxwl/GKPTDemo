@@ -38,7 +38,7 @@
                     <a>气象预报</a>
                     <div class="Fouritem">
                         <a href="#/weatherstation">气象站</a><br/>
-                        <a href="#/">网格预测</a><br/>
+                        <a href="#/GridPrediction">网格预测</a><br/>
                         <a href="#/DTweather">动态风场</a><br/>
                         <a href="#/Weather">城市天气预报</a>
                     </div>

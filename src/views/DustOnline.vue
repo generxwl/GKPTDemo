@@ -6,8 +6,7 @@
               v-loading.fullscreen.lock="fullscreenLoading"
               element-loading-text="扬尘在线地图拼命加载中"
       ></dust-map>
-     <!--<v-paneldatycy></v-paneldatycy>-->
-    <v-onlinelist></v-onlinelist>
+     <v-paneldatycy></v-paneldatycy>
   </div>
 </template>
 

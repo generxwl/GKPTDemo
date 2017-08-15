@@ -1,6 +1,7 @@
 <script>
   import BMap from 'BMap'
   import axios from 'axios'
+  import RequestHandle from '@/request'
   import {bus} from '@/js/bus.js'
 
   export default {
@@ -11,12 +12,16 @@
       return {
         type: 'POINT',
         item: 'AQI',
+        ptType: '国控点',
+        hasLoaded: false,
         lsRenderOverlay: [],
         lsSearchInfoWindow: [],
-        lsRenderMarker: []
+        lsRenderMarker: [],
+        data: []
       }
     },
     created () {
+      console.log(RequestHandle)
     },
     mounted () {
       this.ready()
@@ -28,10 +33,14 @@
         bus.$on('getMap', this.setMap);
         bus.$on('tilesLoaded', this.resetData);
         bus.$on('showWindowInfo', this.showSearchInfoWindow);
+        bus.$on('tabClick', this.tabClickEvent);
       },
       resetData (map) {
-        this.map = map;
-        this.setPollutionByType(this.item);
+        if (!this.hasLoaded) {
+          this.hasLoaded = true;
+          this.map = map;
+          this.setPollutionByType(this.item);
+        }
       },
       setMap (map) {
         this.map = map;
@@ -44,70 +53,105 @@
         let qs = require('qs');
         let mapLevel = this.map.getZoom();
         let bs = this.map.getBounds();
-        let bssw = bs.getSouthWest();
-        let bsne = bs.getNorthEast();
-        let method = 'GETCITYLISTMOBILE';
-        let lat1 = (bssw.lat).toString();
-        let lng1 = (bssw.lng).toString();
-        let lat2 = (bsne.lat).toString();
-        let lng2 = (bsne.lng).toString();
-        let level = mapLevel.toString();
-        let appId = 'f2371c6069d914f1cb8bf7ea812d217e';
-        let params = {
-          'url': 'https://m.zq12369.com/v2/api/zhenqimobileapi.php',
-          'appId': appId,
-          'method': encode_param(method),
-          'lat1': encode_param(lat1),
-          'lng1': encode_param(lng1),
-          'lat2': encode_param(lat2),
-          'lng2': encode_param(lng2),
-          'level': encode_param(level),
-          'secret': encode_secret(method, lat1, lng1, lat2, lng2, level)
-        };
-        axios({
-          url: 'http://localhost:6005/Handler.ashx',
-          method: 'POST',
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          data: qs.stringify(params)
-        }).then(function (result) {
-          if (result.status === 200) {
-            if (typeof result.data === 'string') {
-              let data = JSON.parse(decode_result(result.data));
-              if (data.total > 0) {
-                t.data = data.rows;
-                t.render(data.rows, type);
-              }
-            } else {
-              console.log(result.data);
+//        let bssw = bs.getSouthWest();
+//        let bsne = bs.getNorthEast();
+//        let method = 'GETCITYLISTMOBILE';
+//        let lat1 = (bssw.lat).toString();
+//        let lng1 = (bssw.lng).toString();
+//        let lat2 = (bsne.lat).toString();
+//        let lng2 = (bsne.lng).toString();
+//        let level = mapLevel.toString();
+//        let appId = 'f2371c6069d914f1cb8bf7ea812d217e';
+//        let params = {
+//          'url': 'https://m.zq12369.com/v2/api/zhenqimobileapi.php',
+//          'appId': appId,
+//          'method': encode_param(method),
+//          'lat1': encode_param(lat1),
+//          'lng1': encode_param(lng1),
+//          'lat2': encode_param(lat2),
+//          'lng2': encode_param(lng2),
+//          'level': encode_param(level),
+//          'secret': encode_secret(method, lat1, lng1, lat2, lng2, level)
+//        };
+//        let params = {
+//          pointlevel: '国控点'
+//        };
+//        let url = 'http://localhost:6005/Handler.ashx';
+        let url = 'http://117.119.97.150:8063/api/Monitoring/GetMonitoringPointReal';
+        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+          console.log(result);
+          if (result.status === 0) {
+            t.data = result.obj;
+            t.render(t.getPointByType(t.ptType), type);
+              bus.$emit('refreshRanking', result.obj, type);
+          }
+        }, function (ex) {
+          console.error(ex);
+        });
+//        axios({
+//          url: 'http://localhost:6005/Handler.ashx',
+//          method: 'POST',
+//          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+//          data: qs.stringify(params)
+//        }).then(function (result) {
+//          if (result.status === 200) {
+//            if (typeof result.data === 'string') {
+//              let data = JSON.parse(decode_result(result.data));
+//              if (data.total > 0) {
+//                t.data = data.rows;
+//                t.render(data.rows, type);
+//              }
+//              console.log(data);
+//            } else {
+//              console.log(result.data);
+//            }
+//          }
+//        }).catch(function () {
+//          console.error('Request Error!');
+//        })
+      },
+      getPointByType(type){
+        let rtValue = [];
+        let dt = this.data;
+        if (dt) {
+          for (let i = 0, length = dt.length; i < length; i++) {
+            let item = dt[i];
+            if (item.type === type) {
+              rtValue.push(dt[i]);
             }
           }
-        }).catch(function () {
-          console.error('Request Error!');
-        })
+        }
+        return rtValue;
       },
       switchRender (type) {
         if (this.data) {
           this.item = type;
-          this.render(this.data, this.item);
+          this.render(this.getPointByType(this.ptType), this.item);
+        }
+      },
+      tabClickEvent(type){
+        if (this.data) {
+          this.ptType = type;
+          this.render(this.getPointByType(type),this.item);
         }
       },
       render (data, type) {
         if (data) {
-          bus.$emit('refreshRanking', data, type);
+
           this.clearRenderOverlay();
           let aqi, lat, lng, city, pointname, level, region, province, title, value, unit, index, hourdiff, time, pointtype, bgcolor
           for (let i = 0; i < data.length && (this.type !== 'REGION' || this.item !== 'AQI'); i++) {
             city = data[i].cityname;
             pointname = data[i].pointname;
             level = data[i].level;
-            region = data[i].region;
-            province = data[i].provincename;
+            region = data[i].pointname;//data[i].region;
+            province = data[i].provincename || '';
             if (!level) {
               level = '城市';
             }
             aqi = parseInt(data[i].aqi);
             let time1 = new Date(data[i].time);
-            let time2 = new Date()
+            let time2 = new Date();
             hourdiff = (time2.getTime() - time1.getTime()) / 3600000;
             if (hourdiff > 3) {
               aqi = 0;
@@ -120,7 +164,7 @@
                 break;
               case 'PM2.5':
                 if (hourdiff < 2) {
-                  value = parseInt(data[i].pm2_5);
+                  value = parseInt(data[i].pm25);
                 } else {
                   value = 0;
                 }
@@ -197,7 +241,7 @@
                 break;
               case 'WS':
                 if (hourdiff < 2) {
-                  value = parseInt(data[i].windlevel);
+                  value = parseInt(data[i].windspeed);
                 } else {
                   value = 0;
                 }
@@ -206,7 +250,7 @@
                 break;
               case 'WD':
                 if (hourdiff < 2) {
-                  value = parseInt(data[i].windangle) + '|' + parseInt(data[i].windlevel);
+                  value = parseInt(data[i].windangle) + '|' + parseInt(data[i].windspeed);
                 } else {
                   value = 0;
                 }
@@ -222,7 +266,7 @@
             let point = new BMap.Point(lng, lat);
 
             if (city !== province) {
-              title = province + '-' + city;
+              title = city;//province + '-' + city;
             } else {
               title = city;
             }
@@ -237,12 +281,12 @@
               '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
               + '<table width=\'100%\' class=\'fitem\'>'
               + '</td></tr><tr><th>类型</th><td style=\'width:70px;text-align:center;\'>' + pointtype
-              + '</td><th>区域</th><td style=\'width:70px;text-align:center;\'>' + data[i].region
+              + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
               + '</td><th></th><td  style=\'width:70px;text-align:center;\'>' + ''
               + '</td></tr></tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(aqi)) + ';color:#fff\'>' + aqi
               + '</td><th>等级</th><td style=\'text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(aqi)) + ';color:#fff\'>' + this.getLevel(aqi).quality
               + '</td><th>综指</th><td  style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getComplexIndex(data[i].complexindex)) + ';color:#fff\'>' + parseFloat(data[i].complexindex).toFixed(3)
-              + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data[i].pm2_5)) + ';color:#fff\'>' + parseInt(data[i].pm2_5)
+              + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data[i].pm25)) + ';color:#fff\'>' + parseInt(data[i].pm25)
               + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data[i].pm10)) + ';color:#fff\'>' + parseInt(data[i].pm10)
               + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data[i].co)) + ';color:#fff\'>' + parseFloat(data[i].co).toFixed(1)
               + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data[i].no2)) + ';color:#fff\'>' + parseInt(data[i].no2)
@@ -250,10 +294,10 @@
               + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data[i].o3)) + ';color:#fff\'>' + parseInt(data[i].o3)
               + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data[i].temp) + '℃'
               + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data[i].humi) + '%'
-              + '</td><th>大气压</th><td style=\'width:70px;text-align:center;\'>' + data[i].pressure + 'hPa'
+              + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
               + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data[i].winddirection
               + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data[i].windlevel) + '级'
-              + '</td><th>能见度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data[i].visibility) + 'km'
+              + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
               + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data[i].time + '</td></tr></table>'
               + '</td>'
               + '<td valign=\'top\' align=\'right\'><td>'
@@ -271,12 +315,12 @@
                   }
                 }
               }
-              this.showMapByPoint(title, value, bgcolor, point, desp, i, city, region, pointname, index, isfd);
+              this.showMapByPoint(title, value, bgcolor, point, desp, i, city, region, pointname, index, isfd, data[i].citygid);
             }
           }
         }
       },
-      showMapByPoint (name, value, bgcolor, point, desp, i, city, region, pointname, index, isfd) {
+      showMapByPoint (name, value, bgcolor, point, desp, i, city, region, pointname, index, isfd, citycode) {
         let t = this;
         let arr, wl, wd, icon, offseth, color, isone;
         let opts = {
@@ -412,7 +456,7 @@
         }
         label.addEventListener('click', function () {
           searchInfoWindow.open(point);
-          t.showCityPointChart(i, city, pointname);
+          t.showCityPointChart(i, city, pointname, citycode);
         });
         this.lsSearchInfoWindow.push(searchInfoWindow);
         if (value > 80) {
@@ -485,55 +529,62 @@
           quality: _quality
         }
       },
-      showCityPointChart (i, city, pointname) {
-        let qs = require('qs');
+      showCityPointChart (i, city, pointname, citycode) {
+        console.log(citycode);
         let t = this;
-        let point_param = null;
-        let startTime = new Date();
-        startTime.setHours(startTime.getHours() - 27);
-        startTime.setMinutes(0);
-        let endTime = new Date();
-        startTime = startTime.pattern('yyyy-MM-dd HH:mm:ss');
-        endTime = endTime.pattern('yyyy-MM-dd HH:mm:ss');
-        let city_param = encode_param(city);
-        let method, secret;
-        let type = 'HOUR';
-        if (pointname !== null) {
-          point_param = encode_param(pointname);
-          method = 'GETCITYPOINTPERIOD';
-          secret = encode_secret(method, city_param, point_param, type, startTime, endTime);
-        } else {
-          method = 'CETCITYPERIODAUTO';
-          secret = encode_secret(method, city_param, type, startTime, endTime);
-        }
-        let params = {
-          'url': 'https://m.zq12369.com/v2/api/zhenqimobileapi.php',
-          'appId': 'f2371c6069d914f1cb8bf7ea812d217e',
-          'method': encode_param(method),
-          'city': city_param,
-          'pointname': point_param,
-          'type': encode_param(type),
-          'startTime': encode_param(startTime),
-          'endTime': encode_param(endTime),
-          'secret': secret
-        };
-        axios({
-          url: 'http://localhost:6005/Handler.ashx',
-          method: 'POST',
-          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-          data: qs.stringify(params)
-        }).then(function (result) {
-          let data = decode_result(result.data);
-          data = typeof data === 'string' ? JSON.parse(data) : data;
-          console.log(data);
-          if (data && data.total) {
-            t.loadChartData(i, data);
+        let url = 'http://117.119.97.150:8063/api/Monitoring/GetMonitoringPointChart?id=' + citycode;
+        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+          console.log(result);
+          if (result.status === 0) {
+            let dt = result.obj;
+            t.loadChartData(i, {total: dt.length, rows: dt});
           } else {
-            console.log(data);
+            console.log(request);
           }
-        }).catch(function () {
-          console.error('Request Error');
-        })
+        }, function (ex) {
+          console.error(ex);
+        });
+//        let qs = require('qs');
+//        let t = this;
+//        let point_param = null;
+//        let startTime = new Date();
+//        startTime.setHours(startTime.getHours() - 27);
+//        startTime.setMinutes(0);
+//        let endTime = new Date();
+//        startTime = startTime.pattern('yyyy-MM-dd HH:mm:ss');
+//        endTime = endTime.pattern('yyyy-MM-dd HH:mm:ss');
+//        let city_param = encode_param(city);
+//        let method, secret;
+//        let type = 'HOUR';
+//        if (pointname !== null) {
+//          point_param = encode_param(pointname);
+//          method = 'GETCITYPOINTPERIOD';
+//          secret = encode_secret(method, city_param, point_param, type, startTime, endTime);
+//        } else {
+//          method = 'CETCITYPERIODAUTO';
+//          secret = encode_secret(method, city_param, type, startTime, endTime);
+//        }
+//        let params = {
+//          'url': 'https://m.zq12369.com/v2/api/zhenqimobileapi.php',
+//          'appId': 'f2371c6069d914f1cb8bf7ea812d217e',
+//          'method': encode_param(method),
+//          'city': city_param,
+//          'pointname': point_param,
+//          'type': encode_param(type),
+//          'startTime': encode_param(startTime),
+//          'endTime': encode_param(endTime),
+//          'secret': secret
+//        };
+//        RequestHandle.request({url: 'http://localhost:6005/Handler.ashx', type: 'POST', pms: params},
+//          function (request) {
+//            if (request && request.total) {
+//              t.loadChartData(i, request);
+//            } else {
+//              console.log(request);
+//            }
+//          }, function (ex) {
+//            console.error(ex);
+//          });
       },
       loadChartData (i, data) {
         let t = this;
@@ -549,7 +600,7 @@
               index = getAQILevelIndex(value);
               break;
             case 'PM2.5':
-              value = parseInt(data.rows[j].pm2_5);
+              value = parseInt(data.rows[j].pm25);
               unit = 'ug/m3';
               index = getPM25LevelIndex(value);
               break;
@@ -610,7 +661,7 @@
               break;
           }
           dataCityPoint.push({
-            x: converTimeFormat(data.rows[j].time).getTime(),
+            x: converTimeFormat(data.rows[j].time.replace('T', ' ')).getTime(),
             y: value,
             color: getColorByIndex(index)
           })
@@ -619,6 +670,7 @@
         t.showChart('citychart_' + i, labelstr, dataCityPoint, unit, title);
       },
       showChart (container, name, data, unit, title) {
+        console.log(data);
         let dateTypeFormat = '%Y-%m-%d %H:%M';
         let markerShowFlag = false;
         let chart = new Highcharts.Chart(container, {
@@ -659,9 +711,9 @@
               console.log(this);
               let tip = '' + Highcharts.dateFormat(dateTypeFormat, this.x) + '<br/>' +
                 this.series.name + ': <b>' + this.y + '</b>' + unit;
-              if (this.point.primary_pollutant !== null) {
-                tip = tip + '<br/>首要污染物：' + this.point.primary_pollutant;
-              }
+//              if (this.point.primary_pollutant !== null) {
+//                tip = tip + '<br/>首要污染物：' + this.point.primary_pollutant;
+//              }
               return tip;
             }
           },
@@ -686,6 +738,32 @@
             data: data
           }]
         })
+      },
+      getIconByIndex(value) {
+        var icon = null;
+        if (value == 0) {
+          icon = "resource/img/map/level00.png";
+        }
+        else if (value == 1) {
+          icon = "resource/img/map/level11.png";
+        }
+        else if (value == 2) {
+          icon = "resource/img/map/level22.png";
+        }
+        else if (value == 3) {
+          icon = "resource/img/map/level33.png";
+        }
+        else if (value == 4) {
+          icon = "resource/img/map/level44.png";
+        }
+        else if (value == 5) {
+          icon = "resource/img/map/level55.png";
+        }
+        else {
+          icon = "resource/img/map/level66.png";
+        }
+        //icon = "resource/img/map/aqi"+value + ".png";
+        return icon;
       }
     },
     components: {}
@@ -714,7 +792,7 @@
 
   .BMapLib_SearchInfoWindow .BMapLib_bubble_title {
     background-color: #1080cc;
-    color:#fff;
+    color: #fff;
   }
 
   .BMapLib_SearchInfoWindow .BMapLib_bubble_tools div {

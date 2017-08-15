@@ -60,9 +60,8 @@
                                     @size-change="handleSizeChange"
                                     @current-change="handleCurrentChange"
                                     :current-page="currentPage"
-                                    :page-sizes="[10, 20]"
                                     :page-size="pagesize"
-                                    layout="total, sizes, prev, pager, next"
+                                    layout="total, prev, pager, next"
                                     :total="totalCount">
                             </el-pagination>
                         </div>
@@ -80,13 +79,8 @@
             return {
                 zuo:false,
                 you:true,
-                tableData: [
-//                 {
-//                    ranking: '1',//排名
-//                    InControl: '北华航天工业学院',//国控点
-//                    pm: '303',//aqi
-//                }
-                ],
+                tableData: [],
+                allData:[],
                 currentRow: null,
                 pagesize: 10,
                 currentPage: 1,
@@ -118,6 +112,7 @@
             }
         },
         created(){
+            //console.log(123)
             this.initlistData()
         },
         mounted(){
@@ -151,43 +146,37 @@
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     data: {}
                 }).then(res => {
-                    this.totalCount = res.data.datas.yangchen.recommend_goods.length
-                    this.getdataLists()
-                    //console.log(this.count)
+                    let dt = res.data.datas.yangchen.recommend_goods;
+                    this.totalCount = dt.length;
+                    this.allData = dt;
+                    this.setPageTable(10,1);
+                    console.log(dt);
+
                 }, res=> {
                     console.log('失败了')
                 })
             },
             //每页显示数据量变更
             handleSizeChange(val) {
-                this.pagesize = val;
+                //this.pagesize = val;
             },
 
             //页码变更
             handleCurrentChange(val) {
-                this.currentPage = val;
-                this.getdataLists();
+                this.setPageTable(10,val);
+                console.log(val)
             },
-            getdataLists(){
-                this.$axios({
-                    url: '/static/data/tables.json',
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    data: {}
-                }).then(res => {
-                    let Users = res.data.datas.yangchen.recommend_goods;
-                    this.tableData = [];
-                    Users.forEach(item => {
-                        const tableData = {};
-                        tableData.ranking = item.ranking;
-                        tableData.InControl = item.InControl;
-                        tableData.pm = item.pm;
-                        this.tableData.push(tableData);
-                    })
-                }, res=> {
-                    console.log('失败了')
-                })
+            setPageTable(pageSize,pageNum){
+                let rtValue = [];
+                let startNum = pageSize*(pageNum-1);
+                for(let i=0;i<pageSize;i++){
+                    if((startNum+i+1) > this.allData.length)
+                        break;
+                    rtValue.push(this.allData[startNum+i]);
+                }
+                this.tableData = rtValue;
             }
+
         }
     }
 </script>

@@ -4,10 +4,12 @@
       <li v-for="(item,index) in target" :data-type="item.name" @click="liClickEvent">{{item.value}}</li>
     </ul>
     <hot-layer></hot-layer>
+    <marker-layer></marker-layer>
   </div>
 </template>
 <script>
   import HotLayer from '@/map/handle/HotLayer'
+  import MarkerLayer from '@/map/handle/MarkerLayer'
   import {bus} from '@/js/bus.js'
 
   export default {
@@ -41,8 +43,12 @@
           element.style.color = '#1080CC';
           switch (type.toUpperCase()) {
             case 'HOTMAP':
+                bus.$emit('setHotLayerVisible',true);
+                bus.$emit('setMarkerVisible',false);
               break;
             case 'POINTMAP':
+              bus.$emit('setHotLayerVisible',false);
+              bus.$emit('setMarkerVisible',true);
               break;
           }
         }
@@ -54,7 +60,7 @@
         });
       }
     },
-    components: {HotLayer}
+    components: {HotLayer,MarkerLayer}
   };
 </script>
 <style scoped>

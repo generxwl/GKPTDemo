@@ -70,10 +70,10 @@
       },
       resetImg(){
         let targets = this.$data.targets;
-        jQuery.find('.target-content li').forEach(function (value, index) {
+        jQuery.find('.dust-target-content li').forEach(function (value, index) {
           value.style.backgroundColor = '#1080CC';
         });
-        jQuery.find('.target-content li>img').forEach(function (value, index) {
+        jQuery.find('.dust-target-content li>img').forEach(function (value, index) {
           let target = targets[index];
           value.src = target.src;
         })

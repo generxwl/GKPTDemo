@@ -60,9 +60,9 @@
                                     @size-change="handleSizeChange"
                                     @current-change="handleCurrentChange"
                                     :current-page="currentPage"
-                                    :page-size="5"
+                                    :page-size="pagesize"
                                     layout="total, prev, pager, next"
-                                    :total="count">
+                                    :total="totalCount">
                             </el-pagination>
                         </div>
                     </div>
@@ -79,57 +79,12 @@
             return {
                 zuo:false,
                 you:true,
-                tableData: [{
-                    ranking: '1',//排名
-                    InControl: '北华航天工业学院',//国控点
-                    aqi: '303',//aqi
-                }, {
-                    ranking: '2',//排名
-                    InControl: '河北工业大学',//国控点
-                    aqi: '303',//aqi
-                }, {
-                    ranking: '3',//排名
-                    InControl: '廊坊第十中学',//国控点
-                    aqi: '303',//aqi
-                }, {
-                    ranking: '4',//排名
-                    InControl: '新世纪中学',//国控点
-                    aqi: '303',//aqi
-                },{
-                    ranking: '5',//排名
-                    InControl: '廊坊第十中学',//国控点
-                    aqi: '303',//aqi
-                },
-                    {
-                        ranking: '6',//排名
-                        InControl: '廊坊第十中学',//国控点
-                        aqi: '303',//aqi
-                    },
-                    {
-                        ranking: '7',//排名
-                        InControl: '廊坊第十中学',//国控点
-                        aqi: '303',//aqi
-                    },
-                    {
-                        ranking: '8',//排名
-                        InControl: '廊坊第十中学',//国控点
-                        aqi: '303',//aqi
-                    },
-                    {
-                        ranking: '9',//排名
-                        InControl: '廊坊第十中学',//国控点
-                        aqi: '303',//aqi
-                    },
-                    {
-                        ranking: '10',//排名
-                        InControl: '廊坊第十中学',//国控点
-                        aqi: '303',//aqi
-                    }],
+                tableData:[],
+                allData:[],
                 currentRow: null,
-                offset: 0,
-                limit: 10,
-                count: 61,
-                currentPage: 6,
+                pagesize: 10,
+                currentPage: 1,
+                totalCount:0,
                 pickerOptions1: {
                     shortcuts: [{
                         text: '今天',
@@ -154,27 +109,10 @@
                 },
                 value1: '',
                 value2: '',
-                handleSizeChange(val) {
-                    console.log(`每页 ${val} 条`);
-                },
-                handleCurrentChange(val) {
-                    this.currentPage = val;
-                    this.offset = (val - 1)*this.limit;
-                    //this.getUsers()
-                },
             }
         },
         created(){
-            this.$axios({
-                url: '/static/data/tables.json',
-                method: 'GET',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                data: {}
-            }).then(res => {
-                console.log(res)
-            }, res=> {
-                console.log('失败了')
-            })
+           this.initlistData()
         },
         mounted(){
             //右侧收放
@@ -199,7 +137,45 @@
             })
             //
         },
-        methods: {}
+        methods: {
+            initlistData(){
+                this.$axios({
+                    url: '/static/data/tables.json',
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    data: {}
+                }).then(res => {
+                    let dt = res.data.datas.chuangan.recommend_goods;
+                    this.totalCount = dt.length;
+                    this.allData = dt;
+                    this.setPageTable(10,1);
+                    console.log(dt);
+
+                }, res=> {
+                    console.log('失败了')
+                })
+            },
+            //每页显示数据量变更
+            handleSizeChange(val) {
+                //this.pagesize = val;
+            },
+
+            //页码变更
+            handleCurrentChange(val) {
+                this.setPageTable(10,val);
+                console.log(val)
+            },
+            setPageTable(pageSize,pageNum){
+                let rtValue = [];
+                let startNum = pageSize*(pageNum-1);
+                for(let i=0;i<pageSize;i++){
+                    if((startNum+i+1) > this.allData.length)
+                        break;
+                    rtValue.push(this.allData[startNum+i]);
+                }
+                this.tableData = rtValue;
+            }
+        }
     }
 </script>
 
