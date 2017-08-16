@@ -34,6 +34,7 @@
         bus.$on('tilesLoaded', this.resetData);
         bus.$on('showWindowInfo', this.showSearchInfoWindow);
         bus.$on('tabClick', this.tabClickEvent);
+        bus.$on('refreshLayer', this.refreshLayer);
       },
       resetData (map) {
         if (!this.hasLoaded) {
@@ -121,6 +122,7 @@
             }
           }
         }
+        console.log(rtValue)
         return rtValue;
       },
       switchRender (type) {
@@ -135,9 +137,16 @@
           this.render(this.getPointByType(type),this.item);
         }
       },
+        refreshLayer(data){
+          console.log(this.item);
+          console.log(data);
+            if (data) {
+                this.data = data;
+                this.render(this.getPointByType(this.ptType), this.item);
+            }
+        },
       render (data, type) {
         if (data) {
-
           this.clearRenderOverlay();
           let aqi, lat, lng, city, pointname, level, region, province, title, value, unit, index, hourdiff, time, pointtype, bgcolor
           for (let i = 0; i < data.length && (this.type !== 'REGION' || this.item !== 'AQI'); i++) {
@@ -152,10 +161,10 @@
             aqi = parseInt(data[i].aqi);
             let time1 = new Date(data[i].time);
             let time2 = new Date();
-            hourdiff = (time2.getTime() - time1.getTime()) / 3600000;
-            if (hourdiff > 3) {
-              aqi = 0;
-            }
+            hourdiff = 0;//(time2.getTime() - time1.getTime()) / 3600000;
+//            if (hourdiff > 3) {
+//              aqi = 0;
+//            }
             switch (type) {
               case 'AQI':
                 value = aqi;

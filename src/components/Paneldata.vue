@@ -12,8 +12,8 @@
                     <div class="first">
                         <div class="tables">
                             <!--选项-->
-                            <a href="##" class="bai">实时</a>
-                            <a href="##">累计</a>
+                            <a id="shishi" @click="RealTimeFatch()" class="bai">实时</a>
+                            <a id="leiji" @click="CumulativeFatch()">累计</a>
                         </div>
                         <div class="shijian">
                             <!--时间选择-->
@@ -22,13 +22,14 @@
                                         v-model="value2"
                                         type="datetime"
                                         placeholder="选择日期时间"
+                                        format="yyyy-MM-dd HH:mm:ss"
                                         align="right"
                                         :picker-options="pickerOptions1">
                                 </el-date-picker>
                             </div>
                         </div>
                         <div class="btnns">
-                            <button>查询</button>
+                            <button @click="TimeChaXun()">查询</button>
                         </div>
                     </div>
                     <!--详细天气-->
@@ -38,7 +39,7 @@
                             <!--天气-->
 
                             <div class="tqbj">
-                                {{Datalist.weather}}
+                                <img class="beijing" :src="'static/imgs/weather/'+ Datalist.weather+'.png'">
                             </div>
                             <p>温度：{{Datalist.temp}}</p>
                             <p>湿度：{{Datalist.humi}}</p>
@@ -46,24 +47,24 @@
                             <p>降雨量：{{Datalist.rain}}</p>
                         </div>
                         <div class="yuanjindu">
-                            <div class="jdflaot" >
+                            <div class="jdflaot">
                                 <div id="main1" style="width: 90px;height: 90px"></div>
                                 <div class="texts">{{Datalist.aqi}}</div>
                                 <p>小时AQI</p>
                             </div>
 
-                            <div class="jdflaot" >
+                            <div class="jdflaot">
                                 <div id="main2" style="width: 90px;height: 90px"></div>
                                 <div class="texts">{{Datalist.aqiAccu}}</div>
                                 <p>当日累计AQI</p>
                             </div>
-                            <div class="jdflaot" >
+                            <div class="jdflaot">
                                 <div id="main3" style="width: 90px;height: 90px"></div>
                                 <div class="texts">{{Datalist.ComplexIndex}}</div>
                                 <p>小时综合指数</p>
                             </div>
                         </div>
-                        <div class="ph" style="margin-bottom:20px">
+                        <div class="ph" style="margin-bottom:20px" v-if="shishi">
                             <ul>
                                 <li :style="{background:Datalist.pm25Color}">PM2.5</li>
                                 <li :style="{background:Datalist.pm10Color}">PM10</li>
@@ -81,32 +82,50 @@
                                 <li>{{Datalist.o3}}</li>
                             </ol>
                         </div>
-                        <div class="wrjingdu"  style="display: none;">
+                        <div class="ph" style="margin-bottom:20px" v-if="leiji">
+                            <ul>
+                                <li :style="{background:CumulativeData.pm25Color}">PM2.5</li>
+                                <li :style="{background:CumulativeData.pm10Color}">PM10</li>
+                                <li :style="{background:CumulativeData.so2Color}">SO2</li>
+                                <li :style="{background:CumulativeData.coColor}">CO</li>
+                                <li :style="{background:CumulativeData.no2Color}">NO2</li>
+                                <li :style="{background:CumulativeData.o3Color}">O3</li>
+                            </ul>
+                            <ol>
+                                <li>{{CumulativeData.pm25}}</li>
+                                <li>{{CumulativeData.pm10}}</li>
+                                <li>{{CumulativeData.so2}}</li>
+                                <li>{{CumulativeData.co}}</li>
+                                <li>{{CumulativeData.no2}}</li>
+                                <li>{{CumulativeData.o3}}</li>
+                            </ol>
+                        </div>
+                        <div class="wrjingdu">
                             <p>主要污染物PM2.5</p>
-                            <div class="jdhezi">
-                                <div class="font">日</div>
-                                <div class="tiaojd">
-                                    <el-progress :text-inside="true" :stroke-width="18" :percentage="20"></el-progress>
-                                </div>
-                            </div>
-                            <div class="jdhezi">
-                                <div class="font">月</div>
-                                <div class="tiaojd">
-                                    <el-progress :text-inside="true" :stroke-width="18" :percentage="20"></el-progress>
-                                </div>
-                            </div>
-                            <div class="jdhezi">
-                                <div class="font">年</div>
-                                <div class="tiaojd">
-                                    <el-progress :text-inside="true" :stroke-width="18" :percentage="20"></el-progress>
-                                </div>
-                            </div>
-                            <strong>今日空气质量预计为：{{Datalist.qulity}}</strong>
+                            <!--<div class="jdhezi">-->
+                            <!--<div class="font">日</div>-->
+                            <!--<div class="tiaojd">-->
+                            <!--<el-progress :text-inside="true" :stroke-width="18" :percentage="20"></el-progress>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="jdhezi">-->
+                            <!--<div class="font">月</div>-->
+                            <!--<div class="tiaojd">-->
+                            <!--<el-progress :text-inside="true" :stroke-width="18" :percentage="20"></el-progress>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="jdhezi">-->
+                            <!--<div class="font">年</div>-->
+                            <!--<div class="tiaojd">-->
+                            <!--<el-progress :text-inside="true" :stroke-width="18" :percentage="20"></el-progress>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <strong v-if="tianqiyuji">今日空气质量预计为：{{Datalist.qulity}}</strong>
                         </div>
                     </div>
                     <!--table表格-->
                     <div class="table">
-                        <el-tabs type="border-card"  @tab-click="handleClick">
+                        <el-tabs type="border-card" @tab-click="handleClick">
                             <el-tab-pane label="国控点">
                                 <el-table
                                         :data="tableData"
@@ -200,22 +219,13 @@
         name: 'paneldata',
         data () {
             return {
-                zuo:false,
-                you:true,
-                //国控点
+                zuo: false,
+                you: true,
+                //tables数据
                 ptType: '国控点',
-                type:'AQI',
+                type: 'AQI',
                 tableData: [],
-                allData:[],
-                //省控点
-                SKtableData: [],
-                SKallData:[],
-                //关心城市
-                GXtableData: [],
-                GXallData:[],
-                //倒数十名
-                DStableData: [],
-                DSallData:[],
+                allData: [],
                 pickerOptions1: {
                     shortcuts: [{
                         text: '今天',
@@ -240,12 +250,21 @@
                 },
                 value1: '',
                 value2: '',
-                Datalist:{}
+                //实时数据
+                Datalist: {},
+                //预计天气状态
+                tianqiyuji: true,
+                //累计数据
+                CumulativeData: {},
+                //实时展示
+                shishi: true,
+                //累计展示
+                leiji: false,
             }
         },
         created(){
-            api.GetLfAirData().then(res=>{
-               let shoulist = JSON.parse(res.data);
+            api.GetLfAirData().then(res => {
+                let shoulist = JSON.parse(res.data);
                 this.Datalist = shoulist.obj
                 console.log(this.Datalist)
             })
@@ -255,17 +274,22 @@
             //右侧收放
             let that = this;
             var flag = true;
+            //
+            $('.first .tables a').on('click', function () {
+                $(this).addClass('bai').siblings().removeClass('bai')
+            })
+            //
             $('#list #shrink').on('click', function () {
                 if (flag) {
-                    that.zuo=true;
-                    that.you=false;
+                    that.zuo = true;
+                    that.you = false;
                     $('#list').animate({
                         'right': '-437px'
                     });
                     flag = false;
                 } else {
-                    that.zuo=false;
-                    that.you=true;
+                    that.zuo = false;
+                    that.you = true;
                     $('#list').animate({
                         'right': '0px'
                     });
@@ -273,13 +297,13 @@
                 }
             })
             //传递数据
-            bus.$on('refreshRanking',this.setdata)
+            bus.$on('refreshRanking', this.setdata)
             //圆进度图
             setTimeout(function () {
                 that.yuantuset1();
                 that.yuantuset2();
                 that.yuantuset3()
-            },500)
+            }, 500)
         },
         methods: {
             //排序
@@ -294,7 +318,7 @@
             setdata(data, type){
                 this.data = data;
                 this.tableData = [];
-                console.log(type)
+                //console.log(type)
                 let i = 1;
                 let dt1 = this.getPointByType(this.ptType);
                 let dt2 = dt1.sort(this.compare(type.toLowerCase()));
@@ -316,7 +340,7 @@
             //切换
             handleClick(tab, event) {
                 this.ptType = tab.label
-                bus.$emit('tabClick',tab.label)
+                bus.$emit('tabClick', tab.label)
                 this.setdata(this.data, this.type)
             },
             getPointByType(type){
@@ -335,7 +359,7 @@
             },
             //圆图api
             yuantuset1(){
-                let Datavlue = 500-this.Datalist.aqi;
+                let Datavlue = 500 - this.Datalist.aqi;
                 let Bianvlue = this.Datalist.aqi;
                 let Color = this.Datalist.aqiColor;
                 // 基于准备好的dom，初始化echarts实例
@@ -350,12 +374,12 @@
                     legend: {
                         orient: 'vertical',
                         x: 'left',
-                        data:['API']
+                        data: ['API']
                     },
                     series: [
                         {
-                            name:'api',
-                            type:'pie',
+                            name: 'api',
+                            type: 'pie',
                             radius: ['100%', '90%'],
                             avoidLabelOverlap: false,
                             label: {
@@ -384,13 +408,13 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-                    series:[{
-                        data:[
-                            {value:Datavlue, name:'占比'},
-                            {value:Bianvlue, name:'api'}
+                    series: [{
+                        data: [
+                            {value: Datavlue, name: '占比'},
+                            {value: Bianvlue, name: 'api'}
 
                         ],
-                        color:[
+                        color: [
                             '#ccc',
                             Color
                         ]
@@ -399,7 +423,7 @@
             },
             //圆图累计api
             yuantuset2(){
-                let Datavlue = 500-this.Datalist.aqiAccu;
+                let Datavlue = 500 - this.Datalist.aqiAccu;
                 let Bianvlue = this.Datalist.aqiAccu;
                 let Color = this.Datalist.accuAqiColor;
                 // 基于准备好的dom，初始化echarts实例
@@ -414,12 +438,12 @@
                     legend: {
                         orient: 'vertical',
                         x: 'left',
-                        data:['API']
+                        data: ['API']
                     },
                     series: [
                         {
-                            name:'api',
-                            type:'pie',
+                            name: 'api',
+                            type: 'pie',
                             radius: ['100%', '90%'],
                             avoidLabelOverlap: false,
                             label: {
@@ -448,13 +472,13 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-                    series:[{
-                        data:[
-                            {value:Datavlue, name:'占比'},
-                            {value:Bianvlue, name:'api'}
+                    series: [{
+                        data: [
+                            {value: Datavlue, name: '占比'},
+                            {value: Bianvlue, name: 'api'}
 
                         ],
-                        color:[
+                        color: [
                             '#ccc',
                             Color
                         ]
@@ -463,7 +487,7 @@
             },
             //圆图综合
             yuantuset3(){
-                let Datavlue = 112.53-this.Datalist.ComplexIndex;
+                let Datavlue = 112.53 - this.Datalist.ComplexIndex;
                 let Bianvlue = this.Datalist.ComplexIndex;
                 let Color = this.Datalist.aqiColor;
                 // 基于准备好的dom，初始化echarts实例
@@ -478,12 +502,12 @@
                     legend: {
                         orient: 'vertical',
                         x: 'left',
-                        data:['API']
+                        data: ['API']
                     },
                     series: [
                         {
-                            name:'api',
-                            type:'pie',
+                            name: 'api',
+                            type: 'pie',
                             radius: ['100%', '90%'],
                             avoidLabelOverlap: false,
                             label: {
@@ -512,13 +536,13 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-                    series:[{
-                        data:[
-                            {value:Datavlue, name:'占比'},
-                            {value:Bianvlue, name:'api'}
+                    series: [{
+                        data: [
+                            {value: Datavlue, name: '占比'},
+                            {value: Bianvlue, name: 'api'}
 
                         ],
-                        color:[
+                        color: [
                             '#ccc',
                             Color
                         ]
@@ -532,19 +556,89 @@
 
             //页码变更
             handleCurrentChange(val) {
-                this.setPageTable(10,val);
-                console.log(val)
+                this.setPageTable(10, val);
+                //console.log(val)
             },
-            setPageTable(pageSize,pageNum){
+            //页码分组
+            setPageTable(pageSize, pageNum){
                 let rtValue = [];
-                let startNum = pageSize*(pageNum-1);
-                for(let i=0;i<pageSize;i++){
-                    if((startNum+i+1) > this.allData.length)
+                let startNum = pageSize * (pageNum - 1);
+                for (let i = 0; i < pageSize; i++) {
+                    if ((startNum + i + 1) > this.allData.length)
                         break;
-                    rtValue.push(this.allData[startNum+i]);
+                    rtValue.push(this.allData[startNum + i]);
                 }
                 this.tableData = rtValue;
-            }
+            },
+            //实时切换请求
+            RealTimeFatch(){
+                let t = this;
+                this.leiji = false;
+                this.shishi = true;
+                this.tianqiyuji = true;
+                api.GetMonitoringPointReal().then(res=>{
+                    let shoulist = JSON.parse(res.data);
+                    t.setdata(shoulist.obj, t.type)
+                    bus.$emit('refreshLayer', shoulist.obj)
+                })
+
+            },
+            //累计切换请求
+            CumulativeFatch(){
+                let t = this;
+                api.GetLfAirPollution().then(res => {
+                    let shoulist = JSON.parse(res.data);
+                    this.CumulativeData = shoulist.obj
+                    console.log(this.CumulativeData)
+                })
+                api.GetMonitoringPointAccu().then(res=>{
+                    let shoulist = JSON.parse(res.data);
+                    t.setdata(shoulist.obj, t.type)
+                    bus.$emit('refreshLayer', shoulist.obj)
+                })
+                this.leiji = true;
+                this.shishi = false;
+                this.tianqiyuji = false;
+            },
+            //
+            TimeChaXun(){
+                let t = this;
+                let time = this.dateFtt('yyyy-MM-dd hh:00:00',this.value2);
+               // console.log(this.value2)
+               // console.log(this.dateFtt('yyyy-MM-dd hh:mm:ss',this.value2))
+                api.GetMonitoringPointHour(time).then(res=>{
+//                    console.log('时间查询数据')
+//                    let shoulist = JSON.parse(res.data);
+//                    console.log(res.data)
+//                    console.log(t.type);
+//                    bus.$emit('refreshLayer', shoulist.obj);
+//                    t.setdata(shoulist.obj, t.type)
+
+                    let shoulist = JSON.parse(res.data);
+                    t.setdata(shoulist.obj, t.type)
+                    bus.$emit('refreshLayer', shoulist.obj)
+                })
+            },
+            //时间转换
+            dateFtt(fmt, date){
+                var o = {
+                    "M+": date.getMonth() + 1,                 //月份
+                    "d+": date.getDate(),                    //日
+                    "h+": date.getHours(),                   //小时
+                    "m+": date.getMinutes(),                 //分
+                    "s+": date.getSeconds(),                 //秒
+                    "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+                    "S": date.getMilliseconds()             //毫秒
+                };
+                if (/(y+)/.test(fmt))
+                    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+                for (var k in o)
+                    if (new RegExp("(" + k + ")").test(fmt))
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                return fmt;
+            },
+            //fangfa
+
         }
     }
 </script>
@@ -598,7 +692,7 @@
                         float: left;
                         margin-left: 14px;
                         .bai {
-                            background: #fff
+                            background: #f1f1f1
                         }
                         a {
                             float: left;
@@ -609,7 +703,7 @@
                             width: 60px;
                             height: 34px;
                             border: solid 1px #ccc;
-                            background: #f1f1f1;
+                            background: #fff;
                             border-radius: 2px;
                         }
                     }
@@ -648,7 +742,12 @@
                         .tqbj {
                             width: 64px;
                             height: 64px;
-                            background: url("../assets/img/tq.png");
+                            position: relative;
+                            .beijing {
+                                position: absolute;
+                                top: 10px;
+                                left: 12px;
+                            }
                         }
                         p {
                             font-size: 12px;
@@ -670,14 +769,14 @@
                                 font-size: 14px;
                             }
                         }
-                        div{
+                        div {
                             margin-bottom: 8px;
                             position: relative;
-                            .texts{
+                            .texts {
                                 width: 100%;
                                 height: 30px;
                                 position: absolute;
-                                top:32px;
+                                top: 32px;
                                 text-align: center;
                                 font-size: 18px;
                             }
@@ -740,7 +839,7 @@
                                 width: 300px;
                             }
                         }
-                        strong{
+                        strong {
                             width: 100%;
                             display: inherit;
                             margin-left: 18px;
