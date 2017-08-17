@@ -131,7 +131,7 @@
 </template>
 
 <script>
-
+    import api from '../../api/index'
   export default {
     name: 'index',
     data () {
@@ -165,6 +165,9 @@
     },
       created(){
           this.initlistData()
+          api.GetDustStatistics().then(res=>{
+              console.log(res)
+          })
       },
     mounted(){
       this.openFullScreen()

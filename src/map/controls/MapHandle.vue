@@ -41,6 +41,8 @@
     },
     created(){
       bus.$on('getMap', this.getMap);
+      bus.$on('getSenseMap', this.getMap);
+      bus.$on('getDustMap', this.getMap);
     },
     mounted(){
       let t = this;

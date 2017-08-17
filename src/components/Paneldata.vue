@@ -1,5 +1,6 @@
 <template>
     <div class="Paneldata">
+        <!--首页面板-->
         <div id="list">
             <img class="qianren" src="../assets/img/千人计划logo.png" alt="">
             <div class="panel">
@@ -101,7 +102,7 @@
                             </ol>
                         </div>
                         <div class="wrjingdu">
-                            <p>主要污染物PM2.5</p>
+                            <p>主要污染物：{{Datalist.mainpoll}}</p>
                             <!--<div class="jdhezi">-->
                             <!--<div class="font">日</div>-->
                             <!--<div class="tiaojd">-->
@@ -130,6 +131,7 @@
                                 <el-table
                                         :data="tableData"
                                         border
+                                        @current-change="RowCurrentChange"
                                         style="width: 100%">
                                     <el-table-column
                                             prop="ranking"
@@ -166,6 +168,7 @@
                                 <el-table
                                         :data="tableData"
                                         border
+                                        @current-change="RowCurrentChange"
                                         style="width: 100%">
                                     <el-table-column
                                             prop="ranking"
@@ -174,7 +177,7 @@
                                     </el-table-column>
                                     <el-table-column
                                             prop="InControl"
-                                            label="国控点"
+                                            label="省控点"
                                             width="150"
                                     >
                                     </el-table-column>
@@ -267,8 +270,9 @@
                 let shoulist = JSON.parse(res.data);
                 this.Datalist = shoulist.obj
                 console.log(this.Datalist)
+                bus.$on('switchRender', this.switchRender);
             })
-            bus.$on('switchRender', this.switchRender);
+
         },
         mounted(){
             //右侧收放
@@ -314,6 +318,15 @@
                     return value1 - value2
                 }
             },
+            //table点击事件
+            RowCurrentChange(val){
+                this.currentRow = val;
+                let citygid = this.currentRow.citygid;//城市id
+                let latitude = this.currentRow.latitude;//纬度
+                let longitude = this.currentRow.longitude;//经度
+               // console.log(this.currentRow)
+                bus.$emit('showWindowInfo', longitude,latitude, citygid)
+            },
             //监听数据
             setdata(data, type){
                 this.data = data;
@@ -325,14 +338,18 @@
                 dt2.forEach(item => {
                     const tableData = {};
                     tableData.ranking = i++;
-                    tableData.InControl = item.type;
+                    tableData.InControl = item.type;//类型
+                    tableData.citygid = item.citygid;//城市id
+                    tableData.latitude = item.latitude;//纬度
+                    tableData.longitude = item.longitude;//经度
                     tableData.AirQualityGrade = item.quality;
-                    tableData.aqi = item[type.toLowerCase()];
+                    tableData.aqi = item[type.toLowerCase()];//数值
                     tableData.PrimaryPollutant = item.primary_pollutant;
                     this.tableData.push(tableData);
 
                 })
             },
+            //渲染
             switchRender(type){
                 this.type = type;
                 this.setdata(this.data, this.type)
@@ -343,6 +360,7 @@
                 bus.$emit('tabClick', tab.label)
                 this.setdata(this.data, this.type)
             },
+            //分页部分功能
             getPointByType(type){
                 let rtValue = [];
                 let dt = this.data;
@@ -607,13 +625,7 @@
                // console.log(this.value2)
                // console.log(this.dateFtt('yyyy-MM-dd hh:mm:ss',this.value2))
                 api.GetMonitoringPointHour(time).then(res=>{
-//                    console.log('时间查询数据')
-//                    let shoulist = JSON.parse(res.data);
-//                    console.log(res.data)
-//                    console.log(t.type);
-//                    bus.$emit('refreshLayer', shoulist.obj);
-//                    t.setdata(shoulist.obj, t.type)
-
+                    console.log('时间查询数据')
                     let shoulist = JSON.parse(res.data);
                     t.setdata(shoulist.obj, t.type)
                     bus.$emit('refreshLayer', shoulist.obj)
@@ -691,6 +703,14 @@
                     .tables {
                         float: left;
                         margin-left: 14px;
+                        #shishi{
+                            border-bottom-right-radius: 0;
+                            border-top-right-radius: 0;
+                        }
+                        #leiji{
+                            border-bottom-left-radius: 0;
+                            border-top-left-radius: 0;
+                        }
                         .bai {
                             background: #f1f1f1
                         }

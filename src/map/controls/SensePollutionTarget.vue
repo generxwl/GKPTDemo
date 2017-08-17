@@ -22,7 +22,7 @@
             checked: 'static/imgs/map/AQI1.png'
           }, {
             name: 'PM2.5',
-            value: 'PM2.5',
+            value: 'PM25',
             src: 'static/imgs/map/PM-2.5.png',
             checked: 'static/imgs/map/PM-2.51.png',
           }, {
@@ -70,6 +70,9 @@
         let item = targets[index];
         childElement.style.backgroundColor = '#FFF';
         imgElement.src = item.checked;
+        bus.$emit('hotLayerTarget',type);
+        bus.$emit('markerTarget',type);
+        bus.$emit('refreshTarget',type);
       },
       resetImg(){
         let targets = this.$data.targets;

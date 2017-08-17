@@ -1,5 +1,6 @@
 <template>
     <div class="PaneldataOnlineList">
+        <!--在线监测面板-->
         <div id="list">
             <img class="qianren" src="../assets/img/千人计划logo.png" alt="">
             <div class="panel">
@@ -12,7 +13,7 @@
                     <div class="first">
                         <div class="tables">
                             <!--选项-->
-                            <a href="##" class="bai">当前时间</a>
+                            <a style="background: #fff">当前时间</a>
                         </div>
                         <div class="shijian">
                             <!--时间选择-->
@@ -37,6 +38,7 @@
                                 border
                                 stripe
                                 highlight-current-row
+                                @current-change="RowCurrentChange"
                                 style="width: 400px">
                             <el-table-column
                                     property="ranking"
@@ -79,6 +81,7 @@
             return {
                 zuo:false,
                 you:true,
+                ALLdata:[],
                 tableData: [],
                 allData:[],
                 currentRow: null,
@@ -139,6 +142,14 @@
             //
         },
         methods: {
+            //排序
+            compare (propertyName) {
+                return function (object1, object2) {
+                    let value1 = object1[propertyName]
+                    let value2 = object2[propertyName]
+                    return value1 - value2
+                }
+            },
             initlistData(){
                 this.$axios({
                     url: '/static/data/tables.json',
@@ -156,6 +167,32 @@
                     console.log('失败了')
                 })
             },
+            //table点击事件
+            RowCurrentChange(val){
+                this.currentRow = val;
+                // let citygid = this.currentRow.citygid;//城市id
+                //  let latitude = this.currentRow.latitude;//纬度
+                //  let longitude = this.currentRow.longitude;//经度
+                console.log(this.currentRow)
+            },
+            //
+            SetDataList(data, type){
+                this.data = data;
+                this.ALLdata = [];
+//                let i = 1;
+//                let dt1 = this.getPointByType(this.ptType);
+//                let dt2 = dt1.sort(this.compare(type.toLowerCase()));
+//                dt2.forEach(item => {
+//                    const tableData = {};
+//                    tableData.ranking = i++;//排名
+//                    tableData.InControl = item.stationname;//类型
+//                    tableData.citygid = item.citygid;//城市id
+//                    tableData.latitude = item.latitude;//纬度
+//                    tableData.longitude = item.longitude;//经度
+//                    tableData.aqi = item[type.toLowerCase()];//数值
+//                    this.ALLdata.push(tableData);
+//                })
+            },
             //每页显示数据量变更
             handleSizeChange(val) {
                 //this.pagesize = val;
@@ -166,6 +203,7 @@
                 this.setPageTable(10,val);
                 console.log(val)
             },
+            //
             setPageTable(pageSize,pageNum){
                 let rtValue = [];
                 let startNum = pageSize*(pageNum-1);
@@ -175,7 +213,31 @@
                     rtValue.push(this.allData[startNum+i]);
                 }
                 this.tableData = rtValue;
-            }
+            },
+            //
+            //
+            switchRender(type){
+                this.type = type;
+                this.setdata(this.data, this.type)
+            },
+            //时间转换
+            dateFtt(fmt, date){
+                var o = {
+                    "M+": date.getMonth() + 1,                 //月份
+                    "d+": date.getDate(),                    //日
+                    "h+": date.getHours(),                   //小时
+                    "m+": date.getMinutes(),                 //分
+                    "s+": date.getSeconds(),                 //秒
+                    "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+                    "S": date.getMilliseconds()             //毫秒
+                };
+                if (/(y+)/.test(fmt))
+                    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+                for (var k in o)
+                    if (new RegExp("(" + k + ")").test(fmt))
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                return fmt;
+            },
 
         }
     }
@@ -229,20 +291,19 @@
                     .tables {
                         float: left;
                         margin-left: 14px;
-                        .bai {
-                            background: #fff
-                        }
+
                         a {
+                            padding: 0 15px;
                             float: left;
                             text-decoration: none;
                             color: #666;
                             display: inline-block;
                             line-height: 34px;
-                            width: 90px;
-                            margin-right: 30px;
+                            width: 100px;
                             height: 34px;
+                            margin-right: 20px;
                             border: solid 1px #ccc;
-                            background: #f1f1f1;
+                            background: #fff;
                             border-radius: 2px;
                         }
                     }

@@ -3,13 +3,14 @@
     <ul>
       <li v-for="(item,index) in target" :data-type="item.name" @click="liClickEvent">{{item.value}}</li>
     </ul>
-    <hot-layer></hot-layer>
-    <marker-layer></marker-layer>
+    <hot-layer :charUrl="charUrl"></hot-layer>
+    <marker-layer :charUrl="charUrl"></marker-layer>
   </div>
 </template>
 <script>
   import HotLayer from '@/map/handle/HotLayer'
   import MarkerLayer from '@/map/handle/MarkerLayer'
+  import RequestHandle from '@/request'
   import {bus} from '@/js/bus.js'
 
   export default {
@@ -27,12 +28,28 @@
         }]
       };
     },
+    props: ['pollutionUrl', 'charUrl'],
     created(){
     },
     mounted(){
+      this.ready();
     },
     methods: {
       ready(){
+        bus.$on('tilesSenseLoaded', this.requestHandle);
+      },
+      requestHandle(map){
+        let url = this.pollutionUrl;
+        console.log(url);
+        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+          if (result.status === 0) {
+            console.log(result.obj);
+            bus.$emit('loadHotLayer', map, result.obj);
+            bus.$emit('loadMarker', map, result.obj);
+          }
+        }, function (ex) {
+          console.error(ex);
+        });
       },
       liClickEvent(e){
         let element = e.currentTarget;
@@ -43,12 +60,12 @@
           element.style.color = '#1080CC';
           switch (type.toUpperCase()) {
             case 'HOTMAP':
-                bus.$emit('setHotLayerVisible',true);
-                bus.$emit('setMarkerVisible',false);
+              bus.$emit('setHotLayerVisible', true);
+              bus.$emit('setMarkerVisible', false);
               break;
             case 'POINTMAP':
-              bus.$emit('setHotLayerVisible',false);
-              bus.$emit('setMarkerVisible',true);
+              bus.$emit('setHotLayerVisible', false);
+              bus.$emit('setMarkerVisible', true);
               break;
           }
         }
@@ -60,7 +77,7 @@
         });
       }
     },
-    components: {HotLayer,MarkerLayer}
+    components: {HotLayer, MarkerLayer}
   };
 </script>
 <style scoped>

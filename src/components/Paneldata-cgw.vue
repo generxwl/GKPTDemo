@@ -1,5 +1,6 @@
 <template>
     <div class="PaneldataCgw">
+        <!--传感网面板-->
         <div id="list">
             <img class="qianren" src="../assets/img/千人计划logo.png" alt="">
             <div class="panel">
@@ -12,8 +13,8 @@
                     <div class="first">
                         <div class="tables">
                             <!--选项-->
-                            <a href="##" class="bai">实时</a>
-                            <a href="##">累计</a>
+                            <a id="shishi" @click="RealTimeFatch()" class="bai">实时</a>
+                            <a id="leiji" @click="CumulativeFatch()">累计</a>
                         </div>
                         <div class="shijian">
                             <!--时间选择-->
@@ -28,7 +29,7 @@
                             </div>
                         </div>
                         <div class="btnns">
-                            <button>查询</button>
+                            <button @click="ChaXunJianCe()">查询</button>
                         </div>
                     </div>
                     <!--排名-->
@@ -38,6 +39,7 @@
                                 border
                                 stripe
                                 highlight-current-row
+                                @current-change="RowCurrentChange"
                                 style="width: 400px">
                             <el-table-column
                                     property="ranking"
@@ -51,7 +53,7 @@
                             </el-table-column>
                             <el-table-column
                                     property="aqi"
-                                    label="AQI"
+                                    :label="type"
                                     width="100">
                             </el-table-column>
                         </el-table>
@@ -73,14 +75,18 @@
 </template>
 
 <script>
+    import {bus} from '@/js/bus.js'
+    import api from '../api/index'
     export default {
         name: 'PaneldataCgw',
         data () {
             return {
                 zuo:false,
                 you:true,
+                ALLdata:[],
                 tableData:[],
                 allData:[],
+                type: 'AQI',
                 currentRow: null,
                 pagesize: 10,
                 currentPage: 1,
@@ -112,12 +118,18 @@
             }
         },
         created(){
-           this.initlistData()
+//           this.initlistData()
+            bus.$on('loadMarkerData', this.initlistData);
+            bus.$on('refreshTarget', this.refreshTable);
         },
         mounted(){
             //右侧收放
             let that = this;
             var flag = true;
+            //
+            $('.first .tables a').on('click', function () {
+                $(this).addClass('bai').siblings().removeClass('bai')
+            })
             $('#list #shrink').on('click', function () {
                 if (flag) {
                     that.zuo=true;
@@ -138,22 +150,111 @@
             //
         },
         methods: {
-            initlistData(){
-                this.$axios({
-                    url: '/static/data/tables.json',
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    data: {}
-                }).then(res => {
-                    let dt = res.data.datas.chuangan.recommend_goods;
-                    this.totalCount = dt.length;
-                    this.allData = dt;
+            //排序
+            compare (propertyName) {
+                return function (object1, object2) {
+                    let value1 = object1[propertyName]
+                    let value2 = object2[propertyName]
+                    return value1 - value2
+                }
+            },
+            initlistData(data,type){
+//                api.GetFcStationList().then(res=>{
+//                    let shoulist = JSON.parse(res.data);
+//                    let sudata = shoulist.obj;
+//                    this.SetDataList(sudata, this.type)
+//                    this.totalCount = this.ALLdata.length;
+//                    this.allData = this.ALLdata;
+//                    this.setPageTable(10,1);
+//
+//                })
+                this.type = type;
+                let sudata = data;
+                    this.SetDataList(sudata, type)
+                    this.totalCount = this.ALLdata.length;
+                    this.allData = this.ALLdata;
                     this.setPageTable(10,1);
-                    console.log(dt);
-
-                }, res=> {
-                    console.log('失败了')
+            },
+        refreshTable(type){
+                console.log(type)
+            console.log(this.data)
+            this.type = type;
+            this.SetDataList(this.data, type);
+            this.totalCount = this.ALLdata.length;
+            this.allData = this.ALLdata;
+            this.setPageTable(10,1);
+        },
+            SetDataList(data, type){
+                this.data = data;
+                this.ALLdata = [];
+                let i = 1;
+                let dt1 = this.getPointByType(this.ptType);
+                let dt2 = dt1.sort(this.compare(type.toLowerCase()));
+                dt2.forEach(item => {
+                    const tableData = {};
+                    tableData.ranking = i++;//排名
+                    tableData.InControl = item.stationname;//类型
+                    tableData.citygid = item.stationid;//城市id
+                    tableData.latitude = item.latitude;//纬度
+                    tableData.longitude = item.longitude;//经度
+                    tableData.aqi = item[type.toLowerCase()];//数值
+                    this.ALLdata.push(tableData);
                 })
+            },
+            //监听数据
+            setdata(data, type){
+                this.data = data;
+                this.tableData = [];
+                let i = 1;
+                let dt1 = this.getPointByType(this.ptType);
+                let dt2 = dt1.sort(this.compare(type.toLowerCase()));
+                dt2.forEach(item => {
+                    const tableData = {};
+                    tableData.ranking = i++;//排名
+                    tableData.InControl = item.stationname;//类型
+                    tableData.citygid = item.stationid;//城市id
+                    tableData.latitude = item.latitude;//纬度
+                    tableData.longitude = item.longitude;//经度
+                    tableData.aqi = item[type.toLowerCase()];//数值
+                    this.tableData.push(tableData);
+
+                })
+
+            },
+            //查询
+            ChaXunJianCe(){
+                let t = this;
+                let time = this.dateFtt('yyyy-MM-dd hh:00:00',this.value2);
+                api.ChaxunGetFcStationList(time).then(res=>{
+                    console.log('时间查询数据')
+                    //bus.$emit('refreshLayer', shoulist.obj)
+                    let shoulist = JSON.parse(res.data);
+                    let sudata = shoulist.obj;
+                    this.SetDataList(sudata, this.type)
+                    this.totalCount = this.ALLdata.length;
+                    this.allData = this.ALLdata;
+                    this.setPageTable(10,1);
+                })
+            },
+            //实时
+            RealTimeFatch(){
+                this.initlistData()
+            },
+            //累计
+            CumulativeFatch(){
+                this.$notify({
+                    title: '温馨提示！',
+                    message: '此功能正在开发中！敬请期待',
+                    type: 'warning'
+                });
+            },
+            //table点击事件
+            RowCurrentChange(val){
+                this.currentRow = val;
+               let citygid = this.currentRow.citygid;//城市id
+               let latitude = this.currentRow.latitude;//纬度
+               let longitude = this.currentRow.longitude;//经度
+               bus.$emit('loadChart',longitude, latitude,citygid);
             },
             //每页显示数据量变更
             handleSizeChange(val) {
@@ -165,6 +266,7 @@
                 this.setPageTable(10,val);
                 console.log(val)
             },
+            //
             setPageTable(pageSize,pageNum){
                 let rtValue = [];
                 let startNum = pageSize*(pageNum-1);
@@ -174,7 +276,45 @@
                     rtValue.push(this.allData[startNum+i]);
                 }
                 this.tableData = rtValue;
-            }
+            },
+            //
+            switchRender(type){
+                this.type = type;
+                this.setdata(this.data, this.type)
+            },
+            //分页部分功能
+            getPointByType(type){
+                let rtValue = [];
+                let dt = this.data;
+                if (dt) {
+                    for (let i = 0, length = dt.length; i < length; i++) {
+                        let item = dt[i];
+                        if (item.type === type) {
+                            rtValue.push(dt[i]);
+                        }
+                    }
+                }
+
+                return rtValue;
+            },
+            //时间转换
+            dateFtt(fmt, date){
+                var o = {
+                    "M+": date.getMonth() + 1,                 //月份
+                    "d+": date.getDate(),                    //日
+                    "h+": date.getHours(),                   //小时
+                    "m+": date.getMinutes(),                 //分
+                    "s+": date.getSeconds(),                 //秒
+                    "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+                    "S": date.getMilliseconds()             //毫秒
+                };
+                if (/(y+)/.test(fmt))
+                    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+                for (var k in o)
+                    if (new RegExp("(" + k + ")").test(fmt))
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                return fmt;
+            },
         }
     }
 </script>
@@ -227,8 +367,16 @@
                     .tables {
                         float: left;
                         margin-left: 14px;
+                        #shishi{
+                            border-bottom-right-radius: 0;
+                            border-top-right-radius: 0;
+                        }
+                        #leiji{
+                            border-bottom-left-radius: 0;
+                            border-top-left-radius: 0;
+                        }
                         .bai {
-                            background: #fff
+                            background: #f1f1f1
                         }
                         a {
                             float: left;
@@ -239,7 +387,7 @@
                             width: 60px;
                             height: 34px;
                             border: solid 1px #ccc;
-                            background: #f1f1f1;
+                            background: #fff;
                             border-radius: 2px;
                         }
                     }

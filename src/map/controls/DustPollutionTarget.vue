@@ -3,7 +3,7 @@
     <ul>
       <li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index"><img :title="item.name" :src="index===0?item.checked:item.src"/></li>
     </ul>
-    <pollution-manager></pollution-manager>
+    <pollution-manager :item="checkedName" :pollutionUrl="pollutionUrl" :charUrl="charUrl"></pollution-manager>
   </div>
 </template>
 <script>
@@ -14,6 +14,9 @@
     name: 'DustPollutionTarget',
     data () {
       return {
+        checkedName:'PM2.5',
+        pollutionUrl:'http://117.119.97.150:8063/api/Monitoring/GetMonitoringPointReal',
+        charUrl:'http://117.119.97.150:8063/api/Monitoring/GetMonitoringPointChart',
         targets: [
           {
             name: 'PM2.5',
@@ -66,7 +69,7 @@
         childElement.style.backgroundColor = '#FFF';
         imgElement.src = item.checked;
 
-        bus.$emit('switchDustRender', type);
+        bus.$emit('switchRender', type);
       },
       resetImg(){
         let targets = this.$data.targets;

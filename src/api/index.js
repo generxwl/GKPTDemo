@@ -9,6 +9,8 @@ import {
     GetMonitoringPointAccuResource, //国控点，这是累计接口
     GetMonitoringPointHourResource, //这是小时查询部分
     GetMonitoringPointRealResource,//国控点，这是实时监测点信息
+    GetDustStatisticsResource,//扬尘统计
+    GetFcStationListResource,//传感网接口全部数据，暂无累计
 } from './resource'
 export default {
   //首页天气面板数据
@@ -45,5 +47,26 @@ export default {
 
             }
         )
+    },
+    //扬尘统计
+    GetDustStatistics(){
+        return axios.get(GetDustStatisticsResource,{
+
+            }
+        )
+    },
+    //传感网数据
+    GetFcStationList(){
+        return axios.get(GetFcStationListResource,{
+
+            }
+        )
+    },
+    //传感网数据查询
+    ChaxunGetFcStationList(time){
+        return axios.get(GetFcStationListResource+'?recordtime='+time,{
+
+    }
+    )
     },
 }

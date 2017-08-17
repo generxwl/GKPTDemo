@@ -65,5 +65,10 @@
                 text-align: left!important;
             }
         }
+        //tables样式
+        .el-table .cell, .el-table th>div{
+            padding: 0;
+            text-align: center;
+        }
     }
 </style>

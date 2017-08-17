@@ -40,6 +40,7 @@
         let t = this;
         bus.$on('getMap', this.getMap);
         bus.$on('getSenseMap', this.getMap);
+        bus.$on('getDustMap', this.getMap);
         //bus.$on('tilesLoaded', this.labelInit)
         bus.$on('setLabelVisible', this.setLabelVisible);
         setTimeout(function () {
@@ -57,6 +58,7 @@
         if (this.map) {
           bus.$on('getMap', this.getMap);
           bus.$on('getSenseMap', this.getMap);
+          bus.$on('getDustMap', this.getMap);
         }
         if (this.hasLoad) {
           this.setLabelVisibleByZoom();
@@ -95,7 +97,6 @@
         }
       },
       setLabelVisible(index) {
-        console.log(this.labels[index]);
         this.setLabelHide();
         let ckLabel = this.labels[index];
         this.checkedLabel = ckLabel;
@@ -128,7 +129,6 @@
           this.map.addOverlay(l);
           hasVisible ? l.show() : l.hide();
         }
-        console.log(this.map);
       },
       setLabelHide() {
         for (let i = 0, length = this.labels.length; i < length; i++) {

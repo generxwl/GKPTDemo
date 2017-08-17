@@ -3,9 +3,9 @@
     <div id="sense_map"></div>
     <layer-switch class="layer-switch"></layer-switch>
     <sense-pollution></sense-pollution>
-    <sense-switch></sense-switch>
+    <sense-switch :pollutionUrl="pollutionUrl" :charUrl="charUrl"></sense-switch>
     <sense-map-handle></sense-map-handle>
-    <history-handle></history-handle>
+    <!--<history-handle></history-handle>-->
   </div>
 </template>
 <script>
@@ -20,7 +20,10 @@
   export default {
     name: 'SenseMapMain',
     data () {
-      return {};
+      return {
+        pollutionUrl:'http://10.6.80.93:8064/api/FcStation/GetFcStationList',
+        charUrl:'http://10.6.80.93:8064/api/FcStation/GetSingleStationInfo',
+      };
     },
     mounted(){
         this.ready();
