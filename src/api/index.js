@@ -11,6 +11,7 @@ import {
     GetMonitoringPointRealResource,//国控点，这是实时监测点信息
     GetDustStatisticsResource,//扬尘统计
     GetFcStationListResource,//传感网接口全部数据，暂无累计
+    GetDustHourRankingResource,//在线源清单查询
 } from './resource'
 export default {
   //首页天气面板数据
@@ -68,5 +69,12 @@ export default {
 
     }
     )
+    },
+    //传感网数据查询
+    GetDustHourRanking(time){
+        return axios.get(GetDustHourRankingResource+'?requestTime='+time,{
+
+            }
+        )
     },
 }

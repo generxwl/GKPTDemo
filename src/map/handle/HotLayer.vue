@@ -29,6 +29,7 @@
         bus.$on('loadHotLayer', this.loadHotLayer);
         bus.$on('setHotLayerVisible', this.hotLayerToggle);
         bus.$on('hotLayerTarget', this.pollutionTarget);
+        bus.$on('refreshHotLayer',this.refreshLayer);
       },
       getMap(map){
         if (!this.map) {
@@ -44,7 +45,7 @@
         if (!this.hotLayer) {
           this.hotLayer = new BMapLib.HeatmapOverlay(this.hotConfig);
           this.map.addOverlay(this.hotLayer);
-          this.hotLayer.setDataSet({data: dt, max: 100});
+          this.hotLayer.setDataSet({data: dt, max: (this.getMaxPollutionByType() || 200)});
           this.hasVisible ? this.hotLayer.show() : this.hotLayer.hide();
         }
       }, pollutionTarget(type){
@@ -83,6 +84,36 @@
           hasVisible ? this.hotLayer.show() : this.hotLayer.hide();
         }
       },
+      getMaxPollutionByType(){
+          let rtValue = undefined;
+          if(this.checkedName){
+              switch(this.checkedName.toUpperCase()){
+                case 'AQI':
+                  rtValue = 200;
+                    break;
+                case 'PM25':
+                  rtValue = 150;
+                  break;
+                case 'PM10':
+                  rtValue = 350;
+                  break;
+                case 'SO2':
+                  rtValue = 800;
+                  break;
+                case 'NO2':
+                  rtValue = 280;
+                  break;
+                case 'CO':
+                  rtValue = 24;
+                  break;
+                case 'O3':
+                  rtValue = 265;
+                  break;
+              }
+          }
+          console.log(this.checkedName);
+          return rtValue;
+      }
     }
   };
 </script>

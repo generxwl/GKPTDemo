@@ -144,6 +144,8 @@
                 }
             },
             render (data, type) {
+                console.log(data);
+                console.log(type);
                 if (data) {
                     this.clearRenderOverlay();
                     let aqi, lat, lng, city, pointname, level, region, province, title, value, unit, index, hourdiff,

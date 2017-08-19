@@ -35,6 +35,7 @@
         bus.$on('markerTarget', this.pollutionTarget);
         bus.$on('loadMarker', this.loadMarkerLayer);
         bus.$on('loadChart', this.refreshLoadChart);
+        bus.$on('refreshMarker',this.refreshLayer);
       },
 
       //获取地图对象
@@ -123,7 +124,7 @@
             searchInfoWindow.open(point);
             setTimeout(function () {
               let title = '最近24小时' + t.checkedName + '变化趋势';
-              t.loadChar(code, data.stationname, t.getHourData(data.hourdatas), title);
+              t.loadChar(code, t.checkedName, t.getHourData(data.hourdatas), title);
             }, 100);
           }
         }, function (ex) {

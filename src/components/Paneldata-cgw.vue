@@ -118,7 +118,7 @@
             }
         },
         created(){
-//           this.initlistData()
+            //初始化地图数据监听展示页面
             bus.$on('loadMarkerData', this.initlistData);
             bus.$on('refreshTarget', this.refreshTable);
         },
@@ -126,10 +126,11 @@
             //右侧收放
             let that = this;
             var flag = true;
-            //
+            //实时累计切换样式
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
+            //右边伸缩框加载动画
             $('#list #shrink').on('click', function () {
                 if (flag) {
                     that.zuo=true;
@@ -158,32 +159,24 @@
                     return value1 - value2
                 }
             },
+            //初始数据
             initlistData(data,type){
-//                api.GetFcStationList().then(res=>{
-//                    let shoulist = JSON.parse(res.data);
-//                    let sudata = shoulist.obj;
-//                    this.SetDataList(sudata, this.type)
-//                    this.totalCount = this.ALLdata.length;
-//                    this.allData = this.ALLdata;
-//                    this.setPageTable(10,1);
-//
-//                })
-                this.type = type;
-                let sudata = data;
+                    this.type = type;
+                    let sudata = data;
                     this.SetDataList(sudata, type)
                     this.totalCount = this.ALLdata.length;
                     this.allData = this.ALLdata;
                     this.setPageTable(10,1);
             },
-        refreshTable(type){
-                console.log(type)
-            console.log(this.data)
-            this.type = type;
-            this.SetDataList(this.data, type);
-            this.totalCount = this.ALLdata.length;
-            this.allData = this.ALLdata;
-            this.setPageTable(10,1);
-        },
+            //type更改
+            refreshTable(type){
+                this.type = type;
+                this.SetDataList(this.data, type);
+                this.totalCount = this.ALLdata.length;
+                this.allData = this.ALLdata;
+                this.setPageTable(10,1);
+            },
+            //设置分页所需要数据
             SetDataList(data, type){
                 this.data = data;
                 this.ALLdata = [];
@@ -201,33 +194,12 @@
                     this.ALLdata.push(tableData);
                 })
             },
-            //监听数据
-            setdata(data, type){
-                this.data = data;
-                this.tableData = [];
-                let i = 1;
-                let dt1 = this.getPointByType(this.ptType);
-                let dt2 = dt1.sort(this.compare(type.toLowerCase()));
-                dt2.forEach(item => {
-                    const tableData = {};
-                    tableData.ranking = i++;//排名
-                    tableData.InControl = item.stationname;//类型
-                    tableData.citygid = item.stationid;//城市id
-                    tableData.latitude = item.latitude;//纬度
-                    tableData.longitude = item.longitude;//经度
-                    tableData.aqi = item[type.toLowerCase()];//数值
-                    this.tableData.push(tableData);
-
-                })
-
-            },
             //查询
             ChaXunJianCe(){
                 let t = this;
                 let time = this.dateFtt('yyyy-MM-dd hh:00:00',this.value2);
                 api.ChaxunGetFcStationList(time).then(res=>{
                     console.log('时间查询数据')
-                    //bus.$emit('refreshLayer', shoulist.obj)
                     let shoulist = JSON.parse(res.data);
                     let sudata = shoulist.obj;
                     this.SetDataList(sudata, this.type)
@@ -238,7 +210,14 @@
             },
             //实时
             RealTimeFatch(){
-                this.initlistData()
+                    api.GetFcStationList().then(res=>{
+                    let shoulist = JSON.parse(res.data);
+                    let sudata = shoulist.obj;
+                    this.SetDataList(sudata, this.type)
+                    this.totalCount = this.ALLdata.length;
+                    this.allData = this.ALLdata;
+                    this.setPageTable(10,1);
+                })
             },
             //累计
             CumulativeFatch(){
@@ -266,7 +245,7 @@
                 this.setPageTable(10,val);
                 console.log(val)
             },
-            //
+            //分页部分功能
             setPageTable(pageSize,pageNum){
                 let rtValue = [];
                 let startNum = pageSize*(pageNum-1);
@@ -277,7 +256,7 @@
                 }
                 this.tableData = rtValue;
             },
-            //
+            //渲染部分
             switchRender(type){
                 this.type = type;
                 this.setdata(this.data, this.type)
@@ -300,13 +279,13 @@
             //时间转换
             dateFtt(fmt, date){
                 var o = {
-                    "M+": date.getMonth() + 1,                 //月份
-                    "d+": date.getDate(),                    //日
-                    "h+": date.getHours(),                   //小时
-                    "m+": date.getMinutes(),                 //分
-                    "s+": date.getSeconds(),                 //秒
+                    "M+": date.getMonth() + 1,   //月份
+                    "d+": date.getDate(),        //日
+                    "h+": date.getHours(),       //小时
+                    "m+": date.getMinutes(),     //分
+                    "s+": date.getSeconds(),     //秒
                     "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-                    "S": date.getMilliseconds()             //毫秒
+                    "S": date.getMilliseconds()   //毫秒
                 };
                 if (/(y+)/.test(fmt))
                     fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));

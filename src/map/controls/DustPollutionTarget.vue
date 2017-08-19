@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-  import PollutionManager from '@/map/handle/PollutionManager'
+  import PollutionManager from '@/map/handle/DustPollutionManager'
   import {bus} from '@/js/bus.js'
 
   export default {
@@ -15,8 +15,8 @@
     data () {
       return {
         checkedName:'PM2.5',
-        pollutionUrl:'http://117.119.97.150:8063/api/Monitoring/GetMonitoringPointReal',
-        charUrl:'http://117.119.97.150:8063/api/Monitoring/GetMonitoringPointChart',
+        pollutionUrl:'http://117.119.97.150:8063/api/Dust/GetDustHourRanking',
+        charUrl:'http://117.119.97.150:8063/api/Dust/GetDust24Hour',
         targets: [
           {
             name: 'PM2.5',
@@ -69,7 +69,8 @@
         childElement.style.backgroundColor = '#FFF';
         imgElement.src = item.checked;
 
-        bus.$emit('switchRender', type);
+        bus.$emit('switchDustRender', type);
+        bus.$emit('refreshDustTarget',type);
       },
       resetImg(){
         let targets = this.$data.targets;

@@ -42,6 +42,7 @@
         let url = this.pollutionUrl;
         console.log(url);
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+            console.log(result);
           if (result.status === 0) {
             console.log(result.obj);
             bus.$emit('loadHotLayer', map, result.obj);

@@ -76,7 +76,7 @@
                     <i class="iconfont icon-shezhi"></i>
                     <div class="Sixitem">
                         <a><i class="iconfont icon-fangzi-copy"></i>进入后台</a><br/>
-                        <a><i class="iconfont icon-kaiguan"></i>退出系统</a>
+                        <a v-on:click="exit"><i class="iconfont icon-kaiguan"></i>退出系统</a>
                     </div>
                 </li>
             </ul>
@@ -123,7 +123,14 @@
             });
             //
         },
-        methods: {}
+        methods: {
+        		exit(){
+        			this.$cookies.remove('auth')
+        			setTimeout(() => {
+        				this.$router.push('/login')
+        			})
+        		}
+        }
     }
 </script>
 

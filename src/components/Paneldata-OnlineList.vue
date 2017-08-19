@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="btnns">
-                            <button>查询</button>
+                            <button @click="btnClickEvent">查询</button>
                         </div>
                     </div>
                     <!--排名-->
@@ -51,8 +51,8 @@
                                     width="220">
                             </el-table-column>
                             <el-table-column
-                                    property="pm"
-                                    label="PM2.5"
+                                    property="aqi"
+                                    :label="type"
                                     width="100">
                             </el-table-column>
                         </el-table>
@@ -75,12 +75,15 @@
 </template>
 
 <script>
+    import {bus} from '@/js/bus.js'
+    import api from '../api/index'
     export default {
         name: 'PaneldataOnlineList',
         data () {
             return {
                 zuo:false,
                 you:true,
+                type:'PM2.5',
                 ALLdata:[],
                 tableData: [],
                 allData:[],
@@ -115,8 +118,8 @@
             }
         },
         created(){
-            //console.log(123)
-            this.initlistData()
+            bus.$on('refreshDustRanking', this.initlistData);
+            bus.$on('refreshDustTarget', this.refreshTable);
         },
         mounted(){
             //右侧收放
@@ -150,48 +153,42 @@
                     return value1 - value2
                 }
             },
-            initlistData(){
-                this.$axios({
-                    url: '/static/data/tables.json',
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    data: {}
-                }).then(res => {
-                    let dt = res.data.datas.yangchen.recommend_goods;
-                    this.totalCount = dt.length;
-                    this.allData = dt;
-                    this.setPageTable(10,1);
-                    console.log(dt);
-
-                }, res=> {
-                    console.log('失败了')
-                })
+            initlistData(data,type){
+                this.type = type;
+                let sudata = data;
+                this.SetDataList(sudata, type)
+                this.totalCount = this.ALLdata.length;
+                this.allData = this.ALLdata;
+                this.setPageTable(10,1);
             },
             //table点击事件
             RowCurrentChange(val){
                 this.currentRow = val;
-                // let citygid = this.currentRow.citygid;//城市id
-                //  let latitude = this.currentRow.latitude;//纬度
-                //  let longitude = this.currentRow.longitude;//经度
-                console.log(this.currentRow)
+                let citygid = this.currentRow.citygid;//城市id
+                let latitude = this.currentRow.latitude;//纬度
+                let longitude = this.currentRow.longitude;//经度
+                //console.log(this.currentRow)
+                bus.$emit('showDustInfoWindow',longitude, latitude,citygid);
             },
             //
             SetDataList(data, type){
+                console.log(data)
+                console.log(type)
                 this.data = data;
                 this.ALLdata = [];
-//                let i = 1;
-//                let dt1 = this.getPointByType(this.ptType);
-//                let dt2 = dt1.sort(this.compare(type.toLowerCase()));
-//                dt2.forEach(item => {
-//                    const tableData = {};
-//                    tableData.ranking = i++;//排名
-//                    tableData.InControl = item.stationname;//类型
-//                    tableData.citygid = item.citygid;//城市id
-//                    tableData.latitude = item.latitude;//纬度
-//                    tableData.longitude = item.longitude;//经度
-//                    tableData.aqi = item[type.toLowerCase()];//数值
-//                    this.ALLdata.push(tableData);
-//                })
+                let i = 1;
+                let dt1 = this.getPointByType(this.ptType);
+                let dt2 = dt1.sort(this.compare(type.replace('.','').toLowerCase()));
+                dt2.forEach(item => {
+                    const tableData = {};
+                    tableData.ranking = i++;//排名
+                    tableData.InControl = item.name;//类型
+                    tableData.citygid = item.deviceid;//城市id
+                    tableData.latitude = item.latitude;//纬度
+                    tableData.longitude = item.longitude;//经度
+                    tableData.aqi = item[type.replace('.','').toLowerCase()];//数值
+                    this.ALLdata.push(tableData);
+                })
             },
             //每页显示数据量变更
             handleSizeChange(val) {
@@ -214,8 +211,51 @@
                 }
                 this.tableData = rtValue;
             },
+            //分页部分功能
+            getPointByType(type){
+                let rtValue = [];
+                let dt = this.data;
+                if (dt) {
+                    for (let i = 0, length = dt.length; i < length; i++) {
+                        let item = dt[i];
+                        if (item.type === type) {
+                            rtValue.push(dt[i]);
+                        }
+                    }
+                }
+
+                return rtValue;
+            },
             //
-            //
+            btnClickEvent(){
+                let t = this;
+                let time = this.dateFtt('yyyy-MM-dd hh:00:00',this.value2);
+                console.log(time)
+                api.GetDustHourRanking(time).then(res=>{
+                    let data = res.data;
+                    data = typeof data === 'string' ? JSON.parse(data) : data;
+                    data = {
+                        status: data.hasOwnProperty('status') ? data.status : data.Status,
+                        obj: data.obj || data.ExtraData
+                    };
+
+                    console.log(data)
+                    let sudata = data.obj;
+                    this.SetDataList(sudata, this.type)
+                    this.totalCount = this.ALLdata.length;
+                    this.allData = this.ALLdata;
+                    this.setPageTable(10,1);
+                    bus.$emit('refreshDustLayer', sudata);
+                })
+            },
+            //type更改
+            refreshTable(type){
+                this.type = type;
+                this.SetDataList(this.data, type);
+                this.totalCount = this.ALLdata.length;
+                this.allData = this.ALLdata;
+                this.setPageTable(10,1);
+            },
             switchRender(type){
                 this.type = type;
                 this.setdata(this.data, this.type)

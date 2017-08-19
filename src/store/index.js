@@ -15,6 +15,17 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+	state : {
+		userData : false
+	},
+	actions : {
+		
+	},
+	mutations : {
+		setUserData(state,msg){
+			state.userData = msg
+		}
+	},
     modules: {
         // movie,
         // activities,
