@@ -55,7 +55,7 @@
           'secret': encode_secret(method, lat1, lng1, lat2, lng2, level)
         };
         axios({
-          url: 'http://10.6.22.41:6005/Handler.ashx',
+          url: 'http://localhost:6005/Handler.ashx',
           method: 'POST',
           headers: {'Content-Type': 'application/x-www-form-urlencoded'},
           data: qs.stringify(params)

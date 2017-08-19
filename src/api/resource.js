@@ -9,7 +9,7 @@ const apilangfangTDK= {
   GetMonitoringPointHour:'http://117.119.97.150:8063/api/Monitoring/GetMonitoringPointHour?time=',//这是小时查询部分，默认pointlevel不传，返回所有国控点和省控点
   GetMonitoringPointReal:'http://117.119.97.150:8063/api/Monitoring/GetMonitoringPointReal?pointLevel=',//实时监测点信息
   GetDustStatistics:'http://117.119.97.150:8063/api/Dust/GetDustStatistics',//扬尘统计
-  GetFcStationList:'http://10.6.80.93:8064/api/FcStation/GetFcStationList',//传感网数据
+  GetFcStationList:'http://117.119.97.150:8064/api/FcStation/GetFcStationList',//传感网数据
   GetDustHourRanking:'http://117.119.97.150:8063/api/Dust/GetDustHourRanking?',//在线源清单查询
 }
 
