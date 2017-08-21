@@ -94,5 +94,11 @@
             padding: 0;
             text-align: center;
         }
+        .DustEmissionStatistics{
+            .el-table .cell, .el-table th>div{
+                padding-left: 20px;
+                text-align: center;
+            }
+        }
     }
 </style>

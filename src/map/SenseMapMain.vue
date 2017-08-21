@@ -23,7 +23,7 @@
       return {
         pollutionUrl:'http://117.119.97.150:8064/api/FcStation/GetFcStationList',
         charUrl:'http://117.119.97.150:8064/api/FcStation/GetSingleStationInfo',
-      };
+      }
     },
     mounted(){
         this.ready();

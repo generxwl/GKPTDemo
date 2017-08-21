@@ -1,8 +1,8 @@
-# langfang
+# 廊坊天地空管控平台
 
 > A Vue.js project
 
-## Build Setup
+## Build Setup 安装
 
 ``` bash
 # install dependencies
