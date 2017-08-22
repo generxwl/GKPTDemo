@@ -115,9 +115,12 @@
           url: url + '?paramStr=' + JSON.stringify(pms),
           type: 'GET', pms: {}
         }, function (result) {
-          console.log(result);
-          let s = result.obj[0];
-          t.locationPoint(s.point_lng,s.point_lat,s.id);
+            if (result.status === 0){
+                bus.$emit('getGridData',result.obj);
+            }
+          //console.log(result);
+          //let s = result.obj[0];
+          //t.locationPoint(s.point_lng,s.point_lat,s.id);
         }, function (ex) {
         });
       },

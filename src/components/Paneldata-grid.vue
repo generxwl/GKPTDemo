@@ -59,6 +59,8 @@
 </template>
 
 <script>
+    import {bus} from '@/js/bus.js'
+    //import api from '../api/index'
     export default {
         name: 'PaneldataGrid',
         data () {
@@ -75,7 +77,7 @@
             }
         },
         created(){
-           this.initlistData()
+            bus.$on('getGridData',this.initlistData);
         },
         mounted(){
             //右侧收放
@@ -105,22 +107,12 @@
             //
         },
         methods: {
-            initlistData(){
-                this.$axios({
-                    url: '/static/data/tables.json',
-                    method: 'GET',
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    data: {}
-                }).then(res => {
-                    let dt = res.data.datas.chuangan.recommend_goods;
-                    this.totalCount = dt.length;
-                    this.allData = dt;
-                    this.setPageTable(10,1);
-                    console.log(dt);
-
-                }, res=> {
-                    this.$message.error('数据读取失败哦！');
-                })
+            initlistData(data){
+                let sudata = data;
+                this.SetDataList(sudata)
+                this.totalCount = this.ALLdata.length;
+                this.allData = this.ALLdata;
+                this.setPageTable(10,1);
             },
             //排序
             compare (propertyName) {
@@ -137,9 +129,13 @@
             },
             //查看地址
             ChakanClick(index,item){
-                console.log('查看地址')
-                console.log(index)
-                console.log(item)
+                //console.log('查看地址')
+               // console.log(index)
+               // console.log(item)
+                let citygid = item.citygid;//城市id
+                let latitude = item.latitude;//纬度
+                let longitude = item.longitude;//经度
+                bus.$emit('locationGridPoint',longitude, latitude,citygid);
             },
             //每页显示数据量变更
             handleSizeChange(val) {
@@ -176,18 +172,16 @@
                 this.tableData = rtValue;
             },
             //设置分页所需要数据
-            SetDataList(data, type){
+            SetDataList(data){
                 this.data = data;
                 this.ALLdata = [];
                 let i = 1;
-                let dt1 = this.getPointByType(this.ptType);
-                let dt2 = dt1.sort(this.compare(type.toLowerCase()));
-                dt2.forEach(item => {
+                this.data.forEach(item => {
                     const tableData = {};
                     //tableData.ranking = i++;//排名
                     tableData.InControl = item.companyname;//类型
                     tableData.hangye = item.industry;//行业
-                    tableData.actions = item.address;//地址
+                    //tableData.actions = item.address;//地址
                     tableData.citygid = item.id;//城市id
                     tableData.latitude = item.point_lat;//纬度
                     tableData.longitude = item.point_lng;//经度

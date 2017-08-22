@@ -98,7 +98,7 @@
   .sense-switch-content li {
     list-style: none;
     float: left;
-    height: 35px;
+    height: 34px;
     width: 120px;
     line-height: 35px;
     color: #fff;
