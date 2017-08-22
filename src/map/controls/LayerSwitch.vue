@@ -2,8 +2,24 @@
   <div class="layerSwitch">
     <ul>
       <li class="title"><b class="b-icon"></b><span>图层控制</span></li>
-      <li v-for="(layer,key,index) in layers" :id="layer.id">
-        <input :data-attr="key" title="" @click="radioClick" name="layer" type="radio" :checked="key===0?true:false" />{{layer.name}}</li>
+      <li :id="layers[0].id">
+        <input data-attr="0" title="" @click="radioClick" name="layer" type="radio" checked/>{{layers[0].name}}
+        <div class="block layerSwitch-slider">
+          <el-slider id="slider_0" data-attr="0" v-model="sliderValue0" :disabled="disabledSlider0" @change="sliderChangeEvent"></el-slider>
+        </div>
+      </li>
+      <li :id="layers[1].id">
+        <input data-attr="1" title="" @click="radioClick" name="layer" type="radio"/>{{layers[1].name}}
+        <div class="block layerSwitch-slider">
+          <el-slider id="slider_1" data-attr="1" v-model="sliderValue1" :disabled="disabledSlider1" @change="sliderChangeEvent"></el-slider>
+        </div>
+      </li>
+      <li :id="layers[2].id">
+        <input data-attr="2" title="" @click="radioClick" name="layer" type="radio"/>{{layers[2].name}}
+        <div class="block layerSwitch-slider">
+          <el-slider id="slider_2" data-attr="2" v-model="sliderValue2" :disabled="disabledSlider2" @change="sliderChangeEvent"></el-slider>
+        </div>
+      </li>
     </ul>
     <bd-polygon></bd-polygon>
     <bd-label></bd-label>
@@ -12,43 +28,69 @@
 <script>
   import BdPolygon from '@/map/overlayes/BdPolygon'
   import BdLabel from '@/map/overlayes/BdLabel'
-  import { bus } from '@/js/bus.js'
+  import {bus} from '@/js/bus.js'
 
   export default {
     name: 'LayerSwitch',
     data() {
       return {
-        layers: [{
-          id: 'YW',
-          name: '一级网格',
-          url: ''
-        }, {
-          id: 'EW',
-          name: '二级网格',
-          url: ''
-        }, {
-          id: 'SW',
-          name: '三级网格',
-          url: ''
-        }]
+        sliderValue0: 0,
+        sliderValue1: 0,
+        sliderValue2: 0,
+        disabledSlider0: false,
+        disabledSlider1: true,
+        disabledSlider2: true,
+        checkedId: 0,
+        layers: [
+          {
+            id: 'YW',
+            name: '一级网格',
+            url: ''
+          }, {
+            id: 'EW',
+            name: '二级网格',
+            url: ''
+          }, {
+            id: 'SW',
+            name: '三级网格',
+            url: ''
+          }]
       }
     },
     mounted() {
       this.ready();
     },
     methods: {
-      ready() {},
+      ready() {
+      },
       radioClick(e) {
         let ckLayerId = e.target.getAttribute('data-attr');
         bus.$emit('setVisible', ckLayerId);
-        bus.$emit('setLabelVisible',ckLayerId);
+        bus.$emit('setLabelVisible', ckLayerId);
+        this.setSliderDisable(ckLayerId);
+        this.checkedId = ckLayerId;
+      }, setSliderDisable(id){
+        this.disabledSlider0 = true;
+        this.disabledSlider1 = true;
+        this.disabledSlider2 = true;
+        if (parseInt(id) === 0) {
+          this.disabledSlider0 = false;
+        } else if (parseInt(id) === 1) {
+          this.disabledSlider1 = false;
+        } else if (parseInt(id) === 2) {
+          this.disabledSlider2 = false;
+        }
+      },
+      sliderChangeEvent(e){
+        //console.log(e);
+        bus.$emit('setOpacity', this.checkedId, 1.0 - e / 100)
       }
     },
-    components: { BdPolygon,BdLabel }
+    components: {BdPolygon, BdLabel}
   }
 
 </script>
-<style  scoped>
+<style scoped>
   .layerSwitch {
     position: absolute;
     bottom: 30px;
@@ -57,48 +99,54 @@
     width: 210px;
   }
 
-  .b-icon{
-    height:18px;
-    width:18px;
-    display:inline-block;
+  .b-icon {
+    height: 18px;
+    width: 18px;
+    display: inline-block;
     vertical-align: middle;
-    margin:0 5px;
-    background:url('/static/imgs/map/layer.png') no-repeat;
+    margin: 0 5px;
+    background: url('/static/imgs/map/layer.png') no-repeat;
   }
 
-  .layerSwitch li:first-child{
-    height:37px;
+  .layerSwitch li:first-child {
+    height: 37px;
     width: 210px;
     text-align: center;
     margin: 0;
-    background-color:#1080CC;
+    background-color: #1080CC;
   }
 
-  .layerSwitch li span{
-    font-size:18px;
-    line-height:36px;
+  .layerSwitch li span {
+    font-size: 18px;
+    line-height: 36px;
     vertical-align: middle;
-    font-family:"Microsoft YaHei UI";
-    color:#fff;
+    font-family: "Microsoft YaHei UI";
+    color: #fff;
   }
 
   .layerSwitch ul {
-    border:solid 1px #1080CC;
+    border: solid 1px #1080CC;
     background: #fff;
-    width:212px;
+    width: 212px;
     list-style-type: none;
     padding: 0;
   }
 
   .layerSwitch li {
-    width:210px;
+    width: 210px;
     list-style-type: none;
     text-align: left;
     margin: 5px 0;
     border-radius: 0;
     color: #333;
-    padding:0 10px;
-    background-color:#fff;
+    padding: 0 10px;
+    background-color: #fff;
   }
 
+  .layerSwitch-slider {
+    float: right;
+    width: 100px;
+    height: 5px;
+    margin: -5px 0 0 0;
+  }
 </style>

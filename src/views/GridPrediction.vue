@@ -7,11 +7,12 @@
       <!--element-loading-text="监测点地图拼命加载中"-->
     <!--&gt;</monitor-map>-->
     <v-Paneldagrid></v-Paneldagrid>
+    <grid-map></grid-map>
   </div>
 </template>
 
 <script>
-  //import MonitorMap from '@/map/MonitorMapMain' //0809
+  import GridMap from '@/map/GridMapMain' //0809
 
   export default {
     name: 'GridPrediction',
@@ -34,7 +35,7 @@
       }
     },
     components: {
-        //MonitorMap
+      GridMap
     }
   }
 </script>

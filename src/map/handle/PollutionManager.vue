@@ -16,7 +16,8 @@
                 lsRenderOverlay: [],
                 lsSearchInfoWindow: [],
                 lsRenderMarker: [],
-                data: []
+                data: [],
+                checkedName:'AQI'
             }
         },
         props: ['pollutionUrl', 'charUrl', 'item'],
@@ -24,7 +25,8 @@
             console.log(RequestHandle)
         },
         mounted () {
-            this.ready()
+            this.ready();
+            this.checkedName = this.item;
         },
         methods: {
             ready () {
@@ -40,7 +42,7 @@
                 if (!this.hasLoaded) {
                     this.hasLoaded = true;
                     this.map = map;
-                    this.setPollutionByType(this.item);
+                    this.setPollutionByType(this.checkedName);
                 }
             },
 
@@ -127,20 +129,20 @@
             },
             switchRender (type) {
                 if (this.data) {
-                    this.item = type;
-                    this.render(this.getPointByType(this.ptType), this.item);
+                    this.checkedName = type;
+                    this.render(this.getPointByType(this.ptType), type);
                 }
             },
             tabClickEvent(type){
                 if (this.data) {
                     this.ptType = type;
-                    this.render(this.getPointByType(type), this.item);
+                    this.render(this.getPointByType(type), this.checkedName);
                 }
             },
             refreshLayer(data){
                 if (data) {
                     this.data = data;
-                    this.render(this.getPointByType(this.ptType), this.item);
+                    this.render(this.getPointByType(this.ptType), this.checkedName);
                 }
             },
             render (data, type) {
@@ -150,7 +152,7 @@
                     this.clearRenderOverlay();
                     let aqi, lat, lng, city, pointname, level, region, province, title, value, unit, index, hourdiff,
                         time, pointtype, bgcolor
-                    for (let i = 0; i < data.length && (this.type !== 'REGION' || this.item !== 'AQI'); i++) {
+                    for (let i = 0; i < data.length && (this.type !== 'REGION' || this.checkedName !== 'AQI'); i++) {
                         city = data[i].cityname;
                         pointname = data[i].pointname;
                         level = data[i].level;
@@ -307,7 +309,7 @@
                             + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data[i].humi) + '%'
                             + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
                             + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data[i].winddirection
-                            + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data[i].windlevel) + '级'
+                            + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + (parseInt(data[i].windspeed) || 0) + '级'
                             + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
                             + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data[i].time + '</td></tr></table>'
                             + '</td>'
@@ -354,7 +356,7 @@
                     searchTypes: []
                 });
 
-                if (this.item === 'WD') {
+                if (this.checkedName === 'WD') {
                     if (value === 0) {
                         return;
                     }
@@ -459,7 +461,7 @@
                             height: '18px',
                             lineHeight: '18px'
                         });
-                        if (this.item !== 'WD' || maplevel !== 9) {
+                        if (this.checkedName !== 'WD' || maplevel !== 9) {
                             this.lsRenderOverlay.push(label_tip);
                             this.map.addOverlay(label_tip);
                         }
@@ -602,10 +604,10 @@
                 let t = this;
                 let dataCityPoint = [];
                 let value, unit, index, title;
-                let labelstr = t.item;
+                let labelstr = t.checkedName;
                 for (let j = 0; j < data.total; j++) {
                     let aqi = parseInt(data.rows[j].aqi);
-                    switch (t.item) {
+                    switch (t.checkedName) {
                         case 'AQI':
                             value = aqi;
                             unit = '';

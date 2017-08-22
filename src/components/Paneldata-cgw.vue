@@ -156,7 +156,7 @@
                 return function (object1, object2) {
                     let value1 = object1[propertyName]
                     let value2 = object2[propertyName]
-                    return value1 - value2
+                    return value2 - value1
                 }
             },
             //初始数据
@@ -171,6 +171,10 @@
             //type更改
             refreshTable(type){
                 this.type = type;
+                if(this.type == 'PM25'){
+                    this.type = this.type.replace('PM25','PM2.5')
+                }
+                //console.log(this.type)
                 this.SetDataList(this.data, type);
                 this.totalCount = this.ALLdata.length;
                 this.allData = this.ALLdata;
@@ -191,9 +195,19 @@
                     tableData.latitude = item.latitude;//纬度
                     tableData.longitude = item.longitude;//经度
                     tableData.aqi = item[type.toLowerCase()];//数值
+                   // console.log(this.getPollution(tableData.aqi))
                     this.ALLdata.push(tableData);
                 })
             },
+//            getPollution(type){
+//                let rtValue = type;
+//                switch(type){
+//                    case 'PM25':
+//                        rtValue = 'PM2.5';
+//                        break;
+//                }
+//                return rtValue;
+//            },
             //查询
             ChaXunJianCe(){
                 let t = this;

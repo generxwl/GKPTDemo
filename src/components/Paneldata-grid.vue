@@ -34,8 +34,9 @@
                                     label="查看地址"
                                     width="80">
                                 <template scope="scope">
-                                    <el-button @click="ChakanClick" type="text" size="small">
-                                        <i class="iconfont icon-31dingwei"></i>
+                                    <el-button @click="ChakanClick(scope.$index, scope.row)" type="text" size="small">
+                                        <img class="mapdw" src="../assets/img/map.png" alt="">
+
                                     </el-button>
                                 </template>
                             </el-table-column>
@@ -121,24 +122,47 @@
                     this.$message.error('数据读取失败哦！');
                 })
             },
-            //table
+            //排序
+            compare (propertyName) {
+                return function (object1, object2) {
+                    let value1 = object1[propertyName]
+                    let value2 = object2[propertyName]
+                    return value2 - value1
+                }
+            },
+            //table行点击
             RowCurrentChange(val){
                 this.currentRow = val;
-                console.log(this.currentRow)
+                //console.log(this.currentRow)
             },
-            //
-            ChakanClick(){
-                console.log('查看')
+            //查看地址
+            ChakanClick(index,item){
+                console.log('查看地址')
+                console.log(index)
+                console.log(item)
             },
             //每页显示数据量变更
             handleSizeChange(val) {
                 //this.pagesize = val;
             },
-
             //页码变更
             handleCurrentChange(val) {
                 this.setPageTable(10,val);
-                console.log(val)
+                //console.log(val)
+            },
+            //分页部分功能
+            getPointByType(type){
+                let rtValue = [];
+                let dt = this.data;
+                if (dt) {
+                    for (let i = 0, length = dt.length; i < length; i++) {
+                        let item = dt[i];
+                        if (item.type === type) {
+                            rtValue.push(dt[i]);
+                        }
+                    }
+                }
+                return rtValue;
             },
             //
             setPageTable(pageSize,pageNum){
@@ -150,6 +174,25 @@
                     rtValue.push(this.allData[startNum+i]);
                 }
                 this.tableData = rtValue;
+            },
+            //设置分页所需要数据
+            SetDataList(data, type){
+                this.data = data;
+                this.ALLdata = [];
+                let i = 1;
+                let dt1 = this.getPointByType(this.ptType);
+                let dt2 = dt1.sort(this.compare(type.toLowerCase()));
+                dt2.forEach(item => {
+                    const tableData = {};
+                    //tableData.ranking = i++;//排名
+                    tableData.InControl = item.companyname;//类型
+                    tableData.hangye = item.industry;//行业
+                    tableData.actions = item.address;//地址
+                    tableData.citygid = item.id;//城市id
+                    tableData.latitude = item.point_lat;//纬度
+                    tableData.longitude = item.point_lng;//经度
+                    this.ALLdata.push(tableData);
+                })
             },
             //时间转换
             dateFtt(fmt, date){
@@ -183,6 +226,12 @@
         position: absolute;
         top: 60px;
         right: 0;
+        .mapdw{
+            width: 25px;
+            height: 25px;
+            display: block;
+            margin: -5px 43px;
+        }
         #list {
             background: #fff;
             position: fixed;

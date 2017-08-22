@@ -25,12 +25,13 @@ export default {
     }
   },
   mounted() {
-    let t = this
+    let t = this;
     setTimeout(function() {
       t.map = t.$parent.$parent.map;
       t.ready();
     }, 10);
-    bus.$on('setVisible', this.setLayerVisible)
+    bus.$on('setVisible', this.setLayerVisible);
+    bus.$on('setOpacity',this.setOpacity);
   },
   methods: {
     ready() {
@@ -64,6 +65,14 @@ export default {
       let geometry = layer.geometry;
       for (let i = 0, length = geometry.length; i < length; i++) {
         geometry[i].show();
+      }
+    },
+    setOpacity(index,opacity){
+      let layer = this.layers[index];
+      let geometry = layer.geometry;
+      for (let i = 0, length = geometry.length; i < length; i++) {
+        geometry[i].setFillOpacity(opacity);
+        geometry[i].setStrokeOpacity(opacity);
       }
     },
     setLayerHide() {

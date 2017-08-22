@@ -152,7 +152,7 @@
                                     </el-table-column>
                                     <el-table-column
                                             prop="aqi"
-                                            :label="type"
+                                            :label="labelType"
                                             width="60"
                                     >
                                     </el-table-column>
@@ -189,7 +189,7 @@
                                     </el-table-column>
                                     <el-table-column
                                             prop="aqi"
-                                            :label="type"
+                                            :label="labelType"
                                             width="60"
                                     >
                                     </el-table-column>
@@ -227,6 +227,7 @@
                 //tables数据
                 ptType: '国控点',
                 type: 'AQI',
+                labelType:'AQI',
                 tableData: [],
                 allData: [],
                 pickerOptions1: {
@@ -315,7 +316,7 @@
                 return function (object1, object2) {
                     let value1 = object1[propertyName]
                     let value2 = object2[propertyName]
-                    return value1 - value2
+                    return value2 - value1
                 }
             },
             //table点击事件
@@ -338,12 +339,12 @@
                 dt2.forEach(item => {
                     const tableData = {};
                     tableData.ranking = i++;
-                    tableData.InControl = item.type;//类型
+                    tableData.InControl = item.pointname;//item.type;//类型
                     tableData.citygid = item.citygid;//城市id
                     tableData.latitude = item.latitude;//纬度
                     tableData.longitude = item.longitude;//经度
                     tableData.AirQualityGrade = item.quality;
-                    tableData.aqi = item[type.toLowerCase()];//数值
+                    tableData.aqi = item[this.getPollution(type.toLowerCase())];//数值
                     tableData.PrimaryPollutant = item.primary_pollutant;
                     this.tableData.push(tableData);
 
@@ -352,7 +353,47 @@
             //渲染
             switchRender(type){
                 this.type = type;
+                this.labelType = this.getPollutionTarget(type);
                 this.setdata(this.data, this.type)
+            },
+            getPollution(type){
+              let rtValue = type;
+              switch(type.toUpperCase()){
+                case 'PM2.5':
+                  rtValue = 'pm25';
+                  break;
+                case 'INDEX':
+                  rtValue = 'complexindex';
+                  break;
+                case 'WS':
+                  rtValue = 'windspeed';
+                  break;
+                case 'WD':
+                  rtValue = 'windangle';
+                  break;
+              }
+              return rtValue;
+            },
+            getPollutionTarget(type){
+                let rtValue = type;
+                switch(type.toUpperCase()){
+                  case 'INDEX':
+                    rtValue = '综指';
+                      break;
+                  case 'TEMP':
+                    rtValue = '温度';
+                    break;
+                  case 'HUMI':
+                    rtValue = '湿度';
+                    break;
+                  case 'WS':
+                    rtValue = '风级';
+                    break;
+                  case 'WD':
+                    rtValue = '风向';
+                    break;
+                }
+                return rtValue;
             },
             //切换
             handleClick(tab, event) {
@@ -384,11 +425,12 @@
                 let myChart = echarts.init(document.getElementById('main1'));
                 app.title = '环形图';
                 // 指定图表的配置项和数据
+//
                 let option = {
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b}: {c} ({d}%)"
-                    },
+                  tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                  },
                     legend: {
                         orient: 'vertical',
                         x: 'left',
@@ -400,13 +442,14 @@
                             type: 'pie',
                             radius: ['100%', '90%'],
                             avoidLabelOverlap: false,
+                            hoverAnimation:false,
                             label: {
                                 normal: {
                                     show: false,
                                     position: 'center'
                                 },
                                 emphasis: {
-                                    show: true,
+                                    show: false,
                                     textStyle: {
                                         fontSize: '20',
                                         fontWeight: 'bold'
@@ -448,10 +491,11 @@
                 var myChart = echarts.init(document.getElementById('main2'));
                 app.title = '环形图';
                 // 指定图表的配置项和数据
+
                 let option = {
                     tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+                      trigger: 'item',
+                      formatter: "{a} <br/>{b}: {c} ({d}%)"
                     },
                     legend: {
                         orient: 'vertical',
@@ -464,13 +508,14 @@
                             type: 'pie',
                             radius: ['100%', '90%'],
                             avoidLabelOverlap: false,
+                            hoverAnimation:false,
                             label: {
                                 normal: {
                                     show: false,
                                     position: 'center'
                                 },
                                 emphasis: {
-                                    show: true,
+                                    show: false,
                                     textStyle: {
                                         fontSize: '20',
                                         fontWeight: 'bold'
@@ -514,8 +559,8 @@
                 // 指定图表的配置项和数据
                 let option = {
                     tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+                      trigger: 'item',
+                      formatter: "{a} <br/>{b}: {c} ({d}%)"
                     },
                     legend: {
                         orient: 'vertical',
@@ -528,13 +573,14 @@
                             type: 'pie',
                             radius: ['100%', '90%'],
                             avoidLabelOverlap: false,
+                            hoverAnimation:false,
                             label: {
                                 normal: {
                                     show: false,
                                     position: 'center'
                                 },
                                 emphasis: {
-                                    show: true,
+                                    show: false,
                                     textStyle: {
                                         fontSize: '20',
                                         fontWeight: 'bold'
@@ -764,6 +810,7 @@
                             height: 64px;
                             position: relative;
                             .beijing {
+                                width: 45px;
                                 position: absolute;
                                 top: 10px;
                                 left: 12px;

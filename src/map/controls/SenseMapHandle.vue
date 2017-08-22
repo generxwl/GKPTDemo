@@ -12,6 +12,16 @@
     data () {
       return {
         map: undefined,
+        drawingManager: undefined,
+        drawOverlay: [],
+        styleOptions: {
+          strokeColor: "red",    //边线颜色。
+          fillColor: "",      //填充颜色。当参数为空时，圆形将没有填充效果。
+          strokeWeight: 1,       //边线的宽度，以像素为单位。
+          strokeOpacity: 0.8,	   //边线透明度，取值范围0 - 1。
+          fillOpacity: 0.6,      //填充的透明度，取值范围0 - 1。
+          strokeStyle: 'dashed' //边线的样式，solid或dashed。
+        },
         handleItems: [
           {
             name: '放大',
@@ -58,6 +68,20 @@
       },
       getMap(map){
         this.map = map;
+        if (this.map) {
+          this.drawingManager = new BMapLib.DrawingManager(this.map, {
+            isOpen: false, //是否开启绘制模式
+            enableDrawingTool: false, //是否显示工具栏
+            drawingToolOptions: {
+              anchor: BMAP_ANCHOR_TOP_RIGHT, //位置
+              offset: new BMap.Size(5, 5), //偏离值
+            },
+            circleOptions: this.styleOptions, //圆的样式
+            polylineOptions: this.styleOptions, //线的样式
+            polygonOptions: this.styleOptions, //多边形的样式
+            rectangleOptions: this.styleOptions //矩形的样式
+          });
+        }
       },
       liClickEvent(e){
         if (!this.map) {
@@ -88,6 +112,10 @@
               this.map.setDefaultCursor();
               break;
             case 'REGION':
+              if (this.drawingManager) {
+                this.drawingManger.open();
+                //this.drawingManger.setDrawingMode(DrawingType);
+              }
               break;
           }
         }
@@ -104,6 +132,12 @@
           let target = targets[index];
           value.src = target.src;
         })
+      },
+      clearOverlay(){
+        for (let i = 0, length = this.drawOverlay.length; i < length; i++) {
+          this.map.removeOverlay(this.drawOverlay[i]);
+        }
+        this.drawOverlay.length = 0;
       }
     }
   };

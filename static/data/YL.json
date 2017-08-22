@@ -1,86 +1,189 @@
 {
-  "displayFieldName" : "FCNAME",
-  "fieldAliases" : {
-    "OBJECTID" : "OBJECTID",
-    "FCNAME" : "FCNAME",
-    "xianji" : "xianji",
-    "gridcode" : "gridcode",
-    "ORIG_FID" : "ORIG_FID"
-  },
-  "geometryType" : "esriGeometryPoint",
-  "spatialReference" : {
-    "wkid" : 4326,
-    "latestWkid" : 4326
-  },
-  "fields" : [
-    {
-      "name" : "OBJECTID",
-      "type" : "esriFieldTypeOID",
-      "alias" : "OBJECTID"
+    "displayFieldName": "NAME99",
+    "fieldAliases": {
+        "OBJECTID": "OBJECTID",
+        "NAME99": "FCNAME",
+        "xianji": "xianji",
+        "gridcode": "gridcode",
+        "ORIG_FID": "ORIG_FID"
     },
-    {
-      "name" : "FCNAME",
-      "type" : "esriFieldTypeString",
-      "alias" : "FCNAME",
-      "length" : 64
+    "geometryType": "esriGeometryPoint",
+    "spatialReference": {
+        "wkt": "GEOGCS[\"unnamed\",DATUM[\"D_WGS_1984\",SPHEROID[\"World Geodetic System of 1984\",6378137.0,298.257222932867]],PRIMEM[\"Greenwich\",0.0],UNIT[\"degree\",0.0174532925199433]]"
     },
-    {
-      "name" : "xianji",
-      "type" : "esriFieldTypeString",
-      "alias" : "xianji",
-      "length" : 50
-    },
-    {
-      "name" : "gridcode",
-      "type" : "esriFieldTypeString",
-      "alias" : "gridcode",
-      "length" : 20
-    },
-    {
-      "name" : "ORIG_FID",
-      "type" : "esriFieldTypeInteger",
-      "alias" : "ORIG_FID"
-    }
-  ],
-  "features" : [
-    {
-      "attributes" : {
-        "OBJECTID" : 1,
-        "FCNAME" : "安次区",
-        "xianji" : "安次区",
-        "gridcode" : "131002000000",
-        "ORIG_FID" : 1
-      },
-      "geometry" : {
-        "x" : 116.75335804290717,
-        "y" : 39.341841127677355
-      }
-    },
-    {
-      "attributes" : {
-        "OBJECTID" : 2,
-        "FCNAME" : "广阳区",
-        "xianji" : "广阳区",
-        "gridcode" : "131003000000",
-        "ORIG_FID" : 2
-      },
-      "geometry" : {
-        "x" : 116.57581347439645,
-        "y" : 39.564579244620916
-      }
-    },
-    {
-      "attributes" : {
-        "OBJECTID" : 3,
-        "FCNAME" : "开发区",
-        "xianji" : "开发区",
-        "gridcode" : "131083000000",
-        "ORIG_FID" : 3
-      },
-      "geometry" : {
-        "x" : 116.75344982428214,
-        "y" : 39.577360973291945
-      }
-    }
-  ]
+    "fields": [
+        {
+            "name": "OBJECTID",
+            "type": "esriFieldTypeOID",
+            "alias": "OBJECTID"
+        },
+        {
+            "name": "NAME99",
+            "type": "esriFieldTypeString",
+            "alias": "FCNAME",
+            "length": 40
+        },
+        {
+            "name": "xianji",
+            "type": "esriFieldTypeString",
+            "alias": "xianji",
+            "length": 50
+        },
+        {
+            "name": "gridcode",
+            "type": "esriFieldTypeString",
+            "alias": "gridcode",
+            "length": 20
+        },
+        {
+            "name": "ORIG_FID",
+            "type": "esriFieldTypeInteger",
+            "alias": "ORIG_FID"
+        }
+    ],
+    "features": [
+        {
+            "attributes": {
+                "OBJECTID": 1,
+                "NAME99": "三河市",
+                "xianji": "三河市",
+                "gridcode": "131082000000",
+                "ORIG_FID": 1
+            },
+            "geometry": {
+                "x": 117.00964816351723,
+                "y": 39.95934748280558
+            }
+        },
+        {
+            "attributes": {
+                "OBJECTID": 2,
+                "NAME99": "大厂回族自治县",
+                "xianji": "大厂回族自治县",
+                "gridcode": "131028000000",
+                "ORIG_FID": 2
+            },
+            "geometry": {
+                "x": 116.93499444151075,
+                "y": 39.89458212286996
+            }
+        },
+        {
+            "attributes": {
+                "OBJECTID": 3,
+                "NAME99": "香河县",
+                "xianji": "香河县",
+                "gridcode": "131024000000",
+                "ORIG_FID": 3
+            },
+            "geometry": {
+                "x": 117.04287835784271,
+                "y": 39.74035142444063
+            }
+        },
+        {
+            "attributes": {
+                "OBJECTID": 4,
+                "NAME99": "固安县",
+                "xianji": "固安县",
+                "gridcode": "131022000000",
+                "ORIG_FID": 4
+            },
+            "geometry": {
+                "x": 116.27532045192663,
+                "y": 39.34656036252915
+            }
+        },
+        {
+            "attributes": {
+                "OBJECTID": 5,
+                "NAME99": "永清县",
+                "xianji": "永清县",
+                "gridcode": "131023000000",
+                "ORIG_FID": 5
+            },
+            "geometry": {
+                "x": 116.54884716233414,
+                "y": 39.295180518770735
+            }
+        },
+        {
+            "attributes": {
+                "OBJECTID": 6,
+                "NAME99": "霸州市",
+                "xianji": "霸州市",
+                "gridcode": "131081000000",
+                "ORIG_FID": 6
+            },
+            "geometry": {
+                "x": 116.57026637668355,
+                "y": 39.10218761453632
+            }
+        },
+        {
+            "attributes": {
+                "OBJECTID": 7,
+                "NAME99": "文安县",
+                "xianji": "文安县",
+                "gridcode": "131026000000",
+                "ORIG_FID": 7
+            },
+            "geometry": {
+                "x": 116.48410523267103,
+                "y": 38.90559722658321
+            }
+        },
+        {
+            "attributes": {
+                "OBJECTID": 8,
+                "NAME99": "大城县",
+                "xianji": "大城县",
+                "gridcode": "131025000000",
+                "ORIG_FID": 8
+            },
+            "geometry": {
+                "x": 116.57275076355631,
+                "y": 38.66104225156937
+            }
+        },
+        {
+            "attributes": {
+                "OBJECTID": 9,
+                "NAME99": "广阳区",
+                "xianji": "广阳区",
+                "gridcode": "131003000000",
+                "ORIG_FID": 9
+            },
+            "geometry": {
+                "x": 116.59675273124742,
+                "y": 39.52841143733224
+            }
+        },
+        {
+            "attributes": {
+                "OBJECTID": 10,
+                "NAME99": "廊坊开发区",
+                "xianji": "廊坊开发区",
+                "gridcode": "131083000000",
+                "ORIG_FID": 10
+            },
+            "geometry": {
+                "x": 116.73822127384483,
+                "y": 39.57926454209655
+            }
+        },
+        {
+            "attributes": {
+                "OBJECTID": 11,
+                "NAME99": "安次区",
+                "xianji": "安次区",
+                "gridcode": "131002000000",
+                "ORIG_FID": 11
+            },
+            "geometry": {
+                "x": 116.75335804290717,
+                "y": 39.341841127677355
+            }
+        }
+    ]
 }
