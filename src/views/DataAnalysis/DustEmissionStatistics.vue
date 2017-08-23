@@ -76,6 +76,9 @@
           抱歉，您的浏览器不支持Canvas。请升级您的浏览器！
         </canvas>
 				<!---->
+				<ol>
+					<li v-for="item in colorArr"  :style="{color:item.color}"><p v-text="toPercent(item.counts)"></p></li>
+				</ol>
 				<ul>
 					<li v-for="item in colorArr"><i :style="{background : item.color}"></i>{{item.name}}</li>
 				</ul>
@@ -221,6 +224,11 @@
 				//获取数据
 				this.initlistData(this.upData)
 			},
+            toPercent(point){
+                var str=Number(point*100).toFixed(1);
+                str+="%";
+                return str;
+            },
 			//弹出框
 			tanchukuang(index, item) {
 				this.data = []
@@ -239,7 +247,7 @@
 					},
 					data: {}
 				}).then(res => {
-					console.log(res)
+					//console.log(res)
 
 					this.tanchu = true;
 					setTimeout(function() {
@@ -254,13 +262,77 @@
 			guanbitanchukuang() {
 				this.tanchu = false
 			},
+			//echarts
+			PieEchartscanvas(res){
+
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById('pie'));
+                //data
+                let PieData = res.data.ExtraData;
+				//
+                let weatherIcons = {};
+				//
+                let color = ['#e6cf0f', '#d67b80', '#2fc7ca', '#59b1f0', '#fdc79b', '#b7a2dd', '#8c98b0', '#97b553'];
+				//
+                for(let i = 0; i < PieData.length; i++) {
+                    PieData[i].color = color.pop()
+                }
+                this.colorArr = PieData;
+                let option = {
+
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+
+                    series : [
+                        {
+                            type: 'pie',
+                            radius : '65%',
+                            center: ['50%', '50%'],
+                            selectedMode: 'single',
+
+                            itemStyle: {
+                                emphasis: {
+                                    shadowBlur: 10,
+                                    shadowOffsetX: 0,
+                                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                };
+				// 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+                myChart.setOption({
+                    legend: {
+                        // orient: 'vertical',
+                        // top: 'middle',
+                        bottom: 10,
+                        left: 'center',
+//                        data: ['西凉', '益州','兖州','荆州','幽州']
+                    },
+                    series: [{
+                        data:[
+//                            {value:535, name: '荆州'},
+//                            {value:510, name: '兖州'},
+//                            {value:634, name: '益州'},
+//                            {value:735, name: '西凉'}
+                        ],
+//                        color: color
+                    }]
+                })
+            },
 			bingtucanvas(res) {
 				var data = res.data.ExtraData
+				console.log('canvas数据')
+				console.log(data)
 				let canvas = document.getElementById("wcanvas");
 				canvas.border = "1px solid #000";
 				canvas.backgroundColor = "#FFFFFF";
 				canvas.width = 490;
-				canvas.height = 320;
+				canvas.height = 300;
 				let ctx = canvas.getContext("2d");
 
 				var color = ['#e6cf0f', '#d67b80', '#2fc7ca', '#59b1f0', '#fdc79b', '#b7a2dd', '#8c98b0', '#97b553']
@@ -296,12 +368,12 @@
 					params: params,
 					data: {}
 				}).then(res => {
-					console.log(res)
+					//console.log(res)
 					let dt = res.data.ExtraData || '';
 					this.totalCount = dt.length;
 					this.allData = dt;
 					this.setPageTable(10, 1);
-					console.log(dt);
+					//console.log(dt);
 
 				}, res => {
 					console.log('失败了')
@@ -314,7 +386,7 @@
 			//页码变更
 			handleCurrentChange(val) {
 				this.setPageTable(10, val);
-				console.log(val)
+				//console.log(val)
 			},
 			setPageTable(pageSize, pageNum) {
 				let rtValue = [];
@@ -387,17 +459,40 @@
 					}
 				}
 				ul {
+					width: 100%!important;
+					height:20px ;
+
 					li {
+
 						height: 20px;
 						list-style: none;
 						float: left;
 						margin-left: 4px;
+
 						i {
 							border-radius: 4px;
 							display: inline-block;
 							width: 18px;
 							height: 10px;
 							margin-right: 3px;
+						}
+					}
+				}
+				ol {
+					width: 100%!important;
+					height:20px ;
+
+					li {
+						width: 49px;
+						
+						height: 20px;
+						list-style: none;
+						float: left;
+						padding-right: 4px;
+						margin-left: 7px;
+						p {
+							padding-left: 6px;
+							padding-right: 6px;
 						}
 					}
 				}
