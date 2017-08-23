@@ -484,7 +484,7 @@
 
 					li {
 						width: 49px;
-						
+
 						height: 20px;
 						list-style: none;
 						float: left;

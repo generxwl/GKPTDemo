@@ -101,7 +101,7 @@
         let p = e.target;
         let xmin = p.getBounds().getSouthWest().lng;
         let ymin = p.getBounds().getSouthWest().lat;
-        let url = 'http://117.119.97.150:8063/api/GridForecast/GetGridForecast';
+        let url = 'http://lftdkplat.zhiscity.com/api/GridForecast/GetGridForecast';
         let pms = {
           method: 'POST',
           url: 'http://www.zc12369.com/percenter/findCompanyByLocation.jhtm',
@@ -130,7 +130,7 @@
         let point = new BMap.Point(lng, lat);
         this.marker ? this.marker.setPosition(point) : (this.marker = new BMap.Marker(point));
 
-        let url = 'http://117.119.97.150:8063/api/GridForecast/GetGridForecast';
+        let url = 'http://lftdkplat.zhiscity.com/api/GridForecast/GetGridForecast';
         let pms = {
           method: 'POST',
           url: 'http://www.zc12369.com/percenter/findCompany.jhtm',
