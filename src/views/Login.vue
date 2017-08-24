@@ -41,9 +41,9 @@
 		},
 		methods: {
 			login() {
-				var _this = this
+				var _this = this;
 				$.ajax({
-					url: "http://117.119.97.150:8063/api/login/UserLogin",
+					url: "http://lftdkplat.zhiscity.com/api/login/UserLogin",
 					data: {
 						username: this.userName,
 						password: this.passWord
