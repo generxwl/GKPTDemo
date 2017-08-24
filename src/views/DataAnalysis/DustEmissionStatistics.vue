@@ -235,7 +235,7 @@
 				this.colorArr = []
 				let that = this;
 				this.$axios({
-					url: 'http://117.119.97.150:8063/api/Dust/GetWindDirectionPie',
+					url: 'http://lftdkplat.zhiscity.com/api/Dust/GetWindDirectionPie',
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/x-www-form-urlencoded'
@@ -360,7 +360,7 @@
 			},
 			initlistData(params) {
 				this.$axios({
-					url: 'http://117.119.97.150:8063/api/Dust/GetDustStatistics',
+					url: 'http://lftdkplat.zhiscity.com/api/Dust/GetDustStatistics',
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/x-www-form-urlencoded'
