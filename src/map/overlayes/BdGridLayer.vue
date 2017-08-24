@@ -5,9 +5,9 @@
 </template>
 <script>
   import BMap from 'BMap'
-  import axios from 'axios'
   import RequestHandle from '@/request'
   import {bus} from '@/js/bus.js'
+
   export default {
     name: 'BdGridLayer',
     data () {
@@ -19,17 +19,8 @@
           point_lng: '1'
         }],
         marker: undefined,
-        temp_str2: '<div class="shangb">\
-          <h3 class="matitle">{companyname}</h3>\
-          <div class="lie_t"><span class="hengys">企业行业</span>：<span class="hen_title">{industry}</span></div>\
-          <div class="lie_t"><span class="hengys">污染物</span>：<span class="hen_wr">{mainpollute}</span></div>\
-      </div>\
-      <ul class="lixk">\
-          <li class="lixf">{contactName}</li>\
-          <li class="lixs">{contacttype}</li>\
-          <li class="lixt">{address}</li>\
-      </ul>'
-    }
+        checkedName: 'SO2_120'
+      }
     },
     created () {
       this.ready()
@@ -45,13 +36,13 @@
       };
       setTimeout(function () {
         t.createGrid();
-        t.setMapData('SO2_120', rectangleOption);
+        t.setMapData(t.checkedName, rectangleOption);
       }, 10)
     },
     methods: {
       ready () {
         bus.$on('getGridMap', this.getMap);
-        bus.$on('locationGridPoint',this.locationPoint);
+        bus.$on('locationGridPoint', this.locationPoint);
       },
       getMap (map) {
         this.map = map
@@ -82,26 +73,44 @@
         let t = this;
         let xmin = 110, ymin = 35.8, xmax = 121.9, ymax = 42.7;
         this.map.clearOverlays();
-        $.get('http://60.10.135.153:3000/querys/adj.js', {var: type}, function (rdata) {
-          let data = rdata[type];
-          for (let i = 0; i < 70; i++) {
-            for (let j = 0; j < 120; j++) {
-              if (data[i][j] > 0.05) {
-                let rectangle = new BMap.Polygon([new BMap.Point(xmin + (0.1 * j), ymin + (0.1 * i)), new BMap.Point(xmin + 0.1 + (0.1 * j), ymin + (0.1 * i)), new BMap.Point(xmin + 0.1 + (0.1 * j), ymin + 0.1 + (0.1 * i)), new BMap.Point(xmin + (0.1 * j), ymin + 0.1 + (0.1 * i))
-                ], $.extend({}, rectangleOption, {fillColor: t.getColor(data[i][j])}));
-                rectangle.addEventListener("click", t.locationClick);
-                t.map.addOverlay(rectangle);
+        console.log(type);
+        let url = 'http://117.119.97.150:8063/api/GridForecast/GetGridForecast';
+        let pms = {
+          'method': 'GET',
+          'url': 'http://60.10.135.153:3000/querys/adj.js',
+          '_':'1503455089804',
+          'var': type
+        };
+        console.log(JSON.stringify(pms));
+
+        RequestHandle.request({
+          url: url + '?paramStr=' + JSON.stringify(pms),
+          type: 'GET',
+          pms: {}
+        }, function (result) {
+          if (result.status === 0) {
+            let data = result.obj;
+            for (let i = 0; i < 70; i++) {
+              for (let j = 0; j < 120; j++) {
+                if (data[i][j] > 0.05) {
+                  let rectangle = new BMap.Polygon([new BMap.Point(xmin + (0.1 * j), ymin + (0.1 * i)), new BMap.Point(xmin + 0.1 + (0.1 * j), ymin + (0.1 * i)), new BMap.Point(xmin + 0.1 + (0.1 * j), ymin + 0.1 + (0.1 * i)), new BMap.Point(xmin + (0.1 * j), ymin + 0.1 + (0.1 * i))
+                  ], $.extend({}, rectangleOption, {fillColor: t.getColor(data[i][j])}));
+                  rectangle.addEventListener("click", t.locationClick);
+                  t.map.addOverlay(rectangle);
+                }
               }
             }
           }
-        }, 'jsonp');
+        }, function (ex) {
+            console.error(ex);
+        });
       },
       locationClick (e) {
-        let t =this;
+        let t = this;
         let p = e.target;
         let xmin = p.getBounds().getSouthWest().lng;
         let ymin = p.getBounds().getSouthWest().lat;
-        let url = 'http://lftdkplat.zhiscity.com/api/GridForecast/GetGridForecast';
+        let url = 'http://117.119.97.150:8063/api/GridForecast/GetGridForecast';
         let pms = {
           method: 'POST',
           url: 'http://www.zc12369.com/percenter/findCompanyByLocation.jhtm',
@@ -115,12 +124,9 @@
           url: url + '?paramStr=' + JSON.stringify(pms),
           type: 'GET', pms: {}
         }, function (result) {
-            if (result.status === 0){
-                bus.$emit('getGridData',result.obj);
-            }
-          //console.log(result);
-          //let s = result.obj[0];
-          //t.locationPoint(s.point_lng,s.point_lat,s.id);
+          if (result.status === 0) {
+            bus.$emit('getGridData', result.obj);
+          }
         }, function (ex) {
         });
       },
@@ -130,7 +136,7 @@
         let point = new BMap.Point(lng, lat);
         this.marker ? this.marker.setPosition(point) : (this.marker = new BMap.Marker(point));
 
-        let url = 'http://lftdkplat.zhiscity.com/api/GridForecast/GetGridForecast';
+        let url = 'http://117.119.97.150:8063/api/GridForecast/GetGridForecast';
         let pms = {
           method: 'POST',
           url: 'http://www.zc12369.com/percenter/findCompany.jhtm',
@@ -143,21 +149,32 @@
         }, function (result) {
           if (result.status === 0) {
             let data = result.obj;
-            let infoWindow = new BMap.InfoWindow(t.format(t.temp_str2, data), {
-              width: 295,
+            let res = t.getInfoWindow(data);
+            let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
+              title: '',
+              width: 320,
               height: 180,
-              enableMessage: false
-            });  // 创建信息窗口对象
-            infoWindow.addEventListener('close', function () {
+              enableAutoPan: true,
+              searchTypes: []
+            });
+            searchInfoWindow.addEventListener("close", function (e) {
               t.deletePoint();
             });
-            t.map.openInfoWindow(infoWindow, point); //开启信息窗口
+            searchInfoWindow.open(point);
             t.map.addOverlay(t.marker);
-            t.map.panTo(point);
+            //t.map.panTo(point);
           }
           console.log(result);
         }, function (ex) {
         });
+      },
+      getInfoWindow(data){
+        return '<table width=\'100%\' class="fitem"><tr style="height:32px;font-size:32px;font-weight:600;"><td colspan="2">' + data.companyname + '</td></tr>' +
+          '<tr><th>行业</th><td style=\'width:70px;text-align:center;\'>' + (data.industry || '无') + '</td></tr>' +
+          '<tr><th>污染物</th><td style=\'width:70px;text-align:center;\'>' + (data.mainpollute || '无') + '</td></tr>' +
+          '<tr><th>联系人</th><td style=\'width:70px;text-align:center;\'>' + (data.contactName || '无') + '</td></tr>' +
+          '<tr><th>联系电话</th><td style=\'width:70px;text-align:center;\'>' + (data.contacttype || '无') + '</td></tr>' +
+          '<tr><th>地址</th><td style=\'width:70px;text-align:center;\'>' + (data.address || '无') + '</td></tr></table>';
       },
       deletePoint(){
         this.map.removeOverlay(this.marker);
@@ -192,7 +209,7 @@
     }
   }
 </script>
-<style scoped>
+<style scope>
   .grid-view {
     position: absolute;
     width: 50%;
@@ -202,21 +219,36 @@
     left: 0;
   }
 
-  table {
-    color: #333;
-    border: 1px solid #cad9ea;
-    width: 100%;
+  .fitem {
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    line-height: 18px;
   }
 
-  td {
-    height: 30px;
-    border: 1px solid #cad9ea;
-    padding: 0 1em 0;
+  .fitem th {
+    width: 65px;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: center;
+    border: 1px solid #ddd;
   }
 
-  img {
-    height: 24px;
-    width: 24px;
-    margin: auto;
+  .fitem td {
+    font-size: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+
+  .BMapLib_SearchInfoWindow .BMapLib_bubble_title {
+    background-color: #1080cc;
+    color: #fff;
+  }
+
+  .BMapLib_SearchInfoWindow .BMapLib_bubble_tools div {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  .BMapLib_SearchInfoWindow .BMapLib_sendToPhone {
+    background: none;
   }
 </style>

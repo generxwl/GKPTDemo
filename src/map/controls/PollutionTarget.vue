@@ -15,8 +15,8 @@
     data () {
       return {
         checkedName:'AQI',
-        pollutionUrl:'http://lftdkplat.zhiscity.com/api/Monitoring/GetMonitoringPointReal',
-        charUrl:'http://lftdkplat.zhiscity.com/api/Monitoring/GetMonitoringPointChart',
+        pollutionUrl:'http://117.119.97.150:8063/api/Monitoring/GetMonitoringPointReal',
+        charUrl:'http://117.119.97.150:8063/api/Monitoring/GetMonitoringPointChart',
         targets: [
           {
             name: 'AQI',

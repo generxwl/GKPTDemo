@@ -15,8 +15,8 @@
     data () {
       return {
         checkedName:'PM2.5',
-        pollutionUrl:'http://lftdkplat.zhiscity.com/api/Dust/GetDustHourRanking',
-        charUrl:'http://lftdkplat.zhiscity.com/api/Dust/GetDust24Hour',
+        pollutionUrl:'http://117.119.97.150:8063/api/Dust/GetDustHourRanking',
+        charUrl:'http://117.119.97.150:8063/api/Dust/GetDust24Hour',
         targets: [
           {
             name: 'PM2.5',

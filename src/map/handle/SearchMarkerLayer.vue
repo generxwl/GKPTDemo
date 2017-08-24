@@ -4,24 +4,16 @@
   import {bus} from '@/js/bus.js'
 
   export default {
-    name: 'MarkerLayer',
-    render(){
-    },
+    name: 'SearchMarkerLayer',
+    render(){},
     data () {
       return {
         markers: [],
-        hasVisible: false,
         checkedName: 'AQI',
-        data: [],
-        infoWindowConfig: {
-          width: 250,     // 信息窗口宽度
-          height: 240,     // 信息窗口高度
-          title: '信息', // 信息窗口标题
-          enableMessage: false//设置允许信息窗发送短息
-        }
+        map: undefined,
+        charUrl: 'http://117.119.97.150:8064/api/FcStation/GetSingleStationInfo'
       };
     },
-    props: ['charUrl'],
     created(){
     },
     mounted(){
@@ -30,77 +22,48 @@
     methods: {
       //页面初始化
       ready(){
-        bus.$on('setMarkerVisible', this.markerLayerToggle);
-        bus.$on('markerTarget', this.pollutionTarget);
-        bus.$on('loadMarker', this.loadMarkerLayer);
-        bus.$on('loadChart', this.refreshLoadChart);
-        bus.$on('refreshMarker',this.refreshLayer);
+        bus.$on('loadSearchData', this.loadMarkerLayer);
+        bus.$on('clearSearchData', this.clearMarker);
+        bus.$on('getCheckedName', this.getCheckedName);
+      },
+
+      getCheckedName(name){
+        this.checkedName = name;
+        this.clearMarker();
       },
 
       //加载marker数据
       loadMarkerLayer(map, data){
-        console.log(this.hasVisible);
-        this.map = map;
-        if (!this.data.length) {
-          this.data = data;
-          bus.$emit('loadMarkerData', this.data,this.checkedName);
+        this.clearMarker();
+        if (!this.checkedName) {
+          bus.$on('getCheckedName', this.getCheckedName);
         }
         let t = this;
-        let lsMarkers = this.getPollutionByType(this.checkedName);
+        this.map = map;
+        let lsMarkers = data;
         for (let i = 0, length = lsMarkers.length; i < length; i++) {
           let value = lsMarkers[i];
-          let pt = new BMap.Point(value.lng, value.lat);
-          let v = value.count;
+          let pt = new BMap.Point(value.longitude, value.latitude);
+          let v = value[t.getKeyByName(t.checkedName)];
           let marker = t.getMarker(pt, v);
-          marker && ((t.hasVisible ? marker.show() : marker.hide()), t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
-            let tg = e.target;
-            let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
-            t.markerClick(value.stationid, point);
-          }));
-        }
-      },
-
-      //指标切换响应事件
-      pollutionTarget(type){
-        this.checkedName = type;
-        let dt = this.getPollutionByType(type);
-        if (dt.length) {
-          this.refreshMarker(dt);
-        }
-      },
-
-      //刷新数据
-      refreshMarker(data){
-        if (this.markers.length) {
-          this.clearMarker();
-          this.loadMarkerLayer(this.map, data);
-        }
-      },
-
-      //刷新Chart数据
-      refreshLoadChart(lng, lat, code){
-        let point = new BMap.Point(lng, lat);
-        this.markerClick(code,point);
-      },
-
-      //根据类型获取指标数据
-      getPollutionByType(type){
-        let rtValue = [];
-        if (this.data) {
-          for (let i = 0, length = this.data.length; i < length; i++) {
-            let item = this.data[i];
-            let obj = {'stationid': item.stationid, 'lng': item.longitude, 'lat': item.latitude, 'count': item[type.toLowerCase()]};
-            rtValue.push(obj);
+          if (marker) {
+            marker.show();
+            console.log(t.map);
+            t.markers.push(marker);
+            t.map.addOverlay(marker);
+            marker.addEventListener('click', function (e) {
+              let tg = e.target;
+              let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
+              t.markerClick(value.stationid, point);
+            });
           }
         }
-        return rtValue;
       },
 
       //图标点击事件
       markerClick(code, point){
         let t = this;
         let url = this.charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
-        console.log(code + this.checkedName);
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
           if (result.status === 0) {
             let data = result.obj;
@@ -124,12 +87,40 @@
         });
       },
 
+      //获取属性Key
+      getKeyByName(name){
+        let rtValue = undefined;
+        switch (name.toUpperCase()) {
+          case 'AQI':
+            rtValue = 'aqi';
+            break;
+          case 'PM2.5':
+            rtValue = 'pm25';
+            break;
+          case 'PM10':
+            rtValue = 'pm10';
+            break;
+          case 'SO2':
+            rtValue = 'so2';
+            break;
+          case 'NO2':
+            rtValue = 'no2';
+            break;
+          case 'CO':
+            rtValue = 'co';
+            break;
+          case 'O3':
+            rtValue = 'o3';
+            break;
+        }
+        return rtValue;
+      },
+
       //获取图标对象
       getMarker(pt, value){
         let marker = undefined;
         if (pt && value) {
           let imgUrl = this.getImgUrl(value);
-          console.log(imgUrl);
           let icon = new BMap.Icon(imgUrl, new BMap.Size(32, 32));
           marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(8, -16)});
         }

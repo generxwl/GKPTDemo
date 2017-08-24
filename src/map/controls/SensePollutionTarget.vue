@@ -73,6 +73,8 @@
         bus.$emit('hotLayerTarget',type);
         bus.$emit('markerTarget',type);
         bus.$emit('refreshTarget',type);
+        bus.$emit('getCheckedName',type);
+        bus.$emit('clearDrawOverlay');
       },
       resetImg(){
         let targets = this.$data.targets;

@@ -82,8 +82,7 @@
         }
       },
       sliderChangeEvent(e){
-        //console.log(e);
-        bus.$emit('setOpacity', this.checkedId, 1.0 - e / 100)
+        bus.$emit('setOpacity', this.checkedId, e === 100 ? 0.001 : 1.0 - e / 100)
       }
     },
     components: {BdPolygon, BdLabel}

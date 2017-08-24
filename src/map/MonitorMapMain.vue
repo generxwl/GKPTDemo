@@ -27,7 +27,6 @@
     mounted() {
       this.ready();
       this.event();
-      console.log('start')
     },
     methods: {
       ready: function () {
@@ -44,8 +43,6 @@
         bus.$emit('getMap', map);
         map.addEventListener('tilesloaded', function () {
           bus.$emit('tilesLoaded', map);
-        });
-        map.addEventListener('zoomend', function (pms) {
         });
       },
       event() {

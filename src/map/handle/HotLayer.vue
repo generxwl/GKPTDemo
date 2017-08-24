@@ -31,11 +31,16 @@
         bus.$on('hotLayerTarget', this.pollutionTarget);
         bus.$on('refreshHotLayer',this.refreshLayer);
       },
+
+      //获取Map
       getMap(map){
         if (!this.map) {
           this.map = map;
         }
-      }, loadHotLayer(map, data){
+      },
+
+      //加载热力图
+      loadHotLayer(map, data){
         console.log('hot'+this.hasVisible);
         if (!this.data.length) {
           this.data = data;
@@ -48,19 +53,27 @@
           this.hotLayer.setDataSet({data: dt, max: (this.getMaxPollutionByType() || 200)});
           this.hasVisible ? this.hotLayer.show() : this.hotLayer.hide();
         }
-      }, pollutionTarget(type){
+      },
+
+      //污染指标切换
+      pollutionTarget(type){
         console.log(type);
         this.checkedName = type;
         let dt = this.getPollutionByType(type);
         if (dt.length) {
           this.refreshLayer(dt);
         }
-      }, refreshLayer(data){
+      },
+
+      //刷新热力图
+      refreshLayer(data){
         if (this.hotLayer) {
           this.clearHotLayer();
           this.loadHotLayer(this.map, data);
         }
       },
+
+      //根据切换指标类型获取热力图渲染对象
       getPollutionByType(type){
         let rtValue = [];
         if (this.data) {
@@ -72,18 +85,24 @@
         }
         return rtValue;
       },
+
+      //清除热力图图层
       clearHotLayer(){
         if (this.hotLayer) {
           this.map.removeOverlay(this.hotLayer);
           this.hotLayer = undefined;
         }
       },
+
+      //图层显隐性切换
       hotLayerToggle(hasVisible){
         this.hasVisible = hasVisible;
         if (this.hotLayer) {
           hasVisible ? this.hotLayer.show() : this.hotLayer.hide();
         }
       },
+
+      //获取切换指标变红临界值
       getMaxPollutionByType(){
           let rtValue = undefined;
           if(this.checkedName){
@@ -111,7 +130,6 @@
                   break;
               }
           }
-          console.log(this.checkedName);
           return rtValue;
       }
     }

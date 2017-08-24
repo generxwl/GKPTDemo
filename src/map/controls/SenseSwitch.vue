@@ -42,9 +42,10 @@
         let url = this.pollutionUrl;
         console.log(url);
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-            console.log(result);
+          console.log(result);
           if (result.status === 0) {
             console.log(result.obj);
+            bus.$emit('getSenseData', result.obj);
             bus.$emit('loadHotLayer', map, result.obj);
             bus.$emit('loadMarker', map, result.obj);
           }
@@ -98,7 +99,7 @@
   .sense-switch-content li {
     list-style: none;
     float: left;
-    height: 34px;
+    height: 35px;
     width: 120px;
     line-height: 35px;
     color: #fff;
