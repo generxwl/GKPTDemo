@@ -2,10 +2,6 @@
   <div class="GridPrediction">
     <!--网格预报-->
     <v-header></v-header>
-    <!--<monitor-map-->
-      <!--v-loading.fullscreen.lock="fullscreenLoading"-->
-      <!--element-loading-text="监测点地图拼命加载中"-->
-    <!--&gt;</monitor-map>-->
     <v-Paneldagrid></v-Paneldagrid>
     <grid-map></grid-map>
   </div>
