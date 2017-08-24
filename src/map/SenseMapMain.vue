@@ -21,8 +21,8 @@
     name: 'SenseMapMain',
     data () {
       return {
-        pollutionUrl:'http://117.119.97.150:8064/api/FcStation/GetFcStationList',
-        charUrl:'http://117.119.97.150:8064/api/FcStation/GetSingleStationInfo',
+        pollutionUrl:'http://lftdkfc.zhiscity.com/api/FcStation/GetFcStationList',
+        charUrl:'http://lftdkfc.zhiscity.com/api/FcStation/GetSingleStationInfo',
       }
     },
     mounted(){

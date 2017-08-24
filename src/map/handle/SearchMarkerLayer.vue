@@ -11,7 +11,7 @@
         markers: [],
         checkedName: 'AQI',
         map: undefined,
-        charUrl: 'http://117.119.97.150:8064/api/FcStation/GetSingleStationInfo'
+        charUrl: 'http://lftdkfc.zhiscity.com/api/FcStation/GetSingleStationInfo'
       };
     },
     created(){
