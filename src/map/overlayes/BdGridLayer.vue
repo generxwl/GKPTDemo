@@ -1,6 +1,5 @@
 <template>
   <div class="grid-view">
-
   </div>
 </template>
 <script>
@@ -19,6 +18,14 @@
           point_lng: '1'
         }],
         marker: undefined,
+        rectangles: [],
+        rectangleOption: {
+          strokeColor: "black",
+          strokeWeight: 0.3,
+          strokeOpacity: 0,
+          fillColor: "red",
+          fillOpacity: 0.7
+        },
         checkedName: 'SO2_120'
       }
     },
@@ -27,25 +34,26 @@
     },
     mounted () {
       let t = this;
-      let rectangleOption = {
-        strokeColor: "black",
-        strokeWeight: 0.3,
-        strokeOpacity: 0,
-        fillColor: "red",
-        fillOpacity: 0.7
-      };
       setTimeout(function () {
         t.createGrid();
-        t.setMapData(t.checkedName, rectangleOption);
+        t.setMapData(t.checkedName, this.rectangleOption);
       }, 10)
     },
     methods: {
       ready () {
         bus.$on('getGridMap', this.getMap);
         bus.$on('locationGridPoint', this.locationPoint);
+        bus.$on('gridLayerRefresh', this.refreshLayer);
       },
       getMap (map) {
         this.map = map
+      },
+      refreshLayer(type){
+        if (type) {
+          this.clearLayer();
+          this.checkedName = type;
+          this.setMapData(type, this.rectangleOption);
+        }
       },
       createGrid () {
         if (!this.map) {
@@ -78,10 +86,8 @@
         let pms = {
           'method': 'GET',
           'url': 'http://60.10.135.153:3000/querys/adj.js',
-          '_':'1503455089804',
           'var': type
         };
-        console.log(JSON.stringify(pms));
 
         RequestHandle.request({
           url: url + '?paramStr=' + JSON.stringify(pms),
@@ -97,12 +103,13 @@
                   ], $.extend({}, rectangleOption, {fillColor: t.getColor(data[i][j])}));
                   rectangle.addEventListener("click", t.locationClick);
                   t.map.addOverlay(rectangle);
+                  t.rectangles.push(rectangle);
                 }
               }
             }
           }
         }, function (ex) {
-            console.error(ex);
+          console.error(ex);
         });
       },
       locationClick (e) {
@@ -175,6 +182,13 @@
           '<tr><th>联系人</th><td style=\'width:70px;text-align:center;\'>' + (data.contactName || '无') + '</td></tr>' +
           '<tr><th>联系电话</th><td style=\'width:70px;text-align:center;\'>' + (data.contacttype || '无') + '</td></tr>' +
           '<tr><th>地址</th><td style=\'width:70px;text-align:center;\'>' + (data.address || '无') + '</td></tr></table>';
+      },
+      clearLayer(){
+        if (this.rectangles.length) {
+          for (let i = 0, length = this.rectangles.length; i < length; i++) {
+            this.map.removeOverlay(this.rectangles[i]);
+          }
+        }
       },
       deletePoint(){
         this.map.removeOverlay(this.marker);
