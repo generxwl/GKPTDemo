@@ -1,12 +1,17 @@
 <template>
   <div class="grid-map-content">
     <div id="grid_map"></div>
+    <div class="grid-legend"></div>
+    <map-handle></map-handle>
     <bd-grid-layer></bd-grid-layer>
+    <grid-layer-switch></grid-layer-switch>
   </div>
 </template>
 <script>
   import BMap from 'BMap'
+  import MapHandle from '@/map/controls/MapHandle'
   import BdGridLayer from '@/map/overlayes/BdGridLayer'
+  import GridLayerSwitch from '@/map/controls/GridLayerSwitch'
   import {bus} from '@/js/bus.js'
 
   export default {
@@ -15,22 +20,22 @@
       return {};
     },
     mounted(){
-        this.ready();
+      this.ready();
     },
-    methods:{
-        ready(){
-          let map = new BMap.Map('grid_map');
-          map.centerAndZoom('廊坊', 8);
-          map.enableScrollWheelZoom();
-          this.map = map;
+    methods: {
+      ready(){
+        let map = new BMap.Map('grid_map');
+        map.centerAndZoom('廊坊', 8);
+        map.enableScrollWheelZoom();
+        this.map = map;
 
-          bus.$emit('getGridMap', map);
-          map.addEventListener('tilesloaded', function () {
-            bus.$emit('tilesGridLoaded', map);
-          });
-        }
+        bus.$emit('getGridMap', map);
+        map.addEventListener('tilesloaded', function () {
+          bus.$emit('tilesGridLoaded', map);
+        });
+      }
     },
-    components:{BdGridLayer}
+    components: {MapHandle,BdGridLayer, GridLayerSwitch}
   };
 </script>
 <style scoped>
@@ -50,5 +55,15 @@
     padding: 0;
     overflow: hidden;
     position: absolute;
+  }
+
+  .grid-legend {
+    background-image: url("../../static/imgs/gridlayer/pic-18.png");
+    height: 300px;
+    width: 50px;
+    z-index: 1;
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
   }
 </style>
