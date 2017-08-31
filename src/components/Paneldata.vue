@@ -423,7 +423,7 @@
                 let Color = this.Datalist.aqiColor;
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = echarts.init(document.getElementById('main1'));
-                app.title = '环形图';
+                app.title = '';
                 // 指定图表的配置项和数据
 //
                 let option = {
@@ -489,7 +489,7 @@
                 let Color = this.Datalist.accuAqiColor;
                 // 基于准备好的dom，初始化echarts实例
                 var myChart = echarts.init(document.getElementById('main2'));
-                app.title = '环形图';
+                app.title = '';
                 // 指定图表的配置项和数据
 
                 let option = {
@@ -555,7 +555,7 @@
                 let Color = this.Datalist.aqiColor;
                 // 基于准备好的dom，初始化echarts实例
                 var myChart = echarts.init(document.getElementById('main3'));
-                app.title = '环形图';
+                app.title = '';
                 // 指定图表的配置项和数据
                 let option = {
                     tooltip: {
