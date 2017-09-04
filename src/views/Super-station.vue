@@ -5,7 +5,7 @@
       <iframe
               frameborder="0"
               width="100%"
-              height="90%"
+              height="100%"
               :src="superstationURL"
               scrolling="no"
               v-loading.fullscreen.lock="fullscreenLoading"
@@ -93,7 +93,7 @@ export default {
 <style lang="scss" scoped>
     .superstation{
         width: 100%;
-        height: 100%;
+        height: calc(100% - 60px);
         position: relative;
         .dingwei{
             position: absolute;

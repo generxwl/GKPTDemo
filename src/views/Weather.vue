@@ -5,7 +5,7 @@
         <iframe
                 frameborder="0"
                 width="100%"
-                height="90%"
+                height="100%"
                 :src="YBweatherURL"
                 scrolling="no"
         >
@@ -34,6 +34,6 @@
 <style lang="scss" scoped>
     .YBweather {
         width: 100%;
-        height: 100%;
+        height: calc(100% - 60px);
     }
 </style>

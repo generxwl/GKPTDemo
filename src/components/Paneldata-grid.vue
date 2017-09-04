@@ -2,7 +2,6 @@
     <div class="PaneldataGrid">
         <!--网格预测-->
         <div id="list">
-            <img class="qianren" src="../assets/img/千人计划logo.png" alt="">
             <div class="panel">
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
                 <img id="shrink" src="../assets/img/右.png" v-if="you"/>

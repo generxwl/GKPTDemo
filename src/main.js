@@ -13,6 +13,7 @@ import Paneldata from './components/Paneldata'
 import PaneldataCgw from './components/Paneldata-cgw'
 import PaneldataOnlineList from './components/Paneldata-OnlineList'
 import PaneldataGrid from './components/Paneldata-grid'
+import Progress from './components/progress'
 //引入ElementUI
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
@@ -26,6 +27,7 @@ Vue.component('v-paneldata', Paneldata);
 Vue.component('v-paneldatcgw', PaneldataCgw);
 Vue.component('v-paneldatycy', PaneldataOnlineList);
 Vue.component('v-Paneldagrid', PaneldataGrid);
+Vue.component('v-progress', Progress);
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

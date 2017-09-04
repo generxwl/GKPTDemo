@@ -103,24 +103,24 @@
                         </div>
                         <div class="wrjingdu">
                             <p>主要污染物：{{Datalist.mainpoll}}</p>
-                            <!--<div class="jdhezi">-->
-                            <!--<div class="font">日</div>-->
-                            <!--<div class="tiaojd">-->
-                            <!--<el-progress :text-inside="true" :stroke-width="18" :percentage="20"></el-progress>-->
-                            <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="jdhezi">-->
-                            <!--<div class="font">月</div>-->
-                            <!--<div class="tiaojd">-->
-                            <!--<el-progress :text-inside="true" :stroke-width="18" :percentage="20"></el-progress>-->
-                            <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="jdhezi">-->
-                            <!--<div class="font">年</div>-->
-                            <!--<div class="tiaojd">-->
-                            <!--<el-progress :text-inside="true" :stroke-width="18" :percentage="20"></el-progress>-->
-                            <!--</div>-->
-                            <!--</div>-->
+                            <div class="jdhezi">
+                            <div class="font">日</div>
+                            <div class="tiaojd">
+                                <v-progress :width="YearMonthDay(Datalist.dayrank_74)" :text="Datalist.dayrank_74" :color="YearMonthDayColor(Datalist.dayrank_74)"></v-progress>
+                           </div>
+                            </div>
+                            <div class="jdhezi">
+                            <div class="font">月</div>
+                            <div class="tiaojd">
+                                <v-progress :width="YearMonthDay(Datalist.monthrank_74)" :text="Datalist.monthrank_74" :color="YearMonthDayColor(Datalist.monthrank_74)"></v-progress>
+                           </div>
+                            </div>
+                            <div class="jdhezi">
+                            <div class="font">年</div>
+                            <div class="tiaojd">
+                                <v-progress :width="YearMonthDay(Datalist.yearrank_74)" :text="Datalist.yearrank_74" :color="YearMonthDayColor(Datalist.yearrank_74)"></v-progress>
+                            </div>
+                            </div>
                             <strong v-if="tianqiyuji">今日空气质量预计为：{{Datalist.qulity}}</strong>
                         </div>
                     </div>
@@ -394,6 +394,28 @@
                     break;
                 }
                 return rtValue;
+            },
+            //年月日占比
+            YearMonthDay(cantext){
+                let x
+                x = Math.ceil((cantext/74)*100);
+                return x
+            },
+            //年月日背景颜色
+            YearMonthDayColor(codata){
+                let Degrees = codata;
+                let Vcolor = '';
+                if(Degrees > 64){
+                    //倒数10
+                    Vcolor = '#f00'
+                }else if(55 <= Degrees && Degrees <= 64){
+                    //倒数11到20
+                    Vcolor = '#ff0'
+                }else if(Degrees < 55){
+                    //倒数21-74
+                    Vcolor = '#0f0'
+                }
+                return Vcolor;
             },
             //切换
             handleClick(tab, event) {
@@ -723,7 +745,7 @@
             .qianren {
                 position: absolute;
                 left: -156px;
-                top: 499px;
+                top: 74%;
             }
             img {
                 position: absolute;
@@ -894,6 +916,7 @@
                         }
                         .jdhezi {
                             height: 24px;
+                            overflow: hidden;
                             .font {
                                 margin-left: 30px;
                                 text-align: center;
@@ -902,6 +925,7 @@
                                 float: left;
                             }
                             .tiaojd {
+
                                 float: left;
                                 width: 300px;
                             }

@@ -5,7 +5,7 @@
     <iframe
             frameborder="0"
             width="100%"
-            height="90%"
+            height="100%"
             :src="weatherstationURL"
             scrolling="no"
             v-loading.fullscreen.lock="fullscreenLoading"
@@ -44,6 +44,6 @@
 <style lang="scss" scoped>
   .weatherstation{
     width: 100%;
-    height: 100%;
+    height: calc(100% - 60px);
   }
 </style>

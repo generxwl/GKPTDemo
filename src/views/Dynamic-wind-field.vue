@@ -5,7 +5,7 @@
       <iframe
               frameborder="0"
               width="100%"
-              height="90%"
+              height="100%"
               :src="DWFURL"
               scrolling="no"
       >
@@ -31,6 +31,6 @@ export default {
 <style lang="scss" scoped>
     .DynamicWindField{
         width: 100%;
-        height: 100%;
+        height: calc(100% - 60px);
     }
 </style>
