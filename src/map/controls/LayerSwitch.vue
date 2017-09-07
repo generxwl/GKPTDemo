@@ -4,21 +4,21 @@
       <li class="title"><b class="b-icon"></b><span>图层控制</span></li>
       <li :id="layers[0].id">
         <input data-attr="0" title="" @click="radioClick" name="layer" type="radio" checked/>{{layers[0].name}}
-        <div class="block layerSwitch-slider">
-          <el-slider id="slider_0" data-attr="0" v-model="sliderValue0" :disabled="disabledSlider0" @change="sliderChangeEvent"></el-slider>
-        </div>
+        <!--<div class="block layerSwitch-slider">-->
+          <!--<el-slider id="slider_0" data-attr="0" v-model="sliderValue0" :disabled="disabledSlider0" @change="sliderChangeEvent"></el-slider>-->
+        <!--</div>-->
       </li>
       <li :id="layers[1].id">
         <input data-attr="1" title="" @click="radioClick" name="layer" type="radio"/>{{layers[1].name}}
-        <div class="block layerSwitch-slider">
-          <el-slider id="slider_1" data-attr="1" v-model="sliderValue1" :disabled="disabledSlider1" @change="sliderChangeEvent"></el-slider>
-        </div>
+        <!--<div class="block layerSwitch-slider">-->
+          <!--<el-slider id="slider_1" data-attr="1" v-model="sliderValue1" :disabled="disabledSlider1" @change="sliderChangeEvent"></el-slider>-->
+        <!--</div>-->
       </li>
       <li :id="layers[2].id">
         <input data-attr="2" title="" @click="radioClick" name="layer" type="radio"/>{{layers[2].name}}
-        <div class="block layerSwitch-slider">
-          <el-slider id="slider_2" data-attr="2" v-model="sliderValue2" :disabled="disabledSlider2" @change="sliderChangeEvent"></el-slider>
-        </div>
+        <!--<div class="block layerSwitch-slider">-->
+          <!--<el-slider id="slider_2" data-attr="2" v-model="sliderValue2" :disabled="disabledSlider2" @change="sliderChangeEvent"></el-slider>-->
+        <!--</div>-->
       </li>
     </ul>
     <bd-polygon></bd-polygon>

@@ -81,50 +81,61 @@
           console.log(rectangleOption);
         let t = this;
         let xmin = 110, ymin = 35.8, xmax = 121.9, ymax = 42.7;
-        $.get('http://60.10.135.153:3000/querys/adj.js', {var: type}, function (rdata) {
-          let data = rdata[type];
-          for (let i = 0; i < 70; i++) {
-            for (let j = 0; j < 120; j++) {
-              if (data[i][j] > 0.05) {
-                let rectangle = new BMap.Polygon([new BMap.Point(xmin + (0.1 * j), ymin + (0.1 * i)), new BMap.Point(xmin + 0.1 + (0.1 * j), ymin + (0.1 * i)), new BMap.Point(xmin + 0.1 + (0.1 * j), ymin + 0.1 + (0.1 * i)), new BMap.Point(xmin + (0.1 * j), ymin + 0.1 + (0.1 * i))
-                ], $.extend({}, rectangleOption, {fillColor: t.getColor(data[i][j])}));
-                rectangle.addEventListener("click", t.locationClick);
-                t.map.addOverlay(rectangle);
-                t.rectangles.push(rectangle);
-              }
-            }
-          }
-        }, 'jsonp');
-//        console.log(type);
-//        let url = 'http://lftdkplat.zhiscity.com/api/GridForecast/GetGridForecast';
-//        let pms = {
-//          'method': 'GET',
-//          'url': 'http://60.10.135.153:3000/querys/adj.js',
-//          'var': type
-//        };
-//
-//        RequestHandle.request({
-//          url: url + '?paramStr=' + JSON.stringify(pms),
-//          type: 'GET',
-//          pms: {}
-//        }, function (result) {
-//          if (result.status === 0) {
-//            let data = result.obj;
-//            for (let i = 0; i < 70; i++) {
-//              for (let j = 0; j < 120; j++) {
-//                if (data[i][j] > 0.05) {
-//                  let rectangle = new BMap.Polygon([new BMap.Point(xmin + (0.1 * j), ymin + (0.1 * i)), new BMap.Point(xmin + 0.1 + (0.1 * j), ymin + (0.1 * i)), new BMap.Point(xmin + 0.1 + (0.1 * j), ymin + 0.1 + (0.1 * i)), new BMap.Point(xmin + (0.1 * j), ymin + 0.1 + (0.1 * i))
-//                  ], $.extend({}, rectangleOption, {fillColor: t.getColor(data[i][j])}));
-//                  rectangle.addEventListener("click", t.locationClick);
-//                  t.map.addOverlay(rectangle);
-//                  t.rectangles.push(rectangle);
-//                }
+//        $.get('http://60.10.135.153:3000/querys/adj.js', {var: type}, function (rdata) {
+//          let data = rdata[type];
+//          for (let i = 0; i < 70; i++) {
+//            for (let j = 0; j < 120; j++) {
+//              if (data[i][j] > 0.05) {
+//                let rectangle = new BMap.Polygon([new BMap.Point(xmin + (0.1 * j), ymin + (0.1 * i)), new BMap.Point(xmin + 0.1 + (0.1 * j), ymin + (0.1 * i)), new BMap.Point(xmin + 0.1 + (0.1 * j), ymin + 0.1 + (0.1 * i)), new BMap.Point(xmin + (0.1 * j), ymin + 0.1 + (0.1 * i))
+//                ], $.extend({}, rectangleOption, {fillColor: t.getColor(data[i][j])}));
+//                rectangle.addEventListener("click", t.locationClick);
+//                t.map.addOverlay(rectangle);
+//                t.rectangles.push(rectangle);
 //              }
 //            }
 //          }
-//        }, function (ex) {
-//          console.error(ex);
-//        });
+//        }, 'jsonp');
+//        console.log(type);
+        let url = 'http://lftdkplat.zhiscity.com/api/GridForecast/GetGridForecast';
+        let pms = {
+          'method': 'GET',
+          'url': 'http://60.10.135.153:3000/querys/adj.json',
+          'var': type
+        };
+
+        RequestHandle.request({
+          url: url + '?paramStr=' + JSON.stringify(pms),
+          type: 'GET',
+          pms: {}
+        }, function (result) {
+          if (result.status === 0) {
+            let data = result.obj;
+            switch(type){
+              case 'CO_120':
+                  data = data.CO_120;
+                  break;
+              case 'SO2_120':
+                  data = data.SO2_120;
+                  break;
+              case 'NOX_120':
+                  data = data.NOX_120;
+                  break;
+            }
+            for (let i = 0; i < 70; i++) {
+              for (let j = 0; j < 120; j++) {
+                if (data[i][j] > 0.05) {
+                  let rectangle = new BMap.Polygon([new BMap.Point(xmin + (0.1 * j), ymin + (0.1 * i)), new BMap.Point(xmin + 0.1 + (0.1 * j), ymin + (0.1 * i)), new BMap.Point(xmin + 0.1 + (0.1 * j), ymin + 0.1 + (0.1 * i)), new BMap.Point(xmin + (0.1 * j), ymin + 0.1 + (0.1 * i))
+                  ], $.extend({}, rectangleOption, {fillColor: t.getColor(data[i][j])}));
+                  rectangle.addEventListener("click", t.locationClick);
+                  t.map.addOverlay(rectangle);
+                  t.rectangles.push(rectangle);
+                }
+              }
+            }
+          }
+        }, function (ex) {
+          console.error(ex);
+        });
       },
       locationClick (e) {
         let t = this;
