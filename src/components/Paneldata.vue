@@ -38,9 +38,8 @@
                     <div class="Second">
                         <div class="tianqi">
                             <!--天气-->
-
                             <div class="tqbj">
-                                <img class="beijing" :src="'static/imgs/weather/'+ Datalist.weather+'.png'">
+                                <img class="beijing" :src="'static/imgs/weather/'+ Datalist.weather+'.png'" :title="Datalist.weather">
                             </div>
                             <p>温度：{{Datalist.temp}}</p>
                             <p>湿度：{{Datalist.humi}}</p>
@@ -107,13 +106,13 @@
                             <div class="font">日</div>
                             <div class="tiaojd">
                                 <v-progress :width="YearMonthDay(Datalist.dayrank_74)" :text="Datalist.dayrank_74" :color="YearMonthDayColor(Datalist.dayrank_74)"></v-progress>
-                           </div>
+                            </div>
                             </div>
                             <div class="jdhezi">
                             <div class="font">月</div>
                             <div class="tiaojd">
                                 <v-progress :width="YearMonthDay(Datalist.monthrank_74)" :text="Datalist.monthrank_74" :color="YearMonthDayColor(Datalist.monthrank_74)"></v-progress>
-                           </div>
+                            </div>
                             </div>
                             <div class="jdhezi">
                             <div class="font">年</div>
@@ -675,7 +674,7 @@
                 api.GetLfAirPollution().then(res => {
                     let shoulist = JSON.parse(res.data);
                     this.CumulativeData = shoulist.obj
-                    console.log(this.CumulativeData)
+                    //console.log(this.CumulativeData)
                 })
                 api.GetMonitoringPointAccu().then(res=>{
                     let shoulist = JSON.parse(res.data);
@@ -690,10 +689,8 @@
             TimeChaXun(){
                 let t = this;
                 let time = this.dateFtt('yyyy-MM-dd hh:00:00',this.value2);
-               // console.log(this.value2)
-               // console.log(this.dateFtt('yyyy-MM-dd hh:mm:ss',this.value2))
                 api.GetMonitoringPointHour(time).then(res=>{
-                    console.log('时间查询数据')
+                    //console.log('时间查询数据')
                     let shoulist = JSON.parse(res.data);
                     t.setdata(shoulist.obj, t.type)
                     bus.$emit('refreshLayer', shoulist.obj)
@@ -702,7 +699,7 @@
             //时间转换
             dateFtt(fmt, date){
                 var o = {
-                    "M+": date.getMonth() + 1,                 //月份
+                    "M+": date.getMonth() + 1,               //月份
                     "d+": date.getDate(),                    //日
                     "h+": date.getHours(),                   //小时
                     "m+": date.getMinutes(),                 //分
@@ -745,7 +742,7 @@
             .qianren {
                 position: absolute;
                 left: -156px;
-                top: 74%;
+                top: 76%;
             }
             img {
                 position: absolute;
@@ -925,7 +922,6 @@
                                 float: left;
                             }
                             .tiaojd {
-
                                 float: left;
                                 width: 300px;
                             }
@@ -942,6 +938,8 @@
                     //表格部分
                     overflow: auto;
                     font-size: 10px !important;
+
+
                 }
             }
         }
