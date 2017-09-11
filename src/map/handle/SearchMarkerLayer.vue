@@ -120,7 +120,7 @@
       getMarker(pt, value){
         let marker = undefined;
         if (pt && value) {
-          let imgUrl = this.getIconUrl(value);
+          let imgUrl = this.getImgUrl(value);
           let icon = new BMap.Icon(imgUrl, new BMap.Size(32, 32));
           marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(8, -16)});
         }
@@ -147,30 +147,6 @@
         }
         else if (value > 80) {
           imgPath = '/static/imgs/sense/red.png';
-        }
-        return imgPath;
-      },
-
-      //获取图标地址，根据指标参考值
-      getIconUrl(value){
-        let imgPath = undefined;
-        if (value > 0 && value <= 10) {
-          imgPath = '/static/imgs/sense/gv1.png';
-        }
-        else if (value > 10 && value <= 20) {
-          imgPath = '/static/imgs/sense/ov1.png';
-        }
-        else if (value > 20 && value <= 40) {
-          imgPath = '/static/imgs/sense/yv1.png';
-        }
-        else if (value > 40 && value <= 60) {
-          imgPath = '/static/imgs/sense/mv1.png';
-        }
-        else if (value > 60 && value <= 80) {
-          imgPath = '/static/imgs/sense/vv1.png';
-        }
-        else if (value > 80) {
-          imgPath = '/static/imgs/sense/rv1.png';
         }
         return imgPath;
       },
