@@ -2,10 +2,7 @@
   <div class="SensorNetwork">
     <!--传感网部分-->
     <v-header></v-header>
-    <sense-map
-            v-loading.fullscreen.lock="fullscreenLoading"
-            element-loading-text="传感网地图拼命加载中"
-    ></sense-map>
+    <sense-map></sense-map>
      <v-paneldatcgw></v-paneldatcgw>
   </div>
 </template>
