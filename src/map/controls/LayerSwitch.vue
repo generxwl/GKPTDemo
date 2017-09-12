@@ -2,20 +2,23 @@
   <div class="layerSwitch">
     <ul>
       <li class="title"><b class="b-icon"></b><span>图层控制</span></li>
-      <li :id="layers[0].id">
-        <input data-attr="0" title="" @click="radioClick" name="layer" type="radio" checked/>{{layers[0].name}}
+      <li :id="layers[0].id" data-attr="0" @click="radioClick" class="layer-checked">
+        {{layers[0].name}}
+        <!--<input data-attr="0" title="" @click="radioClick" name="layer" type="radio" checked/>{{layers[0].name}}-->
         <!--<div class="block layerSwitch-slider">-->
           <!--<el-slider id="slider_0" data-attr="0" v-model="sliderValue0" :disabled="disabledSlider0" @change="sliderChangeEvent"></el-slider>-->
         <!--</div>-->
       </li>
-      <li :id="layers[1].id">
-        <input data-attr="1" title="" @click="radioClick" name="layer" type="radio"/>{{layers[1].name}}
+      <li :id="layers[1].id" data-attr="1" @click="radioClick">
+        {{layers[1].name}}
+        <!--<input data-attr="1" title="" @click="radioClick" name="layer" type="radio"/>{{layers[1].name}}-->
         <!--<div class="block layerSwitch-slider">-->
           <!--<el-slider id="slider_1" data-attr="1" v-model="sliderValue1" :disabled="disabledSlider1" @change="sliderChangeEvent"></el-slider>-->
         <!--</div>-->
       </li>
-      <li :id="layers[2].id">
-        <input data-attr="2" title="" @click="radioClick" name="layer" type="radio"/>{{layers[2].name}}
+      <li :id="layers[2].id" data-attr="2" @click="radioClick">
+        {{layers[2].name}}
+        <!--<input data-attr="2" title="" @click="radioClick" name="layer" type="radio"/>{{layers[2].name}}-->
         <!--<div class="block layerSwitch-slider">-->
           <!--<el-slider id="slider_2" data-attr="2" v-model="sliderValue2" :disabled="disabledSlider2" @change="sliderChangeEvent"></el-slider>-->
         <!--</div>-->
@@ -69,6 +72,7 @@
         bus.$emit('setLabelVisible', ckLayerId);
         this.setSliderDisable(ckLayerId);
         this.checkedId = ckLayerId;
+        $(e.target).addClass('layer-checked').siblings().removeClass('layer-checked');
       }, setSliderDisable(id){
         this.disabledSlider0 = true;
         this.disabledSlider1 = true;
@@ -93,53 +97,59 @@
   .layerSwitch {
     position: absolute;
     bottom: 30px;
-    left: 80px;
+    left: 0;
     z-index: 1;
-    width: 210px;
+    width: 99px;
   }
 
   .b-icon {
     height: 18px;
     width: 18px;
-    display: inline-block;
+    /*display: inline-block;*/
     vertical-align: middle;
     margin: 0 5px;
+    display:none;
     background: url('/static/imgs/map/layer.png') no-repeat;
   }
 
   .layerSwitch li:first-child {
-    height: 37px;
-    width: 210px;
+    /*height: 30px;*/
+    line-height: 25px;
+    width: 99px;
     text-align: center;
     margin: 0;
-    background-color: #1080CC;
+    background-color: #fff;
   }
 
   .layerSwitch li span {
     font-size: 18px;
-    line-height: 36px;
+    line-height: 30px;
     vertical-align: middle;
     font-family: "Microsoft YaHei UI";
-    color: #fff;
+    color: #1080cc;
   }
 
   .layerSwitch ul {
     border: solid 1px #1080CC;
-    background: #fff;
-    width: 212px;
+    /*background: #fff;*/
+    width: 101px;
     list-style-type: none;
     padding: 0;
   }
 
   .layerSwitch li {
-    width: 210px;
+    width: 99px;
     list-style-type: none;
-    text-align: left;
-    margin: 5px 0;
+    text-align: center;
+    margin: 0;
     border-radius: 0;
-    color: #333;
-    padding: 0 10px;
-    background-color: #fff;
+    color: #fff;
+    padding: 5px 10px;
+    background-color: rgba(0, 79, 137, 0.6);
+  }
+
+  .layer-checked{
+    background-color: #1080cc !important;
   }
 
   .layerSwitch-slider {
