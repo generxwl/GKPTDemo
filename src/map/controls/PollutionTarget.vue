@@ -122,7 +122,7 @@
     -moz-border-radius: 1px;
     border-radius: 1px;
     position: absolute;
-    width: 99px;
+    width: 60px;
     left: 0;
     top: 20px;
     z-index: 1;
@@ -133,7 +133,7 @@
     -moz-border-radius: 1px;
     border-radius: 1px;
     border: solid 1px #1080CC;
-    width: 101px;
+    width: 62px;
     color:#fff;
   }
 
@@ -144,7 +144,7 @@
     background-color: rgba(0, 79, 137, 0.6);
     list-style: none;
     line-height: 30px;
-    width: 99px;
+    width: 60px;
     padding: 0;
     cursor: pointer;
   }

@@ -115,15 +115,16 @@
   .layerSwitch li:first-child {
     /*height: 30px;*/
     line-height: 25px;
-    width: 99px;
+    width: 60px;
     text-align: center;
     margin: 0;
     background-color: #fff;
+    font-size:12px;
   }
 
   .layerSwitch li span {
-    font-size: 18px;
-    line-height: 30px;
+    font-size: 12px;
+    line-height: 20px;
     vertical-align: middle;
     font-family: "Microsoft YaHei UI";
     color: #1080cc;
@@ -132,19 +133,20 @@
   .layerSwitch ul {
     border: solid 1px #1080CC;
     /*background: #fff;*/
-    width: 101px;
+    width: 62px;
     list-style-type: none;
     padding: 0;
   }
 
   .layerSwitch li {
-    width: 99px;
+    width: 60px;
     list-style-type: none;
     text-align: center;
     margin: 0;
     border-radius: 0;
     color: #fff;
-    padding: 5px 10px;
+    padding: 0 2px;
+    line-height:30px;
     background-color: rgba(0, 79, 137, 0.6);
   }
 
