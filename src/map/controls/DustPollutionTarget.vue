@@ -1,7 +1,8 @@
 <template>
   <div class="dust-target-content">
     <ul>
-      <li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index"><img :title="item.name" :src="index===0?item.checked:item.src"/></li>
+      <!--<li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index"><img :title="item.name" :src="index===0?item.checked:item.src"/></li>-->
+      <li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index">{{item.name}}</li>
     </ul>
     <pollution-manager :item="checkedName" :pollutionUrl="pollutionUrl" :charUrl="charUrl"></pollution-manager>
   </div>
@@ -61,13 +62,13 @@
       liClickEvent(e){
         this.resetImg();
         let childElement = e.currentTarget;
-        let imgElement = childElement.querySelector('img');
+        //let imgElement = childElement.querySelector('img');
         let index = childElement.getAttribute('data-index');
         let type = childElement.getAttribute('data-type');
         let targets = this.$data.targets;
         let item = targets[index];
-        childElement.style.backgroundColor = '#FFF';
-        imgElement.src = item.checked;
+        childElement.style.backgroundColor = '#1080cc';
+        //imgElement.src = item.checked;
 
         bus.$emit('switchDustRender', type);
         bus.$emit('refreshDustTarget',type);
@@ -75,12 +76,12 @@
       resetImg(){
         let targets = this.$data.targets;
         jQuery.find('.dust-target-content li').forEach(function (value, index) {
-          value.style.backgroundColor = '#1080CC';
+          value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)';
         });
-        jQuery.find('.dust-target-content li>img').forEach(function (value, index) {
-          let target = targets[index];
-          value.src = target.src;
-        })
+//        jQuery.find('.dust-target-content li>img').forEach(function (value, index) {
+//          let target = targets[index];
+//          value.src = target.src;
+//        })
       }
     },
     components: {PollutionManager}
@@ -92,35 +93,35 @@
     -moz-border-radius: 1px;
     border-radius: 1px;
     position: absolute;
-    width: 40px;
-    left: 20px;
+    width: 99px;
+    left: 0;
     top: 20px;
     z-index: 1;
   }
 
   .dust-target-content ul {
-    background-color: #1080CC;
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
     border-radius: 1px;
     border: solid 1px #1080CC;
-    width: 42px;
+    width: 101px;
+    color:#fff;
   }
 
   .dust-target-content li {
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
     border-radius: 1px;
-    background-color: #1080CC;
+    background-color: rgba(0, 79, 137, 0.6);
     list-style: none;
-    height: 35px;
-    width: 40px;
+    line-height: 30px;
+    width: 99px;
     padding: 0;
     cursor: pointer;
   }
 
   .dust-target-content li:first-child {
-    background-color: #fff;
+    background-color: #1080cc;
   }
 
   .dust-target-content li img {

@@ -89,6 +89,7 @@
     z-index: 1;
     top: 20px;
     left: 360px;
+    display: none;
   }
 
   .sense-switch-content ul {
