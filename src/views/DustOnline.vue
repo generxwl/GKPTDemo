@@ -2,10 +2,7 @@
   <div class="DustOnline">
     <!--在线扬尘部分-->
     <v-header></v-header>
-      <dust-map
-              v-loading.fullscreen.lock="fullscreenLoading"
-              element-loading-text="扬尘在线地图拼命加载中"
-      ></dust-map>
+      <dust-map></dust-map>
      <v-paneldatycy></v-paneldatycy>
   </div>
 </template>

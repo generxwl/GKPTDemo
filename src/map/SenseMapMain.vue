@@ -21,27 +21,32 @@
     name: 'SenseMapMain',
     data () {
       return {
-        pollutionUrl:'http://lftdkfc.zhiscity.com/api/FcStation/GetFcStationList',
-        charUrl:'http://lftdkfc.zhiscity.com/api/FcStation/GetSingleStationInfo',
+        pollutionUrl: 'http://lftdkfc.zhiscity.com/api/FcStation/GetFcStationList',
+        charUrl: 'http://lftdkfc.zhiscity.com/api/FcStation/GetSingleStationInfo',
+        hasLoaded: false
       }
     },
     mounted(){
-        this.ready();
+      this.ready();
     },
-    methods:{
-        ready(){
-          let map = new BMap.Map('sense_map');
-          map.centerAndZoom('廊坊', 10);
-          map.enableScrollWheelZoom();
-          this.map = map;
+    methods: {
+      ready(){
+          let t= this;
+        let map = new BMap.Map('sense_map');
+        map.centerAndZoom('廊坊', 10);
+        map.enableScrollWheelZoom();
+        this.map = map;
 
-          bus.$emit('getSenseMap', map);
-          map.addEventListener('tilesloaded', function () {
-            bus.$emit('tilesSenseLoaded', map);
-          });
-        }
+        bus.$emit('getSenseMap', map);
+        map.addEventListener('tilesloaded', function () {
+            if(!t.hasLoaded) {
+              bus.$emit('tilesSenseLoaded', map);
+              t.hasLoaded = true;
+            }
+        });
+      }
     },
-    components:{LayerSwitch,SensePollution,SenseSwitch,SenseMapHandle,HistoryHandle}
+    components: {LayerSwitch, SensePollution, SenseSwitch, SenseMapHandle, HistoryHandle}
   };
 </script>
 <style scoped>
@@ -63,7 +68,7 @@
     position: absolute;
   }
 
-  .layer-switch{
-    bottom:50px !important;
+  .layer-switch {
+    bottom: 50px !important;
   }
 </style>

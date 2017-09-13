@@ -35,7 +35,7 @@
                     </div>
                 </li>
                 <li>
-                    <a>气象预报</a>
+                    <a>气象监测预报</a>
                     <div class="Fouritem">
                         <a href="#/weatherstation">气象站</a><br/>
                         <a href="#/GridPrediction">网格预测</a><br/>
@@ -187,8 +187,9 @@
                 }
                 &:nth-child(4){
                     width: 140px;
+
                 }
-                //
+
                 .Oneitem {
                     display: none;
                     z-index: 100;
@@ -265,7 +266,7 @@
                 .Fouritem {
                     display: none;
                     z-index: 100;
-                    width: 120px;
+                    width: 140px;
                     position: absolute;
                     top: 60px;
                     left: 0;

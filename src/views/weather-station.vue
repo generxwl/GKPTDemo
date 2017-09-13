@@ -8,8 +8,6 @@
             height="100%"
             :src="weatherstationURL"
             scrolling="no"
-            v-loading.fullscreen.lock="fullscreenLoading"
-            element-loading-text="气象站拼命加载中"
     >
 
     </iframe>

@@ -2,10 +2,8 @@
   <div class="index-box">
     <!--首页部分-->
     <v-header></v-header>
-    <monitor-map
-      v-loading.fullscreen.lock="fullscreenLoading"
-      element-loading-text="监测点地图拼命加载中"
-    ></monitor-map>
+
+    <monitor-map></monitor-map>
     <scroll-bar class="gundong"></scroll-bar>
     <v-paneldata></v-paneldata>
   </div>

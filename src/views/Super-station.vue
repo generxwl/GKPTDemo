@@ -8,8 +8,6 @@
               height="100%"
               :src="superstationURL"
               scrolling="no"
-              v-loading.fullscreen.lock="fullscreenLoading"
-              element-loading-text="超级站拼命加载中"
       >
 
       </iframe>

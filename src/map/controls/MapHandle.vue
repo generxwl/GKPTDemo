@@ -105,7 +105,7 @@
     height: 37px;
     z-index: 1;
     top: 20px;
-    left: 80px;
+    left: 180px;
   }
 
   .map-handle ul {
