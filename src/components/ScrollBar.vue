@@ -174,7 +174,7 @@
             border-bottom: 2px solid #ccc;
             opacity: 0.6;
             .zhongjian{
-                padding-left: 160px;
+                padding-left: 100px;
                 float: left;
                 line-height: 33px;
                 font-size: 18px;
