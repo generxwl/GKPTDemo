@@ -49,8 +49,9 @@
         margin-bottom: 0px !important;
     }//0810
     .panel{
-        height: 100%;
-        overflow: auto!important;
+        height: calc(100% - 62px);
+      overflow-x: hidden;
+        overflow-y: auto!important;
         padding-bottom: 100px!important;
     }
     .el-date-editor.el-input {
