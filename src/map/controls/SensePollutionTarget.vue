@@ -1,5 +1,6 @@
 <template>
   <div class="sense-target-content">
+    <div class="sense-target-header">监测点</div>
     <ul>
       <!--<li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index"><img :title="item.name" :src="index===0?item.checked:item.src"/></li>-->
       <li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index">{{item.name}}</li>
@@ -101,6 +102,14 @@
     left: 0;
     top: 20px;
     z-index: 1;
+  }
+
+  .sense-target-header{
+    width: 62px;
+    background: #fff;
+    color: #1080cc;
+    border: solid 1px #1080cc;
+    line-height: 25px;
   }
 
   .sense-target-content ul {
