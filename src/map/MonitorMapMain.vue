@@ -3,7 +3,7 @@
     <div id="monitor_map"></div>
     <layer-switch></layer-switch>
     <pollution-target></pollution-target>
-    <map-handle></map-handle>
+    <!--<map-handle></map-handle>-->
   </div>
 </template>
 <script>

@@ -3,7 +3,7 @@
     <div id="sense_map"></div>
     <layer-switch></layer-switch>
     <dust-pollution></dust-pollution>
-    <map-handle></map-handle>
+    <!--<map-handle></map-handle>-->
   </div>
 </template>
 <script>

@@ -1,7 +1,7 @@
 <template>
   <div class="target-content">
+    <div class="target-header">监测点</div>
     <ul>
-      <div style="color: #1080cc;background: #fff;padding: 5px">监测点</div>
       <!--<li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index"><img :title="item.name" :src="index===0?item.checked:item.src"/></li>-->
       <li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index">{{item.name}}</li>
     </ul>
@@ -127,6 +127,14 @@
     left: 0;
     top: 50px;
     z-index: 1;
+  }
+
+  .target-header{
+    width: 62px;
+    background: #fff;
+    color: #1080cc;
+    border: solid 1px #1080cc;
+    line-height: 25px;
   }
 
   .target-content ul {

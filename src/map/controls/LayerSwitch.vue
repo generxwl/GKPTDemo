@@ -114,11 +114,12 @@
   }
 
   .layerSwitch li:first-child {
-    /*height: 30px;*/
-    width:60px;
+    line-height: 25px;
+    width: 60px;
     text-align: center;
     margin: 0;
     background-color: #fff;
+    font-size:12px;
   }
 
   .layerSwitch li span {
@@ -145,7 +146,8 @@
     margin: 0;
     border-radius: 0;
     color: #fff;
-    padding: 5px 5px;
+    padding: 1px 5px;
+    line-height:30px;
     background-color: rgba(0, 79, 137, 0.6);
   }
 

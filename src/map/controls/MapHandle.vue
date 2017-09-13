@@ -1,6 +1,6 @@
 <template>
   <div class="map-handle">
-    <ul>
+    <ul class="map-handle_ul">
       <li v-for="(value,index) in handleItems" :data-index="index" :data-type="value.type" @click="liClickEvent"><img :title="value.name" :src="value.src"></li>
     </ul>
   </div>
@@ -16,23 +16,23 @@
           {
             name: '放大',
             type: 'ZOOMIN',
-            src: 'static/imgs/map/ZoomIn.png',
-            checked: 'static/imgs/map/ZoomIn1.png'
+            src: 'static/imgs/mapGJ/ceju.png',
+            checked: 'static/imgs/mapGJ/ceju1.png'
           }, {
             name: '缩小',
             type: 'ZOOMOUT',
-            src: 'static/imgs/map/ZoomOut.png',
-            checked: 'static/imgs/map/ZoomOut1.png'
+            src: 'static/imgs/mapGJ/zhuashou.png',
+            checked: 'static/imgs/mapGJ/zhuashou1.png'
           }, {
             name: '原范围',
             type: 'EXTENT',
-            src: 'static/imgs/map/Extent.png',
-            checked: 'static/imgs/map/Extent1.png'
+            src: 'static/imgs/mapGJ/fanhui.png',
+            checked: 'static/imgs/mapGJ/fanhui1.png'
           }, {
             name: '抓取',
             type: 'HANDLE',
-            src: 'static/imgs/map/Handle.png',
-            checked: 'static/imgs/map/Handle1.png'
+            src: 'static/imgs/mapGJ/quanpin.png',
+            checked: 'static/imgs/mapGJ/quanpin1.png'
           }
         ]
       };
@@ -50,6 +50,9 @@
       setTimeout(function () {
         t.ready();
       }, 1);
+      $('.map-handle_ul li').on('click',function () {
+          $(this).addClass('active').siblings().removeClass('active');
+      })
     },
     methods: {
       ready(){
@@ -89,7 +92,7 @@
       resetImg(){
         let targets = this.$data.handleItems;
         jQuery.find('.map-handle li').forEach(function (value, index) {
-          value.style.backgroundColor = '#1080CC';
+          value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)';
         });
         jQuery.find('.map-handle li>img').forEach(function (value, index) {
           let target = targets[index];
@@ -104,21 +107,23 @@
     position: absolute;
     height: 37px;
     z-index: 1;
-    top: 20px;
-    left: 180px;
-  }
 
+  }
+  .active{
+    background: #1080cc!important;
+  }
   .map-handle ul {
-    height: 37px;
+
+    height: auto;
     border: solid 1px #1080CC;
   }
 
   .map-handle li {
+    background: rgba(0, 79, 137, 0.6);
     list-style: none;
-    float: left;
-    height: 35px;
+    height: auto;
     width: 40px;
-    background-color: #1080CC;
+    padding:5px 0;
   }
 
   .map-handle li img {

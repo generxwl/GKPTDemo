@@ -4,7 +4,7 @@
     <layer-switch class="layer-switch"></layer-switch>
     <sense-pollution></sense-pollution>
     <sense-switch :pollutionUrl="pollutionUrl" :charUrl="charUrl"></sense-switch>
-    <sense-map-handle></sense-map-handle>
+    <!--<sense-map-handle></sense-map-handle>-->
     <!--<history-handle></history-handle>-->
   </div>
 </template>

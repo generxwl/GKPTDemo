@@ -2,6 +2,7 @@
   <div class="PaneldataOnlineList">
     <!--在线监测面板-->
     <div id="list">
+      <div class="qianren"><map-handle></map-handle></div>
       <div class="panel">
         <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
         <img id="shrink" src="../assets/img/右.png" v-if="you"/>
@@ -76,6 +77,7 @@
 <script>
   import {bus} from '@/js/bus.js'
   import api from '../api/index'
+  import MapHandle from '@/map/controls/MapHandle'
   export default {
     name: 'PaneldataOnlineList',
     data () {
@@ -327,7 +329,8 @@
         return fmt;
       },
 
-    }
+    },
+   components: {MapHandle}
   }
 </script>
 
@@ -354,8 +357,8 @@
 
   .qianren {
     position: absolute;
-    left: -156px;
-    top: 499px;
+    left: -96px;
+    top: 74%;
   }
 
   img {

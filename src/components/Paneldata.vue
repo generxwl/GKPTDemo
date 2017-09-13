@@ -2,6 +2,7 @@
     <div class="Paneldata">
         <!--首页面板-->
         <div id="list">
+            <div class="qianren"><map-handle></map-handle></div>
             <div class="panel">
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
                 <img id="shrink" src="../assets/img/右.png" v-if="you"/>
@@ -217,6 +218,7 @@
 <script>
     import {bus} from '@/js/bus.js'
     import api from '../api/index'
+    import MapHandle from '@/map/controls/MapHandle'
     export default {
         name: 'paneldata',
         data () {
@@ -265,6 +267,7 @@
                 leiji: false,
             }
         },
+
         created(){
             api.GetLfAirData().then(res => {
                 let shoulist = JSON.parse(res.data);
@@ -716,7 +719,8 @@
             },
             //fangfa
 
-        }
+        },
+        components: {MapHandle}
     }
 </script>
 
@@ -747,7 +751,7 @@
             box-shadow: 0 0 15px #333333;
             .qianren {
                 position: absolute;
-                left: -156px;
+                left: -90px;
                 top: 76%;
             }
             img {
