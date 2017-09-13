@@ -45,7 +45,7 @@
     height: 100%;
     position: relative;
     .gundong{
-      position: absolute;
+
     }
   }
 </style>

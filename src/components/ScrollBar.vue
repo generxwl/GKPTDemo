@@ -5,6 +5,7 @@
                 <b>传感器状态：</b>
                 <font>传感器共{{CGQnum}}个，正常{{zcnum}}个，离线{{lxnum}}个</font>
             </div>
+            <div class="zhongjian">|</div>
             <div class="t_news swiper_wrap">
                 <b style="float: left;line-height: 35px">通知公告：</b>
                 <div class="wrapper">
@@ -172,14 +173,21 @@
             background: #fff;
             border-bottom: 2px solid #ccc;
             opacity: 0.6;
-
+            .zhongjian{
+                padding-left: 160px;
+                float: left;
+                line-height: 33px;
+                font-size: 18px;
+                color: #1080cc;
+            }
             .t_news_left {
                 float: left;
                 color: #000;
-                padding-left: 300px;
+                padding-left: 20px;
+
                 line-height: 35px;
                 padding-right: 30px;
-                border-right: solid 2px #428bca;
+
             }
             .t_news {
                 float: left;
