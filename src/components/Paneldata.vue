@@ -1,6 +1,6 @@
 <template>
     <div class="Paneldata">
-        <!--首页面板-->
+        <!--监测点面板-->
         <div id="list">
             <div class="qianren"><map-handle></map-handle></div>
             <div class="panel">

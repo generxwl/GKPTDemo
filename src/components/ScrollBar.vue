@@ -1,4 +1,5 @@
 <template>
+    <!--滚动通知栏展示页面-->
     <div class="ScrollBar">
         <div class="ScrollBar_box">
             <div class="t_news_left">

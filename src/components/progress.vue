@@ -1,4 +1,5 @@
 <template>
+    <!--进度条部件-->
     <div class="progress">
        <div class="jindu" :style="{background:color,width:width + '%'}">
             <p>{{text}}</p>
