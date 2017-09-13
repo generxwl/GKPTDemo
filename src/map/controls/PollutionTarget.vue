@@ -1,6 +1,7 @@
 <template>
   <div class="target-content">
     <ul>
+      <div style="color: #1080cc;background: #fff;padding: 5px">监测点</div>
       <!--<li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index"><img :title="item.name" :src="index===0?item.checked:item.src"/></li>-->
       <li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index">{{item.name}}</li>
     </ul>
@@ -122,9 +123,9 @@
     -moz-border-radius: 1px;
     border-radius: 1px;
     position: absolute;
-    width: 99px;
+    width: 60px;
     left: 0;
-    top: 20px;
+    top: 50px;
     z-index: 1;
   }
 
@@ -133,7 +134,7 @@
     -moz-border-radius: 1px;
     border-radius: 1px;
     border: solid 1px #1080CC;
-    width: 101px;
+    width: 62px;
     color:#fff;
   }
 
@@ -144,7 +145,7 @@
     background-color: rgba(0, 79, 137, 0.6);
     list-style: none;
     line-height: 30px;
-    width: 99px;
+    width: 60px;
     padding: 0;
     cursor: pointer;
   }

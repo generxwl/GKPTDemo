@@ -6,8 +6,7 @@
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
                 <img id="shrink" src="../assets/img/右.png" v-if="you"/>
                 <div class="main">
-                    <div class="kbiaoti">大气监测点排名</div>
-                    <div class="bluexian"></div>
+
                     <!--选项查询-->
                     <div class="first">
                         <div class="tables">
@@ -15,23 +14,25 @@
                             <a id="shishi" @click="RealTimeFatch()" class="bai">实时</a>
                             <a id="leiji" @click="CumulativeFatch()">累计</a>
                         </div>
-                        <div class="shijian">
-                            <!--时间选择-->
-                            <div class="block">
-                                <el-date-picker
-                                        v-model="value2"
-                                        type="datetime"
-                                        placeholder="选择日期时间"
-                                        format="yyyy-MM-dd HH:mm:ss"
-                                        align="right"
-                                        :picker-options="pickerOptions1">
-                                </el-date-picker>
-                            </div>
-                        </div>
-                        <div class="btnns">
-                            <button @click="TimeChaXun()">查询</button>
-                        </div>
+                        <!--<div class="shijian">-->
+                            <!--&lt;!&ndash;时间选择&ndash;&gt;-->
+                            <!--<div class="block">-->
+                                <!--<el-date-picker-->
+                                        <!--v-model="value2"-->
+                                        <!--type="datetime"-->
+                                        <!--placeholder="选择日期时间"-->
+                                        <!--format="yyyy-MM-dd HH:mm:ss"-->
+                                        <!--align="right"-->
+                                        <!--:picker-options="pickerOptions1">-->
+                                <!--</el-date-picker>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="btnns">-->
+                            <!--<button @click="TimeChaXun()">查询</button>-->
+                        <!--</div>-->
+
                     </div>
+                    <div class="border_bottom"></div>
                     <!--详细天气-->
                     <div class="tqbiaoti">廊坊市空气质量</div>
                     <div class="Second">
@@ -729,6 +730,12 @@
         position: absolute;
         top: 60px;
         right: 0;
+        .border_bottom{
+            width: 100%;
+            height: 1px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
         #list {
             background: #fff;
             position: fixed;
