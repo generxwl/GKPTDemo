@@ -6,14 +6,14 @@
       v-loading.fullscreen.lock="fullscreenLoading"
       element-loading-text="监测点地图拼命加载中"
     ></monitor-map>
-
+    <scroll-bar class="gundong"></scroll-bar>
     <v-paneldata></v-paneldata>
   </div>
 </template>
 
 <script>
   import MonitorMap from '@/map/MonitorMapMain' //0809
-
+  import ScrollBar from '@/components/ScrollBar'
   export default {
     name: 'index',
     data () {
@@ -34,7 +34,7 @@
         }, 2000);
       }
     },
-    components: {MonitorMap}//0809
+    components: {MonitorMap,ScrollBar}//0809
   }
 </script>
 
@@ -43,5 +43,9 @@
   .index-box {
     width: 100%;
     height: 100%;
+    position: relative;
+    .gundong{
+      position: absolute;
+    }
   }
 </style>
