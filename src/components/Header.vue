@@ -185,6 +185,9 @@
                 :hover {
                     text-decoration: none;
                 }
+                &:nth-child(4){
+                    width: 140px;
+                }
                 //
                 .Oneitem {
                     display: none;
