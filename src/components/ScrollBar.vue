@@ -95,7 +95,7 @@
 <style lang="scss" scoped>
     .ScrollBar {
         width: 100%;
-        height: 100%;
+        height: 35px;
         .wrapper {
             width:500px;
             margin:0 auto;

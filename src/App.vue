@@ -57,7 +57,6 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-align: center;
-          overflow: hidden;
             height: 100%;
             canvas {
                 width: 100% !important;
