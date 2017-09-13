@@ -48,7 +48,14 @@
         margin-top: 0 !important;
         margin-bottom: 0px !important;
     }//0810
-
+    .panel{
+        height: 100%;
+        overflow: auto!important;
+        padding-bottom: 100px!important;
+    }
+    .el-date-editor.el-input {
+        width: 190px!important;
+    }
     html, body {
         height: 100%;
         border: none;
@@ -62,6 +69,7 @@
                 width: 100% !important;
             }
         }
+
         /*圆圈进度*/
         .el-progress-circle {
             width: 80px !important;

@@ -358,7 +358,7 @@
   .qianren {
     position: absolute;
     left: -96px;
-    top: 74%;
+    top: 64%;
   }
 
   img {
@@ -400,7 +400,7 @@
     line-height: 34px;
     width: 100px;
     height: 34px;
-    margin-right: 20px;
+    margin-right: 16px;
     border: solid 1px #ccc;
     background: #fff;
     border-radius: 2px;
