@@ -78,7 +78,7 @@
         }
       },
       setMapData (type, rectangleOption) {
-          console.log(rectangleOption);
+//          console.log(rectangleOption);
         let t = this;
         let xmin = 110, ymin = 35.8, xmax = 121.9, ymax = 42.7;
 //        $.get('http://60.10.135.153:3000/querys/adj.js', {var: type}, function (rdata) {
@@ -196,7 +196,7 @@
             t.map.addOverlay(t.marker);
             //t.map.panTo(point);
           }
-          console.log(result);
+//          console.log(result);
         }, function (ex) {
         });
       },
