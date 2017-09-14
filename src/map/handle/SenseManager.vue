@@ -68,7 +68,7 @@
                 t.render(data.rows, type);
               }
             } else {
-              console.log(result.data);
+//              console.log(result.data);
             }
           }
         }).catch(function () {

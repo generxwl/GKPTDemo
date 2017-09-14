@@ -41,7 +41,7 @@
 
       //加载热力图
       loadHotLayer(map, data){
-        console.log('hot'+this.hasVisible);
+//        console.log('hot'+this.hasVisible);
         if (!this.data.length) {
           this.data = data;
         }
@@ -57,7 +57,7 @@
 
       //污染指标切换
       pollutionTarget(type){
-        console.log(type);
+//        console.log(type);
         this.checkedName = type;
         let dt = this.getPollutionByType(type);
         if (dt.length) {

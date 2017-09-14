@@ -22,7 +22,7 @@
         },
         props: ['pollutionUrl', 'charUrl', 'item'],
         created () {
-            console.log(RequestHandle)
+//            console.log(RequestHandle)
         },
         mounted () {
             this.ready();
@@ -83,7 +83,7 @@
 //        let url = 'http://localhost:6005/Handler.ashx';
                 let url = this.pollutionUrl;
                 RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-                    console.log(result);
+//                    console.log(result);
                     if (result.status === 0) {
                         t.data = result.obj;
                         t.render(t.getPointByType(t.ptType), type);
@@ -146,8 +146,8 @@
                 }
             },
             render (data, type) {
-                console.log(data);
-                console.log(type);
+//                console.log(data);
+//                console.log(type);
                 if (data) {
                     this.clearRenderOverlay();
                     let aqi, lat, lng, city, pointname, level, region, province, title, value, unit, index, hourdiff,
@@ -544,16 +544,16 @@
                 }
             },
             showCityPointChart (citycode) {
-                console.log(citycode);
+//                console.log(citycode);
                 let t = this;
                 let url = t.charUrl + '?id=' + citycode;
                 RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-                    console.log(result);
+//                    console.log(result);
                     if (result.status === 0) {
                         let dt = result.obj;
                         t.loadChartData(citycode, {total: dt.length, rows: dt});
                     } else {
-                        console.log(request);
+//                        console.log(request);
                     }
                 }, function (ex) {
                     console.error(ex);
@@ -684,8 +684,8 @@
                 t.showChart('citychart_' + code, labelstr, dataCityPoint, unit, title);
             },
             showChart (container, name, data, unit, title) {
-              console.log('dddd');
-                console.log(data);
+//              console.log('dddd');
+//                console.log(data);
                 let dateTypeFormat = '%Y-%m-%d %H:%M';
                 let markerShowFlag = false;
                 let chart = new Highcharts.Chart(container, {
@@ -723,7 +723,7 @@
                     tooltip: {
                         enabled: true,
                         formatter: function () {
-                            console.log(this);
+//                            console.log(this);
                             let tip = '' + Highcharts.dateFormat(dateTypeFormat, this.x) + '<br/>' +
                                 this.series.name + ': <b>' + this.y + '</b>' + unit;
 //              if (this.point.primary_pollutant !== null) {

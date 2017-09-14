@@ -3,6 +3,7 @@
     <div id="monitor_map"></div>
     <layer-switch></layer-switch>
     <pollution-target></pollution-target>
+    <!--<main-layer-handle></main-layer-handle>-->
     <!--<map-handle></map-handle>-->
   </div>
 </template>
@@ -10,6 +11,7 @@
   import BMap from 'BMap'
   import LayerSwitch from '@/map/controls/LayerSwitch'
   import PollutionTarget from '@/map/controls/PollutionTarget'
+  import MainLayerHandle from '@/map/controls/MainLayerHandle'
   import MapHandle from '@/map/controls/MapHandle'
   import {bus} from '@/js/bus.js'
 
@@ -22,7 +24,6 @@
       }
     },
     created() {
-      console.log('create')
     },
     mounted() {
       this.ready();
@@ -56,7 +57,7 @@
         }
       }
     },
-    components: {LayerSwitch, PollutionTarget, MapHandle}//GridMap
+    components: {LayerSwitch, PollutionTarget, MapHandle,MainLayerHandle}//GridMap
   }
 
 </script>

@@ -35,6 +35,7 @@
         t.map = t.$parent.$parent.map;
         t.map.addOverlay(t.labelSymbol);
         t.labelSymbol.hide();
+        t.labelSymbol.setStyle({color:'#333',backgroundColor:'#fff',border:'solid 1px #333'});
         t.ready();
       }, 10);
       bus.$on('setVisible', this.setLayerVisible);
@@ -64,7 +65,7 @@
               }
             }
           }).catch(function (ex) {
-            console.log(ex)
+//            console.log(ex)
           })
         }
       },
@@ -113,13 +114,13 @@
 ////              console.log(e);
 //            });
             ply.addEventListener('mouseover', function (e) {
-              t.labelSymbol.show();
-              console.log(t.labelSymbol);
+//              t.labelSymbol.show();
+//              console.log(t.labelSymbol);
             });
-            ply.addEventListener('mousemove', this.mouseClickEvent);
+            ply.addEventListener('click', this.mouseClickEvent);
             ply.addEventListener('mouseout', function (e) {
               t.labelSymbol.hide();
-              console.log(t.labelSymbol);
+//              console.log(t.labelSymbol);
             });
           }
         }
@@ -130,7 +131,7 @@
         t.labelSymbol.setPosition(e.point);
         let displayFieldName = e.target.displayFieldName;
         let attributes = e.target.attributes;
-        console.log(e);
+//        console.log(e);
         (attributes && displayFieldName) && (t.labelSymbol.setContent(attributes[displayFieldName]));
       },
       getBdPolygon(data) {

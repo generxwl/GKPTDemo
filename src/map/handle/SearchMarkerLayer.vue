@@ -48,7 +48,7 @@
           let marker = t.getMarker(pt, v);
           if (marker) {
             marker.show();
-            console.log(t.map);
+//            console.log(t.map);
             t.markers.push(marker);
             t.map.addOverlay(marker);
             marker.addEventListener('click', function (e) {
@@ -68,7 +68,7 @@
           if (result.status === 0) {
             let data = result.obj;
             let res = t.setInfoWindow(data);
-            console.log(res);
+//            console.log(res);
             let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
               title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
               width: 320,
@@ -185,7 +185,7 @@
 
       //加载Chart数据
       loadChar(container, name, data, title){
-        console.log(data);
+//        console.log(data);
         let dateTypeFormat = '%Y-%m-%d %H:%M';
         let markerShowFlag = false;
         let chart = new Highcharts.Chart('citychart_' + container, {

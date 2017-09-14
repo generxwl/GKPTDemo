@@ -40,11 +40,11 @@
       },
       requestHandle(map){
         let url = this.pollutionUrl;
-        console.log(url);
+//        console.log(url);
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-          console.log(result);
+//          console.log(result);
           if (result.status === 0) {
-            console.log(result.obj);
+//            console.log(result.obj);
             bus.$emit('getSenseData', result.obj);
             bus.$emit('loadHotLayer', map, result.obj);
             bus.$emit('loadMarker', map, result.obj);

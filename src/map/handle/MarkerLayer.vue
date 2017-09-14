@@ -39,7 +39,7 @@
 
       //加载marker数据
       loadMarkerLayer(map, data){
-        console.log(this.hasVisible);
+//        console.log(this.hasVisible);
         this.map = map;
         if (!this.data.length) {
           this.data = data;
@@ -100,12 +100,12 @@
       markerClick(code, point){
         let t = this;
         let url = this.charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
-        console.log(code + this.checkedName);
+//        console.log(code + this.checkedName);
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
           if (result.status === 0) {
             let data = result.obj;
             let res = t.setInfoWindow(data);
-            console.log(res);
+//            console.log(res);
             let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
               title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
               width: 320,
@@ -129,7 +129,7 @@
         let marker = undefined;
         if (pt && value) {
           let imgUrl = this.getIconUrl(value);
-          console.log(imgUrl);
+//          console.log(imgUrl);
           let icon = new BMap.Icon(imgUrl, new BMap.Size(70, 70));
           marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(8, -16)});
         }
@@ -218,7 +218,7 @@
 
       //加载Chart数据
       loadChar(container, name, data, title){
-        console.log(data);
+//        console.log(data);
         let dateTypeFormat = '%Y-%m-%d %H:%M';
         let markerShowFlag = false;
         let chart = new Highcharts.Chart('citychart_' + container, {
