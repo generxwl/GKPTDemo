@@ -54,6 +54,29 @@
         overflow-y: auto!important;
         padding-bottom: 100px!important;
     }
+    /*滚动条美化*/
+    .panel::-webkit-scrollbar-track
+    {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+        background-color: #F5F5F5;
+        border-radius: 10px;
+    }
+    .panel::-webkit-scrollbar
+    {
+        width: 10px;
+        background-color: #F5F5F5;
+    }
+    .panel::-webkit-scrollbar-thumb
+    {
+        border-radius: 10px;
+        background-color: #FFF;
+        background-image: -webkit-linear-gradient(top,
+                #e4f5fc 0%,
+                #bfe8f9 50%,
+                #9fd8ef 51%,
+                #2ab0ed 100%);
+    }
+
     .el-date-editor.el-input {
         width: 190px!important;
     }
@@ -75,10 +98,6 @@
         .el-progress-circle {
             width: 80px !important;
             height: 80px !important;
-        }
-        /*长进度*/
-        .el-progress-bar {
-
         }
         /*表格*/
         .el-table__body-wrapper{
