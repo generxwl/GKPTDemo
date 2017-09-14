@@ -53,6 +53,16 @@
       overflow-x: hidden;
         overflow-y: auto!important;
         padding-bottom: 100px!important;
+        /*三角箭头的颜色*/
+        scrollbar-arrow-color: #2ab0ed;
+        /*滚动条滑块按钮的颜色*/
+        scrollbar-face-color: #2ab0ed;
+        /*滚动条整体颜色*/
+        scrollbar-highlight-color: #2ab0ed;
+        /*滚动条阴影*/
+        scrollbar-shadow-color: #F5F5F5;
+        /*滚动条轨道颜色*/
+        scrollbar-track-color: #F5F5F5;
     }
     /*滚动条美化*/
     .panel::-webkit-scrollbar-track
