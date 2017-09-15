@@ -311,7 +311,7 @@
                             + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data[i].winddirection
                             + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + (parseInt(data[i].windspeed) || 0) + '级'
                             + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
-                            + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data[i].time + '</td></tr></table>'
+                            + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data[i].time.replace(/T/g,' ') + '</td></tr></table>'
                             + '</td>'
                             + '<td valign=\'top\' align=\'right\'><td>'
                             + '</tr></table><div id=\'citychart_' + data[i].citygid + '\' style=\'width:100%;height:110px\'>';
