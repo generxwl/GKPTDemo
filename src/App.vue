@@ -103,7 +103,13 @@
                 width: 100% !important;
             }
         }
-
+        .el-tabs__nav{
+            margin-left: 20px!important;
+            .el-tabs__item{
+                font-size: 16px!important;
+                padding: 0 22px!important;
+            }
+        }
         /*圆圈进度*/
         .el-progress-circle {
             width: 80px !important;
@@ -142,42 +148,7 @@
     .el-tabs--border-card{
       border: 0!important;
     }
-    .el-tabs__header{
-      background: none!important;
-      margin-bottom: 0;
-      border: 0!important;
-    .el-tabs__nav-wrap{
-      margin-bottom: 0px !important;
-      border: none;
 
-    .el-tabs__nav {
-      margin: 0 auto;
-      float: none;
-    .el-tabs__item:nth-child(1){
-      border-bottom-left-radius: 4px;
-      border-top-left-radius:4px ;
-    }
-    .el-tabs__item:nth-child(4){
-      border-bottom-right-radius: 4px;
-      border-top-right-radius:4px ;
-    }
-    .el-tabs__item {
-      width: 102px !important;
-      height: 34px !important;
-      line-height: 34px!important;
-      padding: 0!important;
-      border: solid 1px #ccc;
-      background: #dddddd!important;
-      color: #5c5c5c!important;
-      font-weight: bold!important;
-    }
-    .is-active {
-      background: #fff!important;
-
-    }
-    }
-    }
-    }
 
     }
 

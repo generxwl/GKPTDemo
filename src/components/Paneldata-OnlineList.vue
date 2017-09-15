@@ -7,8 +7,6 @@
         <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
         <img id="shrink" src="../assets/img/右.png" v-if="you"/>
         <div class="main">
-          <div class="kbiaoti">工地监测点排名</div>
-          <div class="bluexian"></div>
           <!--选项查询-->
           <div class="first">
             <div class="tables">
@@ -286,8 +284,6 @@
             status: data.hasOwnProperty('status') ? data.status : data.Status,
             obj: data.obj || data.ExtraData
           };
-
-          console.log(data)
           let sudata = data.obj;
           this.SetDataList(sudata, this.type)
           this.totalCount = this.ALLdata.length;
@@ -342,7 +338,7 @@
     height: auto;
     background-color: #666;
     position: absolute;
-    top: 60px;
+    top: 50px;
     right: 0;
 
   #list {
@@ -350,7 +346,7 @@
     position: fixed;
     width: 437px;
     height: 100%;
-    top: 62px;
+    top: 51px;
     right: 0;
     z-index: 9;
     box-shadow: 0 0 15px #333333;

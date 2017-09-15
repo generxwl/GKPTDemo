@@ -14,6 +14,7 @@
                             <!--选项-->
                             <a id="shishi" @click="RealTimeFatch()" class="bai">实时</a>
                             <a id="leiji" @click="CumulativeFatch()">累计</a>
+                            <font class="time2">更新时间：2017年9月14日10:44:22</font>
                         </div>
                         <!--<div class="shijian">-->
                             <!--&lt;!&ndash;时间选择&ndash;&gt;-->
@@ -33,7 +34,7 @@
                         <!--</div>-->
 
                     </div>
-                    <div class="border_bottom"></div>
+
                     <!--详细天气-->
                     <div class="tqbiaoti">廊坊市空气质量</div>
                     <div class="Second">
@@ -42,10 +43,10 @@
                             <div class="tqbj">
                                 <img class="beijing" :src="'static/imgs/weather/'+ Datalist.weather+'.png'" :title="Datalist.weather">
                             </div>
-                            <p>温度：{{Datalist.temp}}</p>
-                            <p>湿度：{{Datalist.humi}}</p>
+                            <p>温度：{{Datalist.temp}}°C</p>
+                            <p>湿度：{{Datalist.humi}}%RH</p>
                             <p>风力：{{Datalist.wl}}</p>
-                            <p>降雨量：{{Datalist.rain}}</p>
+                            <p>降雨量：{{Datalist.rain}}mm</p>
                         </div>
                         <div class="yuanjindu">
                             <div class="jdflaot">
@@ -126,8 +127,8 @@
                     </div>
                     <!--table表格-->
                     <div class="table">
-                        <el-tabs type="border-card" @tab-click="handleClick">
-                            <el-tab-pane label="国控点">
+                        <el-tabs v-model="activeName" @tab-click="handleClick">
+                            <el-tab-pane label="国控点" name="guokongdian">
                                 <el-table
                                         :data="tableData"
                                         border
@@ -159,12 +160,11 @@
                                     <el-table-column
                                             prop="PrimaryPollutant"
                                             label="首要污染物"
-                                            width="65"
                                     >
                                     </el-table-column>
                                 </el-table>
                             </el-tab-pane>
-                            <el-tab-pane label="省控点">
+                            <el-tab-pane label="省控点" name="shengkongdian">
                                 <el-table
                                         :data="tableData"
                                         border
@@ -196,15 +196,12 @@
                                     <el-table-column
                                             prop="PrimaryPollutant"
                                             label="首要污染物"
-                                            width="65"
+
                                     >
                                     </el-table-column>
                                 </el-table>
                             </el-tab-pane>
-                            <el-tab-pane label="关心城市">
-
-                            </el-tab-pane>
-                            <el-tab-pane label="倒数前十城市">
+                            <el-tab-pane label="倒数前十城市"  name="daoshuqianshi">
 
                             </el-tab-pane>
                         </el-tabs>
@@ -223,6 +220,7 @@
         name: 'paneldata',
         data () {
             return {
+                activeName:'guokongdian',
                 zuo: false,
                 you: true,
                 //tables数据
@@ -458,11 +456,11 @@
                     legend: {
                         orient: 'vertical',
                         x: 'left',
-                        data: ['API']
+
                     },
                     series: [
                         {
-                            name: 'api',
+                            name: '小时AQI',
                             type: 'pie',
                             radius: ['100%', '90%'],
                             avoidLabelOverlap: false,
@@ -496,7 +494,7 @@
                     series: [{
                         data: [
                             {value: Datavlue, name: '占比'},
-                            {value: Bianvlue, name: 'api'}
+                            {value: Bianvlue, name: 'AQI'}
 
                         ],
                         color: [
@@ -524,11 +522,10 @@
                     legend: {
                         orient: 'vertical',
                         x: 'left',
-                        data: ['API']
                     },
                     series: [
                         {
-                            name: 'api',
+                            name: '累计AQI',
                             type: 'pie',
                             radius: ['100%', '90%'],
                             avoidLabelOverlap: false,
@@ -562,7 +559,7 @@
                     series: [{
                         data: [
                             {value: Datavlue, name: '占比'},
-                            {value: Bianvlue, name: 'api'}
+                            {value: Bianvlue, name: '累计AQI'}
 
                         ],
                         color: [
@@ -589,11 +586,11 @@
                     legend: {
                         orient: 'vertical',
                         x: 'left',
-                        data: ['API']
+
                     },
                     series: [
                         {
-                            name: 'api',
+                            name: '综合指数',
                             type: 'pie',
                             radius: ['100%', '90%'],
                             avoidLabelOverlap: false,
@@ -627,7 +624,7 @@
                     series: [{
                         data: [
                             {value: Datavlue, name: '占比'},
-                            {value: Bianvlue, name: 'api'}
+                            {value: Bianvlue, name: '综合指数'}
 
                         ],
                         color: [
@@ -732,20 +729,15 @@
         height: auto;
         background-color: #666;
         position: absolute;
-        top: 60px;
+        top: 50px;
         right: 0;
-        .border_bottom{
-            width: 100%;
-            height: 1px;
-            border-bottom: 1px solid #ccc;
-            margin-bottom: 20px;
-        }
+
         #list {
             background: #fff;
             position: fixed;
             width: 437px;
             height: 100%;
-            top: 62px;
+            top: 51px;
             right: 0;
             z-index: 9;
             box-shadow: 0 0 15px #333333;
@@ -774,32 +766,33 @@
                 .first {
                     width: 100%;
                     height: 44px;
-                    margin-top: 30px;
+                    margin-top: 10px;
                     .tables {
                         float: left;
                         margin-left: 14px;
-                        #shishi{
-                            border-bottom-right-radius: 0;
-                            border-top-right-radius: 0;
-                        }
-                        #leiji{
-                            border-bottom-left-radius: 0;
-                            border-top-left-radius: 0;
-                        }
+                        width: 100%;
+                        border-bottom: solid 1px #ccc;
                         .bai {
-                            background: #f1f1f1
+                            color: #0f80cc;
+                            border-bottom: solid 2px #0f80cc;
                         }
                         a {
                             float: left;
                             text-decoration: none;
+                            font-size: 16px;
+                            font-weight: bold;
                             color: #666;
                             display: inline-block;
                             line-height: 34px;
-                            width: 60px;
+                            padding: 0 30px;
+                            width:auto;
                             height: 34px;
-                            border: solid 1px #ccc;
-                            background: #fff;
                             border-radius: 2px;
+                        }
+                        .time2{
+                            line-height: 34px;
+                            padding-right: 20px;
+                            font-size: 12px;
                         }
                     }
                     .shijian {
@@ -846,6 +839,7 @@
                             }
                         }
                         p {
+                            text-align: left;
                             font-size: 12px;
                             margin: 0 !important;
                         }

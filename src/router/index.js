@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/views/Login'//登录页面
-import Index from '@/views/IndexMonitoring'//首页监测点
+import Index from '@/views/Index'//首页
+import Indexjcd from '@/views/IndexMonitoring'//首页监测点
 import SensorNetwork from '@/views/SensorNetwork'//传感网
 import DustOnline from '@/views/DustOnline'//在线扬尘清单
 import Dynamicwindfield from '@/views/Dynamic-wind-field'//动态风场
@@ -25,6 +26,11 @@ export default new Router({
             path: '/',
             name: 'index',
             component: Index
+        },
+        {
+            path: '/indexjcd',
+            name: 'indexjcd',
+            component: Indexjcd
         },
         {
             path: '/SensorNetwork',

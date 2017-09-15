@@ -7,30 +7,31 @@
             </div>
             <ul class="bnav">
                 <li>
+                    <a href="#/">首页</a>
+                </li>
+                <li>
                     <a>环境监测网</a>
-                    <div class="Oneitem">
-                        <a href="#/">监测点</a><br/>
-                        <a href="#/superstation">超级站</a>
-                    </div>
-                </li>
-                <li>
-                    <a>传感网</a>
                     <div class="Twoitem">
-                        <a>视频监控</a><br/>
+                        <a href="#/indexjcd">国省控点监测</a>
+                        <a href="#/superstation">超级站</a>
                         <a href="#/SensorNetwork">传感器</a>
+                        <a>视频监控</a>
                     </div>
                 </li>
                 <li>
-                    <a>在线源清单</a>
+                    <a>源清单</a>
                     <div class="Threeitem">
                         <div>
-                            <font>动态源清单</font><br/>
-                            <a>企业在线监测</a><br/>
-                            <a>机动车</a><br/>
+                            <p>动态源清单</p>
+                            <a>企业在线监测</a>
                             <a href="#/DustOnline">扬尘在线监测</a>
+                            <a>机动车路况</a>
+                            <a>渣土车</a>
+                            <a>环卫车</a>
                         </div>
                         <div>
-                            <font>静态源清单</font>
+                            <p>静态源清单</p>
+                            <a>污染源清单</a>
                         </div>
                     </div>
                 </li>
@@ -50,33 +51,44 @@
                     <a>数据研判</a>
                     <div class="Fiveitem">
                         <div>
-                            <font>城市排名</font><br/>
-                            <a>城市排名</a><br/>
-                            <a>同期变化率</a><br/>
+                            <h3>城市排名</h3>
+                            <a>城市排名</a>
+                            <a>同期变化率</a>
                             <a>百分比对比</a>
                         </div>
                         <div>
-                            <font>数据对比</font><br/>
-                            <a>小时均值比</a><br/>
-                            <a>日均值比</a><br/>
-                            <a>污染物对比</a><br/>
-                            <a>固定源统计</a><br/>
+                            <h3>数据对比</h3>
+                            <a>小时均值比</a>
+                            <a>日均值比</a>
+                            <a>污染物对比</a>
+                            <a>固定源统计</a>
                             <a href="#/DustEmissionStatistics">扬尘源统计</a><br/>
                             <a href="#/DistrictsCounties">区县打分</a>
                         </div>
                         <div>
-                            <font>传感网统计</font><br/>
-                            <a>曲线打分</a><br/>
-                            <a>均值比</a><br/>
+                            <h3>传感网统计</h3>
+                            <a>曲线打分</a>
+                            <a>均值比</a>
                             <a>环比分析</a>
+                        </div>
+                        <div>
+                            <h3>市政及经济数据</h3>
+                            <a>煤改电</a>
+                            <a>煤改气</a>
+                            <a>用电量</a>
+                            <a>经济运行</a>
+                        </div>
+                        <div>
+                            <h3>综合统计</h3>
+                            <a>冬防战报</a>
                         </div>
                     </div>
                 </li>
                 <li>
                     <i class="iconfont icon-shezhi"></i>
                     <div class="Sixitem">
-                        <a><i class="iconfont icon-fangzi-copy"></i>进入后台</a><br/>
-                        <a v-on:click="exit"><i class="iconfont icon-kaiguan"></i>退出系统</a>
+                        <a><i class="iconfont icon-fangzi-copy" style="color: #999"></i>进入后台</a><br/>
+                        <a v-on:click="exit"><i class="iconfont icon-kaiguan" style="color: #999"></i>退出系统</a>
                     </div>
                 </li>
             </ul>
@@ -142,28 +154,28 @@
 <style lang="scss" scoped>
     .header {
         width: 100%;
-        height: 60px;
+        height: 50px;
         background: #1080cc;
         border-bottom: solid 2px #0b598e;
         .logo {
             float: left;
             width: auto;
-            height: 60px;
+            height: 50px;
             img {
-                margin-top: 12px;
+                margin-top: 6px;
                 margin-left: 20px;
             }
         }
         .bnav {
             float: right;
-            height: 60px;
+            height: 50px;
             margin-right: 0px;
             li {
                 float: left;
                 width: 120px;
-                height: 60px;
+                height: 50px;
                 list-style: none;
-                line-height: 60px;
+                line-height: 50px;
                 position: relative;
                 p {
                     margin: 0;
@@ -176,10 +188,10 @@
                     color: #1080cc;
                 }
                 a {
-                    color: #fff;
+                    color: #dee9f5 ;
                     padding: 0 10px;
-                    font-size: 20px;
-                    font-family: '宋体';
+                    font-size: 16px;
+                    font-family: '微软雅黑';
                     cursor: pointer;
                 }
                 :hover {
@@ -195,7 +207,7 @@
                     z-index: 100;
                     width: 120px;
                     position: absolute;
-                    top: 60px;
+                    top: 50px;
                     left: 0;
                     background: #fff;
                     line-height: 25px;
@@ -215,9 +227,9 @@
                 .Twoitem {
                     display: none;
                     z-index: 100;
-                    width: 120px;
+                    width: 170px;
                     position: absolute;
-                    top: 60px;
+                    top: 50px;
                     left: 0;
                     background: #fff;
                     line-height: 25px;
@@ -226,7 +238,7 @@
                     a {
                         text-align: center;
                         color: #666;
-                        font-size: 14px;
+                        font-size: 12px;
                         font-family: "Microsoft YaHei";
                         cursor: pointer;
                     }
@@ -236,10 +248,11 @@
                 }
                 .Threeitem {
                     display: none;
+                    text-align: left;
                     z-index: 100;
-                    width: 260px;
+                    width: 250px;
                     position: absolute;
-                    top: 60px;
+                    top: 50px;
                     left: 0;
                     background: #fff;
                     line-height: 25px;
@@ -251,12 +264,15 @@
                         a {
                             text-align: center;
                             color: #666;
-                            font-size: 14px;
+                            font-size: 12px;
                             font-family: "Microsoft YaHei";
                             cursor: pointer;
                         }
                         :hover {
                             color: #1080cc;
+                        }
+                        p{
+                            font-weight: bold;
                         }
                         font {
                             color: #a94442;
@@ -264,20 +280,22 @@
                     }
                 }
                 .Fouritem {
+                    text-align: left;
                     display: none;
                     z-index: 100;
-                    width: 140px;
+                    width: 120px;
                     position: absolute;
-                    top: 60px;
-                    left: 0;
+                    top: 50px;
+                    left: 10px;
                     background: #fff;
                     line-height: 25px;
                     padding: 10px 0;
                     box-shadow: 0 0 5px #1080cc;
                     a {
-                        text-align: center;
+                        text-align: left;
+                        padding-left: 25px;
                         color: #666;
-                        font-size: 14px;
+                        font-size: 12px;
                         font-family: "Microsoft YaHei";
                         cursor: pointer;
                     }
@@ -286,31 +304,36 @@
                     }
                 }
                 .Fiveitem {
+                    text-align: left;
                     display: none;
                     z-index: 100;
-                    width: 350px;
+                    width: 460px;
                     position: absolute;
-                    top: 60px;
+                    top: 50px;
                     right: 0px;
                     background: #fff;
-                    line-height: 25px;
+                    line-height: 20px;
                     padding: 10px 0;
                     box-shadow: 0 0 5px #1080cc;
                     div {
-                        float: left;
                         margin-left: 19px;
                         a {
-                            text-align: center;
+                            text-align: left;
+                            display: inline-block;
+                            width: 80px;
                             color: #666;
-                            font-size: 14px;
+                            font-size: 12px;
                             font-family: "Microsoft YaHei";
                             cursor: pointer;
                         }
                         :hover {
                             color: #1080cc;
                         }
-                        font {
-                            color: #a94442;
+                        h3 {
+                            color: #000;
+                            margin: 4px!important;
+                            font-size: 14px;
+                            font-weight: bold;
                         }
                     }
                 }
@@ -319,7 +342,7 @@
                     z-index: 100;
                     width: 120px;
                     position: absolute;
-                    top: 60px;
+                    top: 50px;
                     left: 0;
                     background: #fff;
                     line-height: 25px;
@@ -341,12 +364,14 @@
                 }
             }
             .active {
-                background: url("../assets/img/菜单栏选中后背景.png") no-repeat center #fff;
+
                 a {
-                    color: #1080cc;
+                    color: #FFFFFF;
+                    font-weight: bold;
                 }
                 i {
-                    color: #1080cc;
+                    color: #fff;
+                    font-weight: bold;
                 }
             }
         }

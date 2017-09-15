@@ -40,7 +40,7 @@
 </script>
 <style scoped>
   .grid-map-content {
-    height: calc(100% - 60px);
+    height: calc(100% - 50px);
     width: 100%;
     margin: 0;
     padding: 0;

@@ -217,7 +217,7 @@
         height: auto;
         background-color: #666;
         position: absolute;
-        top: 60px;
+        top: 50px;
         right: 0;
         .mapdw{
             width: 25px;
@@ -230,7 +230,7 @@
             position: fixed;
             width: 437px;
             height: 100%;
-            top: 62px;
+            top: 51px;
             right: 0;
             z-index: 9;
             box-shadow: 0 0 15px #333333;

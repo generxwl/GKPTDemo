@@ -8,11 +8,130 @@
                 <img id="shrink" src="../assets/img/右.png" v-if="you"/>
                 <div class="main">
                     <!--切换部分-->
-                    <div class=""></div>
-                    <!--统计部分-->
-                    <div class=""></div>
-                    <!--饼图展示-->
-                    <div class=""></div>
+                    <el-tabs v-model="activeName">
+                        <el-tab-pane label="统计一览" name="first">
+                            <!--统计部分-->
+                            <div class="tongji" v-if="tongji">
+                                <div class="table_item">
+                                    <strong>325</strong>
+                                    <p>接入空气传感器</p>
+                                </div>
+                                <div class="table_item">
+                                    <strong>325</strong>
+                                    <p>接入空气传感器</p>
+                                </div>
+                                <div class="table_item">
+                                    <strong>325</strong>
+                                    <p>接入空气传感器</p>
+                                </div>
+                                <div class="table_item">
+                                    <strong>325</strong>
+                                    <p>接入空气传感器</p>
+                                </div>
+                                <div class="table_item">
+                                    <strong>325</strong>
+                                    <p>接入空气传感器</p>
+                                </div>
+                                <div class="table_item">
+                                    <strong>325</strong>
+                                    <p>接入空气传感器</p>
+                                </div>
+                                <div class="table_item">
+                                    <strong>325</strong>
+                                    <p>接入空气传感器</p>
+                                </div>
+                                <div class="table_item">
+                                    <strong>325</strong>
+                                    <p>接入空气传感器</p>
+                                </div>
+                                <div class="table_item">
+                                    <strong>325</strong>
+                                    <p>接入空气传感器</p>
+                                </div>
+                                <div class="table_item">
+                                    <strong>325</strong>
+                                    <p>接入空气传感器</p>
+                                </div>
+                                <div class="table_item">
+                                    <strong>325</strong>
+                                    <p>接入空气传感器</p>
+                                </div>
+                            </div>
+                            <!--饼图展示-->
+                            <div class="bing">
+                                <div class="bing_item1" id="bing_item1" style="width: 203px;height: 180px;">
+
+                                </div>
+                                <div class="bing_item2" id="bing_item2" style="width: 203px;height: 180px;">
+
+                                </div>
+                                <div class="bing_item3" id="bing_item3" style="width: 203px;height: 180px;">
+
+                                </div>
+                                <div class="bing_item4" id="bing_item4" style="width: 203px;height: 180px;">
+
+                                </div>
+                            </div>
+                        </el-tab-pane>
+                        <el-tab-pane label="各局输入接入进度" name="second">
+                            <!--表格-->
+                           <ul class="table_tie">
+                               <li class="table_title" style="background:#ddd">
+                                   <div class="item-table1">排名</div>
+                                   <div class="item-table2">机关单位</div>
+                                   <div class="item-table3">接入状态</div>
+                               </li>
+                               <li>
+                                   <div class="item-table1" style="height: 40px;line-height: 40px">1</div>
+                                   <div class="item-table2" style="height: 40px;line-height: 40px">环保局</div>
+                                   <div class="item-table3" style="height: 40px;line-height: 40px">
+                                       <p>接入TVOC视频监控50个，正常49个，离线1个</p>
+                                   </div>
+                               </li>
+                               <li>
+                                   <div class="item-table1"style="height: 200px;line-height: 200px">2</div>
+                                   <div class="item-table2"style="height: 200px;line-height: 200px">开发区管委会</div>
+                                   <div class="item-table3"style="height: 200px;">
+                                       <p>接入TVOC视频监控50个，正常49个，离线1个</p>
+                                       <p>接入小散乱污视频15个，正常10个，离线5个</p>
+                                       <p>接入空气质量传感器60个，正常50个，离线10个</p>
+                                       <p>接入扬尘传感器60个，正常50个，离线10个</p>
+                                       <p>接入TVOC传感器50个，离线50个</p>
+                                   </div>
+                               </li>
+                               <li>
+                                   <div class="item-table1" style="height: 80px;line-height: 80px">3</div>
+                                   <div class="item-table2" style="height: 80px;line-height: 80px">广阳区政府</div>
+                                   <div class="item-table3" style="height: 80px;">
+                                       <p>接入TVOC视频监控50个，正常49个，离线1个</p>
+                                       <p>接入小散乱污视频15个，正常10个，离线5个</p>
+                                   </div>
+                               </li>
+                               <li>
+                                   <div class="item-table1" style="height: 200px;line-height: 200px">4</div>
+                                   <div class="item-table2" style="height: 200px;line-height: 200px">安次区政府</div>
+                                   <div class="item-table3" style="height: 200px;">
+                                       <p>接入TVOC视频监控50个，正常49个，离线1个</p>
+                                       <p>接入小散乱污视频15个，正常10个，离线5个</p>
+                                       <p>接入空气质量传感器60个，正常50个，离线10个</p>
+                                       <p>接入扬尘传感器60个，正常50个，离线10个</p>
+                                       <p>接入TVOC传感器50个，离线50个</p>
+                                   </div>
+                               </li>
+                               <li>
+                                   <div class="item-table1" style="height: 80px;line-height: 80px">5</div>
+                                   <div class="item-table2" style="height: 80px;line-height: 80px">市建设局</div>
+                                   <div class="item-table3" style="height: 80px;">
+                                       <p>接入工地视频监控60个，正常50个，离线10个</p>
+                                       <p>煤改气数据最近跟新时间：2017-09-21</p>
+                                   </div>
+                               </li>
+                           </ul>
+                        </el-tab-pane>
+                    </el-tabs>
+
+
+
                 </div>
             </div>
         </div>
@@ -29,17 +148,103 @@
             return {
                 zuo: false,
                 you: true,
-                //tables数据
+                table:false,
+                tongji:true,
+                activeName: 'first',
+                tableData:[
+                    {
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'<p>我是你哥哥啊</p><p>我是你哥哥啊</p><p>我是你哥哥啊</p>'
+                    },
+                    {
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },
+                    {
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },{
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },
+                    {
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },
+                    {
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },
+                    {
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },
+                    {
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },
+                    {
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },{
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },{
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },{
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },{
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },{
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },{
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },{
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },{
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },{
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },{
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    },{
+                        date:'1',
+                        name:'廊坊加油站',
+                        address:'苏打啊实打实大师阿萨德碍事撒'
+                    }
+                ]
             }
         },
 
         created(){
-//            api.GetLfAirData().then(res => {
-//                let shoulist = JSON.parse(res.data);
-//                this.Datalist = shoulist.obj
-//                console.log(this.Datalist)
-//                bus.$on('switchRender', this.switchRender);
-//            })
 
         },
         mounted(){
@@ -70,9 +275,10 @@
             })
             //圆进度图
             setTimeout(function () {
-//                that.yuantuset1();
-//                that.yuantuset2();
-//                that.yuantuset3()
+                that.yuantuset1();
+                that.yuantuset2();
+                that.yuantuset3();
+                that.yuantuset4();
             }, 500)
         },
         methods: {
@@ -95,25 +301,7 @@
             },
             //监听数据
             setdata(data, type){
-//                this.data = data;
-//                this.tableData = [];
-//                //console.log(type)
-//                let i = 1;
-//                let dt1 = this.getPointByType(this.ptType);
-//                let dt2 = dt1.sort(this.compare(type.toLowerCase()));
-//                dt2.forEach(item => {
-//                    const tableData = {};
-//                    tableData.ranking = i++;
-//                    tableData.InControl = item.pointname;//item.type;//类型
-//                    tableData.citygid = item.citygid;//城市id
-//                    tableData.latitude = item.latitude;//纬度
-//                    tableData.longitude = item.longitude;//经度
-//                    tableData.AirQualityGrade = item.quality;
-//                    tableData.aqi = item[this.getPollution(type.toLowerCase())];//数值
-//                    tableData.PrimaryPollutant = item.primary_pollutant;
-//                    this.tableData.push(tableData);
-//
-//                })
+
             },
             //渲染
             switchRender(type){
@@ -139,116 +327,249 @@
               }
               return rtValue;
             },
-            //圆图api
+            //饼图1
             yuantuset1(){
-                let Datavlue = 500 - this.Datalist.aqi;
-                let Bianvlue = this.Datalist.aqi;
-                let Color = this.Datalist.aqiColor;
+
                 // 基于准备好的dom，初始化echarts实例
-                let myChart = echarts.init(document.getElementById('main1'));
-                app.title = '';
+                let myChart = echarts.init(document.getElementById('bing_item1'));
                 // 指定图表的配置项和数据
 //
                 let option = {
-                  tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b}: {c} ({d}%)"
-                  },
+                    title : {
+                        text: '空气传感器占比',
+
+                        x:'left'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
                     legend: {
                         orient: 'vertical',
-                        x: 'left',
-                        data: ['API']
+                        left: 'right',
+                        top:50,
+                        data: ['六参数','微型站','小型站','TVOC','工地']
                     },
-                    series: [
+                    series : [
                         {
-                            name: 'api',
+                            name: '访问来源',
                             type: 'pie',
-                            radius: ['100%', '90%'],
-                            avoidLabelOverlap: false,
-                            hoverAnimation:false,
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: false,
-                                    textStyle: {
-                                        fontSize: '20',
-                                        fontWeight: 'bold'
-                                    }
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    show: false
-                                }
-                            }
+                            radius : '60%',
+                            center: ['30%', '60%'],
+                            data:[
+                                {value:335, name:'六参数'},
+                                {value:310, name:'微型站'},
+                                {value:234, name:'小型站'},
+                                {value:135, name:'TVOC'},
+                                {value:1548, name:'工地'}
+                            ],
+
                         }
                     ]
                 };
 
+
                 // 使用刚指定的配置项和数据显示图表。
                 myChart.setOption(option);
                 //动态设置参数
-                myChart.setOption({
-                    series: [{
-                        data: [
-                            {value: Datavlue, name: '占比'},
-                            {value: Bianvlue, name: 'api'}
+//                myChart.setOption({
+//                    series: [{
+//                        data: [
+//                            {value: Datavlue, name: '占比'},
+//                            {value: Bianvlue, name: 'api'}
+//
+//                        ],
+//                        color: [
+//                            '#ccc',
+//                            Color
+//                        ]
+//                    }]
+//                })
+            },
+            yuantuset2(){
 
-                        ],
-                        color: [
-                            '#ccc',
-                            Color
-                        ]
-                    }]
-                })
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById('bing_item2'));
+                // 指定图表的配置项和数据
+//
+                let option = {
+                    title : {
+                        text: '视频类型占比',
+
+                        x:'left'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 'right',
+                        top:50,
+                        data: ['交警','餐饮','散乱污','VOC','工地']
+                    },
+                    series : [
+                        {
+                            name: '访问来源',
+                            type: 'pie',
+                            radius : '60%',
+                            center: ['30%', '60%'],
+                            data:[
+                                {value:2, name:'交警'},
+                                {value:3, name:'餐饮'},
+                                {value:2, name:'散乱污'},
+                                {value:1, name:'VOC'},
+                                {value:2, name:'工地'}
+                            ],
+
+                        }
+                    ]
+                };
+
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+//                myChart.setOption({
+//                    series: [{
+//                        data: [
+//                            {value: Datavlue, name: '占比'},
+//                            {value: Bianvlue, name: 'api'}
+//
+//                        ],
+//                        color: [
+//                            '#ccc',
+//                            Color
+//                        ]
+//                    }]
+//                })
+            },
+            yuantuset3(){
+
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById('bing_item3'));
+                // 指定图表的配置项和数据
+//
+                let option = {
+                    title : {
+                        text: '网络类型占比',
+
+                        x:'left'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 'right',
+                        top:50,
+                        data: ['广阳区','开发区','安次区']
+                    },
+                    series : [
+                        {
+                            name: '访问来源',
+                            type: 'pie',
+                            radius : '60%',
+                            center: ['30%', '50%'],
+                            data:[
+                                {value:4, name:'广阳区'},
+                                {value:3, name:'开发区'},
+                                {value:3, name:'安次区'}
+                            ],
+
+                        }
+                    ]
+                };
+
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+//                myChart.setOption({
+//                    series: [{
+//                        data: [
+//                            {value: Datavlue, name: '占比'},
+//                            {value: Bianvlue, name: 'api'}
+//
+//                        ],
+//                        color: [
+//                            '#ccc',
+//                            Color
+//                        ]
+//                    }]
+//                })
+            },
+            yuantuset4(){
+
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById('bing_item4'));
+                // 指定图表的配置项和数据
+//
+                let option = {
+                    title : {
+                        text: '网格员占比',
+                        x:'left'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        left: 'right',
+                        top:50,
+                        data: ['广阳区','开发区','安次区']
+                    },
+                    series : [
+                        {
+                            name: '访问来源',
+                            type: 'pie',
+                            radius : '60%',
+                            center: ['30%', '50%'],
+                            data:[
+                                {value:4, name:'广阳区'},
+                                {value:3, name:'开发区'},
+                                {value:3, name:'安次区'}
+                            ],
+
+                        }
+                    ]
+                };
+
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+//                myChart.setOption({
+//                    series: [{
+//                        data: [
+//                            {value: Datavlue, name: '占比'},
+//                            {value: Bianvlue, name: 'api'}
+//
+//                        ],
+//                        color: [
+//                            '#ccc',
+//                            Color
+//                        ]
+//                    }]
+//                })
             },
             //每页显示数据量变更
             handleSizeChange(val) {
-                //this.pagesize = val;
+
             },
             //实时切换请求
             RealTimeFatch(){
-//                let t = this;
-//                this.leiji = false;
-//                this.shishi = true;
-//                this.tianqiyuji = true;
-//                api.GetMonitoringPointReal().then(res=>{
-//                    let shoulist = JSON.parse(res.data);
-//                    t.setdata(shoulist.obj, t.type)
-//                    bus.$emit('refreshLayer', shoulist.obj)
-//                })
 
             },
             //累计切换请求
             CumulativeFatch(){
-//                let t = this;
-//                api.GetLfAirPollution().then(res => {
-//                    let shoulist = JSON.parse(res.data);
-//                    this.CumulativeData = shoulist.obj
-//                    //console.log(this.CumulativeData)
-//                })
-//                api.GetMonitoringPointAccu().then(res=>{
-//                    let shoulist = JSON.parse(res.data);
-//                    t.setdata(shoulist.obj, t.type)
-//                    bus.$emit('refreshLayer', shoulist.obj)
-//                })
-//                this.leiji = true;
-//                this.shishi = false;
-//                this.tianqiyuji = false;
+
             },
             //
             TimeChaXun(){
-//                let t = this;
-//                let time = this.dateFtt('yyyy-MM-dd hh:00:00',this.value2);
-//                api.GetMonitoringPointHour(time).then(res=>{
-//                    //console.log('时间查询数据')
-//                    let shoulist = JSON.parse(res.data);
-//                    t.setdata(shoulist.obj, t.type)
-//                    bus.$emit('refreshLayer', shoulist.obj)
-//                })
+
             },
             //时间转换
             dateFtt(fmt, date){
@@ -283,7 +604,7 @@
         height: auto;
         background-color: #666;
         position: absolute;
-        top: 60px;
+        top: 50px;
         right: 0;
         .border_bottom{
             width: 100%;
@@ -296,7 +617,7 @@
             position: fixed;
             width: 437px;
             height: 100%;
-            top: 62px;
+            top: 51px;
             right: 0;
             z-index: 9;
             box-shadow: 0 0 15px #333333;
@@ -314,7 +635,124 @@
             }
             .main {
                 height: auto;
+                .table_tie{
+                    width:410px ;
+                    height: 405px;
+                    margin: 0 auto;
+                    li{
+                        list-style: none;
 
+                        height: auto;
+                        .item-table1{
+                            border: solid 1px #ccc;
+                            border-top: none;
+                            width: 44px;
+                            float: left;
+                        }
+                        .item-table2{
+                            border: solid 1px #ccc;
+                            border-top: none;
+                            border-left: none;
+                            border-right:none ;
+                            width: 89px;
+                            float: left;
+                        }
+                        .item-table3{
+                            border: solid 1px #ccc;
+                            border-top: none;
+                            width: 272px;
+                            float: left;
+                            p{
+                                line-height: 40px;
+                                font-size: 12px;
+                                text-align: left;
+                                padding-left: 10px;
+                            }
+                        }
+                    }
+                    .table_title{
+                        color: #333;
+                        .item-table1{
+                            background: #f6f6f6;
+                            border: solid 1px #ccc;
+                            height: 56px;
+                            line-height: 56px;
+                        }
+                        .item-table2{
+                            background: #f6f6f6;
+                            border: solid 1px #ccc;
+                            border-left: none;
+                            border-right:none ;
+                            height: 56px;
+                            line-height: 56px;
+                        }
+                        .item-table3{
+                            background: #f6f6f6;
+                            border: solid 1px #ccc;
+                            height: 56px;
+                            line-height: 56px;
+                        }
+                    }
+                }
+                .tongji{
+                    width:410px ;
+                    height: 405px;
+                    margin: 0 auto;
+                    margin-top:10px;
+                    border: solid 1px #ccc;
+                    background: #f0f7ff;
+                    .table_item{
+                        padding-top: 9px;
+                        float: left;
+                        margin: 8px 8px;
+                        width: 120px;
+                        height: 85px;
+                        box-shadow: 0 0 10px #ccc;
+                        text-align: center;
+                        background: #fff;
+                        strong{
+                            line-height: 42px;
+                            font-size: 24px;
+                            color: #555;
+                        }
+                        p{
+                            font-size: 14px;
+                            color: #888;
+                        }
+                    }
+                }
+                .bing{
+                    width: 420px;
+                    height: 366px;
+                    margin: 0 auto;
+                    margin-top: 20px;
+                    .bing_item1{
+                        width: 203px;
+                        height: 180px;
+                        float: left;
+                        overflow: hidden;
+                    }
+                    .bing_item2{
+                        width: 203px;
+                        height: 180px;
+                        float: left;
+                        overflow: hidden;
+                    }
+                    .bing_item3{
+                        margin-top: 20px;
+                        width: 203px;
+                        height: 180px;
+                        float: left;
+                        overflow: hidden;
+                    }
+                    .bing_item4{
+                        margin-top: 20px;
+                        width: 203px;
+                        height: 180px;
+                        float: left;
+                        overflow: hidden;
+                    }
+                }
             }
         }
     }

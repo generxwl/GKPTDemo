@@ -218,7 +218,7 @@
 
       //加载Chart数据
       loadChar(container, name, data, title){
-        console.log(data);
+        //console.log(data);
         let dateTypeFormat = '%Y-%m-%d %H:%M';
         let markerShowFlag = false;
         let chart = new Highcharts.Chart('citychart_' + container, {

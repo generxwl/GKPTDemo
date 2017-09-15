@@ -6,8 +6,6 @@
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
                 <img id="shrink" src="../assets/img/右.png" v-if="you"/>
                 <div class="main">
-                    <div class="kbiaoti">监测点排名</div>
-                    <div class="bluexian"></div>
                     <!--选项查询-->
                     <div class="first">
                         <div class="tables">
@@ -80,16 +78,16 @@
         name: 'PaneldataCgw',
         data () {
             return {
-                zuo:false,
-                you:true,
-                ALLdata:[],
-                tableData:[],
-                allData:[],
+                zuo: false,
+                you: true,
+                ALLdata: [],
+                tableData: [],
+                allData: [],
                 type: 'AQI',
                 currentRow: null,
                 pagesize: 10,
                 currentPage: 1,
-                totalCount:0,
+                totalCount: 0,
                 pickerOptions1: {
                     shortcuts: [{
                         text: '今天',
@@ -132,15 +130,15 @@
             //右边伸缩框加载动画
             $('#list #shrink').on('click', function () {
                 if (flag) {
-                    that.zuo=true;
-                    that.you=false;
+                    that.zuo = true;
+                    that.you = false;
                     $('#list').animate({
                         'right': '-437px'
                     });
                     flag = false;
                 } else {
-                    that.zuo=false;
-                    that.you=true;
+                    that.zuo = false;
+                    that.you = true;
                     $('#list').animate({
                         'right': '0px'
                     });
@@ -159,25 +157,25 @@
                 }
             },
             //初始数据
-            initlistData(data,type){
-                    this.type = type;
-                    let sudata = data;
-                    this.SetDataList(sudata, type)
-                    this.totalCount = this.ALLdata.length;
-                    this.allData = this.ALLdata;
-                    this.setPageTable(10,1);
+            initlistData(data, type){
+                this.type = type;
+                let sudata = data;
+                this.SetDataList(sudata, type)
+                this.totalCount = this.ALLdata.length;
+                this.allData = this.ALLdata;
+                this.setPageTable(10, 1);
             },
             //type更改
             refreshTable(type){
                 this.type = type;
-                if(this.type == 'PM25'){
-                    this.type = this.type.replace('PM25','PM2.5')
+                if (this.type == 'PM25') {
+                    this.type = this.type.replace('PM25', 'PM2.5')
                 }
                 //console.log(this.type)
                 this.SetDataList(this.data, type);
                 this.totalCount = this.ALLdata.length;
                 this.allData = this.ALLdata;
-                this.setPageTable(10,1);
+                this.setPageTable(10, 1);
             },
             //设置分页所需要数据
             SetDataList(data, type){
@@ -194,7 +192,7 @@
                     tableData.latitude = item.latitude;//纬度
                     tableData.longitude = item.longitude;//经度
                     tableData.aqi = item[type.toLowerCase()];//数值
-                   // console.log(this.getPollution(tableData.aqi))
+                    // console.log(this.getPollution(tableData.aqi))
                     this.ALLdata.push(tableData);
                 })
             },
@@ -210,26 +208,37 @@
             //查询
             ChaXunJianCe(){
                 let t = this;
-                let time = this.dateFtt('yyyy-MM-dd hh:00:00',this.value2);
-                api.ChaxunGetFcStationList(time).then(res=>{
+                let time = this.dateFtt('yyyy-MM-dd hh:00:00', this.value2);
+                api.ChaxunGetFcStationList(time).then(res => {
                     console.log('时间查询数据')
-                    let shoulist = JSON.parse(res.data);
-                    let sudata = shoulist.obj;
+                    let data = res.data;
+                    data = typeof data === 'string' ? JSON.parse(data) : data;
+                    data = {
+                        status: data.hasOwnProperty('status') ? data.status : data.Status,
+                        obj: data.obj || data.ExtraData
+                    };
+                    let sudata = data.obj;
                     this.SetDataList(sudata, this.type)
                     this.totalCount = this.ALLdata.length;
                     this.allData = this.ALLdata;
-                    this.setPageTable(10,1);
+                    this.setPageTable(10, 1);
                 })
             },
             //实时
             RealTimeFatch(){
-                    api.GetFcStationList().then(res=>{
-                    let shoulist = JSON.parse(res.data);
+                api.GetFcStationList().then(res => {
+                    let data = res.data;
+                    data = typeof data === 'string' ? JSON.parse(data) : data;
+                    data = {
+                        status: data.hasOwnProperty('status') ? data.status : data.Status,
+                        obj: data.obj || data.ExtraData
+                    };
+                    let shoulist = data;
                     let sudata = shoulist.obj;
                     this.SetDataList(sudata, this.type)
                     this.totalCount = this.ALLdata.length;
                     this.allData = this.ALLdata;
-                    this.setPageTable(10,1);
+                    this.setPageTable(10, 1);
                 })
             },
             //累计
@@ -243,10 +252,10 @@
             //table点击事件
             RowCurrentChange(val){
                 this.currentRow = val;
-               let citygid = this.currentRow.citygid;//城市id
-               let latitude = this.currentRow.latitude;//纬度
-               let longitude = this.currentRow.longitude;//经度
-               bus.$emit('loadChart',longitude, latitude,citygid);
+                let citygid = this.currentRow.citygid;//城市id
+                let latitude = this.currentRow.latitude;//纬度
+                let longitude = this.currentRow.longitude;//经度
+                bus.$emit('loadChart', longitude, latitude, citygid);
             },
             //每页显示数据量变更
             handleSizeChange(val) {
@@ -255,17 +264,17 @@
 
             //页码变更
             handleCurrentChange(val) {
-                this.setPageTable(10,val);
-                console.log(val)
+                this.setPageTable(10, val);
+
             },
             //分页部分功能
-            setPageTable(pageSize,pageNum){
+            setPageTable(pageSize, pageNum){
                 let rtValue = [];
-                let startNum = pageSize*(pageNum-1);
-                for(let i=0;i<pageSize;i++){
-                    if((startNum+i+1) > this.allData.length)
+                let startNum = pageSize * (pageNum - 1);
+                for (let i = 0; i < pageSize; i++) {
+                    if ((startNum + i + 1) > this.allData.length)
                         break;
-                    rtValue.push(this.allData[startNum+i]);
+                    rtValue.push(this.allData[startNum + i]);
                 }
                 this.tableData = rtValue;
             },
@@ -319,14 +328,14 @@
         height: auto;
         background-color: #666;
         position: absolute;
-        top: 60px;
+        top: 50px;
         right: 0;
         #list {
             background: #fff;
             position: fixed;
             width: 437px;
             height: 100%;
-            top: 62px;
+            top: 51px;
             right: 0;
             z-index: 9;
             box-shadow: 0 0 15px #333333;
@@ -359,11 +368,11 @@
                     .tables {
                         float: left;
                         margin-left: 14px;
-                        #shishi{
+                        #shishi {
                             border-bottom-right-radius: 0;
                             border-top-right-radius: 0;
                         }
-                        #leiji{
+                        #leiji {
                             border-bottom-left-radius: 0;
                             border-top-left-radius: 0;
                         }
@@ -408,7 +417,7 @@
                     margin-left: 16px;
                     border-left: solid 3px #2a6496;
                 }
-                .table_container{
+                .table_container {
                     margin-left: 16px;
                 }
             }

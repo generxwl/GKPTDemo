@@ -31,6 +31,6 @@
 <style lang="scss" scoped>
     .Pollutionmap{
         width: 100%;
-        height: calc(100% - 60px);
+        height: calc(100% - 50px);
     }
 </style>

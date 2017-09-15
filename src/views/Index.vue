@@ -1,19 +1,20 @@
 <template>
-  <div class="index_jcd">
-    <!--监测点部分-->
+  <div class="indexwarp">
+    <!--首页部分-->
     <v-header></v-header>
 
-    <monitor-map></monitor-map>
+    <!--<monitor-map></monitor-map>-->
     <!--<scroll-bar class="gundong"></scroll-bar>-->
-    <v-paneldata></v-paneldata>
+    <indexpanel></indexpanel>
   </div>
 </template>
 
 <script>
   import MonitorMap from '@/map/MonitorMapMain' //0809
   import ScrollBar from '@/components/ScrollBar'
+  import indexpanel from '@/components/Paneldata-index'
   export default {
-    name: 'indexjcd',
+    name: 'index',
     data () {
       return {
         fullscreenLoading: false
@@ -32,13 +33,13 @@
         }, 2000);
       }
     },
-    components: {MonitorMap,ScrollBar}//0809
+    components: {MonitorMap,ScrollBar,indexpanel}//0809
   }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
-  .index_jcd {
+  .indexwarp {
     width: 100%;
     height: 100%;
     position: relative;

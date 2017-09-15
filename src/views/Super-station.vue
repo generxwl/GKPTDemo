@@ -91,7 +91,7 @@ export default {
 <style lang="scss" scoped>
     .superstation{
         width: 100%;
-        height: calc(100% - 60px);
+        height: calc(100% - 50px);
         position: relative;
         .dingwei{
             position: absolute;
