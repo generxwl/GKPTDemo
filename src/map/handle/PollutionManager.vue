@@ -668,7 +668,7 @@
                             labelstr = '风向角';
                             break;
                         case 'WS':
-                            value = parseInt(data.rows[j].windlevel);
+                            value = parseInt(data.rows[j].windspeed);
                             unit = '级';
                             index = getWindLevelIndex(value);
                             labelstr = '风级';
