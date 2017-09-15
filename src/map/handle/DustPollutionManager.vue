@@ -21,7 +21,7 @@
     },
     props: ['pollutionUrl', 'charUrl', 'item'],
     created () {
-      console.log(RequestHandle)
+//      console.log(RequestHandle)
     },
     mounted () {
       this.ready()
@@ -54,7 +54,7 @@
         let bs = this.map.getBounds();
         let url = this.pollutionUrl;
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-          console.log(result);
+//          console.log(result);
           if (result.status === 1) {
             t.data = result.obj;
             t.render(result.obj, type);
@@ -94,8 +94,8 @@
         this.showCityPointChart(code, point);
       },
       render (data, type) {
-        console.log(data);
-        console.log(type);
+//        console.log(data);
+//        console.log(type);
         if (data) {
           this.clearRenderOverlay();
           let aqi, lat, lng, city, pointname, level, region, province, title, value, unit, index, hourdiff,
@@ -379,13 +379,13 @@
       showCityPointChart (code, point) {
         let t = this;
         let url = this.charUrl + '?deviceid=' + code + '&ptype=' + this.item.replace('.', '').toLowerCase();
-        console.log(code + this.item);
+//        console.log(code + this.item);
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-          console.log(result);
+//          console.log(result);
           if (result.status === 1) {
             let data = result.obj[0];
             let res = t.setInfoWindow(data);
-            console.log(res);
+//            console.log(res);
             let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
               title: '<sapn style="font-size:16px"><b>' + data.name + '</b>' + '</span>',             //标题
               width: 320,
@@ -411,14 +411,14 @@
           + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.humi) + '%'
           + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data.winddirection
           + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.windlevel || 0) + '级'
-          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + (data.time || '') + '</td></tr></table>'
+          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + (data.time.replace(/T/g,' ') || '') + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
           + '</tr></table><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;height:110px\'>';
       },
       //加载Chart数据
       loadChar(container, name, data, title){
-        console.log(data);
+//        console.log(data);
         let dateTypeFormat = '%Y-%m-%d %H:%M';
         let markerShowFlag = false;
         let chart = new Highcharts.Chart('citychart_' + container, {

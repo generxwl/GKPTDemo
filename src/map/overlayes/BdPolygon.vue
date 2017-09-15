@@ -13,22 +13,29 @@
         layers: [{
           url: '/static/data/Y.json',
           hasVisible: true,
+          displayFieldName: 'NAME99',
           geometry: []
         }, {
           url: '/static/data/E.json',
           hasVisible: false,
+          displayFieldName: 'NAME99',
           geometry: []
         }, {
           url: '/static/data/S.json',
           hasVisible: false,
+          displayFieldName: 'FCNAME',
           geometry: []
-        }]
+        }],
+        labelSymbol: new BMap.Label()
       }
     },
     mounted() {
       let t = this;
       setTimeout(function () {
         t.map = t.$parent.$parent.map;
+        t.map.addOverlay(t.labelSymbol);
+        t.labelSymbol.hide();
+        t.labelSymbol.setStyle({color:'#333',backgroundColor:'#fff',border:'solid 1px #333'});
         t.ready();
       }, 10);
       bus.$on('setVisible', this.setLayerVisible);
@@ -42,6 +49,7 @@
           let layer = t.layers[j];
           let url = layer.url;
           let visible = layer.hasVisible;
+          let displayFieldName = layer.displayFieldName;
           Axios({
             url: url,
             method: 'GET',
@@ -49,7 +57,7 @@
             data: {}
           }).then(function (result) {
             if (result.status === 200) {
-              t.createPolygon(result.data, layer.geometry,visible,bgColor);
+              t.createPolygon(result.data, layer.geometry, displayFieldName, bgColor);
               for (let i = 0, length = layer.geometry.length; i < length; i++) {
                 let ply = layer.geometry[i];
                 t.map.addOverlay(ply);
@@ -57,7 +65,7 @@
               }
             }
           }).catch(function (ex) {
-            console.log(ex)
+//            console.log(ex)
           })
         }
       },
@@ -85,8 +93,9 @@
           }
         }
       },
-      createPolygon(data, layer, hasVisible,fillColor) {
+      createPolygon(data, layer, displayFieldName, fillColor) {
         let transformRing = this.getBdPolygon(data);
+        let t = this;
         for (let i = 0, length = transformRing.length; i < length; i++) {
           let lsRings = transformRing[i];
           let geometry = lsRings.geometry;
@@ -94,16 +103,36 @@
           //let fillColor = color || this.getRandomColor();
           for (let j = 0, count = geometry.length; j < count; j++) {
             let polygon = this.getStringPolygon(geometry[j]);
-            let ply = new BMap.Polygon(polygon, {strokeWeight: 1, strokeStyle:'dashed',strokeColor: '#2929D2', fillColor: fillColor});
+            let ply = new BMap.Polygon(polygon, {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#2929D2', fillColor: fillColor});
             ply.attributes = attributes;
+            ply.displayFieldName = displayFieldName;
+
             layer.push(ply);
-            this.map.addOverlay(ply);
-            hasVisible ? ply.show() : ply.hide();
-            ply.addEventListener('click', function (e) {
-              console.log(e);
-            })
+//            this.map.addOverlay(ply);
+//            hasVisible ? ply.show() : ply.hide();
+//            ply.addEventListener('click', function (e) {
+////              console.log(e);
+//            });
+            ply.addEventListener('mouseover', function (e) {
+//              t.labelSymbol.show();
+//              console.log(t.labelSymbol);
+            });
+            ply.addEventListener('click', this.mouseClickEvent);
+            ply.addEventListener('mouseout', function (e) {
+              t.labelSymbol.hide();
+//              console.log(t.labelSymbol);
+            });
           }
         }
+      },
+      mouseClickEvent(e){
+        let t = this;
+        t.labelSymbol.show();
+        t.labelSymbol.setPosition(e.point);
+        let displayFieldName = e.target.displayFieldName;
+        let attributes = e.target.attributes;
+//        console.log(e);
+        (attributes && displayFieldName) && (t.labelSymbol.setContent(attributes[displayFieldName]));
       },
       getBdPolygon(data) {
         let rtValue = [];

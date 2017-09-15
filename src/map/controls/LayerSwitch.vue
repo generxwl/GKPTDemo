@@ -25,7 +25,7 @@
       </li>
     </ul>
     <bd-polygon></bd-polygon>
-    <bd-label></bd-label>
+    <!--<bd-label></bd-label>-->
   </div>
 </template>
 <script>

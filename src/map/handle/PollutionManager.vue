@@ -22,7 +22,7 @@
         },
         props: ['pollutionUrl', 'charUrl', 'item'],
         created () {
-            console.log(RequestHandle)
+//            console.log(RequestHandle)
         },
         mounted () {
             this.ready();
@@ -83,7 +83,7 @@
 //        let url = 'http://localhost:6005/Handler.ashx';
                 let url = this.pollutionUrl;
                 RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-                    console.log(result);
+//                    console.log(result);
                     if (result.status === 0) {
                         t.data = result.obj;
                         t.render(t.getPointByType(t.ptType), type);
@@ -146,8 +146,8 @@
                 }
             },
             render (data, type) {
-                console.log(data);
-                console.log(type);
+//                console.log(data);
+//                console.log(type);
                 if (data) {
                     this.clearRenderOverlay();
                     let aqi, lat, lng, city, pointname, level, region, province, title, value, unit, index, hourdiff,
@@ -311,7 +311,7 @@
                             + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data[i].winddirection
                             + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + (parseInt(data[i].windspeed) || 0) + '级'
                             + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
-                            + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data[i].time + '</td></tr></table>'
+                            + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data[i].time.replace(/T/g,' ') + '</td></tr></table>'
                             + '</td>'
                             + '<td valign=\'top\' align=\'right\'><td>'
                             + '</tr></table><div id=\'citychart_' + data[i].citygid + '\' style=\'width:100%;height:110px\'>';
@@ -544,16 +544,16 @@
                 }
             },
             showCityPointChart (citycode) {
-                console.log(citycode);
+//                console.log(citycode);
                 let t = this;
                 let url = t.charUrl + '?id=' + citycode;
                 RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-                    console.log(result);
+//                    console.log(result);
                     if (result.status === 0) {
                         let dt = result.obj;
                         t.loadChartData(citycode, {total: dt.length, rows: dt});
                     } else {
-                        console.log(request);
+//                        console.log(request);
                     }
                 }, function (ex) {
                     console.error(ex);
@@ -668,7 +668,7 @@
                             labelstr = '风向角';
                             break;
                         case 'WS':
-                            value = parseInt(data.rows[j].windlevel);
+                            value = parseInt(data.rows[j].windspeed);
                             unit = '级';
                             index = getWindLevelIndex(value);
                             labelstr = '风级';
@@ -684,8 +684,8 @@
                 t.showChart('citychart_' + code, labelstr, dataCityPoint, unit, title);
             },
             showChart (container, name, data, unit, title) {
-              console.log('dddd');
-                console.log(data);
+//              console.log('dddd');
+//                console.log(data);
                 let dateTypeFormat = '%Y-%m-%d %H:%M';
                 let markerShowFlag = false;
                 let chart = new Highcharts.Chart(container, {
@@ -723,7 +723,7 @@
                     tooltip: {
                         enabled: true,
                         formatter: function () {
-                            console.log(this);
+//                            console.log(this);
                             let tip = '' + Highcharts.dateFormat(dateTypeFormat, this.x) + '<br/>' +
                                 this.series.name + ': <b>' + this.y + '</b>' + unit;
 //              if (this.point.primary_pollutant !== null) {

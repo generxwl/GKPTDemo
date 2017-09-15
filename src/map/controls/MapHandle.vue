@@ -1,7 +1,7 @@
 <template>
   <div class="map-handle">
     <ul class="map-handle_ul">
-      <li v-for="(value,index) in handleItems" :data-index="index" :data-type="value.type" @click="liClickEvent"><img :title="value.name" :src="value.src"></li>
+      <li v-for="(value,index) in handleItems" v-show="value.hasVisible" :data-index="index" :data-type="value.type" @click="liClickEvent"><img :title="value.name" :src="value.src"></li>
     </ul>
   </div>
 </template>
@@ -17,22 +17,38 @@
             name: '放大',
             type: 'ZOOMIN',
             src: 'static/imgs/mapGJ/ceju.png',
-            checked: 'static/imgs/mapGJ/ceju1.png'
+            checked: 'static/imgs/mapGJ/ceju1.png',
+            hasVisible:false
           }, {
             name: '缩小',
             type: 'ZOOMOUT',
             src: 'static/imgs/mapGJ/zhuashou.png',
-            checked: 'static/imgs/mapGJ/zhuashou1.png'
+            checked: 'static/imgs/mapGJ/zhuashou1.png',
+            hasVisible:false
           }, {
-            name: '原范围',
-            type: 'EXTENT',
-            src: 'static/imgs/mapGJ/fanhui.png',
-            checked: 'static/imgs/mapGJ/fanhui1.png'
+            name: '量算',
+            type: 'LENGTH',
+            src: 'static/imgs/mapGJ/ceju.png',
+            checked: 'static/imgs/mapGJ/ceju1.png',
+            hasVisible:true
           }, {
             name: '抓取',
             type: 'HANDLE',
+            src: 'static/imgs/mapGJ/zhuashou.png',
+            checked: 'static/imgs/mapGJ/zhuashou1.png',
+            hasVisible:true
+          },{
+            name: '原范围',
+            type: 'EXTENT',
+            src: 'static/imgs/mapGJ/fanhui.png',
+            checked: 'static/imgs/mapGJ/fanhui1.png',
+            hasVisible:true
+          }, {
+            name: '全屏',
+            type: 'FULL',
             src: 'static/imgs/mapGJ/quanpin.png',
-            checked: 'static/imgs/mapGJ/quanpin1.png'
+            checked: 'static/imgs/mapGJ/quanpin1.png',
+            hasVisible:true
           }
         ]
       };
@@ -43,15 +59,15 @@
       bus.$on('getMap', this.getMap);
       bus.$on('getSenseMap', this.getMap);
       bus.$on('getDustMap', this.getMap);
-      bus.$on('getGridMap',this.getMap);
+      bus.$on('getGridMap', this.getMap);
     },
     mounted(){
       let t = this;
       setTimeout(function () {
         t.ready();
       }, 1);
-      $('.map-handle_ul li').on('click',function () {
-          $(this).addClass('active').siblings().removeClass('active');
+      $('.map-handle_ul li').on('click', function () {
+        $(this).addClass('active').siblings().removeClass('active');
       })
     },
     methods: {
@@ -61,7 +77,8 @@
         this.map = map;
       },
       liClickEvent(e){
-        this.resetImg();
+        //this.resetImg();
+
         let childElement = e.currentTarget;
         let imgElement = childElement.querySelector('img');
         let index = childElement.getAttribute('data-index');
@@ -80,10 +97,17 @@
               this.map.setZoom(zoom - 1);
               break;
             case 'EXTENT':
-                this.map.centerAndZoom('廊坊', 10);
+              this.map.centerAndZoom('廊坊', 10);
               break;
             case 'HANDLE':
-                this.map.setDefaultCursor();
+              this.map.setDefaultCursor();
+              break;
+            case 'LENGTH':
+              this.map.setDefaultCursor();
+              break;
+            case 'FULL':
+              this.fullScreen(this.map.getContainer());
+              childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)';
               break;
           }
         }
@@ -98,6 +122,23 @@
           let target = targets[index];
           value.src = target.src;
         })
+      },fullScreen(docElm) {
+        //W3C
+        if (docElm.requestFullscreen) {
+          docElm.requestFullscreen();
+        }
+        //FireFox
+        else if (docElm.mozRequestFullScreen) {
+          docElm.mozRequestFullScreen();
+        }
+        //Chrome等
+        else if (docElm.webkitRequestFullScreen) {
+          docElm.webkitRequestFullScreen();
+        }
+        //IE11
+        else if (docElm.msRequestFullscreen) {
+          docElm.msRequestFullscreen();
+        }
       }
     }
   };
@@ -109,9 +150,11 @@
     z-index: 1;
 
   }
-  .active{
-    background: #1080cc!important;
+
+  .active {
+    background: #1080cc !important;
   }
+
   .map-handle ul {
 
     height: auto;
@@ -123,7 +166,7 @@
     list-style: none;
     height: auto;
     width: 40px;
-    padding:5px 0;
+    padding: 5px 0;
   }
 
   .map-handle li img {

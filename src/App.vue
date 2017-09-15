@@ -152,4 +152,10 @@
 
     }
 
+
+    /*BaiduMap*/
+    .BMapLib_SearchInfoWindow .BMapLib_bubble_close{
+      background:url('/static/imgs/map/iclose.png') no-repeat center center !important;
+    }
+
 </style>
