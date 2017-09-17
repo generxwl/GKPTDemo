@@ -99,7 +99,8 @@
       //图标点击事件
       markerClick(code, point){
         let t = this;
-        let url = this.charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
+        let charUrl = RequestHandle.getRequestUrl('SENSECHART');
+        let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
 
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
           if (result.status === 0) {

@@ -39,8 +39,9 @@
         bus.$on('tilesSenseLoaded', this.requestHandle);
       },
       requestHandle(map){
-        let url = this.pollutionUrl;
+//        let url = this.pollutionUrl;
 //        console.log(url);
+        let url = RequestHandle.getRequestUrl('SENSEPOLLUTION');
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
 //          console.log(result);
           if (result.status === 0) {

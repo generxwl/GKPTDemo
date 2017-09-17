@@ -52,7 +52,8 @@
         let qs = require('qs');
         let mapLevel = this.map.getZoom();
         let bs = this.map.getBounds();
-        let url = this.pollutionUrl;
+        //let url = this.pollutionUrl;
+        let url = RequestHandle.getRequestUrl('DUSTPOLLUTION');
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
 //          console.log(result);
           if (result.status === 1) {
@@ -378,7 +379,8 @@
 
       showCityPointChart (code, point) {
         let t = this;
-        let url = this.charUrl + '?deviceid=' + code + '&ptype=' + this.item.replace('.', '').toLowerCase();
+        let charUrl = RequestHandle.getRequestUrl('DUSTCHART');
+        let url = charUrl + '?deviceid=' + code + '&ptype=' + this.item.replace('.', '').toLowerCase();
 //        console.log(code + this.item);
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
 //          console.log(result);

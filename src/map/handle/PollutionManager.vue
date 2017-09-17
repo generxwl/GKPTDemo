@@ -81,7 +81,8 @@
 //          pointlevel: '国控点'
 //        };
 //        let url = 'http://localhost:6005/Handler.ashx';
-                let url = this.pollutionUrl;
+//                let url = this.pollutionUrl;
+                let url = RequestHandle.getRequestUrl('MONPOLLUTION');
                 RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
 //                    console.log(result);
                     if (result.status === 0) {
@@ -546,7 +547,8 @@
             showCityPointChart (citycode) {
 //                console.log(citycode);
                 let t = this;
-                let url = t.charUrl + '?id=' + citycode;
+                let chartUrl = RequestHandle.getRequestUrl('MONCHART');
+                let url = chartUrl + '?id=' + citycode;
                 RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
 //                    console.log(result);
                     if (result.status === 0) {
