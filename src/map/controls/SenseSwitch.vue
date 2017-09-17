@@ -3,20 +3,24 @@
     <ul>
       <li v-for="(item,index) in target" :data-type="item.name" @click="liClickEvent">{{item.value}}</li>
     </ul>
-    <hot-layer :charUrl="charUrl"></hot-layer>
-    <marker-layer :charUrl="charUrl"></marker-layer>
+    <!--<hot-layer :charUrl="charUrl"></hot-layer>-->
+    <!--<marker-layer :charUrl="charUrl"></marker-layer>-->
+    <sense-marker-layer></sense-marker-layer>
   </div>
 </template>
 <script>
   import HotLayer from '@/map/handle/HotLayer'
   import MarkerLayer from '@/map/handle/MarkerLayer'
+  import SenseMarkerLayer from '@/map/handle/SenseMarkerLayer'
   import RequestHandle from '@/request'
   import {bus} from '@/js/bus.js'
+//  import SenseMarkerLayer from "../handle/SenseMarkerLayer";
 
   export default {
     name: 'SenseSwitch',
     data () {
       return {
+        hasLoaded:false,
         target: [{
           name: 'HotMap',
           value: '热力图',
@@ -49,6 +53,7 @@
             bus.$emit('getSenseData', result.obj);
             bus.$emit('loadHotLayer', map, result.obj);
             bus.$emit('loadMarker', map, result.obj);
+            bus.$emit('loadSenseMarker', map, result.obj);
           }
         }, function (ex) {
           console.error(ex);
@@ -80,7 +85,9 @@
         });
       }
     },
-    components: {HotLayer, MarkerLayer}
+    components: {
+      SenseMarkerLayer,
+      HotLayer, MarkerLayer}
   };
 </script>
 <style scoped>

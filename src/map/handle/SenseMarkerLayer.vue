@@ -4,14 +4,16 @@
   import {bus} from '@/js/bus.js'
 
   export default {
-    name: 'MarkerLayer',
+    name: 'SenseMarkerLayer',
     render(){
     },
     data () {
       return {
         markers: [],
-        hasVisible: false,
+        hasLoaded:false,
+        hasVisible: true,
         checkedName: 'AQI',
+        mouseLabel: new BMap.Label(),
         data: [],
         infoWindowConfig: {
           width: 250,     // 信息窗口宽度
@@ -30,20 +32,25 @@
     methods: {
       //页面初始化
       ready(){
-        bus.$on('setMarkerVisible', this.markerLayerToggle);
         bus.$on('markerTarget', this.pollutionTarget);
-        bus.$once('loadMarker', this.loadMarkerLayer);
-        bus.$on('loadChart', this.refreshLoadChart);
-        bus.$on('refreshMarker',this.refreshLayer);
+        bus.$once('loadSenseMarker', this.loadMarkerLayer);
       },
 
       //加载marker数据
       loadMarkerLayer(map, data){
 //        console.log(this.hasVisible);
+        this.markers && this.clearMarker();
         this.map = map;
+        this.map && this.map.addOverlay(this.mouseLabel);
+        this.mouseLabel.setStyle({
+          background: 'none',
+          color: '#333',
+          fontSize: '14px',
+          fontFamily: 'Microsoft YaHei',
+          border: 'none'
+        });
         if (!this.data.length) {
           this.data = data;
-          bus.$emit('loadMarkerData', this.data,this.checkedName);
         }
         let t = this;
         let lsMarkers = this.getPollutionByType(this.checkedName);
@@ -52,10 +59,32 @@
           let pt = new BMap.Point(value.lng, value.lat);
           let v = value.count;
           let marker = t.getMarker(pt, v);
+
+          let label = new BMap.Label(value.count);
+          label.setStyle({
+            border: 'none',
+            color: '#fff',
+            background: 'none',
+            fontSize: '14px',
+            fontFamily: 'Microsoft YaHei'
+          });
+          label.setOffset(new BMap.Size(16, 8));
+          marker.setLabel(label);
+          marker.attributes = {stationName: value.stationname};
           marker && ((t.hasVisible ? marker.show() : marker.hide()), t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
             let tg = e.target;
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
             t.markerClick(value.stationid, point);
+          }), marker.addEventListener('mouseover', function (e) {
+            let tg = e.target;
+            let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
+            let stationName = e.currentTarget.attributes.stationName;
+            t.mouseLabel.setContent(stationName);
+            t.mouseLabel.setOffset(new BMap.Size(-stationName.length*5-12, -10));
+            t.mouseLabel.setPosition(point);
+            t.mouseLabel.show()
+          }), marker.addEventListener('mouseout', function (e) {
+            t.mouseLabel.hide();
           }));
         }
       },
@@ -80,7 +109,7 @@
       //刷新Chart数据
       refreshLoadChart(lng, lat, code){
         let point = new BMap.Point(lng, lat);
-        this.markerClick(code,point);
+        this.markerClick(code, point);
       },
 
       //根据类型获取指标数据
@@ -89,7 +118,7 @@
         if (this.data) {
           for (let i = 0, length = this.data.length; i < length; i++) {
             let item = this.data[i];
-            let obj = {'stationid': item.stationid, 'lng': item.longitude, 'lat': item.latitude, 'count': item[type.toLowerCase()]};
+            let obj = {'stationid': item.stationid, 'stationname': item.stationname, 'lng': item.longitude, 'lat': item.latitude, 'count': item[type.toLowerCase()]};
             rtValue.push(obj);
           }
         }
@@ -129,7 +158,7 @@
       getMarker(pt, value){
         let marker = undefined;
         if (pt && value) {
-          let imgUrl = this.getIconUrl(value);
+          let imgUrl = this.getImgUrl(value);
           let icon = new BMap.Icon(imgUrl, new BMap.Size(70, 70));
           marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(8, -16)});
         }
@@ -140,22 +169,22 @@
       getImgUrl(value){
         let imgPath = undefined;
         if (value > 0 && value <= 10) {
-          imgPath = '/static/imgs/sense/green.png';
+          imgPath = '/static/imgs/sense/sg1.png';
         }
         else if (value > 10 && value <= 20) {
-          imgPath = '/static/imgs/sense/orange.png';
+          imgPath = '/static/imgs/sense/so1.png';
         }
         else if (value > 20 && value <= 40) {
-          imgPath = '/static/imgs/sense/yellow.png';
+          imgPath = '/static/imgs/sense/sy1.png';
         }
         else if (value > 40 && value <= 60) {
-          imgPath = '/static/imgs/sense/maroon.png';
+          imgPath = '/static/imgs/sense/sm1.png';
         }
         else if (value > 60 && value <= 80) {
-          imgPath = '/static/imgs/sense/violet.png';
+          imgPath = '/static/imgs/sense/sv1.png';
         }
         else if (value > 80) {
-          imgPath = '/static/imgs/sense/red.png';
+          imgPath = '/static/imgs/sense/sr1.png';
         }
         return imgPath;
       },

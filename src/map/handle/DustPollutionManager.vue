@@ -30,7 +30,7 @@
       ready () {
         bus.$on('switchDustRender', this.switchRender);
         bus.$on('getDustMap', this.setMap);
-        bus.$on('tilesDustLoaded', this.resetData);
+        bus.$once('tilesDustLoaded', this.resetData);
         bus.$on('refreshDustLayer', this.refreshLayer);
         bus.$on('showDustInfoWindow', this.showDustInfoWindow);
       },

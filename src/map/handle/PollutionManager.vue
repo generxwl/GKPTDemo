@@ -33,7 +33,7 @@
                 bus.$on('switchRender', this.switchRender);
                 bus.$on('getMap', this.setMap);
                 bus.$on('tilesLoaded', this.resetData);
-                bus.$on('tilesDustLoaded', this.resetData);
+                bus.$once('tilesDustLoaded', this.resetData);
                 bus.$on('showWindowInfo', this.showSearchInfoWindow);
                 bus.$on('tabClick', this.tabClickEvent);
                 bus.$on('refreshLayer', this.refreshLayer);
@@ -548,7 +548,7 @@
 //                console.log(citycode);
                 let t = this;
                 let chartUrl = RequestHandle.getRequestUrl('MONCHART');
-                let url = chartUrl + '?id=' + citycode;
+                let url = t.charUrl + '?id=' + citycode;
                 RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
 //                    console.log(result);
                     if (result.status === 0) {
