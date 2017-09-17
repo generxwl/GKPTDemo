@@ -33,9 +33,51 @@
           let pt = new BMap.Point(value.lng, value.lat);
           let marker = t.getMarker(pt);
           marker && (t.map.addOverlay(marker), t.markers.push({marker: marker, type: type}), marker.addEventListener('click', function (e) {
-
+            let tg = e.target;
+            let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
+            t.markerClick(value.stationid, point);
           }));
         }
+      },
+      //图标点击事件
+      markerClick(code, point){
+        let t = this;
+        let charUrl = RequestHandle.getRequestUrl('SENSECHART');
+        let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
+
+        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+          if (result.status === 0) {
+            let data = result.obj;
+            let res = t.setInfoWindow(data);
+
+            let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
+              title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
+              width: 320,
+              height: 200,
+              enableAutoPan: true,
+              searchTypes: []
+            });
+            searchInfoWindow.open(point);
+          }
+        }, function (ex) {
+          console.error(ex);
+        });
+      },
+      //设置弹出框信息
+      setInfoWindow(data){
+        return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
+          + '<table width=\'100%\' class=\'fitem\'>'
+          + '<tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(data.aqi)) + ';color:#fff\'>' + data.aqi
+          + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
+          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
+          + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + parseFloat(data.co).toFixed(1)
+          + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + parseInt(data.no2)
+          + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + parseInt(data.so2)
+          + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + parseInt(data.o3)
+          + '</td></tr></table>'
+          + '</td>'
+          + '<td valign=\'top\' align=\'right\'><td>'
+          + '</tr></table>';
       },
       //获取图标对象
       getMarker(pt, type){
