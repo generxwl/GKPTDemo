@@ -28,9 +28,8 @@
           map.enableScrollWheelZoom();
           this.map = map;
 
-          bus.$emit('getDustMap', map);
           map.addEventListener('tilesloaded', function () {
-//            bus.$emit('tilesDustLoaded', map);
+            bus.$emit('setMainMap', map);
           });
         }
     },
