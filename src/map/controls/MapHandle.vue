@@ -56,10 +56,11 @@
     beforeCreate(){
     },
     created(){
-      bus.$on('getMap', this.getMap);
-      bus.$on('getSenseMap', this.getMap);
-      bus.$on('getDustMap', this.getMap);
-      bus.$on('getGridMap', this.getMap);
+      bus.$once('getMap', this.getMap);
+      bus.$once('getSenseMap', this.getMap);
+      bus.$once('getDustMap', this.getMap);
+      bus.$once('getGridMap', this.getMap);
+      bus.$once('setMainMap', this.getMap);
     },
     mounted(){
       let t = this;
