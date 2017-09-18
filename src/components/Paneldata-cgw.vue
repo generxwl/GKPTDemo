@@ -12,22 +12,24 @@
                             <!--选项-->
                             <a id="shishi" @click="RealTimeFatch()" class="bai">实时</a>
                             <a id="leiji" @click="CumulativeFatch()">累计</a>
+                            <font class="time2">更新时间：{{uptime}}</font>
                         </div>
-                        <div class="shijian">
-                            <!--时间选择-->
-                            <div class="block">
-                                <el-date-picker
-                                        v-model="value2"
-                                        type="datetime"
-                                        placeholder="选择日期时间"
-                                        align="right"
-                                        :picker-options="pickerOptions1">
-                                </el-date-picker>
-                            </div>
-                        </div>
-                        <div class="btnns">
-                            <button @click="ChaXunJianCe()">查询</button>
-                        </div>
+
+                        <!--<div class="shijian">-->
+                            <!--&lt;!&ndash;时间选择&ndash;&gt;-->
+                            <!--<div class="block">-->
+                                <!--<el-date-picker-->
+                                        <!--v-model="value2"-->
+                                        <!--type="datetime"-->
+                                        <!--placeholder="选择日期时间"-->
+                                        <!--align="right"-->
+                                        <!--:picker-options="pickerOptions1">-->
+                                <!--</el-date-picker>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="btnns">-->
+                            <!--<button @click="ChaXunJianCe()">查询</button>-->
+                        <!--</div>-->
                     </div>
                     <!--排名-->
                     <div class="table_container">
@@ -112,6 +114,7 @@
                 },
                 value1: '',
                 value2: '',
+                uptime:''
             }
         },
         created(){
@@ -146,8 +149,39 @@
                 }
             })
             //
+            setInterval(()=>{
+                //console.log('开始时间')
+                this.uptime = this.UpTimesData()
+            },10000)
         },
         methods: {
+            //跟新数据时间
+            UpTimesData(){
+                var date = new Date(),
+                    Y = date.getFullYear(),
+                    m = date.getMonth() + 1,
+                    d = date.getDate(),
+                    H = date.getHours() - 1,
+                    i = date.getMinutes(),
+                    s = date.getSeconds();
+                if (m < 10) {
+                    m = '0' + m;
+                }
+                if (d < 10) {
+                    d = '0' + d;
+                }
+                if (H < 10) {
+                    H = '0' + H;
+                }
+                if (i < 10) {
+                    i = '0' + i;
+                }
+                if (s < 10) {
+                    s = '0' + s;
+                }
+                var t = Y+'-'+m+'-'+d+' '+H+':'+i+':'+s;
+                return t;
+            },
             //排序
             compare (propertyName) {
                 return function (object1, object2) {
@@ -364,32 +398,33 @@
                 .first {
                     width: 100%;
                     height: 44px;
-                    margin-top: 30px;
+                    margin-top: 10px;
                     .tables {
                         float: left;
                         margin-left: 14px;
-                        #shishi {
-                            border-bottom-right-radius: 0;
-                            border-top-right-radius: 0;
-                        }
-                        #leiji {
-                            border-bottom-left-radius: 0;
-                            border-top-left-radius: 0;
-                        }
+                        width: 100%;
+                        border-bottom: solid 1px #ccc;
                         .bai {
-                            background: #f1f1f1
+                            color: #0f80cc;
+                            border-bottom: solid 2px #0f80cc;
                         }
                         a {
                             float: left;
                             text-decoration: none;
+                            font-size: 16px;
+                            font-weight: bold;
                             color: #666;
                             display: inline-block;
                             line-height: 34px;
-                            width: 60px;
+                            padding: 0 30px;
+                            width:auto;
                             height: 34px;
-                            border: solid 1px #ccc;
-                            background: #fff;
                             border-radius: 2px;
+                        }
+                        .time2{
+                            line-height: 34px;
+                            padding-right: 20px;
+                            font-size: 12px;
                         }
                     }
                     .shijian {

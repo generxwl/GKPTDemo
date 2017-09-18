@@ -14,7 +14,7 @@
                             <!--选项-->
                             <a id="shishi" @click="RealTimeFatch()" class="bai">实时</a>
                             <a id="leiji" @click="CumulativeFatch()">累计</a>
-                            <font class="time2">更新时间：2017年9月14日10:44:22</font>
+                            <font class="time2">更新时间：{{uptime}}</font>
                         </div>
                         <!--<div class="shijian">-->
                             <!--&lt;!&ndash;时间选择&ndash;&gt;-->
@@ -263,6 +263,7 @@
                 shishi: true,
                 //累计展示
                 leiji: false,
+                uptime:''
             }
         },
 
@@ -270,7 +271,8 @@
             api.GetLfAirData().then(res => {
                 let shoulist = JSON.parse(res.data);
                 this.Datalist = shoulist.obj
-                console.log(this.Datalist)
+//                console.log(this.Datalist)
+                this.UpTimesData(this.Datalist.time)
                 bus.$on('switchRender', this.switchRender);
             })
 
@@ -311,6 +313,12 @@
             }, 500)
         },
         methods: {
+            //跟新数据时间
+            UpTimesData(times){
+                console.log(times)
+                let timevale =times.replace("T"," ");
+                this.uptime = timevale;
+            },
             //排序
             compare (propertyName) {
                 return function (object1, object2) {

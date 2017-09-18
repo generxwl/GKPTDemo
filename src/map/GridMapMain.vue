@@ -2,7 +2,7 @@
   <div class="grid-map-content">
     <div id="grid_map"></div>
     <div class="grid-legend"></div>
-    <map-handle></map-handle>
+    <!--<map-handle></map-handle>-->
     <bd-grid-layer></bd-grid-layer>
     <grid-layer-switch></grid-layer-switch>
   </div>
