@@ -9,7 +9,7 @@
 </template>
 <script>
   import {bus} from '@/js/bus.js'
-
+  import PollutionManager from '@/map/handle/PollutionManager'
   export default {
     name: 'VideoTarget',
     data () {
@@ -40,7 +40,7 @@
             checked: 'static/imgs/map/so21.png'
           }
         ]
-      };
+      }
     },
     mounted(){
       this.ready();
@@ -67,7 +67,7 @@
       }
     },
     components: {PollutionManager}
-  };
+  }
 </script>
 <style scoped>
   .video-target-content {

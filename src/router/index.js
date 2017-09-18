@@ -10,6 +10,7 @@ import SuperStation from '@/views/Super-station'//超级站
 import Pollutionmap from '@/views/Pollution-map'//污染地图
 import WeatherStation from '@/views/weather-station'//气象站
 import Weather from '@/views/Weather'//天气预报
+import Videos from '@/views/Videos'//视频监测
 import GridPrediction from '@/views/GridPrediction'//网格预报
 import DustEmissionStatistics from '@/views/DataAnalysis/DustEmissionStatistics'//扬尘源统计
 import DistrictsCounties from '@/views/DataAnalysis/DistrictsCounties'//区县打分
@@ -31,6 +32,11 @@ export default new Router({
             path: '/indexjcd',
             name: 'indexjcd',
             component: Indexjcd
+        },
+        {
+            path: '/Videos',
+            name: 'Videos',
+            component: Videos
         },
         {
             path: '/SensorNetwork',

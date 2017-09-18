@@ -3,7 +3,7 @@
     <div id="video_map"></div>
     <layer-switch></layer-switch>
     <video-handle></video-handle>
-    <map-handle></map-handle>
+    <!--<map-handle></map-handle>-->
   </div>
 </template>
 <script>

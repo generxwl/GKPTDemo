@@ -14,8 +14,8 @@
                     <div class="Twoitem">
                         <a href="#/indexjcd">国省控点监测</a>
                         <a href="#/superstation">超级站</a>
-                        <a href="#/SensorNetwork">传感器</a>
-                        <a>视频监控</a>
+                        <a href="#/SensorNetwork">传感网</a>
+                        <a href="#/Videos">视频监控</a>
                     </div>
                 </li>
                 <li>

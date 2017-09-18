@@ -4,14 +4,14 @@
     <v-header></v-header>
 
     <main-map></main-map>
-    <!--<scroll-bar class="gundong"></scroll-bar>-->
+    <!--<video-ctrl class="v-video"></video-ctrl>-->
     <indexpanel></indexpanel>
   </div>
 </template>
 
 <script>
   import MainMap from '@/map/MainMap' //0809
-  import ScrollBar from '@/components/ScrollBar'
+  import VideoCtrl from '@/components/VideoCtrl'
   import indexpanel from '@/components/Paneldata-index'
   export default {
     name: 'index',
@@ -33,7 +33,7 @@
         }, 2000);
       }
     },
-    components: {MainMap,ScrollBar,indexpanel}//0809
+    components: {MainMap,VideoCtrl,indexpanel}//0809
   }
 </script>
 
@@ -43,8 +43,10 @@
     width: 100%;
     height: 100%;
     position: relative;
-    .gundong{
-
+    .v-video{
+      position: absolute;
+      top:200px;
+      left: 200px;
     }
   }
 </style>
