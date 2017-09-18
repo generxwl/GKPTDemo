@@ -7,7 +7,65 @@
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
                 <img id="shrink" src="../assets/img/右.png" v-if="you"/>
                 <div class="main">
+                    <div class="tables">
+                        <!--选项-->
+                        <a id="shishi"  class="bai">视频监控</a>
+                    </div>
+                    <div class="yuanzhan">
+                        <div class="jdflaot" style="margin-left: 30px">
+                            <div id="guang1" style="width: 90px;height: 90px;"></div>
+                            <div class="texts">300</div>
+                            <p>开发区</p>
+                        </div>
+                        <div class="jdflaot">
+                            <div id="guang2" style="width: 90px;height: 90px"></div>
+                            <div class="texts">180</div>
+                            <p>广阳区</p>
+                        </div>
+                        <div class="jdflaot">
+                            <div id="guang3" style="width: 90px;height: 90px"></div>
+                            <div class="texts">125</div>
+                            <p>建设局</p>
+                        </div>
+                        <div class="jdflaot">
+                            <div id="guang4" style="width: 90px;height: 90px"></div>
+                            <div class="texts">15</div>
+                            <p>安次区</p>
+                        </div>
+                    </div>
+                    <div class="sousuo">
+                        <div class="sleft">
+                            <el-input v-model="input" placeholder="请输入内容"></el-input>
+                        </div>
+                        <div class="sright">
+                            <el-button type="primary">搜索</el-button>
+                        </div>
 
+                    </div>
+                    <div class="table_video">
+                        <el-table
+                                :data="tableData"
+                                border
+                                style="width: 100%">
+                            <el-table-column
+                                    prop="SerialNumber"
+                                    label="序号"
+                                    width="80">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="VideoName"
+                                    label="视频名称"
+                                    width="170">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="MonitoringType"
+                                    label="监控类型">
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                    <div class="zhichi">
+                        <p>技术支持单位，开发区管委会，广阳区政府，安次区政府，市建设局</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -23,13 +81,60 @@
             return {
                 zuo:false,
                 you:true,
-                tableData:[],
+                tableData:[
+                    {
+                        SerialNumber: '1',
+                        VideoName: '企业视频',
+                        MonitoringType: 'TVOC'
+                    },
+                    {
+                        SerialNumber: '2',
+                        VideoName: '企业视频',
+                        MonitoringType: '小散乱污'
+                    },
+                    {
+                        SerialNumber: '3',
+                        VideoName: '企业视频',
+                        MonitoringType: '工地扬尘'
+                    },
+                    {
+                        SerialNumber: '4',
+                        VideoName: '企业视频',
+                        MonitoringType: '高空五公里'
+                    },
+                    {
+                        SerialNumber: '5',
+                        VideoName: '测试视频',
+                        MonitoringType: '大散污染'
+                    },
+                    {
+                        SerialNumber: '6',
+                        VideoName: '企业视频',
+                        MonitoringType: 'TVOC'
+                    },
+                    {
+                        SerialNumber: '7',
+                        VideoName: '企业视频',
+                        MonitoringType: '小散乱污'
+                    },
+                    {
+                        SerialNumber: '8',
+                        VideoName: '企业视频',
+                        MonitoringType: '工地扬尘'
+                    },
+                    {
+                        SerialNumber: '9',
+                        VideoName: '企业视频',
+                        MonitoringType: '高空五公里'
+                    }
+                ],
                 allData:[],
                 currentRow: null,
                 pagesize: 10,
                 currentPage: 1,
                 totalCount:0,
                 value2: '',
+                input: ''
             }
         },
         created(){
@@ -60,7 +165,13 @@
                     flag = true;
                 }
             })
-            //
+            //视频进度图
+            setTimeout(function () {
+                that.yuantuset1();
+                that.yuantuset2();
+                that.yuantuset3();
+                that.yuantuset4()
+            }, 500)
         },
         methods: {
             initlistData(data){
@@ -93,9 +204,266 @@
                 let longitude = item.longitude;//经度
                 bus.$emit('locationGridPoint',longitude, latitude,citygid);
             },
-            //每页显示数据量变更
-            handleSizeChange(val) {
-                //this.pagesize = val;
+            //开发区进度
+            yuantuset1(){
+//                let Datavlue = 500 - this.Datalist.aqi;
+//                let Bianvlue = this.Datalist.aqi;
+//                let Color = this.Datalist.aqiColor;
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById('guang1'));
+                app.title = '';
+                // 指定图表的配置项和数据
+//
+                let option = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+
+                    },
+                    series: [
+                        {
+                            name: '小时AQI',
+                            type: 'pie',
+                            radius: ['100%', '80%'],
+                            avoidLabelOverlap: false,
+                            hoverAnimation:false,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    show: false,
+                                    textStyle: {
+                                        fontSize: '20',
+                                        fontWeight: 'bold'
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            }
+                        }
+                    ]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+                myChart.setOption({
+                    series: [{
+                        data: [
+                            {value: 10, name: '占比'},
+                            {value:90, name: 'AQI'}
+
+                        ],
+                        color: [
+                            '#ccc',
+                            "#00e401"
+                        ]
+                    }]
+                })
+            },
+            //广阳区进度
+            yuantuset2(){
+//                let Datavlue = 500 - this.Datalist.aqiAccu;
+//                let Bianvlue = this.Datalist.aqiAccu;
+//                let Color = this.Datalist.accuAqiColor;
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('guang2'));
+                app.title = '';
+                // 指定图表的配置项和数据
+
+                let option = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+                    },
+                    series: [
+                        {
+                            name: '累计AQI',
+                            type: 'pie',
+                            radius: ['100%', '80%'],
+                            avoidLabelOverlap: false,
+                            hoverAnimation:false,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    show: false,
+                                    textStyle: {
+                                        fontSize: '20',
+                                        fontWeight: 'bold'
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            }
+                        }
+                    ]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+                myChart.setOption({
+                    series: [{
+                        data: [
+                            {value: 30, name: '占比'},
+                            {value: 70, name: '累计AQI'}
+
+                        ],
+                        color: [
+                            '#ccc',
+                            "#00e401"
+                        ]
+                    }]
+                })
+            },
+            //建设局进度
+            yuantuset3(){
+//                let Datavlue = 112.53 - this.Datalist.ComplexIndex;
+//                let Bianvlue = this.Datalist.ComplexIndex;
+//                let Color = this.Datalist.aqiColor;
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('guang3'));
+                app.title = '';
+                // 指定图表的配置项和数据
+                let option = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+
+                    },
+                    series: [
+                        {
+                            name: '综合指数',
+                            type: 'pie',
+                            radius: ['100%', '80%'],
+                            avoidLabelOverlap: false,
+                            hoverAnimation:false,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    show: false,
+                                    textStyle: {
+                                        fontSize: '20',
+                                        fontWeight: 'bold'
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            }
+                        }
+                    ]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+                myChart.setOption({
+                    series: [{
+                        data: [
+                            {value: 40, name: '占比'},
+                            {value: 60, name: '综合指数'}
+
+                        ],
+                        color: [
+                            '#ccc',
+                            "#00e401"
+                        ]
+                    }]
+                })
+            },
+            //安次区进度
+            yuantuset4(){
+//                let Datavlue = 112.53 - this.Datalist.ComplexIndex;
+//                let Bianvlue = this.Datalist.ComplexIndex;
+//                let Color = this.Datalist.aqiColor;
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = echarts.init(document.getElementById('guang4'));
+                app.title = '';
+                // 指定图表的配置项和数据
+                let option = {
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+                    },
+                    legend: {
+                        orient: 'vertical',
+                        x: 'left',
+
+                    },
+                    series: [
+                        {
+                            name: '综合指数',
+                            type: 'pie',
+                            radius: ['100%', '80%'],
+                            avoidLabelOverlap: false,
+                            hoverAnimation:false,
+                            label: {
+                                normal: {
+                                    show: false,
+                                    position: 'center'
+                                },
+                                emphasis: {
+                                    show: false,
+                                    textStyle: {
+                                        fontSize: '20',
+                                        fontWeight: 'bold'
+                                    }
+                                }
+                            },
+                            labelLine: {
+                                normal: {
+                                    show: false
+                                }
+                            }
+                        }
+                    ]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+                myChart.setOption({
+                    series: [{
+                        data: [
+                            {value: 70, name: '占比'},
+                            {value: 30, name: '综合指数'}
+
+                        ],
+                        color: [
+                            '#ccc',
+                            "#00e401"
+                        ]
+                    }]
+                })
             },
             //页码变更
             handleCurrentChange(val) {
@@ -206,73 +574,44 @@
             }
             .main {
                 height: auto;
-                .kbiaoti {
-                    padding: 10px 0px;
+                .sousuo{
+
+                    .sleft{
+                        float: left;
+                    }
+                    .sright{
+                        margin-left: 10px;
+                        float: left;
+                    }
                 }
-                .bluexian {
-                    width: 26px;
-                    border: 1px solid #1080cc;
-                    margin: 0 auto;
-                    margin-bottom: 16px;
-                }
-                .first {
+                .yuanzhan {
+                    /*APP写进去*/
                     width: 100%;
-                    height: 44px;
-                    margin-top: 30px;
-                    .tables {
+                    height: 150px;
+                    .jdflaot {
+                        margin-top: 15px;
+                        margin-bottom: 8px;
                         float: left;
-                        margin-left: 14px;
-                        #shishi{
-                            border-bottom-right-radius: 0;
-                            border-top-right-radius: 0;
-                        }
-                        #leiji{
-                            border-bottom-left-radius: 0;
-                            border-top-left-radius: 0;
-                        }
-                        .bai {
-                            background: #f1f1f1
-                        }
-                        a {
-                            float: left;
-                            text-decoration: none;
-                            color: #666;
-                            display: inline-block;
-                            line-height: 34px;
-                            width: 60px;
-                            height: 34px;
-                            border: solid 1px #ccc;
-                            background: #fff;
-                            border-radius: 2px;
+                        margin-left: 8px;
+                        p {
+                            text-align: center;
+                            font-size: 14px;
+                            font-weight: bold;
                         }
                     }
-                    .shijian {
-                        float: left;
-                        margin-left: 6px;
-                    }
-                    .btnns {
-                        float: left;
-                        margin-left: 6px;
-                        button {
-                            border: none;
-                            width: 80px;
-                            height: 34px;
-                            background: #1080cc;
-                            color: #fff;
-                            border-radius: 4px;
+                    div {
+                        margin-bottom: 8px;
+                        position: relative;
+                        .texts {
+                            width: 100%;
+                            height: 30px;
+                            position: absolute;
+                            top: 32px;
+                            text-align: center;
+                            font-size: 18px;
+                            font-weight: bold;
                         }
                     }
-                }
-                .tqbiaoti {
-                    width: 100%;
-                    height: 22px;
-                    padding-left: 20px;
-                    text-align: left;
-                    margin-left: 16px;
-                    border-left: solid 3px #2a6496;
-                }
-                .table_container{
-                    margin-left: 16px;
                 }
             }
         }
