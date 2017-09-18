@@ -7,14 +7,19 @@
         <span>{{item.value}}</span>
       </li>
     </ul>
+    <main-handle></main-handle>
   </div>
 </template>
 <script>
+  import MainHandle from '@/map/handle/MainHandle'
+  import {bus} from '@/js/bus'
+
   export default {
     name: 'MainLayerHandle',
     data () {
       return {
-        targets: [{
+        targets: [
+            {
           name: 'layer_cg',
           value: '空气传感器',
           src:'static/imgs/main/cg.png',
@@ -73,8 +78,10 @@
         let targets = this.$data.targets;
         let item = targets[index];
         imgElement.getAttribute('src') !== item.src ? (imgElement.src=item.src,childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc,childElement.style.backgroundColor = '#1080cc');
+        bus.$emit('targetLayer',type);
       }
-    }
+    },
+    components:{MainHandle}
   };
 </script>
 <style scoped>

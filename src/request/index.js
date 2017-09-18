@@ -1,3 +1,4 @@
+import RequestConfig from '@/request/RequestConfig'
 import Axios from 'axios'
 
 export default {
@@ -30,5 +31,8 @@ export default {
     }).catch(function (ex) {
       callback0(ex);
     })
+  },
+  getRequestUrl(type){
+    return RequestConfig.getRequestUrlByType(type);
   }
 };

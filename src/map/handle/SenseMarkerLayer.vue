@@ -4,12 +4,13 @@
   import {bus} from '@/js/bus.js'
 
   export default {
-    name: 'MarkerLayer',
+    name: 'SenseMarkerLayer',
     render(){
     },
     data () {
       return {
         markers: [],
+        hasLoaded:false,
         hasVisible: true,
         checkedName: 'AQI',
         mouseLabel: new BMap.Label(),
@@ -31,33 +32,13 @@
     methods: {
       //页面初始化
       ready(){
-        bus.$on('setMarkerVisible', this.markerLayerToggle);
         bus.$on('markerTarget', this.pollutionTarget);
-        bus.$once('loadMarker', this.loadMarkerLayer);
-        bus.$on('loadChart', this.refreshLoadChart);
-        bus.$on('refreshMarker', this.refreshLayer);
+        bus.$once('loadSenseMarker', this.loadMarkerLayer);
       },
 
       //加载marker数据
       loadMarkerLayer(map, data){
 //        console.log(this.hasVisible);
-//        this.map = map;
-//        if (!this.data.length) {
-//          this.data = data;
-//          bus.$emit('loadMarkerData', this.data,this.checkedName);
-//        }
-//        let t = this;
-//        let lsMarkers = this.getPollutionByType(this.checkedName);
-//        for (let i = 0, length = lsMarkers.length; i < length; i++) {
-//          let value = lsMarkers[i];
-//          let pt = new BMap.Point(value.lng, value.lat);
-//          let v = value.count;
-//          let marker = t.getMarker(pt, v);
-//          marker && ((t.hasVisible ? marker.show() : marker.hide()), t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
-//            let tg = e.target;
-//            let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
-//            t.markerClick(value.stationid, point);
-//          }));
         this.markers && this.clearMarker();
         this.map = map;
         this.map && this.map.addOverlay(this.mouseLabel);
@@ -99,7 +80,7 @@
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
             let stationName = e.currentTarget.attributes.stationName;
             t.mouseLabel.setContent(stationName);
-            t.mouseLabel.setOffset(new BMap.Size(-stationName.length * 5 - 12, -10));
+            t.mouseLabel.setOffset(new BMap.Size(-stationName.length*5-12, -10));
             t.mouseLabel.setPosition(point);
             t.mouseLabel.show()
           }), marker.addEventListener('mouseout', function (e) {
@@ -137,7 +118,7 @@
         if (this.data) {
           for (let i = 0, length = this.data.length; i < length; i++) {
             let item = this.data[i];
-            let obj = {'stationid': item.stationid, 'stationname': item.stationname,'lng': item.longitude, 'lat': item.latitude, 'count': item[type.toLowerCase()]};
+            let obj = {'stationid': item.stationid, 'stationname': item.stationname, 'lng': item.longitude, 'lat': item.latitude, 'count': item[type.toLowerCase()]};
             rtValue.push(obj);
           }
         }

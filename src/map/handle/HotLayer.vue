@@ -26,7 +26,7 @@
     methods: {
       ready(){
         //bus.$on('tilesSenseLoaded', this.getMap);
-        bus.$on('loadHotLayer', this.loadHotLayer);
+        bus.$once('loadHotLayer', this.loadHotLayer);
         bus.$on('setHotLayerVisible', this.hotLayerToggle);
         bus.$on('hotLayerTarget', this.pollutionTarget);
         bus.$on('refreshHotLayer',this.refreshLayer);

@@ -3,14 +3,14 @@
     <!--首页部分-->
     <v-header></v-header>
 
-    <!--<monitor-map></monitor-map>-->
+    <main-map></main-map>
     <!--<scroll-bar class="gundong"></scroll-bar>-->
     <indexpanel></indexpanel>
   </div>
 </template>
 
 <script>
-  import MonitorMap from '@/map/MonitorMapMain' //0809
+  import MainMap from '@/map/MainMap' //0809
   import ScrollBar from '@/components/ScrollBar'
   import indexpanel from '@/components/Paneldata-index'
   export default {
@@ -33,7 +33,7 @@
         }, 2000);
       }
     },
-    components: {MonitorMap,ScrollBar,indexpanel}//0809
+    components: {MainMap,ScrollBar,indexpanel}//0809
   }
 </script>
 

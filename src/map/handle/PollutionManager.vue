@@ -33,7 +33,7 @@
                 bus.$on('switchRender', this.switchRender);
                 bus.$on('getMap', this.setMap);
                 bus.$on('tilesLoaded', this.resetData);
-                bus.$on('tilesDustLoaded', this.resetData);
+                bus.$once('tilesDustLoaded', this.resetData);
                 bus.$on('showWindowInfo', this.showSearchInfoWindow);
                 bus.$on('tabClick', this.tabClickEvent);
                 bus.$on('refreshLayer', this.refreshLayer);
@@ -81,7 +81,8 @@
 //          pointlevel: '国控点'
 //        };
 //        let url = 'http://localhost:6005/Handler.ashx';
-                let url = this.pollutionUrl;
+//                let url = this.pollutionUrl;
+                let url = RequestHandle.getRequestUrl('MONPOLLUTION');
                 RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
 //                    console.log(result);
                     if (result.status === 0) {
@@ -546,6 +547,7 @@
             showCityPointChart (citycode) {
 //                console.log(citycode);
                 let t = this;
+                let chartUrl = RequestHandle.getRequestUrl('MONCHART');
                 let url = t.charUrl + '?id=' + citycode;
                 RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
 //                    console.log(result);
