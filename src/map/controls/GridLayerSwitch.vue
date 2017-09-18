@@ -75,6 +75,10 @@
     background-color: #1080CC;
   }
 
+  .grid-switch-content li:hover{
+    cursor:pointer;
+  }
+
   .grid-switch-content li:first-child {
     color: #1080CC;
     background-color: #fff;

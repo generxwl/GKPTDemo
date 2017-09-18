@@ -70,6 +70,7 @@
         });
         if (!this.data.length) {
           this.data = data;
+          bus.$emit('loadMarkerData', this.data,this.checkedName);
         }
         let t = this;
         let lsMarkers = this.getPollutionByType(this.checkedName);

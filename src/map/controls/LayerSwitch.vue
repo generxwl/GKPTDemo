@@ -151,6 +151,10 @@
     background-color: rgba(0, 79, 137, 0.6);
   }
 
+  .layerSwitch li:hover{
+   cursor:pointer;
+  }
+
   .layer-checked{
     background-color: #1080cc !important;
   }

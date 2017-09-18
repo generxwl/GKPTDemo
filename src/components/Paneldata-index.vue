@@ -58,20 +58,20 @@
                                 </div>
                             </div>
                             <!--饼图展示-->
-                            <div class="bing">
-                                <div class="bing_item1" id="bing_item1" style="width: 203px;height: 180px;">
+                            <!--<div class="bing">-->
+                                <!--<div class="bing_item1" id="bing_item1" style="width: 203px;height: 180px;">-->
 
-                                </div>
-                                <div class="bing_item2" id="bing_item2" style="width: 203px;height: 180px;">
+                                <!--</div>-->
+                                <!--<div class="bing_item2" id="bing_item2" style="width: 203px;height: 180px;">-->
 
-                                </div>
-                                <div class="bing_item3" id="bing_item3" style="width: 203px;height: 180px;">
+                                <!--</div>-->
+                                <!--<div class="bing_item3" id="bing_item3" style="width: 203px;height: 180px;">-->
 
-                                </div>
-                                <div class="bing_item4" id="bing_item4" style="width: 203px;height: 180px;">
+                                <!--</div>-->
+                                <!--<div class="bing_item4" id="bing_item4" style="width: 203px;height: 180px;">-->
 
-                                </div>
-                            </div>
+                                <!--</div>-->
+                            <!--</div>-->
                         </el-tab-pane>
                         <el-tab-pane label="各局输入接入进度" name="second">
                             <!--表格-->

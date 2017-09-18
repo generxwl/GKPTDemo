@@ -31,7 +31,7 @@
                         </div>
                         <div>
                             <p>静态源清单</p>
-                            <a>污染源清单</a>
+                            <a style="font-family:宋体">污染源清单</a>
                         </div>
                     </div>
                 </li>
@@ -356,12 +356,24 @@
                         cursor: pointer;
                     }
                     :hover {
+                        cursor:pointer;
                         color: #1080cc;
                     }
                 }
                 .none{
                     display: none;
                 }
+            }
+            :hover{
+                a{
+                    color: #fff;
+                    font-weight: bold;
+                }
+                i{
+                    font-size: 18px;
+                    font-weight: bold;
+                }
+                cursor:pointer;
             }
             .active {
 

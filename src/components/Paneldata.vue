@@ -45,7 +45,7 @@
                             </div>
                             <p>温度：{{Datalist.temp}}°C</p>
                             <p>湿度：{{Datalist.humi}}%RH</p>
-                            <p>风力：{{Datalist.wl}}</p>
+                            <p>风力：{{Datalist.wl}}{{Datalist.wd}}</p>
                             <p>降雨量：{{Datalist.rain}}mm</p>
                         </div>
                         <div class="yuanjindu">
@@ -128,7 +128,7 @@
                     <!--table表格-->
                     <div class="table">
                         <el-tabs v-model="activeName" @tab-click="handleClick">
-                            <el-tab-pane label="国控点" name="guokongdian">
+                            <el-tab-pane label="国省控点" name="guokongdian">
                                 <el-table
                                         :data="tableData"
                                         border
@@ -141,7 +141,7 @@
                                     </el-table-column>
                                     <el-table-column
                                             prop="InControl"
-                                            label="国控点"
+                                            label="国省控点"
                                             width="150"
                                     >
                                     </el-table-column>
@@ -164,43 +164,43 @@
                                     </el-table-column>
                                 </el-table>
                             </el-tab-pane>
-                            <el-tab-pane label="省控点" name="shengkongdian">
-                                <el-table
-                                        :data="tableData"
-                                        border
-                                        @current-change="RowCurrentChange"
-                                        style="width: 100%">
-                                    <el-table-column
-                                            prop="ranking"
-                                            label="排名"
-                                            width="52">
-                                    </el-table-column>
-                                    <el-table-column
-                                            prop="InControl"
-                                            label="省控点"
-                                            width="150"
-                                    >
-                                    </el-table-column>
-                                    <el-table-column
-                                            prop="AirQualityGrade"
-                                            label="空气质量等级"
-                                            width="75"
-                                    >
-                                    </el-table-column>
-                                    <el-table-column
-                                            prop="aqi"
-                                            :label="labelType"
-                                            width="60"
-                                    >
-                                    </el-table-column>
-                                    <el-table-column
-                                            prop="PrimaryPollutant"
-                                            label="首要污染物"
+                            <!--<el-tab-pane label="省控点" name="shengkongdian">-->
+                                <!--<el-table-->
+                                        <!--:data="tableData"-->
+                                        <!--border-->
+                                        <!--@current-change="RowCurrentChange"-->
+                                        <!--style="width: 100%">-->
+                                    <!--<el-table-column-->
+                                            <!--prop="ranking"-->
+                                            <!--label="排名"-->
+                                            <!--width="52">-->
+                                    <!--</el-table-column>-->
+                                    <!--<el-table-column-->
+                                            <!--prop="InControl"-->
+                                            <!--label="省控点"-->
+                                            <!--width="150"-->
+                                    <!--&gt;-->
+                                    <!--</el-table-column>-->
+                                    <!--<el-table-column-->
+                                            <!--prop="AirQualityGrade"-->
+                                            <!--label="空气质量等级"-->
+                                            <!--width="75"-->
+                                    <!--&gt;-->
+                                    <!--</el-table-column>-->
+                                    <!--<el-table-column-->
+                                            <!--prop="aqi"-->
+                                            <!--:label="labelType"-->
+                                            <!--width="60"-->
+                                    <!--&gt;-->
+                                    <!--</el-table-column>-->
+                                    <!--<el-table-column-->
+                                            <!--prop="PrimaryPollutant"-->
+                                            <!--label="首要污染物"-->
 
-                                    >
-                                    </el-table-column>
-                                </el-table>
-                            </el-tab-pane>
+                                    <!--&gt;-->
+                                    <!--</el-table-column>-->
+                                <!--</el-table>-->
+                            <!--</el-tab-pane>-->
                             <el-tab-pane label="倒数前十城市"  name="daoshuqianshi">
 
                             </el-tab-pane>
@@ -315,7 +315,7 @@
         methods: {
             //跟新数据时间
             UpTimesData(times){
-                console.log(times)
+                //console.log(times)
                 let timevale =times.replace("T"," ");
                 this.uptime = timevale;
             },
@@ -438,9 +438,10 @@
                 if (dt) {
                     for (let i = 0, length = dt.length; i < length; i++) {
                         let item = dt[i];
-                        if (item.type === type) {
-                            rtValue.push(dt[i]);
-                        }
+                        rtValue.push(dt[i]);
+//                        if (item.type === type) {
+//                            rtValue.push(dt[i]);
+//                        }
                     }
                 }
 
@@ -670,7 +671,7 @@
                 this.shishi = true;
                 this.tianqiyuji = true;
                 api.GetMonitoringPointReal().then(res=>{
-                    let shoulist = JSON.parse(res.data);
+                    let shoulist = res.data;
                     t.setdata(shoulist.obj, t.type)
                     bus.$emit('refreshLayer', shoulist.obj)
                 })
@@ -685,9 +686,10 @@
                     //console.log(this.CumulativeData)
                 })
                 api.GetMonitoringPointAccu().then(res=>{
-                    let shoulist = JSON.parse(res.data);
+                    let shoulist = res.data;
                     t.setdata(shoulist.obj, t.type)
                     bus.$emit('refreshLayer', shoulist.obj)
+                    console.log(shoulist.obj)
                 })
                 this.leiji = true;
                 this.shishi = false;
@@ -785,6 +787,7 @@
                             border-bottom: solid 2px #0f80cc;
                         }
                         a {
+
                             float: left;
                             text-decoration: none;
                             font-size: 16px;
@@ -796,6 +799,9 @@
                             width:auto;
                             height: 34px;
                             border-radius: 2px;
+                        }
+                        :hover{
+                            cursor:pointer;
                         }
                         .time2{
                             line-height: 34px;
@@ -834,7 +840,7 @@
                     .tianqi {
                         float: left;
                         margin-left: 20px;
-                        margin-right: 20px;
+                        /*margin-right: 20px;*/
                         .tqbj {
                             width: 64px;
                             height: 64px;

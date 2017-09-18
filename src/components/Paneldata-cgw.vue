@@ -214,6 +214,7 @@
             //设置分页所需要数据
             SetDataList(data, type){
                 this.data = data;
+                console.log(this.data);
                 this.ALLdata = [];
                 let i = 1;
                 let dt1 = this.getPointByType(this.ptType);
@@ -420,6 +421,9 @@
                             width:auto;
                             height: 34px;
                             border-radius: 2px;
+                        }
+                        :hover{
+                            cursor:pointer;
                         }
                         .time2{
                             line-height: 34px;

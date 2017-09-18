@@ -111,17 +111,30 @@
             }
         }
         /*圆圈进度*/
+        .el-icon-close:hover{
+            cursor:pointer;
+        }
         .el-progress-circle {
             width: 80px !important;
             height: 80px !important;
         }
         /*表格*/
         .el-table__body-wrapper{
+            tr{
+
+            }
+            :hover{
+                cursor:pointer;
+            }
             overflow: inherit;
         }
         .table {
+
             .cell {
                 font-size: 12px;
+            }
+            :hover{
+                cursor:pointer;
             }
         }
         //

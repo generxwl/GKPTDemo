@@ -528,6 +528,8 @@
 					height: 40px;
 					input {
 						height: 34px;
+						border-radius: 4px;
+						border: solid 1px #bfcbd9;
 					}
 				}
 				.cxtyope {
