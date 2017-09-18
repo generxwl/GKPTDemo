@@ -139,10 +139,10 @@
         		exit(){
         			this.$cookies.remove('auth')
         			setTimeout(() => {
-                        this.$message({
-                            message: '恭喜你，成功退出系统！',
-                            type: 'success'
-                        });
+//                        this.$message({
+//                            message: '恭喜你，成功退出系统！',
+//                            type: 'success'
+//                        });
         				this.$router.push('/login')
         			})
         		}

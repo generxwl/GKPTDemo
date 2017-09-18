@@ -171,6 +171,11 @@
 				setTimeout(() => {
 					this.fullscreenLoading = false;
 				}, 2000);
+                this.initlistData({BuildingSiteName: '',
+                    Area: '市区',
+                    Type: 0,
+                    Time: '',
+                    endTime: ''})
 			},
 			//查询
 			query() {
@@ -234,6 +239,9 @@
 				this.data = []
 				this.colorArr = []
 				let that = this;
+				let ndt = new Date();
+				let ndt7 = new Date(ndt);
+				ndt7.setDate(ndt.getDate() - 7);
 				this.$axios({
 					url: 'http://lftdkplat.zhiscity.com/api/Dust/GetWindDirectionPie',
 					method: 'GET',
@@ -241,8 +249,8 @@
 						'Content-Type': 'application/x-www-form-urlencoded'
 					},
 					params: {
-						startTime: this.upData.Time,
-						endTime: this.upData.endTime,
+						startTime: this.upData.Time||(ndt7.getFullYear() + '-' + (ndt7.getMonth() + 1) + '-' + ndt7.getDate()),
+						endTime: this.upData.endTime||(ndt.getFullYear() + '-' + (ndt.getMonth() + 1) + '-' + ndt.getDate()),
 						name: item.name
 					},
 					data: {}
@@ -269,6 +277,7 @@
                 let myChart = echarts.init(document.getElementById('pie'));
                 //data
                 let PieData = res.data.ExtraData;
+                PieData = typeof PieData === 'string' ? JSON.parse(PieData) : PieData;
 				//
                 let weatherIcons = {};
 				//
@@ -326,6 +335,7 @@
             },
 			bingtucanvas(res) {
 				var data = res.data.ExtraData
+                data = typeof data === 'string' ? JSON.parse(data) : data;
 				console.log('canvas数据')
 				console.log(data)
 				let canvas = document.getElementById("wcanvas");
@@ -370,6 +380,8 @@
 				}).then(res => {
 					//console.log(res)
 					let dt = res.data.ExtraData || '';
+                    dt = typeof dt === 'string' ? JSON.parse(dt) : dt;
+					console.table(dt)
 					this.totalCount = dt.length;
 					this.allData = dt;
 					this.setPageTable(10, 1);
