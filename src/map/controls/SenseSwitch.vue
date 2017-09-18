@@ -4,8 +4,8 @@
       <li v-for="(item,index) in target" :data-type="item.name" @click="liClickEvent">{{item.value}}</li>
     </ul>
     <!--<hot-layer :charUrl="charUrl"></hot-layer>-->
-    <!--<marker-layer :charUrl="charUrl"></marker-layer>-->
-    <sense-marker-layer></sense-marker-layer>
+    <marker-layer :charUrl="charUrl"></marker-layer>
+    <!--<sense-marker-layer></sense-marker-layer>-->
   </div>
 </template>
 <script>
