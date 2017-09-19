@@ -45,6 +45,10 @@ export default {
         cf = this.release[1];
         url = cf.site + cf.port + cf.path + '/Dust/GetDust24Hour';
         break;
+      case 'VIDEOTAEGET':
+        cf = this.release[1];
+        url = cf.site + cf.port + cf.path + '/Video/GetVideoDeviceInfo';
+        break;
     }
     return url;
   }

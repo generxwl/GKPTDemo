@@ -5,11 +5,12 @@
       <!--<li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index"><img :title="item.name" :src="index===0?item.checked:item.src"/></li>-->
       <li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index">{{item.name}}</li>
     </ul>
+    <video-handle></video-handle>
   </div>
 </template>
 <script>
   import {bus} from '@/js/bus.js'
-  import PollutionManager from '@/map/handle/PollutionManager'
+  import VideoHandle from '@/map/handle/VideoHandle'
   export default {
     name: 'VideoTarget',
     data () {
@@ -61,12 +62,12 @@
       },
       resetImg(){
         let targets = this.$data.targets;
-        jQuery.find('.target-content li').forEach(function (value, index) {
+        jQuery.find('.video-target-content li').forEach(function (value, index) {
           value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)';
         });
       }
     },
-    components: {PollutionManager}
+    components: {VideoHandle}
   }
 </script>
 <style scoped>
@@ -75,14 +76,14 @@
     -moz-border-radius: 1px;
     border-radius: 1px;
     position: absolute;
-    width: 60px;
+    width: 92px;
     left: 0;
     top: 50px;
     z-index: 1;
   }
 
   .video-target-header{
-    width: 62px;
+    width: 92px;
     background: #fff;
     color: #1080cc;
     border: solid 1px #1080cc;
@@ -94,7 +95,7 @@
     -moz-border-radius: 1px;
     border-radius: 1px;
     border: solid 1px #1080CC;
-    width: 62px;
+    width: 92px;
     color:#fff;
   }
 
@@ -105,7 +106,7 @@
     background-color: rgba(0, 79, 137, 0.6);
     list-style: none;
     line-height: 30px;
-    width: 60px;
+    width: 90px;
     padding: 0;
     cursor: pointer;
   }
