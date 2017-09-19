@@ -39,6 +39,8 @@
       },
       renderMarker(data){
         if (data && data.length) {
+            //数据
+            bus.$emit('loadVideoData', data);
           let t = this;
           for (let i = 0, length = data.length; i < length; i++) {
             let value = data[i];

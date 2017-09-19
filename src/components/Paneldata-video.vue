@@ -82,53 +82,7 @@
             return {
                 zuo:false,
                 you:true,
-                tableData:[
-                    {
-                        SerialNumber: '1',
-                        VideoName: '企业视频',
-                        MonitoringType: 'TVOC'
-                    },
-                    {
-                        SerialNumber: '2',
-                        VideoName: '企业视频',
-                        MonitoringType: '小散乱污'
-                    },
-                    {
-                        SerialNumber: '3',
-                        VideoName: '企业视频',
-                        MonitoringType: '工地扬尘'
-                    },
-                    {
-                        SerialNumber: '4',
-                        VideoName: '企业视频',
-                        MonitoringType: '高空五公里'
-                    },
-                    {
-                        SerialNumber: '5',
-                        VideoName: '测试视频',
-                        MonitoringType: '大散污染'
-                    },
-                    {
-                        SerialNumber: '6',
-                        VideoName: '企业视频',
-                        MonitoringType: 'TVOC'
-                    },
-                    {
-                        SerialNumber: '7',
-                        VideoName: '企业视频',
-                        MonitoringType: '小散乱污'
-                    },
-                    {
-                        SerialNumber: '8',
-                        VideoName: '企业视频',
-                        MonitoringType: '工地扬尘'
-                    },
-                    {
-                        SerialNumber: '9',
-                        VideoName: '企业视频',
-                        MonitoringType: '高空五公里'
-                    }
-                ],
+                tableData:[],
                 allData:[],
                 currentRow: null,
                 pagesize: 10,
@@ -139,7 +93,7 @@
             }
         },
         created(){
-
+            bus.$on('loadVideoData', this.initlistData);
         },
         mounted(){
             //右侧收放
@@ -194,6 +148,10 @@
             RowCurrentChange(val){
                 this.currentRow = val;
                 //console.log(this.currentRow)
+                let Id = this.currentRow.Id;//城市id
+                let Latitude = this.currentRow.Latitude;//纬度
+                let Longitude = this.currentRow.Longitude;//经度
+                bus.$emit('loadVideoChart', Latitude, Longitude, Id);
             },
             //查看地址
             ChakanClick(index,item){
@@ -503,13 +461,12 @@
                 let i = 1;
                 this.data.forEach(item => {
                     const tableData = {};
-                    //tableData.ranking = i++;//排名
-                    tableData.InControl = item.companyname;//类型
-                    tableData.hangye = item.industry;//行业
-                    //tableData.actions = item.address;//地址
-                    tableData.citygid = item.id;//城市id
-                    tableData.latitude = item.point_lat;//纬度
-                    tableData.longitude = item.point_lng;//经度
+                    tableData.SerialNumber = i++;//序号
+                    tableData.VideoName = item.CamName;//行业
+                    tableData.MonitoringType = item.TypeName;//类型
+                    tableData.Id = item.Id;//城市id
+                    tableData.Latitude = item.Latitude;//纬度
+                    tableData.Longitude = item.Longitude;//经度
                     this.ALLdata.push(tableData);
                 })
             },
