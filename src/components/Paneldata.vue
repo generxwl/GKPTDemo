@@ -269,7 +269,8 @@
 
         created(){
             api.GetLfAirData().then(res => {
-                let shoulist = JSON.parse(res.data);
+                let shoulist = res.data;
+                shoulist = typeof shoulist === 'string' ? JSON.parse(shoulist) : shoulist;
                 this.Datalist = shoulist.obj
 //                console.log(this.Datalist)
                 this.UpTimesData(this.Datalist.time)
@@ -672,6 +673,7 @@
                 this.tianqiyuji = true;
                 api.GetMonitoringPointReal().then(res=>{
                     let shoulist = res.data;
+                    shoulist = typeof shoulist === 'string' ? JSON.parse(shoulist) : shoulist;
                     t.setdata(shoulist.obj, t.type)
                     bus.$emit('refreshLayer', shoulist.obj)
                 })
@@ -681,15 +683,17 @@
             CumulativeFatch(){
                 let t = this;
                 api.GetLfAirPollution().then(res => {
-                    let shoulist = JSON.parse(res.data);
+                    let shoulist = res.data;
+                    shoulist = typeof shoulist === 'string' ? JSON.parse(shoulist) : shoulist;
                     this.CumulativeData = shoulist.obj
                     //console.log(this.CumulativeData)
                 })
                 api.GetMonitoringPointAccu().then(res=>{
                     let shoulist = res.data;
+                    shoulist = typeof shoulist === 'string' ? JSON.parse(shoulist) : shoulist;
                     t.setdata(shoulist.obj, t.type)
                     bus.$emit('refreshLayer', shoulist.obj)
-                    console.log(shoulist.obj)
+                    //console.log(shoulist.obj)
                 })
                 this.leiji = true;
                 this.shishi = false;
@@ -701,7 +705,8 @@
                 let time = this.dateFtt('yyyy-MM-dd hh:00:00',this.value2);
                 api.GetMonitoringPointHour(time).then(res=>{
                     //console.log('时间查询数据')
-                    let shoulist = JSON.parse(res.data);
+                    let shoulist = res.data;
+                    shoulist = typeof shoulist === 'string' ? JSON.parse(shoulist) : shoulist;
                     t.setdata(shoulist.obj, t.type)
                     bus.$emit('refreshLayer', shoulist.obj)
                 })

@@ -9,7 +9,8 @@
                 <div class="main">
                     <div class="tables">
                         <!--选项-->
-                        <a id="shishi"  class="bai">视频监控</a>
+                        <a id="shishi" >视频设备统计</a>
+                        <div class="xian"></div>
                     </div>
                     <div class="yuanzhan">
                         <div class="jdflaot" style="margin-left: 30px">
@@ -35,7 +36,7 @@
                     </div>
                     <div class="sousuo">
                         <div class="sleft">
-                            <el-input v-model="input" placeholder="请输入内容"></el-input>
+                            <el-input v-model="input" placeholder="请输入地址"></el-input>
                         </div>
                         <div class="sright">
                             <el-button type="primary">搜索</el-button>
@@ -226,7 +227,7 @@
                     },
                     series: [
                         {
-                            name: '小时AQI',
+                            name: '在线监测',
                             type: 'pie',
                             radius: ['100%', '80%'],
                             avoidLabelOverlap: false,
@@ -260,7 +261,7 @@
                     series: [{
                         data: [
                             {value: 10, name: '占比'},
-                            {value:90, name: 'AQI'}
+                            {value:90, name: '设备'}
 
                         ],
                         color: [
@@ -291,7 +292,7 @@
                     },
                     series: [
                         {
-                            name: '累计AQI',
+                            name: '在线监测',
                             type: 'pie',
                             radius: ['100%', '80%'],
                             avoidLabelOverlap: false,
@@ -325,7 +326,7 @@
                     series: [{
                         data: [
                             {value: 30, name: '占比'},
-                            {value: 70, name: '累计AQI'}
+                            {value: 70, name: '设备'}
 
                         ],
                         color: [
@@ -356,7 +357,7 @@
                     },
                     series: [
                         {
-                            name: '综合指数',
+                            name: '在线监测',
                             type: 'pie',
                             radius: ['100%', '80%'],
                             avoidLabelOverlap: false,
@@ -390,7 +391,7 @@
                     series: [{
                         data: [
                             {value: 40, name: '占比'},
-                            {value: 60, name: '综合指数'}
+                            {value: 60, name: '设备'}
 
                         ],
                         color: [
@@ -421,7 +422,7 @@
                     },
                     series: [
                         {
-                            name: '综合指数',
+                            name: '在线监测',
                             type: 'pie',
                             radius: ['100%', '80%'],
                             avoidLabelOverlap: false,
@@ -455,7 +456,7 @@
                     series: [{
                         data: [
                             {value: 70, name: '占比'},
-                            {value: 30, name: '综合指数'}
+                            {value: 30, name: '设备'}
 
                         ],
                         color: [
@@ -574,8 +575,30 @@
             }
             .main {
                 height: auto;
+                .tables{
+                    width: 100%;
+                    line-height: 38px;
+                    a{
+                        margin-left: -270px;
+                        display: inline-block;
+                        font-size: 16px;
+                        border-bottom: solid 2px #1080cc;
+                        padding: 0 20px;
+                        margin-bottom: -2px;
+                    }
+                    .xian{
+                        width: 100%;
+                        border:solid 1px #ccc;
+                    }
+                }
                 .sousuo{
-
+                    width: 96%;
+                    margin-top: 10px;
+                    margin-left: 4%;
+                    border-top:solid 1px #ccc;
+                    margin-bottom: 25px;
+                    height: 40px;
+                    padding-top: 15px;
                     .sleft{
                         float: left;
                     }
@@ -589,8 +612,8 @@
                     width: 100%;
                     height: 150px;
                     .jdflaot {
-                        margin-top: 15px;
-                        margin-bottom: 8px;
+                        margin-top: 25px;
+                        margin-bottom: 25px;
                         float: left;
                         margin-left: 8px;
                         p {
