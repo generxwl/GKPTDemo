@@ -15,6 +15,7 @@
     },
     created(){
       bus.$once('setVideoMap', this.setMap);
+      bus.$on('loadVideoChart', this.setMarkbox);
     },
     mounted(){
     },
@@ -24,6 +25,10 @@
       },
       loadVideoData(){
         this.requestVideoData();
+      },
+      setMarkbox(lng, lat, code){
+          let point = new BMap.Point(lng, lat);
+          this.showCameraWindow(code, point);
       },
       requestVideoData(){
         let t = this;
@@ -121,7 +126,10 @@
         background-color: #1080cc!important;
         color: #fff;
     }
-
+    .BMapLabel{
+        color: #ac2925!important;
+        text-shadow: 0 0 3px #fff!important;
+    }
     .BMapLib_SearchInfoWindow .BMapLib_bubble_tools div {
         background-color: rgba(0, 0, 0, 0);
     }

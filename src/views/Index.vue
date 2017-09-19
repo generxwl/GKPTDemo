@@ -5,7 +5,8 @@
 
     <main-map></main-map>
     <!--<video-ctrl class="v-video"></video-ctrl>-->
-    <indexpanel></indexpanel>
+    <!--<indexpanel></indexpanel>-->
+    <map-handle class="fliex"></map-handle>
   </div>
 </template>
 
@@ -13,6 +14,7 @@
   import MainMap from '@/map/MainMap' //0809
   import VideoCtrl from '@/components/VideoCtrl'
   import indexpanel from '@/components/Paneldata-index'
+  import MapHandle from '@/map/controls/MapHandle'
   export default {
     name: 'index',
     data () {
@@ -33,7 +35,7 @@
         }, 2000);
       }
     },
-    components: {MainMap,VideoCtrl,indexpanel}//0809
+    components: {MainMap,VideoCtrl,indexpanel,MapHandle}//0809
   }
 </script>
 
@@ -47,6 +49,11 @@
       position: absolute;
       top:200px;
       left: 200px;
+    }
+    .fliex{
+      position: fixed;
+      right: 50px;
+      top:68%;
     }
   }
 </style>
