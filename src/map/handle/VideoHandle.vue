@@ -68,8 +68,8 @@
         let res = t.setCameraWindow(tg.attributes);
         let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
           title: '<sapn style="font-size:16px"><b>' + tg.attributes['CamName'] + '</b>' + '</span>',             //标题
-          width: 580,
-          height: 360,
+          width: 520,
+          height: 350,
           enableAutoPan: true,
           searchTypes: []
         });
@@ -111,5 +111,20 @@
     components: {CameraComponent}
   };
 </script>
-<style scoped>
+<style>
+    .BMapLib_SearchInfoWindow .BMapLib_bubble_title {
+        padding-left: 15px;
+        line-height: 32px;
+        height: 32px;
+        background-color: #1080cc!important;
+        color: #fff;
+    }
+
+    .BMapLib_SearchInfoWindow .BMapLib_bubble_tools div {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    .BMapLib_SearchInfoWindow .BMapLib_sendToPhone {
+        background: none;
+    }
 </style>
