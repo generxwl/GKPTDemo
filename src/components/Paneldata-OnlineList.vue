@@ -183,7 +183,7 @@
             rtValue = 'wdirection';
             break;
         }
-        console.log(rtValue);
+        //console.log(rtValue);
         return rtValue;
       },
       getPollutionTarget(type){
@@ -219,8 +219,8 @@
       },
       //
       SetDataList(data, type){
-        console.log(data)
-        console.log(type)
+        //console.log(data)
+        data = typeof data === 'string' ? JSON.parse(data) : data;
         this.data = data;
         this.ALLdata = [];
         let i = 1;
@@ -284,8 +284,7 @@
             status: data.hasOwnProperty('status') ? data.status : data.Status,
             obj: data.obj || data.ExtraData
           };
-          let sudata = data.obj;
-          this.SetDataList(sudata, this.type)
+          this.SetDataList(data.obj, this.type)
           this.totalCount = this.ALLdata.length;
           this.allData = this.ALLdata;
           this.setPageTable(10, 1);

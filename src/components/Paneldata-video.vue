@@ -139,7 +139,7 @@
             }
         },
         created(){
-            bus.$on('getGridData',this.initlistData);
+
         },
         mounted(){
             //右侧收放
@@ -478,9 +478,9 @@
                 if (dt) {
                     for (let i = 0, length = dt.length; i < length; i++) {
                         let item = dt[i];
-                        if (item.type === type) {
-                            rtValue.push(dt[i]);
-                        }
+//                        if (item.type === type) {
+//                            rtValue.push(dt[i]);
+//                        }
                     }
                 }
                 return rtValue;
