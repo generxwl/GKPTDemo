@@ -9,7 +9,7 @@
     data () {
       return {
         lsMarkers: [],
-        searchInfoWindow:undefined
+        searchInfoWindow: undefined
       };
     },
     created(){
@@ -24,7 +24,7 @@
       },
       targetClick(type, hasVisible){
         //请求接口触发
-        hasVisible ? this.requestData(type) : this.removeMarkerByList(this.getMarkerByType(type),type);
+        hasVisible ? this.requestData(type) : this.removeMarkerByList(this.getMarkerByType(type), type);
       },
       requestData(type){
         let t = this;
@@ -33,25 +33,31 @@
           case 'LAYER_SP':
             url = RequestHandle.getRequestUrl('VIDEOTAEGET');
             break;
+          case 'LAYER_CG':
+            url = RequestHandle.getRequestUrl('SENSEPOLLUTION');
+            break;
+          case 'LAYER_GS':
+            url = RequestHandle.getRequestUrl('MONPOLLUTION');
+            break;
         }
         let params = {url: url, type: 'GET', pms: null};
         RequestHandle.request(params, function (result) {
-          if (result.status) {
-            t.loadMarker(result.obj, type);
-          }
+//          if (result.status) {
+          t.loadMarker(result.obj, type);
+//          }
         }, function (e) {
           console.error(e);
         });
       },
       loadMarker(data, type){
-        this.lsMarkers.length && this.removeMarkerByList(this.getMarkerByType(type),type);
+        this.lsMarkers.length && this.removeMarkerByList(this.getMarkerByType(type), type);
         let t = this;
         for (let i = 0, length = data.length; i < length; i++) {
           let value = data[i];
           value['ptType'] = type;
           let labelName = value.CamName || '';
-          let pt = new BMap.Point(value.lng || value.Longitude, value.lat || value.Latitude);
-          let marker = t.getMarker(pt,'SP-G');
+          let pt = new BMap.Point(value.lng || value.Longitude || value.longitude, value.lat || value.Latitude || value.latitude);
+          let marker = t.getMarker(pt, t.getMarkerState(value, type, 'aqi'));
           let label = new BMap.Label(labelName || '');
           label.setStyle({
             border: 'none',
@@ -61,70 +67,144 @@
             fontFamily: 'Microsoft YaHei'
           });
           label.setOffset(new BMap.Size(-(labelName.length * 4), 15));
-          marker && (t.map.addOverlay(marker), marker.attributes = value,marker.setLabel(label),t.lsMarkers.push({marker: marker, type: type}), marker.addEventListener('click', function (e) {
+          marker && (t.map.addOverlay(marker), marker.attributes = value, marker.setLabel(label), t.lsMarkers.push({marker: marker, type: type}), marker.addEventListener('click', function (e) {
             let tg = e.target;
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
             t.markerClick(tg.attributes, point);
           }));
         }
       },
+      getMarkerState(data, ptType, fieldName){
+        let value = data[fieldName] || 0;
+        let level = getAQILevelIndex(value);
+        let iconName = this.getIconName(ptType, level);
+        return iconName.toUpperCase();
+      },
+      getIconName(ptType, level){
+        let iconName = undefined;
+        switch (ptType.toUpperCase()) {
+          case 'LAYER_CG':
+            iconName = 'cgq-';
+            break;
+          case 'LAYER_GS':
+            iconName = 'gs-';
+            break;
+          case 'LAYER_GD':
+            iconName = 'gd-';
+            break;
+          case 'LAYER_QY':
+            iconName = 'qy-';
+            break;
+          case 'LAYER_SP':
+            iconName = 'sp-';
+            break;
+          case 'LAYER_LK':
+            iconName = 'lk-';
+            break;
+          case 'LAYER_ZT':
+            iconName = 'ztc-';
+            break;
+          case 'LAYER_HW':
+            iconName = 'hwc-';
+            break;
+          case 'LAYER_JY':
+            iconName = 'jyz-';
+            break;
+        }
+        switch (level) {
+          case 0:
+            iconName += 'g';
+            break;
+          case 1:
+            iconName += 'o';
+            break;
+          case 2:
+            iconName += 'y';
+            break;
+          case 3:
+            iconName += 'm';
+            break;
+          case 4:
+            iconName += 'v';
+            break;
+          case 5:
+            iconName += 'r';
+            break;
+        }
+        return iconName;
+      },
       //图标点击事件
       markerClick(attributes, point){
         let t = this;
-        if(attributes.hasOwnProperty('ptType') && attributes.ptType.toUpperCase() === 'LAYER_SP'){
+        if (attributes.hasOwnProperty('ptType') && attributes.ptType.toUpperCase() === 'LAYER_SP') {
           let res = t.setCameraWindow(attributes);
           this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
             title: '<sapn style="font-size:16px"><b>' + attributes['CamName'] + '</b>' + '</span>',             //标题
             width: 520,
             height: 350,
             enableAutoPan: true,
-            enableSendToPhone:false,
+            enableSendToPhone: false,
             searchTypes: []
           });
           this.searchInfoWindow.open(point);
         }
         else {
-          let charUrl = RequestHandle.getRequestUrl('SENSECHART');
-          let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
-
-          RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-            if (result.status === 0) {
-              let data = result.obj;
-              let res = t.setInfoWindow(data);
-
-              this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
-                title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
-                width: 320,
-                height: 200,
-                enableAutoPan: true,
-                enableSendToPhone:false,
-                searchTypes: []
-              });
-              this.searchInfoWindow.open(point);
-            }
-          }, function (ex) {
-            console.error(ex);
+          let res = t.setInfoWindow(attributes);
+          this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
+            title: '<sapn style="font-size:16px"><b>' + (attributes.stationname || '') + '</b>' + '</span>',             //标题
+            width: 320,
+            height: 200,
+            enableAutoPan: true,
+            enableSendToPhone: false,
+            searchTypes: []
           });
+          this.searchInfoWindow.open(point);
+//          let charUrl = RequestHandle.getRequestUrl('SENSECHART');
+//          let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
+//
+//          RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+//            if (result.status === 0) {
+//              let data = result.obj;
+//              let res = t.setInfoWindow(data);
+//
+//              this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
+//                title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
+//                width: 320,
+//                height: 200,
+//                enableAutoPan: true,
+//                enableSendToPhone: false,
+//                searchTypes: []
+//              });
+//              this.searchInfoWindow.open(point);
+//            }
+//          }, function (ex) {
+//            console.error(ex);
+//          });
         }
       },
       //设置弹出框信息
       setInfoWindow(data){
+        let tdElements = undefined;
+        let bgColor = '#fff';
+        for (let key in data) {
+          if (key === 'latitude' || key === 'longitude' || key === 'Latitude' || key === 'Longitude' || !data[key]) {
+            continue;
+          }
+
+          if (!tdElements) {
+            tdElements = '<tr><th>' + key + '</th><td style=\'width:70px;text-align:center;background-color:' + bgColor + ';color:#333\'>' + data[key];
+          }
+          else {
+            tdElements += '<tr><th>' + key + '</th><td style=\'width:70px;text-align:center;background-color:' + bgColor + ';color:#333\'>' + data[key];
+          }
+        }
         return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
           + '<table width=\'100%\' class=\'fitem\'>'
-          + '<tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(data.aqi)) + ';color:#fff\'>' + data.aqi
-          + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
-          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
-          + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + parseFloat(data.co).toFixed(1)
-          + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + parseInt(data.no2)
-          + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + parseInt(data.so2)
-          + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + parseInt(data.o3)
-          + '</td></tr></table>'
-          + '</td>'
-          + '<td valign=\'top\' align=\'right\'><td>'
-          + '</tr></table>';
+          + tdElements
+          + '</table>';
       },
       setCameraWindow(data){
-        return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode='+data['CamIndexCode']+'&devIndexCode='+data['DevIndexCode']+'&name='+data['CamName']+'"></iframe>';
+        return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode=' + data['CamIndexCode'] + '&devIndexCode=' + data['DevIndexCode'] + '&name=' + data['CamName'] + '"></iframe>';
       },
       //获取图标对象
       getMarker(pt, type){
@@ -249,7 +329,7 @@
         }
         return rtValue;
       },
-      removeMarkerByList(ls,type){
+      removeMarkerByList(ls, type){
         for (let i = 0, length = ls.length; i < length; i++) {
           let overlayItem = ls[i];
           this.map.removeOverlay(overlayItem.marker);
@@ -260,16 +340,35 @@
           item.type.toUpperCase() !== type.toUpperCase() && lsAllMarkers.push(item);
         }
         this.lsMarkers = lsAllMarkers;
-        this.searchInfoWindow && (this.searchInfoWindow.close(),this.searchInfoWindow=undefined);
+        this.searchInfoWindow && (this.searchInfoWindow.close(), this.searchInfoWindow = undefined);
       },
       clearMarkers(){
         for (let i = 0, length = this.lsMarkers.length; i < length; i++) {
           this.map.removeOverlay(this.lsMarker[i]);
         }
-        this.searchInfoWindow && (this.searchInfoWindow.close(),this.searchInfoWindow=undefined);
+        this.searchInfoWindow && (this.searchInfoWindow.close(), this.searchInfoWindow = undefined);
       }
     }
   };
 </script>
 <style scoped>
+  .fitem {
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    line-height: 18px;
+  }
+
+  .fitem th {
+    width: 65px;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+
+  .fitem td {
+    font-size: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
 </style>

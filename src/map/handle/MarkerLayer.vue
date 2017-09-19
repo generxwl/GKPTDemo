@@ -70,7 +70,7 @@
         });
         if (!this.data.length) {
           this.data = data;
-          bus.$emit('loadMarkerData', this.data,this.checkedName);
+          bus.$emit('loadMarkerData', this.data, this.checkedName);
         }
         let t = this;
         let lsMarkers = this.getPollutionByType(this.checkedName);
@@ -89,9 +89,8 @@
             fontFamily: 'Microsoft YaHei'
           });
           label.setOffset(new BMap.Size(16, 8));
-          marker.setLabel(label);
-          marker.attributes = {stationName: value.stationname};
-          marker && ((t.hasVisible ? marker.show() : marker.hide()), t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
+
+          marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = {stationName: value.stationname}, t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
             let tg = e.target;
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
             t.markerClick(value.stationid, point);
@@ -132,13 +131,41 @@
         this.markerClick(code, point);
       },
 
+      getPollutionLeave(value){
+        let index = 0;
+        switch (this.checkedName) {
+          case 'AQI':
+            index = getAQILevelIndex(value);
+            break;
+          case 'PM2.5':
+            index = getPM25LevelIndex(value);
+            break;
+          case 'PM10':
+            index = getPM10LevelIndex(value);
+            break;
+          case 'SO2':
+            index = getSO2LevelIndex(value);
+            break;
+          case 'NO2':
+            index = getNO2LevelIndex(value);
+            break;
+          case 'O3':
+            index = getO3LevelIndex(value);
+            break;
+          case 'CO':
+            index = getCOLevelIndex(value);
+            break;
+        }
+        return index;
+      },
+
       //根据类型获取指标数据
       getPollutionByType(type){
         let rtValue = [];
         if (this.data) {
           for (let i = 0, length = this.data.length; i < length; i++) {
             let item = this.data[i];
-            let obj = {'stationid': item.stationid, 'stationname': item.stationname,'lng': item.longitude, 'lat': item.latitude, 'count': item[type.toLowerCase()]};
+            let obj = {'stationid': item.stationid, 'stationname': item.stationname, 'lng': item.longitude, 'lat': item.latitude, 'count': item[type.toLowerCase()]};
             rtValue.push(obj);
           }
         }
@@ -258,7 +285,7 @@
           let obj = {
             x: converTimeFormat(item.recordtime.replace('T', ' ')).getTime(),
             y: parseInt(item.value),
-            color: getColorByIndex(item.value)
+            color: getColorByIndex(this.getPollutionLeave(parseInt(item.value)))
           };
           rtValue.push(obj);
         }
