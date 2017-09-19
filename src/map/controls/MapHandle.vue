@@ -61,6 +61,7 @@
       bus.$once('getDustMap', this.getMap);
       bus.$once('getGridMap', this.getMap);
       bus.$once('setMainMap', this.getMap);
+      bus.$once('setVideoMap',this.setMap);
     },
     mounted(){
       let t = this;
@@ -168,6 +169,10 @@
     height: auto;
     width: 40px;
     padding: 5px 0;
+  }
+
+  .map-handle li:hover{
+    cursor: pointer;
   }
 
   .map-handle li img {
