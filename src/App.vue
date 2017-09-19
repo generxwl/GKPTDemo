@@ -103,6 +103,26 @@
                 width: 100% !important;
             }
         }
+        //
+        .BMapLib_SearchInfoWindow .BMapLib_bubble_title {
+            padding-left: 15px;
+            line-height: 32px;
+            height: 32px;
+            background-color: #1080cc!important;
+            color: #fff;
+        }
+        .BMapLabel{
+            color: #ac2925!important;
+            text-shadow: 0 0 3px #fff!important;
+        }
+        .BMapLib_SearchInfoWindow .BMapLib_bubble_tools div {
+            background-color: rgba(0, 0, 0, 0);
+        }
+
+        .BMapLib_SearchInfoWindow .BMapLib_sendToPhone {
+            background: none;
+        }
+        //
         .el-tabs__nav{
             margin-left: 20px!important;
             .el-tabs__item{
