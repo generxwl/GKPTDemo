@@ -68,8 +68,8 @@
         let res = t.setCameraWindow(tg.attributes);
         let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
           title: '<sapn style="font-size:16px"><b>' + tg.attributes['CamName'] + '</b>' + '</span>',             //标题
-          width: 320,
-          height: 200,
+          width: 580,
+          height: 360,
           enableAutoPan: true,
           searchTypes: []
         });

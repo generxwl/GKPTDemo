@@ -53,8 +53,8 @@
             OnInit();
             function OnStartPreview() {
 
-                var camIndexCode = GetQueryString('CamIndexCode');
-                var devIndexCode = GetQueryString('DevIndexCode');
+                var camIndexCode = GetQueryString('camIndexCode');
+                var devIndexCode = GetQueryString('devIndexCode');
                 var name = GetQueryString('name');
                 var _param = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
                     + "<Preview>"
@@ -85,13 +85,6 @@
                 var StartPreviewExstate = preview.StartPreviewEx(_param);
 
             }
-            //
-            function GetQueryString(name) {
-                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-                var r = window.location.search.substr(1).match(reg);
-                if (r != null) return unescape(r[2]); return null;
-            }
-
             OnStartPreview()
 
             function OnStopPreview() {
