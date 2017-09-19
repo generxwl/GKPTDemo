@@ -61,7 +61,7 @@
       bus.$once('getDustMap', this.getMap);
       bus.$once('getGridMap', this.getMap);
       bus.$once('setMainMap', this.getMap);
-      bus.$once('setVideoMap',this.setMap);
+      bus.$once('setVideoMap',this.getMap);
     },
     mounted(){
       let t = this;
