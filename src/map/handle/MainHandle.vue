@@ -8,12 +8,13 @@
     },
     data () {
       return {
-        lsMarkers: []
+        lsMarkers: [],
+        searchInfoWindow:undefined
       };
     },
     created(){
       bus.$once('setMainMap', this.setMap);
-      bus.$on('targetLayer', this.targetClick);
+      bus.$on('targetMainLayer', this.targetClick);
     },
     mounted(){
     },
@@ -23,45 +24,88 @@
       },
       targetClick(type, hasVisible){
         //请求接口触发
-        hasVisible ? this.loadMarker() : this.removeMarkerByList(this.getMarkerByType(type));
+        hasVisible ? this.requestData(type) : this.removeMarkerByList(this.getMarkerByType(type),type);
+      },
+      requestData(type){
+        let t = this;
+        let url = undefined;
+        switch (type.toUpperCase()) {
+          case 'LAYER_SP':
+            url = RequestHandle.getRequestUrl('VIDEOTAEGET');
+            break;
+        }
+        let params = {url: url, type: 'GET', pms: null};
+        RequestHandle.request(params, function (result) {
+          if (result.status) {
+            t.loadMarker(result.obj, type);
+          }
+        }, function (e) {
+          console.error(e);
+        });
       },
       loadMarker(data, type){
-        this.removeMarkerByList(this.getMarkerByType(type));
+        this.lsMarkers.length && this.removeMarkerByList(this.getMarkerByType(type),type);
         let t = this;
         for (let i = 0, length = data.length; i < length; i++) {
           let value = data[i];
-          let pt = new BMap.Point(value.lng, value.lat);
-          let marker = t.getMarker(pt);
-          marker && (t.map.addOverlay(marker), t.markers.push({marker: marker, type: type}), marker.addEventListener('click', function (e) {
+          value['ptType'] = type;
+          let labelName = value.CamName || '';
+          let pt = new BMap.Point(value.lng || value.Longitude, value.lat || value.Latitude);
+          let marker = t.getMarker(pt,'SP-G');
+          let label = new BMap.Label(labelName || '');
+          label.setStyle({
+            border: 'none',
+            color: '#fff',
+            background: 'none',
+            fontSize: '14px',
+            fontFamily: 'Microsoft YaHei'
+          });
+          label.setOffset(new BMap.Size(-(labelName.length * 4), 15));
+          marker && (t.map.addOverlay(marker), marker.attributes = value,marker.setLabel(label),t.lsMarkers.push({marker: marker, type: type}), marker.addEventListener('click', function (e) {
             let tg = e.target;
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
-            t.markerClick(value.stationid, point);
+            t.markerClick(tg.attributes, point);
           }));
         }
       },
       //图标点击事件
-      markerClick(code, point){
+      markerClick(attributes, point){
         let t = this;
-        let charUrl = RequestHandle.getRequestUrl('SENSECHART');
-        let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
+        if(attributes.hasOwnProperty('ptType') && attributes.ptType.toUpperCase() === 'LAYER_SP'){
+          let res = t.setCameraWindow(attributes);
+          this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
+            title: '<sapn style="font-size:16px"><b>' + attributes['CamName'] + '</b>' + '</span>',             //标题
+            width: 520,
+            height: 350,
+            enableAutoPan: true,
+            enableSendToPhone:false,
+            searchTypes: []
+          });
+          this.searchInfoWindow.open(point);
+        }
+        else {
+          let charUrl = RequestHandle.getRequestUrl('SENSECHART');
+          let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
 
-        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-          if (result.status === 0) {
-            let data = result.obj;
-            let res = t.setInfoWindow(data);
+          RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+            if (result.status === 0) {
+              let data = result.obj;
+              let res = t.setInfoWindow(data);
 
-            let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
-              title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
-              width: 320,
-              height: 200,
-              enableAutoPan: true,
-              searchTypes: []
-            });
-            searchInfoWindow.open(point);
-          }
-        }, function (ex) {
-          console.error(ex);
-        });
+              this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
+                title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
+                width: 320,
+                height: 200,
+                enableAutoPan: true,
+                enableSendToPhone:false,
+                searchTypes: []
+              });
+              this.searchInfoWindow.open(point);
+            }
+          }, function (ex) {
+            console.error(ex);
+          });
+        }
       },
       //设置弹出框信息
       setInfoWindow(data){
@@ -79,6 +123,9 @@
           + '<td valign=\'top\' align=\'right\'><td>'
           + '</tr></table>';
       },
+      setCameraWindow(data){
+        return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode='+data['CamIndexCode']+'&devIndexCode='+data['DevIndexCode']+'&name='+data['CamName']+'"></iframe>';
+      },
       //获取图标对象
       getMarker(pt, type){
         let marker = undefined;
@@ -91,7 +138,7 @@
       },
       getMarkerIcon(type){
         let path = undefined;
-        switch (type) {
+        switch (type.toUpperCase()) {
           case 'CGQ-G':
             path = '/static/imgs/main/cgq-g.png';
             break;
@@ -192,24 +239,34 @@
             path = '/static/imgs/main/ztc-ng.png';
             break;
         }
+        return path;
       },
       getMarkerByType(type){
         let rtValue = [];
         for (let i = 0, length = this.lsMarkers.length; i < length; i++) {
-          let item = this.lsMarker.push(i);
-          item.type === type && rtValue.push(item);
+          let item = this.lsMarkers[i];
+          item.type.toUpperCase() === type.toUpperCase() && rtValue.push(item);
         }
         return rtValue;
       },
-      removeMarkerByList(ls){
+      removeMarkerByList(ls,type){
         for (let i = 0, length = ls.length; i < length; i++) {
-          this.map.removeOverlay(this.lsMarker[i]);
+          let overlayItem = ls[i];
+          this.map.removeOverlay(overlayItem.marker);
         }
+        let lsAllMarkers = [];
+        for (let i = 0, length = this.lsMarkers.length; i < length; i++) {
+          let item = this.lsMarkers[i];
+          item.type.toUpperCase() !== type.toUpperCase() && lsAllMarkers.push(item);
+        }
+        this.lsMarkers = lsAllMarkers;
+        this.searchInfoWindow && (this.searchInfoWindow.close(),this.searchInfoWindow=undefined);
       },
       clearMarkers(){
         for (let i = 0, length = this.lsMarkers.length; i < length; i++) {
           this.map.removeOverlay(this.lsMarker[i]);
         }
+        this.searchInfoWindow && (this.searchInfoWindow.close(),this.searchInfoWindow=undefined);
       }
     }
   };

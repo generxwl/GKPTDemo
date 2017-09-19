@@ -77,8 +77,9 @@
         let type = childElement.getAttribute('data-type');
         let targets = this.$data.targets;
         let item = targets[index];
-        imgElement.getAttribute('src') !== item.src ? (imgElement.src=item.src,childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc,childElement.style.backgroundColor = '#1080cc');
-        bus.$emit('targetLayer',type);
+        let hasChecked = false;
+        imgElement.getAttribute('src') !== item.src ? (imgElement.src=item.src,childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc,childElement.style.backgroundColor = '#1080cc',hasChecked=true);
+        bus.$emit('targetMainLayer',type,hasChecked);
       }
     },
     components:{MainHandle}

@@ -9,11 +9,11 @@ export default {
     path: '/api'
   }],
   release: [{
-    site: 'http://lftdkfc.zhiscity.com',
+    site: 'http://devgkptfc.zhiscity.com',
     port: '',
     path: '/api'
   }, {
-    site: 'http://lftdkplat.zhiscity.com',
+    site: 'http://devgkptplat.zhiscity.com',
     port: '',
     path: '/api'
   }],
