@@ -149,8 +149,20 @@
           this.searchInfoWindow.open(point);
         }
         else {
-          let res = t.setInfoWindow(attributes);
-          this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
+          let res = undefined;
+          let ptType = attributes.ptType;
+          switch (ptType.toUpperCase()) {
+            case 'LAYER_CG':
+              res = t.setCGInfoWindow(attributes);
+              break;
+            case 'LAYER_GS':
+              res = t.setGSInfoWindow(attributes);
+              break;
+            case 'LAYER_GD':
+              res = t.setGDInfoWindow(attributes);
+              break;
+          }
+          this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res||'无数据', {
             title: '<sapn style="font-size:16px"><b>' + (attributes.stationname || '') + '</b>' + '</span>',             //标题
             width: 320,
             height: 200,
@@ -183,26 +195,63 @@
         }
       },
       //设置弹出框信息
-      setInfoWindow(data){
-        let tdElements = undefined;
-        let bgColor = '#fff';
-        for (let key in data) {
-          if (key === 'latitude' || key === 'longitude' || key === 'Latitude' || key === 'Longitude' || !data[key]) {
-            continue;
-          }
-
-          if (!tdElements) {
-            tdElements = '<tr><th>' + key + '</th><td style=\'width:70px;text-align:center;background-color:' + bgColor + ';color:#333\'>' + data[key];
-          }
-          else {
-            tdElements += '<tr><th>' + key + '</th><td style=\'width:70px;text-align:center;background-color:' + bgColor + ';color:#333\'>' + data[key];
-          }
-        }
+      setGSInfoWindow(data){
+        let aqi = data.aqi;
         return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
           + '<table width=\'100%\' class=\'fitem\'>'
-          + tdElements
-          + '</table>';
+          + '</td></tr><tr><th>类型</th><td style=\'width:70px;text-align:center;\'>' + data.type
+          + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
+          + '</td><th></th><td  style=\'width:70px;text-align:center;\'>' + ''
+          + '</td></tr></tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(aqi)) + ';color:#fff\'>' + aqi
+          + '</td><th>综指</th><td  style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getComplexIndex(data.complexindex)) + ';color:#fff\'>' + parseFloat(data.complexindex).toFixed(3)
+          + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
+          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
+          + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + parseFloat(data.co).toFixed(1)
+          + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + parseInt(data.no2)
+          + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + parseInt(data.so2)
+          + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + parseInt(data.o3)
+          + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.temp) + '℃'
+          + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.humi) + '%'
+          + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
+          + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data.winddirection
+          + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + (parseInt(data.windspeed) || 0) + '级'
+          + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
+          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data.time.replace(/T/g, ' ') + '</td></tr></table>'
+          + '</td>'
+          + '<td valign=\'top\' align=\'right\'><td>'
+          + '</tr></table>';
       },
+
+      setCGInfoWindow(data){
+        return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
+          + '<table width=\'100%\' class=\'fitem\'>'
+          + '<tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(data.aqi)) + ';color:#fff\'>' + data.aqi
+          + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
+          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
+          + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + parseFloat(data.co).toFixed(1)
+          + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + parseInt(data.no2)
+          + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + parseInt(data.so2)
+          + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + parseInt(data.o3)
+          + '</td></tr></table>'
+          + '</td>'
+          + '<td valign=\'top\' align=\'right\'><td>'
+          + '</tr></table><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'>';
+      },
+
+      //设置弹出框信息
+      setGDInfoWindow(data){
+        return '<table width=\'100%\' class="fitem"><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
+          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
+          + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.temp) + '℃'
+          + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.humi) + '%'
+          + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data.winddirection
+          + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.windlevel || 0) + '级'
+          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + (data.time.replace(/T/g, ' ') || '') + '</td></tr></table>'
+          + '</td>'
+          + '<td valign=\'top\' align=\'right\'><td>'
+          + '</tr></table><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;height:110px\'>';
+      },
+
       setCameraWindow(data){
         return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode=' + data['CamIndexCode'] + '&devIndexCode=' + data['DevIndexCode'] + '&name=' + data['CamName'] + '"></iframe>';
       },
