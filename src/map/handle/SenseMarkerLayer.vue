@@ -238,11 +238,38 @@
           let obj = {
             x: converTimeFormat(item.recordtime.replace('T', ' ')).getTime(),
             y: parseInt(item.value),
-            color: getColorByIndex(item.value)
+            color: getColorByIndex(this.getPollutionLeave(parseInt(item.value)))
           };
           rtValue.push(obj);
         }
         return rtValue;
+      },
+      getPollutionLeave(value){
+        let index = 0;
+        switch (this.checkedName) {
+          case 'AQI':
+            index = getAQILevelIndex(value);
+            break;
+          case 'PM2.5':
+            index = getPM25LevelIndex(value);
+            break;
+          case 'PM10':
+            index = getPM10LevelIndex(value);
+            break;
+          case 'SO2':
+            index = getSO2LevelIndex(value);
+            break;
+          case 'NO2':
+            index = getNO2LevelIndex(value);
+            break;
+          case 'O3':
+            index = getO3LevelIndex(value);
+            break;
+          case 'CO':
+            index = getCOLevelIndex(value);
+            break;
+        }
+        return index;
       },
 
       //加载Chart数据
