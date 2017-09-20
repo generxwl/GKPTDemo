@@ -222,19 +222,19 @@
         if (level === 0) {
           imgPath = '/static/imgs/sense/sg1.png';
         }
-        else if (level === 1) {
+        else if (level === 2) {
           imgPath = '/static/imgs/sense/so1.png';
         }
-        else if (level === 2) {
+        else if (level === 1) {
           imgPath = '/static/imgs/sense/sy1.png';
         }
-        else if (level === 3) {
+        else if (level === 5) {
           imgPath = '/static/imgs/sense/sm1.png';
         }
         else if (level === 4) {
           imgPath = '/static/imgs/sense/sv1.png';
         }
-        else if (level === 5) {
+        else if (level === 3) {
           imgPath = '/static/imgs/sense/sr1.png';
         }
         return imgPath;

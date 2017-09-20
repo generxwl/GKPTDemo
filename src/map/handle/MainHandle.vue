@@ -144,19 +144,19 @@
             iconName += 'g';
             break;
           case 1:
-            iconName += 'o';
-            break;
-          case 2:
             iconName += 'y';
             break;
+          case 2:
+            iconName += 'o';
+            break;
           case 3:
-            iconName += 'm';
+            iconName += 'r';
             break;
           case 4:
             iconName += 'v';
             break;
           case 5:
-            iconName += 'r';
+            iconName += 'm';
             break;
         }
         return iconName;
