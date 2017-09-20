@@ -86,7 +86,7 @@
           value['ptType'] = type;
           let labelName = '';//value.CamName || '';
           let pt = new BMap.Point(value.lng || value.Longitude || value.longitude, value.lat || value.Latitude || value.latitude);
-          let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName));
+          let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName),type);
           let label = new BMap.Label(labelName || '');
           label.setStyle({
             border: 'none',
@@ -420,13 +420,13 @@
         return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode=' + data['CamIndexCode'] + '&devIndexCode=' + data['DevIndexCode'] + '&name=' + data['CamName'] + '"></iframe>';
       },
       //获取图标对象
-      getMarker(pt, type){
+      getMarker(pt, type, lyType){
         let marker = undefined;
         if (pt && type) {
           let conPoint = this.wgsPointToBd(pt);
           let imgUrl = this.getMarkerIcon(type);
           let icon = new BMap.Icon(imgUrl, new BMap.Size(25, 25));
-          marker = new BMap.Marker(conPoint, {icon: icon, offset: new BMap.Size(0, -16)});
+          marker = new BMap.Marker(lyType.toUpperCase() === 'LAYER_SP' ? conPoint : pt, {icon: icon, offset: new BMap.Size(0, -16)});
         }
         return marker;
       },
