@@ -47,6 +47,7 @@
                         <el-table
                                 :data="tableData"
                                 border
+                                @current-change="RowCurrentChange"
                                 style="width: 100%">
                             <el-table-column
                                     prop="SerialNumber"
@@ -146,22 +147,18 @@
             },
             //table行点击
             RowCurrentChange(val){
-                this.currentRow = val;
-                //console.log(this.currentRow)
-                let Id = this.currentRow.Id;//城市id
-                let Latitude = this.currentRow.Latitude;//纬度
-                let Longitude = this.currentRow.Longitude;//经度
-                bus.$emit('loadVideoChart', Latitude, Longitude, Id);
+              this.currentRow = val;
+              let latitude = this.currentRow.Latitude;//纬度
+              let longitude = this.currentRow.Longitude;//经度
+              bus.$emit('cameraEvent',{CamName:this.currentRow.VideoName},longitude, latitude);
             },
             //查看地址
             ChakanClick(index,item){
                 //console.log('查看地址')
                // console.log(index)
                // console.log(item)
-                let citygid = item.citygid;//城市id
-                let latitude = item.latitude;//纬度
-                let longitude = item.longitude;//经度
-                bus.$emit('locationGridPoint',longitude, latitude,citygid);
+//                let citygid = item.citygid;//城市id
+
             },
             //开发区进度
             yuantuset1(){

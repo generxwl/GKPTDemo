@@ -16,6 +16,7 @@
     created(){
       bus.$once('setVideoMap', this.setMap);
       bus.$on('loadVideoChart', this.setMarkbox);
+      bus.$on('cameraEvent',this.eventCameraWindow);
     },
     mounted(){
     },
@@ -27,8 +28,8 @@
         this.requestVideoData();
       },
       setMarkbox(lng, lat, code){
-          let point = new BMap.Point(lng, lat);
-          this.showCameraWindow(code, point);
+        let point = new BMap.Point(lng, lat);
+        this.showCameraWindow(code, point);
       },
       requestVideoData(){
         let t = this;
@@ -44,8 +45,8 @@
       },
       renderMarker(data){
         if (data && data.length) {
-            //数据
-            bus.$emit('loadVideoData', data);
+          //数据
+          bus.$emit('loadVideoData', data);
           let t = this;
           for (let i = 0, length = data.length; i < length; i++) {
             let value = data[i];
@@ -71,19 +72,10 @@
       showCameraWindow(e){
         let t = this;
         let tg = e.target;
-        let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
-        let res = t.setCameraWindow(tg.attributes);
-        let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
-          title: '<sapn style="font-size:16px"><b>' + tg.attributes['CamName'] + '</b>' + '</span>',             //标题
-          width: 520,
-          height: 350,
-          enableAutoPan: true,
-          searchTypes: []
-        });
-        searchInfoWindow.open(point);
+        this.eventCameraWindow(tg.attributes, tg.getPosition().lng, tg.getPosition().lat);
       },
       setCameraWindow(data){
-        return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode='+data['CamIndexCode']+'&devIndexCode='+data['DevIndexCode']+'&name='+data['CamName']+'"></iframe>';
+        return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode=' + data['CamIndexCode'] + '&devIndexCode=' + data['DevIndexCode'] + '&name=' + data['CamName'] + '"></iframe>';
       },
       //获取图标对象
       getMarker(pt, value){
@@ -94,6 +86,19 @@
           marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(8, -16)});
         }
         return marker;
+      },
+      eventCameraWindow(attributes, lng, lat){
+        let t = this;
+        let point = new BMap.Point(lng, lat);
+        let res = t.setCameraWindow(attributes);
+        let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
+          title: '<sapn style="font-size:16px"><b>' + attributes['CamName'] + '</b>' + '</span>',             //标题
+          width: 520,
+          height: 350,
+          enableAutoPan: true,
+          searchTypes: []
+        });
+        searchInfoWindow.open(point);
       },
       //获取图标地址，根据指标参考值
       getImgUrl(value){
