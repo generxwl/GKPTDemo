@@ -1,5 +1,6 @@
 <script>
   import CameraComponent from '@/components/VideoCtrl'
+  import Coordtransform from 'coordtransform'
   import RequestHandle from '@/request/'
   import {bus} from '@/js/bus'
   export default {
@@ -82,10 +83,21 @@
         let marker = undefined;
         if (pt && value) {
           let imgUrl = this.getImgUrl(value);
+          let conPoint = this.wgsPointToBd(pt);
           let icon = new BMap.Icon(imgUrl, new BMap.Size(25, 25));
-          marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(0, -16)});
+          marker = new BMap.Marker(conPoint, {icon: icon, offset: new BMap.Size(0, -16)});
         }
         return marker;
+      },
+      wgsPointToBd: function (pt) {
+        let transPoint = this.transformFun([pt.lng, pt.lat]);
+        let bdPoint = new BMap.Point(transPoint[0], transPoint[1]);
+
+        return bdPoint;
+      },
+      transformFun: function (path) {
+        let gcPoint = Coordtransform.wgs84togcj02(path[0], path[1]);
+        return Coordtransform.gcj02tobd09(gcPoint[0], gcPoint[1]);
       },
       eventCameraWindow(attributes, lng, lat){
         let t = this;
