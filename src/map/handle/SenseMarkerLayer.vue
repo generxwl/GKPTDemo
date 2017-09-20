@@ -68,7 +68,7 @@
             fontSize: '14px',
             fontFamily: 'Microsoft YaHei'
           });
-          label.setOffset(new BMap.Size(16, 8));
+          label.setOffset(new BMap.Size(-(value.count+'').length*5, 8));
           marker.setLabel(label);
           marker.attributes = {stationName: value.stationname};
           marker && ((t.hasVisible ? marker.show() : marker.hide()), t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {

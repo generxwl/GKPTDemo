@@ -62,7 +62,7 @@
         for (let i = 0, length = data.length; i < length; i++) {
           let value = data[i];
           value['ptType'] = type;
-          let labelName = value.CamName || '';
+          let labelName = '';//value.CamName || '';
           let pt = new BMap.Point(value.lng || value.Longitude || value.longitude, value.lat || value.Latitude || value.latitude);
           let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName));
           let label = new BMap.Label(labelName || '');
@@ -83,8 +83,8 @@
       },
       getMarkerState(data, ptType, fieldName){
         let value = data[fieldName] || 0;
-        let level = getAQILevelIndex(value);
-        let iconName = this.getIconName(ptType, level);
+        let level = getAQILevelIndex(value) || 1;
+        let iconName = this.getIconName(ptType, level-1);
         return iconName.toUpperCase();
       },
       getIconName(ptType, level){
