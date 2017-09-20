@@ -12,7 +12,7 @@
                     <a href="#/">首页</a>
                 </li>
                 <li>
-                    <a>环境监测网</a>
+                    <a>监测调度</a>
                     <div class="Twoitem">
                         <div>
                             <p>监测网</p>
@@ -48,7 +48,7 @@
                     </div>
                 </li>
                 <li>
-                    <a>气象监测预报</a>
+                    <a>气象监测与预报</a>
                     <div class="Fouritem">
                         <a href="#/weatherstation">气象站</a><br/>
                         <a href="#/GridPrediction">网格预测</a><br/>
@@ -60,7 +60,7 @@
                     <a>全民举报</a>
                 </li>
                 <li>
-                    <a>数据研判</a>
+                    <a>大数据资源</a>
                     <div class="Fiveitem">
                         <div>
                             <h3>城市排名</h3>
