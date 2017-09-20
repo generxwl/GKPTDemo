@@ -280,8 +280,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 30, name: '未铺设'},
-                            {value:70, name: '设备'}
+                            {value: 90, name: '未铺设'},
+                            {value:10, name: '设备'}
 
                         ],
                         color: [

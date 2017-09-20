@@ -56,6 +56,7 @@
             marker.attributes = value;
             let label = new BMap.Label(camName || '');
             label.setStyle({
+              display:'none',
               border: 'none',
               color: '#fff',
               background: 'none',
