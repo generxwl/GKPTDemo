@@ -167,7 +167,7 @@
         if (attributes.hasOwnProperty('ptType') && attributes.ptType.toUpperCase() === 'LAYER_SP') {
           let res = t.setCameraWindow(attributes);
           this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
-            title: '<sapn style="font-size:16px"><b>' + attributes['CamName'] + '</b>' + '</span>',             //标题
+            title: '<sapn style="font-size:16px"><b>' + (attributes['CamName'] || '') + ' - ' + (attributes['TypeName'] || '') + '</b>' + '</span>',             //标题
             width: 520,
             height: 350,
             enableAutoPan: true,

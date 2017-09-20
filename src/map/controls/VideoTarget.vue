@@ -34,12 +34,13 @@
             value: 'GKWGL',
             src: 'static/imgs/map/PM-10.png',
             checked: 'static/imgs/map/PM-101.png'
-          }, {
-            name: '小散乱污',
-            value: 'XSLW',
-            src: 'static/imgs/map/so2.png',
-            checked: 'static/imgs/map/so21.png'
           }
+//          , {
+//            name: '小散乱污',
+//            value: 'XSLW',
+//            src: 'static/imgs/map/so2.png',
+//            checked: 'static/imgs/map/so21.png'
+//          }
         ]
       }
     },

@@ -1649,16 +1649,16 @@ function getO3LevelIndex (o3) {
   if (o3 == 0) {
     level = 0
   }
-  else if (o3 <= 100) {
+  else if (o3 <= 160) {
     level = 1
   }
-  else if (o3 <= 160) {
+  else if (o3 <= 200) {
     level = 2
   }
-  else if (o3 <= 215) {
+  else if (o3 <= 300) {
     level = 3
   }
-  else if (o3 <= 265) {
+  else if (o3 <= 400) {
     level = 4
   }
   else if (o3 <= 800) {
