@@ -9,6 +9,7 @@
     data () {
       return {
         lsMarkers: [],
+        trafficLayer: undefined,
         searchInfoWindow: undefined
       };
     },
@@ -23,8 +24,18 @@
         this.map = map;
       },
       targetClick(type, hasVisible){
-        //请求接口触发
-        hasVisible ? this.requestData(type) : this.removeMarkerByList(this.getMarkerByType(type), type);
+        switch (type.toUpperCase()) {
+          case 'LAYER_SP':
+          case 'LAYER_CG':
+          case 'LAYER_GS':
+          case 'LAYER_GD':
+            //请求接口触发
+            hasVisible ? this.requestData(type) : this.removeMarkerByList(this.getMarkerByType(type), type);
+            break;
+          case 'LAYER_LK':
+            this.targetTrafficLayer(hasVisible);
+            break;
+        }
       },
       requestData(type){
         let t = this;
@@ -56,6 +67,16 @@
           console.error(e);
         });
       },
+      targetTrafficLayer(hasVisible){
+        if(hasVisible) {
+          this.trafficLayer = new BMap.TrafficLayer();
+          this.map.addTileLayer(this.trafficLayer);
+        }
+        else{
+            this.trafficLayer && this.map.removeTileLayer(this.trafficLayer);
+            this.trafficLayer = undefined;
+        }
+      },
       loadMarker(data, type, fieldName){
         this.lsMarkers.length && this.removeMarkerByList(this.getMarkerByType(type), type);
         let t = this;
@@ -84,7 +105,7 @@
       getMarkerState(data, ptType, fieldName){
         let value = data[fieldName] || 0;
         let level = getAQILevelIndex(value) || 1;
-        let iconName = this.getIconName(ptType, level-1);
+        let iconName = this.getIconName(ptType, level - 1);
         return iconName.toUpperCase();
       },
       getIconName(ptType, level){
@@ -178,7 +199,7 @@
               res = t.setGDInfoWindow(attributes);
               charUrl = RequestHandle.getRequestUrl('DUSTCHART');
               pms = {deviceid: attributes.deviceid, ptype: 'pm25'};
-              displayName = 'devicename';
+              displayName = 'name';
               break;
           }
           this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
@@ -315,7 +336,7 @@
         let rtValue = [];
         for (let i = 0, length = data.length; i < length; i++) {
           let item = data[i];
-          let value = item.pm25 || 0;
+          let value = item.values || 0;
           let obj = {
             x: converTimeFormat(item.time && item.time.replace('T', ' ')).getTime(),
             y: parseInt(value),

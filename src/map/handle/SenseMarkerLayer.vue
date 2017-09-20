@@ -68,7 +68,7 @@
             fontSize: '14px',
             fontFamily: 'Microsoft YaHei'
           });
-          label.setOffset(new BMap.Size(-(value.count+'').length*5, 8));
+          label.setOffset(new BMap.Size(0, 0));
           marker.setLabel(label);
           marker.attributes = {stationName: value.stationname};
           marker && ((t.hasVisible ? marker.show() : marker.hide()), t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
@@ -80,7 +80,7 @@
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
             let stationName = e.currentTarget.attributes.stationName;
             t.mouseLabel.setContent(stationName);
-            t.mouseLabel.setOffset(new BMap.Size(-stationName.length*5-12, -10));
+            t.mouseLabel.setOffset(new BMap.Size(-stationName.length*5-12, 10));
             t.mouseLabel.setPosition(point);
             t.mouseLabel.show()
           }), marker.addEventListener('mouseout', function (e) {
@@ -159,8 +159,8 @@
         let marker = undefined;
         if (pt && value) {
           let imgUrl = this.getImgUrl(value);
-          let icon = new BMap.Icon(imgUrl, new BMap.Size(70, 70));
-          marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(8, -16)});
+          let icon = new BMap.Icon(imgUrl, new BMap.Size(25,36));
+          marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(8, 0)});
         }
         return marker;
       },

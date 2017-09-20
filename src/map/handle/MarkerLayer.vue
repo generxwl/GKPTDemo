@@ -83,12 +83,14 @@
           let label = new BMap.Label(value.count);
           label.setStyle({
             border: 'none',
-            color: '#fff',
+            color: '#333',
             background: 'none',
             fontSize: '14px',
-            fontFamily: 'Microsoft YaHei'
+            fontFamily: 'Microsoft YaHei',
+            textShadow:'0 0 2px #fff'
           });
-          label.setOffset(new BMap.Size(16, 8));
+          let offsetLength = (''+value.count).length >= 4 ? ((''+value.count).length === 5 ? -2 : 2) : ((''+value.count).length > 1 ? 8 : 12);
+          label.setOffset(new BMap.Size(offsetLength, -2));
 
           marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = {stationName: value.stationname}, t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
             let tg = e.target;
@@ -99,7 +101,7 @@
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
             let stationName = e.currentTarget.attributes.stationName;
             t.mouseLabel.setContent(stationName);
-            t.mouseLabel.setOffset(new BMap.Size(-stationName.length * 5 - 12, -10));
+            t.mouseLabel.setOffset(new BMap.Size(-stationName.length * 4, -10));
             t.mouseLabel.setPosition(point);
             t.mouseLabel.show()
           }), marker.addEventListener('mouseout', function (e) {
@@ -206,7 +208,7 @@
         let marker = undefined;
         if (pt && value) {
           let imgUrl = this.getImgUrl(value);
-          let icon = new BMap.Icon(imgUrl, new BMap.Size(70, 70));
+          let icon = new BMap.Icon(imgUrl, new BMap.Size(36, 25));
           marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(8, -16)});
         }
         return marker;
