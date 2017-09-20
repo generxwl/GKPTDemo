@@ -72,7 +72,7 @@
         //imgElement.src = item.checked;
 
         bus.$emit('switchDustRender', type);
-        //bus.$emit('refreshDustTarget',type);
+        bus.$emit('refreshDustTarget',type);
       },
       resetImg(){
         let targets = this.$data.targets;
