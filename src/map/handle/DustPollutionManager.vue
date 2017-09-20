@@ -16,10 +16,11 @@
         lsRenderOverlay: [],
         lsSearchInfoWindow: [],
         lsRenderMarker: [],
-        data: []
+        data: [],
+        item:'PM2.5'
       }
     },
-    props: ['pollutionUrl', 'charUrl', 'item'],
+    props: ['pollutionUrl', 'charUrl'],
     created () {
 //      console.log(RequestHandle)
     },
@@ -389,7 +390,7 @@
             let res = t.setInfoWindow(data);
 //            console.log(res);
             let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
-              title: '<sapn style="font-size:16px"><b>' + data.name + '</b>' + '</span>',             //标题
+              title: '<sapn style="font-size:16px"><b>' + (data.name || '') + '</b>' + '</span>',             //标题
               width: 320,
               height: 200,
               enableAutoPan: true,
@@ -510,16 +511,44 @@
       //设置Chart展示数据
       getHourData(data){
         let rtValue = [];
+
         for (let i = 0, length = data.length; i < length; i++) {
           let item = data[i];
           let obj = {
             x: converTimeFormat(item.time.replace('T', ' ')).getTime(),
             y: parseInt(item.values),
-            color: getColorByIndex(item.values)
+            color: getColorByIndex(this.getPollutionLeave(parseInt(item.values)))
           };
           rtValue.push(obj);
         }
         return rtValue;
+      },
+      getPollutionLeave(value){
+        let index = 0;
+        switch (this.item) {
+          case 'AQI':
+            index = getAQILevelIndex(value);
+            break;
+          case 'PM2.5':
+            index = getPM25LevelIndex(value);
+            break;
+          case 'PM10':
+            index = getPM10LevelIndex(value);
+            break;
+          case 'SO2':
+            index = getSO2LevelIndex(value);
+            break;
+          case 'NO2':
+            index = getNO2LevelIndex(value);
+            break;
+          case 'O3':
+            index = getO3LevelIndex(value);
+            break;
+          case 'CO':
+            index = getCOLevelIndex(value);
+            break;
+        }
+        return index;
       },
       getIconByIndex(value) {
         let icon = null;
