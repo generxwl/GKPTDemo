@@ -15,12 +15,12 @@
                     <div class="yuanzhan">
                         <div class="jdflaot" style="margin-left: 30px">
                             <div id="guang1" style="width: 90px;height: 90px;"></div>
-                            <div class="texts">10</div>
+                            <div class="texts">0</div>
                             <p>开发区</p>
                         </div>
                         <div class="jdflaot">
                             <div id="guang2" style="width: 90px;height: 90px"></div>
-                            <div class="texts">0</div>
+                            <div class="texts">10</div>
                             <p>广阳区</p>
                         </div>
                         <div class="jdflaot">
@@ -218,8 +218,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 30, name: '占比'},
-                            {value:70, name: '设备'}
+                            {value: 100, name: '未铺设'},
+                            {value:0, name: '设备'}
 
                         ],
                         color: [
@@ -283,8 +283,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 100, name: '占比'},
-                            {value:0, name: '设备'}
+                            {value: 30, name: '未铺设'},
+                            {value:70, name: '设备'}
 
                         ],
                         color: [
@@ -348,7 +348,7 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 100, name: '占比'},
+                            {value: 100, name: '未铺设'},
                             {value: 0, name: '设备'}
 
                         ],
@@ -413,7 +413,7 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 100, name: '占比'},
+                            {value: 100, name: '未铺设'},
                             {value: 0, name: '设备'}
 
                         ],
