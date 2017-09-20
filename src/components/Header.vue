@@ -4,7 +4,9 @@
             <!--环境监测-->
             <div class="logo">
                 <img src="../assets/img/logo.png" alt="logo">
+
             </div>
+            <div style="color: #fff;float: left;height: 50px;line-height: 72px">2017版</div>
             <ul class="bnav">
                 <li>
                     <a href="#/">首页</a>
@@ -12,11 +14,22 @@
                 <li>
                     <a>环境监测网</a>
                     <div class="Twoitem">
-                        <a href="#/indexjcd">国省控点监测</a>
-                        <a href="#/superstation">超级站</a>
-                        <!--<a href="#/SensorNetwork">传感网</a>-->
-                        <a>传感网</a>
-                        <a href="#/Videos">视频监控</a>
+                        <div>
+                            <p>监测网</p>
+                            <a href="#/indexjcd">国省控点监测</a>
+                            <a href="#/superstation">超级站</a>
+                            <a href="#/SensorNetwork">传感网</a>
+                        </div>
+                        <div>
+                            <p>散乱污监控</p>
+                            <a>散乱污监控</a>
+                            <a href="#/Videos">企业及工地监控</a>
+                        </div>
+                        <div>
+                            <p>GPS监控</p>
+                            <a>渣土车</a>
+                            <a>环卫车</a>
+                        </div>
                     </div>
                 </li>
                 <li>
@@ -228,16 +241,25 @@
                 .Twoitem {
                     display: none;
                     z-index: 100;
-                    width: 170px;
+                    width: 265px;
+                    padding: 10px 0;
+                    padding-left: 22px;
                     position: absolute;
                     top: 50px;
                     left: 0;
                     background: #fff;
-                    line-height: 25px;
-                    padding: 10px 0;
+                    line-height: 22px;
+                    text-align: left;
                     box-shadow: 0 0 5px #1080cc;
+                    p{
+                        text-align: left;
+                        font-weight: bold;
+                        padding: 0;
+
+                    }
                     a {
-                        text-align: center;
+                        display: inline-block;
+
                         color: #666;
                         font-size: 12px;
                         font-family: "Microsoft YaHei";
