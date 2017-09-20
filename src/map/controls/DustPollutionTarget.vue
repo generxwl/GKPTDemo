@@ -5,7 +5,7 @@
       <!--<li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index"><img :title="item.name" :src="index===0?item.checked:item.src"/></li>-->
       <li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index">{{item.name}}</li>
     </ul>
-    <pollution-manager :item="checkedName" :pollutionUrl="pollutionUrl" :charUrl="charUrl"></pollution-manager>
+    <pollution-manager :pollutionUrl="pollutionUrl" :charUrl="charUrl"></pollution-manager>
   </div>
 </template>
 <script>
@@ -72,7 +72,7 @@
         //imgElement.src = item.checked;
 
         bus.$emit('switchDustRender', type);
-        bus.$emit('refreshDustTarget',type);
+        //bus.$emit('refreshDustTarget',type);
       },
       resetImg(){
         let targets = this.$data.targets;

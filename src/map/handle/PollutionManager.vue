@@ -549,7 +549,7 @@
 //                console.log(citycode);
                 let t = this;
                 let chartUrl = RequestHandle.getRequestUrl('MONCHART');
-                let url = t.charUrl + '?id=' + citycode;
+                let url = chartUrl + '?id=' + citycode;
                 RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
 //                    console.log(result);
                     if (result.status === 0) {

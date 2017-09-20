@@ -29,27 +29,34 @@
       requestData(type){
         let t = this;
         let url = undefined;
+        let fieldName = undefined;
         switch (type.toUpperCase()) {
           case 'LAYER_SP':
             url = RequestHandle.getRequestUrl('VIDEOTAEGET');
             break;
           case 'LAYER_CG':
             url = RequestHandle.getRequestUrl('SENSEPOLLUTION');
+            fieldName = 'aqi';
             break;
           case 'LAYER_GS':
             url = RequestHandle.getRequestUrl('MONPOLLUTION');
+            fieldName = 'aqi';
+            break;
+          case 'LAYER_GD':
+            url = RequestHandle.getRequestUrl('DUSTPOLLUTION');
+            fieldName = 'pm25';
             break;
         }
         let params = {url: url, type: 'GET', pms: null};
         RequestHandle.request(params, function (result) {
 //          if (result.status) {
-          t.loadMarker(result.obj, type);
+          t.loadMarker(result.obj, type, fieldName);
 //          }
         }, function (e) {
           console.error(e);
         });
       },
-      loadMarker(data, type){
+      loadMarker(data, type, fieldName){
         this.lsMarkers.length && this.removeMarkerByList(this.getMarkerByType(type), type);
         let t = this;
         for (let i = 0, length = data.length; i < length; i++) {
@@ -57,7 +64,7 @@
           value['ptType'] = type;
           let labelName = value.CamName || '';
           let pt = new BMap.Point(value.lng || value.Longitude || value.longitude, value.lat || value.Latitude || value.latitude);
-          let marker = t.getMarker(pt, t.getMarkerState(value, type, 'aqi'));
+          let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName));
           let label = new BMap.Label(labelName || '');
           label.setStyle({
             border: 'none',
@@ -150,51 +157,68 @@
         }
         else {
           let res = undefined;
+          let charUrl = undefined;
+          let pms = undefined;
+          let displayName = undefined;
           let ptType = attributes.ptType;
           switch (ptType.toUpperCase()) {
             case 'LAYER_CG':
               res = t.setCGInfoWindow(attributes);
+              charUrl = RequestHandle.getRequestUrl('SENSECHART');
+              pms = {stationid: attributes.stationid, pollute: 'AQI'};
+              displayName = 'stationname';
               break;
             case 'LAYER_GS':
               res = t.setGSInfoWindow(attributes);
+              charUrl = RequestHandle.getRequestUrl('MONCHART');
+              pms = {id: attributes.citygid};
+              displayName = 'pointname';
               break;
             case 'LAYER_GD':
               res = t.setGDInfoWindow(attributes);
+              charUrl = RequestHandle.getRequestUrl('DUSTCHART');
+              pms = {deviceid: attributes.deviceid, ptype: 'pm25'};
+              displayName = 'devicename';
               break;
           }
-          this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res||'无数据', {
-            title: '<sapn style="font-size:16px"><b>' + (attributes.stationname || '') + '</b>' + '</span>',             //标题
+          this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
+            title: '<sapn style="font-size:16px"><b>' + (attributes[displayName] || '') + '</b>' + '</span>',             //标题
             width: 320,
-            height: 200,
+            height: 240,
             enableAutoPan: true,
             enableSendToPhone: false,
             searchTypes: []
           });
           this.searchInfoWindow.open(point);
-//          let charUrl = RequestHandle.getRequestUrl('SENSECHART');
-//          let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
-//
-//          RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-//            if (result.status === 0) {
-//              let data = result.obj;
-//              let res = t.setInfoWindow(data);
-//
-//              this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
-//                title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
-//                width: 320,
-//                height: 200,
-//                enableAutoPan: true,
-//                enableSendToPhone: false,
-//                searchTypes: []
-//              });
-//              this.searchInfoWindow.open(point);
-//            }
-//          }, function (ex) {
-//            console.error(ex);
-//          });
+          let requestPms = undefined;
+          for (let key in pms) {
+            if (!requestPms) {
+              requestPms = key + '=' + pms[key];
+            } else {
+              requestPms += '&' + key + '=' + pms[key];
+            }
+          }
+          let url = charUrl + '?' + (requestPms || '');
+
+          RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+            let data = result.obj;
+            switch (ptType.toUpperCase()) {
+              case 'LAYER_CG':
+                t.setCGChart(attributes.stationid, data.hourdatas);
+                break;
+              case 'LAYER_GS':
+                t.setGSChart(attributes.citygid, data);
+                break;
+              case 'LAYER_GD':
+                t.setGDChart(attributes.deviceid, data[0].valuelist || []);
+                break;
+            }
+          }, function (ex) {
+            console.error(ex);
+          });
         }
       },
-      //设置弹出框信息
+      //国省控点
       setGSInfoWindow(data){
         let aqi = data.aqi;
         return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
@@ -219,9 +243,27 @@
           + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data.time.replace(/T/g, ' ') + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
-          + '</tr></table>';
+          + '</tr></table><div id=\'citychart_' + data.citygid + '\' style=\'width:100%;height:110px\'>';
       },
 
+      //国省图表
+      setGSChart(code, data){
+        let rtValue = [];
+        for (let i = 0, length = data.length; i < length; i++) {
+          let item = data[i];
+          let value = item.aqi;
+          let obj = {
+            x: converTimeFormat(item.time.replace('T', ' ')).getTime(),
+            y: parseInt(value),
+            color: getColorByIndex(getAQILevelIndex(parseInt(value)))
+          };
+          rtValue.push(obj);
+        }
+        let title = '最近24小时AQI变化趋势';
+        this.loadChar(code, 'AQI', rtValue, title);
+      },
+
+      //传感器
       setCGInfoWindow(data){
         return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
           + '<table width=\'100%\' class=\'fitem\'>'
@@ -238,7 +280,23 @@
           + '</tr></table><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'>';
       },
 
-      //设置弹出框信息
+      //传感器图表
+      setCGChart(code, data){
+        let rtValue = [];
+        for (let i = 0, length = data.length; i < length; i++) {
+          let item = data[i];
+          let obj = {
+            x: converTimeFormat(item.recordtime.replace('T', ' ')).getTime(),
+            y: parseInt(item.value),
+            color: getColorByIndex(getAQILevelIndex(parseInt(item.value)))
+          };
+          rtValue.push(obj);
+        }
+        let title = '最近24小时AQI变化趋势';
+        this.loadChar(code, 'AQI', rtValue, title);
+      },
+
+      //工地信息
       setGDInfoWindow(data){
         return '<table width=\'100%\' class="fitem"><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
           + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
@@ -250,6 +308,90 @@
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
           + '</tr></table><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;height:110px\'>';
+      },
+
+      //工地
+      setGDChart(code, data){
+        let rtValue = [];
+        for (let i = 0, length = data.length; i < length; i++) {
+          let item = data[i];
+          let value = item.pm25 || 0;
+          let obj = {
+            x: converTimeFormat(item.time && item.time.replace('T', ' ')).getTime(),
+            y: parseInt(value),
+            color: getColorByIndex(getPM25LevelIndex(parseInt(value)))
+          };
+          rtValue.push(obj);
+        }
+        let title = '最近24小时PM2.5变化趋势';
+        this.loadChar(code, 'PM2.5', rtValue, title);
+      },
+
+      //加载Chart数据
+      loadChar(container, name, data, title){
+        let dateTypeFormat = '%Y-%m-%d %H:%M';
+        let markerShowFlag = false;
+        let chart = new Highcharts.Chart('citychart_' + container, {
+          chart: {
+            type: 'column',
+            zoomType: 'x',
+            spacingLeft: 0,
+            spacingRight: 0
+          },
+          title: {
+            text: title,
+            style: {
+              fontSize: '12px'
+            }
+          },
+          xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: {
+              millisecond: '%H:%M:%S.%L',
+              second: '%H:%M:%S',
+              minute: '%H:%M',
+              hour: '%H:%M',
+              day: '%m-%d',
+              week: '%m-%d',
+              month: '%Y-%m',
+              year: '%Y'
+            }
+          },
+          yAxis: {
+            title: {
+              text: ''
+            },
+            min: 0
+          },
+          tooltip: {
+            enabled: true,
+            formatter: function () {
+              let tip = '' + Highcharts.dateFormat(dateTypeFormat, this.x) + '<br/>' +
+                this.series.name + ': <b>' + this.y + '</b>';//+ unit;
+              return tip;
+            }
+          },
+          plotOptions: {
+            series: {
+              marker: {
+                enabled: markerShowFlag,
+                radius: 5
+              },
+              enableMouseTracking: true,
+              turboThreshold: 0
+            }
+          },
+          legend: {
+            enabled: false
+          },
+          credits: {
+            enabled: false
+          },
+          series: [{
+            name: name,
+            data: data
+          }]
+        })
       },
 
       setCameraWindow(data){
@@ -400,7 +542,7 @@
     }
   };
 </script>
-<style scoped>
+<style>
   .fitem {
     border: 1px solid #ddd;
     margin-right: 10px;
