@@ -209,7 +209,7 @@
         if (pt && value) {
           let imgUrl = this.getImgUrl(value);
           let icon = new BMap.Icon(imgUrl, new BMap.Size(36, 25));
-          marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(8, -16)});
+          marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(0, -16)});
         }
         return marker;
       },
@@ -217,22 +217,24 @@
       //获取图标地址，根据指标参考值
       getImgUrl(value){
         let imgPath = undefined;
-        if (value > 0 && value <= 10) {
+        let level = this.getPollutionLeave(value);
+        level > 0 && (level -= 1);
+        if (level === 0) {
           imgPath = '/static/imgs/sense/sg1.png';
         }
-        else if (value > 10 && value <= 20) {
+        else if (level === 1) {
           imgPath = '/static/imgs/sense/so1.png';
         }
-        else if (value > 20 && value <= 40) {
+        else if (level === 2) {
           imgPath = '/static/imgs/sense/sy1.png';
         }
-        else if (value > 40 && value <= 60) {
+        else if (level === 3) {
           imgPath = '/static/imgs/sense/sm1.png';
         }
-        else if (value > 60 && value <= 80) {
+        else if (level === 4) {
           imgPath = '/static/imgs/sense/sv1.png';
         }
-        else if (value > 80) {
+        else if (level === 5) {
           imgPath = '/static/imgs/sense/sr1.png';
         }
         return imgPath;

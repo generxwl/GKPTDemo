@@ -83,7 +83,7 @@
         if (pt && value) {
           let imgUrl = this.getImgUrl(value);
           let icon = new BMap.Icon(imgUrl, new BMap.Size(25, 25));
-          marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(8, -16)});
+          marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(0, -16)});
         }
         return marker;
       },
