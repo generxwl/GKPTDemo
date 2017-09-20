@@ -40,8 +40,6 @@
                             <a>企业在线监测</a>
                             <a href="#/DustOnline">扬尘在线监测</a>
                             <a>机动车路况</a>
-                            <a>渣土车</a>
-                            <a>环卫车</a>
                         </div>
                         <div>
                             <p>静态源清单</p>
@@ -259,7 +257,6 @@
                     }
                     a {
                         display: inline-block;
-
                         color: #666;
                         font-size: 12px;
                         font-family: "Microsoft YaHei";

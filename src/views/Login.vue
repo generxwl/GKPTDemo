@@ -17,7 +17,7 @@
 					<img src="../assets/img/密码.png" alt=""><input v-model="passWord" type="password" placeholder="请输入密码">
 				</div>
 				<div class="butn">
-					<button v-on:click="login">登录{{userData}}</button>
+					<button @click="login" @keyup.enter="login">登录{{userData}}</button>
 				</div>
 			</div>
 		</div>
@@ -34,6 +34,14 @@
 				passWord: ''
 			}
 		},
+        mounted(){
+		    let that = this;
+            $("body").keydown(function(evt) {
+                if (event.keyCode == "13") {
+                    that.login();
+                }
+            });
+        },
 		computed: {
 			userData() {
 				this.$store.state.userData
