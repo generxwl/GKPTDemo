@@ -37,6 +37,7 @@
 
                     <!--详细天气-->
                     <div class="tqbiaoti">廊坊市空气质量</div>
+                    <strong v-if="tianqiyuji" class="strong">今日空气质量预计为：{{Datalist.qulity}}</strong>
                     <div class="Second">
                         <div class="tianqi">
                             <!--天气-->
@@ -122,7 +123,7 @@
                                 <v-progress :width="YearMonthDay(Datalist.yearrank_74)" :text="Datalist.yearrank_74" :color="YearMonthDayColor(Datalist.yearrank_74)"></v-progress>
                             </div>
                             </div>
-                            <strong v-if="tianqiyuji">今日空气质量预计为：{{Datalist.qulity}}</strong>
+
                         </div>
                     </div>
                     <!--table表格-->
@@ -378,7 +379,8 @@
                   rtValue = 'windspeed';
                   break;
                 case 'WD':
-                  rtValue = 'windangle';
+//                  rtValue = 'windangle';
+                    rtValue = 'winddirection';
                   break;
               }
               return rtValue;
@@ -761,6 +763,13 @@
                 left: -90px;
                 top: 64%;
             }
+            .strong {
+                width: 100%;
+                padding: 10px 0;
+                display: inherit;
+                margin-left: 18px;
+                text-align: left;
+            }
             img {
                 position: absolute;
                 top: 40%;
@@ -949,12 +958,7 @@
                                 width: 300px;
                             }
                         }
-                        strong {
-                            width: 100%;
-                            display: inherit;
-                            margin-left: 18px;
-                            text-align: left;
-                        }
+
                     }
                 }
                 .table {

@@ -397,14 +397,36 @@
             });
             searchInfoWindow.open(point);
             setTimeout(function () {
-              let title = '最近24小时' + t.item + '变化趋势';
+              let title = '最近24小时' + t.getPollutionTarget(t.item) + '变化趋势';
               t.loadChar(code, t.item, t.getHourData(data.valuelist), title);
-            }, 100);
+            }, 150);
           }
         }, function (ex) {
           console.error(ex);
         });
       },
+        getPollutionTarget(type){
+          console.log('你懂了')
+            let rtValue = type;
+            switch(type.toUpperCase()){
+                case 'INDEX':
+                    rtValue = '综指';
+                    break;
+                case 'TEMP':
+                    rtValue = '温度';
+                    break;
+                case 'HUMI':
+                    rtValue = '湿度';
+                    break;
+                case 'WS':
+                    rtValue = '风级';
+                    break;
+                case 'WD':
+                    rtValue = '风向';
+                    break;
+            }
+            return rtValue;
+        },
       //设置弹出框信息
       setInfoWindow(data){
         return '<table width=\'100%\' class="fitem"><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
