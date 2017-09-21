@@ -69,7 +69,7 @@
         t.ready();
       }, 1);
       $('.map-handle_ul li').on('click', function () {
-        $(this).addClass('active').siblings().removeClass('active');
+        //$(this).addClass('active').siblings().removeClass('active');
       })
     },
     methods: {
@@ -105,7 +105,8 @@
               this.map.setDefaultCursor();
               break;
             case 'LENGTH':
-              this.map.setDefaultCursor();
+              let distanceTool = new BMapLib.DistanceTool(this.map, {lineStroke : 2});
+              distanceTool && distanceTool.open();
               break;
             case 'FULL':
               this.fullScreen(this.map.getContainer());
