@@ -36,10 +36,10 @@
                     </div>
                     <div class="sousuo">
                         <div class="sleft">
-                            <el-input v-model="input" placeholder="请输入地址"></el-input>
+                            <el-input v-model="filters.name" placeholder="请输入地址"></el-input>
                         </div>
                         <div class="sright">
-                            <el-button type="primary">搜索</el-button>
+                            <el-button type="primary" @click="search">搜索</el-button>
                         </div>
 
                     </div>
@@ -90,7 +90,9 @@
                 currentPage: 1,
                 totalCount:0,
                 value2: '',
-                input: ''
+                filters: {
+                    name: ''
+                },
             }
         },
         created(){
@@ -151,14 +153,6 @@
               let latitude = this.currentRow.Latitude;//纬度
               let longitude = this.currentRow.Longitude;//经度
               bus.$emit('cameraEvent',{CamName:this.currentRow.VideoName},longitude, latitude);
-            },
-            //查看地址
-            ChakanClick(index,item){
-                //console.log('查看地址')
-               // console.log(index)
-               // console.log(item)
-//                let citygid = item.citygid;//城市id
-
             },
             //开发区进度
             yuantuset1(){
@@ -485,7 +479,41 @@
                         fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                 return fmt;
             },
+            search(){//搜索
+                let _this=this;
+                if(this.filters.name){
+                   let data = _this.data;
+                    _this.tableData = [];
+                    let i = 1;
+                        data.forEach(item => {
+                            const Data = {};
+                            if(item.CamName == _this.filters.name) {
+                                Data.SerialNumber = i++;//序号
+                                Data.VideoName = item.CamName;//行业
+                                Data.MonitoringType = item.TypeName;//类型
+                                Data.Id = item.Id;//城市id
+                                Data.Latitude = item.Latitude;//纬度
+                                Data.Longitude = item.Longitude;//经度
+                            _this.tableData.push(Data);
+                            }
+                        })
+
+                }else{
+                    _this.$message({
+                        message: '请输入筛选条件!',
+                        type: 'success'
+                    });
+                };
+            }
         },
+//        filters: {
+//            two (value){
+//                if (!value) {
+//                    return ''
+//                };
+//                return value.toFixed(2);
+//            }
+//        },
         components: {MapHandle}
     }
 </script>
