@@ -12,7 +12,7 @@
         markers: [],
         hasVisible: true,
         checkedName: 'AQI',
-        mouseLabel: new BMap.Label(),
+        mouseLabel: new BMap.Label(''),
         data: [],
         infoWindowConfig: {
           width: 250,     // 信息窗口宽度
