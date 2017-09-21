@@ -88,7 +88,7 @@
 		min-width: 1060px;
 		width: 100%;
 		height: 100%;
-		background: url("../assets/img/beijing.png") no-repeat center;
+		background: url("../assets/img/beijing.jpg") no-repeat center;
 		background-size: cover;
 		position: relative;
 		.sky{
