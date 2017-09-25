@@ -7,13 +7,13 @@
         <span>{{item.value}}</span>
       </li>
     </ul>
-    <ol class="kqworp" v-if="kongqi">
+    <ol class="kqworp" v-show="kongqi">
       <li v-for="(item,index) in KQtargets" :data-parent-index="item.parentIndex" :data-parent="item.parentName" :data-index="index" :data-type="item.name" @click="OKQClick">
         <img :src="item.src" title=""/>
         <span>{{item.value}}</span>
       </li>
     </ol>
-    <ol class="vdworp" v-if="shiping">
+    <ol class="vdworp" v-show="shiping">
       <li v-for="(item,index) in VDtargets" :data-parent-index="item.parentIndex" :data-parent="item.parentName" :data-index="index" :data-type="item.name" @click="OVDClick">
         <img :src="item.src" title=""/>
         <span>{{item.value}}</span>
@@ -50,18 +50,13 @@
             src: 'static/imgs/main/gd.png',
             checkedSrc: 'static/imgs/main/gd_c.png'
           },
-          {
-            name: 'layer_voc',
-            value: 'TVOC监测',
-            src: 'static/imgs/mues/sixzb/vocw.png',
-            checkedSrc: 'static/imgs/mues/sixzb/vocz.png'
-          },
-//        {
-//          name: 'layer_qy',
-//          value: '企业',
-//          src:'static/imgs/main/qy.png',
-//          checkedSrc:'static/imgs/main/qy_c.png'
-//        },
+
+        {
+          name: 'layer_qy',
+          value: '企业',
+          src:'static/imgs/main/qy.png',
+          checkedSrc:'static/imgs/main/qy_c.png'
+        },
           {
             name: 'layer_sp',
             value: '视频',
@@ -106,6 +101,14 @@
             src: 'static/imgs/mues/sixzb/btw.png',
             checkedSrc: 'static/imgs/mues/sixzb/btw_c.png'
           },
+          {
+            name: 'layer_voc',
+            value: 'TVOC监测',
+            parentName: 'layer_cg',
+            parentIndex: '0',
+            src: 'static/imgs/mues/sixzb/vocw.png',
+            checkedSrc: 'static/imgs/mues/sixzb/vocz.png'
+          }
 //              {
 //                  name: 'layer_kq_tvo',
 //                  value: 'TVOC监测',
