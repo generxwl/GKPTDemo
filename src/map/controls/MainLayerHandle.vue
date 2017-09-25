@@ -54,7 +54,7 @@
             name: 'layer_voc',
             value: 'TVOC监测',
             src: 'static/imgs/mues/sixzb/vocw.png',
-            checkedSrc: 'static/imgs/mues/sixzb/vocz.png'
+            checkedSrc: 'static/imgs/mues/sixzb/voc_c.png'
           },
 //        {
 //          name: 'layer_qy',
