@@ -34,10 +34,10 @@
         shiping: false,
         targets: [
           {
-            name: 'layer-kq',
+            name: 'layer_cg',
             value: '空气传感器',
-            src: 'static/imgs/main/left.png',
-            checkedSrc: 'static/imgs/main/right.png'
+            src: 'static/imgs/main/cg.png',
+            checkedSrc: 'static/imgs/main/cg_c.png'
           }, {
             name: 'layer_gs',
             value: '国省控点',
