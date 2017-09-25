@@ -51,29 +51,35 @@
             checkedSrc: 'static/imgs/main/gd_c.png'
           },
           {
-            name: 'layer_qy',
-            value: '企业污染源监测',
-            src:'static/imgs/main/qy.png',
-            checkedSrc:'static/imgs/main/qy_c.png'
+            name: 'layer_voc',
+            value: 'TVOC监测',
+            src: 'static/imgs/mues/sixzb/vocw.png',
+            checkedSrc: 'static/imgs/mues/sixzb/vocz.png'
           },
+//        {
+//          name: 'layer_qy',
+//          value: '企业',
+//          src:'static/imgs/main/qy.png',
+//          checkedSrc:'static/imgs/main/qy_c.png'
+//        },
           {
-            name: 'layer-sp',
+            name: 'layer_sp',
             value: '视频',
-            src: 'static/imgs/main/left.png',
-            checkedSrc: 'static/imgs/main/right.png'
+            src: 'static/imgs/main/sp.png',
+            checkedSrc: 'static/imgs/main/sp_c.png'
           }, {
             name: 'layer_lk',
-            value: '道路情况',
+            value: '路况',
             src: 'static/imgs/main/lk.png',
             checkedSrc: 'static/imgs/main/lk_c.png'
           }, {
             name: 'layer_zt',
-            value: '渣土车GPS',
+            value: '渣土车',
             src: 'static/imgs/main/zt.png',
             checkedSrc: 'static/imgs/main/zt_c.png'
           }, {
             name: 'layer_hw',
-            value: '环卫车GPS',
+            value: '环卫车',
             src: 'static/imgs/main/hw.png',
             checkedSrc: 'static/imgs/main/hw_c.png'
           }, {
@@ -85,28 +91,21 @@
         //
         KQtargets: [
           {
-            name: 'layer_cg',
+            name: 'layer_kq_lcs',
             value: '六参数监测',
             parentName: 'layer_cg',
             parentIndex: '0',
             src: 'static/imgs/mues/sixzb/gdycw.png',
             checkedSrc: 'static/imgs/mues/sixzb/gdycw_c.png'
           },
-            {
-                name: 'layer_voc',
-                value: 'TVOC监测',
-                parentName: 'layer_cg',
-                parentIndex: '0',
-                src: 'static/imgs/mues/sixzb/vocw.png',
-                checkedSrc: 'static/imgs/mues/sixzb/vocw.png'
-            },
-//          {
-//            name: 'layer_kq_gsx',
-//
-//            value: 'β射线扬尘',
-//            src: 'static/imgs/mues/sixzb/btw.png',
-//            checkedSrc: 'static/imgs/mues/sixzb/btw_c.png'
-//          },
+          {
+            name: 'layer_kq_gsx',
+            parentName: 'layer_cg',
+            parentIndex: '0',
+            value: 'β射线扬尘',
+            src: 'static/imgs/mues/sixzb/btw.png',
+            checkedSrc: 'static/imgs/mues/sixzb/btw_c.png'
+          },
 //              {
 //                  name: 'layer_kq_tvo',
 //                  value: 'TVOC监测',
@@ -124,7 +123,7 @@
             checkedSrc: 'static/imgs/mues/video/voc_c.png'
           },
           {
-            name: 'layer_sp',
+            name: 'layer_vd_voc',
             value: 'VOCs企业',
             parentName: 'layer_sp',
             parentIndex: '4',
@@ -191,7 +190,7 @@
         let hasParentChecked = this.hasCheckedChildElement('KQ') || false;
         this.setParentStates(parentIndex,hasParentChecked, parentName);
 
-        bus.$emit('targetMainLayer',type,hasChecked);
+//            bus.$emit('targetMainLayer',type,hasChecked);
       },
       OVDClick(e){
         let childElement = e.currentTarget;
@@ -204,7 +203,7 @@
         let item = targets[index];
         let hasChecked = false;
         imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
-        bus.$emit('targetMainLayer',type,hasChecked);
+//            bus.$emit('targetMainLayer',type,hasChecked);
 
         let hasParentChecked = this.hasCheckedChildElement('SP') || false;
         this.setParentStates(parentIndex,hasParentChecked, parentName);
@@ -246,7 +245,7 @@
   .kqworp {
     position: absolute;
     top: 26px;
-    left: 120px;
+    left: 100px;
     color: #fff;
 
   }
@@ -254,7 +253,7 @@
   .vdworp {
     position: absolute;
     top: 168px;
-    left: 120px;
+    left: 100px;
     color: #fff;
 
   img {
@@ -264,7 +263,7 @@
 
   }
   .main-layer-handle {
-    width: 120px;
+    width: 100px;
     background: #fff;
     color: #1080cc;
     border: solid 1px #1080cc;
@@ -276,20 +275,8 @@
     -moz-border-radius: 1px;
     border-radius: 1px;
     border: solid 1px #1080CC;
-    width: 120px;
+    width: 100px;
     color: #fff;
-    li:nth-child(1){
-      img{
-        float: right;
-        padding-right: 4px;
-      }
-    }
-    li:nth-child(5){
-      img{
-        float: right;
-        padding-right: 4px;
-      }
-    }
   }
 
   .main-layer li {
@@ -299,7 +286,7 @@
     background-color: rgba(0, 79, 137, 0.6);
     list-style: none;
     line-height: 30px;
-    width: 118px;
+    width: 98px;
     padding: 0;
     cursor: pointer;
   }
