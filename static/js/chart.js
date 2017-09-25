@@ -64,7 +64,7 @@ var valuePlotBaud = [{ // Light air
 }]
 
 // line chart
-function showLineChart (container, name, data, unit, type) {
+function showLineChart(container, name, data, unit, type) {
 
   var dateTypeFormat
   if (type == 'HOUR') {
@@ -154,7 +154,7 @@ function showLineChart (container, name, data, unit, type) {
 }
 
 // line chart
-function showPercentChart (container, name, dataPM25Index, dataPM10Index, dataSO2Index, dataNO2Index, dataCOIndex, dataO3Index, dataAQI, dataIndex, type) {
+function showPercentChart(container, name, dataPM25Index, dataPM10Index, dataSO2Index, dataNO2Index, dataCOIndex, dataO3Index, dataAQI, dataIndex, type) {
 
   var aqicolor = '#3399CC'
   var dateTypeFormat
@@ -326,7 +326,7 @@ function showPercentChart (container, name, dataPM25Index, dataPM10Index, dataSO
   })
 }
 
-function showLineChartCompare (container, name, city1, city2, city3, data1, data2, data3, unit, type) {
+function showLineChartCompare(container, name, city1, city2, city3, data1, data2, data3, unit, type) {
 
   var dateTypeFormat
   if (type == 'HOUR') {
@@ -426,7 +426,7 @@ function showLineChartCompare (container, name, city1, city2, city3, data1, data
   })
 }
 
-function showLineChartWithAQI (container, name, data, dataAQI, unit, type) {
+function showLineChartWithAQI(container, name, data, dataAQI, unit, type) {
 
   var dateTypeFormat
   var aqicolor = '#3399CC'
@@ -556,7 +556,7 @@ function showLineChartWithAQI (container, name, data, dataAQI, unit, type) {
   })
 }
 
-function showTwoLineChart (container, name, name1, name2, data1, data2, unit, type) {
+function showTwoLineChart(container, name, name1, name2, data1, data2, unit, type) {
 
   var dateTypeFormat
   var aqicolor = '#3399CC'
@@ -660,7 +660,7 @@ function showTwoLineChart (container, name, name1, name2, data1, data2, unit, ty
   })
 }
 
-function showLineChartAll (container, type, dataAQI, dataPM25, dataPM10, dataSO2, dataNO2, dataCO, dataO3, dataTemp, dataHumi, dataWind) {
+function showLineChartAll(container, type, dataAQI, dataPM25, dataPM10, dataSO2, dataNO2, dataCO, dataO3, dataTemp, dataHumi, dataWind) {
 
   var dateTypeFormat
   var aqicolor = '#3399CC'
@@ -887,7 +887,7 @@ function showLineChartAll (container, type, dataAQI, dataPM25, dataPM10, dataSO2
 }
 
 // line chart
-function showRankChart (container, city, name, data, unit, type, subtitle) {
+function showRankChart(container, city, name, data, unit, type, subtitle) {
 
   var dateTypeFormat
   if (type == 'HOUR') {
@@ -1012,7 +1012,7 @@ function showRankChart (container, city, name, data, unit, type, subtitle) {
 }
 
 // line chart
-function showTwoRankChart (container, city, name, dataAQI, dataIndex, unit, type, subtitle) {
+function showTwoRankChart(container, city, name, dataAQI, dataIndex, unit, type, subtitle) {
 
   var dateTypeFormat
   if (type == 'HOUR') {
@@ -1174,7 +1174,7 @@ function showTwoRankChart (container, city, name, dataAQI, dataIndex, unit, type
   }
 }
 
-function showPieChart (container, title, name, unit, data) {
+function showPieChart(container, title, name, unit, data) {
   $('#' + container).highcharts({
     chart: {
       plotBackgroundColor: null,
@@ -1220,7 +1220,7 @@ function showPieChart (container, title, name, unit, data) {
 }
 
 // show column chart
-function showColumnChart (container, name, category, data, city, bestpoint, worstpoint, unit) {
+function showColumnChart(container, name, category, data, city, bestpoint, worstpoint, unit) {
   $('#' + container).highcharts({
     chart: {
       type: 'bar'
@@ -1364,7 +1364,7 @@ Date.prototype.pattern = function (fmt) {
 }
 
 // convert time format for Firefox and IE
-function converTimeFormat (time) {
+function converTimeFormat(time) {
   if (time != null) {
     time = time.replace('-', '/')
     time = time.replace('-', '/')
@@ -1373,7 +1373,7 @@ function converTimeFormat (time) {
   return null
 }
 
-function convertMonthFormat (month) {
+function convertMonthFormat(month) {
 
   if (month != null) {
     year = parseInt(parseInt(month) / 100)
@@ -1383,7 +1383,7 @@ function convertMonthFormat (month) {
   }
 }
 
-function getWindDirectionUrl (wd) {
+function getWindDirectionUrl(wd) {
   var wid = 0
   var url = null
   switch (wd) {
@@ -1418,7 +1418,7 @@ function getWindDirectionUrl (wd) {
   return url
 }
 
-function getColorByIndex (index) {
+function getColorByIndex(index) {
   switch (index) {
     case 0:
       color = '#999'
@@ -1445,7 +1445,7 @@ function getColorByIndex (index) {
   return color
 }
 
-function getColorByIndexForSensor (index) {
+function getColorByIndexForSensor(index) {
   switch (index) {
     case 0:
       color = '#999'
@@ -1472,7 +1472,7 @@ function getColorByIndexForSensor (index) {
   return color
 }
 
-function getQualityByIndex (index) {
+function getQualityByIndex(index) {
 
   switch (index) {
     case 0:
@@ -1500,7 +1500,7 @@ function getQualityByIndex (index) {
   return quality
 }
 
-function getQualityByAqi (val) {
+function getQualityByAqi(val) {
   var value = null
   if (val <= 0) {
     value = '无'
@@ -1526,7 +1526,7 @@ function getQualityByAqi (val) {
   return value
 }
 
-function getAQILevelIndex (aqi) {
+function getAQILevelIndex(aqi) {
   if (aqi == 0) {
     level = 0
   }
@@ -1545,7 +1545,7 @@ function getAQILevelIndex (aqi) {
   return level
 }
 
-function getPM25LevelIndex (pm2_5) {
+function getPM25LevelIndex(pm2_5) {
   if (pm2_5 == 0) {
     level = 0
   }
@@ -1570,7 +1570,7 @@ function getPM25LevelIndex (pm2_5) {
   return level
 }
 
-function getPM10LevelIndex (pm10) {
+function getPM10LevelIndex(pm10) {
   if (pm10 == 0) {
     level = 0
   }
@@ -1595,7 +1595,7 @@ function getPM10LevelIndex (pm10) {
   return level
 }
 
-function getSO2LevelIndex (so2) {
+function getSO2LevelIndex(so2) {
   if (so2 == 0) {
     level = 0
   }
@@ -1620,7 +1620,7 @@ function getSO2LevelIndex (so2) {
   return level
 }
 
-function getNO2LevelIndex (no2) {
+function getNO2LevelIndex(no2) {
   if (no2 == 0) {
     level = 0
   }
@@ -1645,7 +1645,7 @@ function getNO2LevelIndex (no2) {
   return level
 }
 
-function getO3LevelIndex (o3) {
+function getO3LevelIndex(o3) {
   if (o3 == 0) {
     level = 0
   }
@@ -1670,7 +1670,7 @@ function getO3LevelIndex (o3) {
   return level
 }
 
-function getCOLevelIndex (co) {
+function getCOLevelIndex(co) {
   if (co == 0) {
     level = 0
   }
@@ -1695,7 +1695,7 @@ function getCOLevelIndex (co) {
   return level
 }
 
-function getComplexIndex (index) {
+function getComplexIndex(index) {
   if (index == 0) {
     level = 0
   }
@@ -1720,7 +1720,7 @@ function getComplexIndex (index) {
   return level
 }
 
-function getTempLevelIndex (temp) {
+function getTempLevelIndex(temp) {
 
   if (temp <= 0) {
     level = 1
@@ -1743,7 +1743,7 @@ function getTempLevelIndex (temp) {
   return level
 }
 
-function getHumiLevelIndex (humi) {
+function getHumiLevelIndex(humi) {
 
   if (humi == 0) {
     level = 0
@@ -1766,7 +1766,7 @@ function getHumiLevelIndex (humi) {
   return level
 }
 
-function getWindLevelIndex (value) {
+function getWindLevelIndex(value) {
 
   if (value == 0) {
     level = 0
@@ -1792,3 +1792,56 @@ function getWindLevelIndex (value) {
   return level
 }
 
+//voc颜色
+function getVOCLeveColor(voc) {
+  let color = '';
+  if (voc == 0) {
+    color = '#207a1f'
+  }
+  else if (1 <= voc && voc <= 60) {
+    color = '#00E400'
+  }
+  else if (61 <= voc && voc <= 100) {
+    color = '#EFDC31'
+  }
+  else if (101 <= voc && voc <= 200) {
+    color = '#FF7E00'
+  }
+  else if (201 <= voc && voc <= 300) {
+    color = '#FF0000'
+  }
+  else if (301 <= voc && voc <= 500) {
+    color = '#99004C'
+  }
+  else {
+    color = '#7E0023'
+  }
+  return color
+}
+
+
+function getVOCLeveColorIndex(voc) {
+  let level = 0;
+  if (voc == 0) {
+    level = 0;
+  }
+  else if (1 <= voc && voc <= 60) {
+    level = 1
+  }
+  else if (61 <= voc && voc <= 100) {
+    level = 2
+  }
+  else if (101 <= voc && voc <= 200) {
+    level = 3
+  }
+  else if (201 <= voc && voc <= 300) {
+    level = 4
+  }
+  else if (301 <= voc && voc <= 500) {
+    level = 5
+  }
+  else {
+    level = 6
+  }
+  return level
+}

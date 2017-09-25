@@ -116,7 +116,7 @@
                 let value = data[fieldName] || 0;
                 let level = 0;
                 if(ptType == 'layer_voc'){
-                    level = this.getVOCLeveColorIndex(data.TVOC_V) || 1;
+                    level = getVOCLeveColorIndex(data.TVOC_V) || 1;
                 }else{
                     level = getAQILevelIndex(value) || 1;
                 }
@@ -319,7 +319,7 @@
             setVOCInfoWindow(data){
                 return '<table width=\'100%\' ><tr><td style=\'font-size:14px\' valign=\'top\'>'
                     + '<table width=\'100%\' class=\'fitem\'>'
-                    + '<tr height=\'36px\'><th>TVOC</th><td style=\'width:70px;text-align:center;background-color:'+ this.getVOCLeveColor(data.TVOC_V) +';color:#fff\'>' + data.TVOC_V
+                    + '<tr height=\'36px\'><th>TVOC</th><td style=\'width:70px;text-align:center;background-color:'+ getVOCLeveColor(data.TVOC_V) +';color:#fff\'>' + data.TVOC_V
                     + '</td></tr><tr height=\'36px\'><th>温度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + parseInt(data.TP_V)
                     + '℃</td><th>湿度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + parseInt(data.TD_V)
                     + '%</td></tr></table>'
@@ -327,57 +327,7 @@
                     + '<td valign=\'top\' align=\'right\'><td>'
                     + '</tr></table><div id=\'citychart_' + data.StationID + '\' style=\'width:100%;height:110px\'>';
             },
-            //voc颜色
-           getVOCLeveColor(voc) {
-                let color = ''
-                if (voc == 0) {
-                    color = '#207a1f'
-                }
-                else if (1 <= voc && voc <= 60) {
-                    color = '#00E400'
-                }
-                else if (61 <= voc && voc <= 100) {
-                    color = '#EFDC31'
-                }
-                else if (101 <= voc && voc <= 200) {
-                    color = '#FF7E00'
-                }
-                else if (201 <= voc && voc <= 300) {
-                    color = '#FF0000'
-                }
-                else if (301 <= voc && voc <= 500) {
-                    color = '#99004C'
-                }
-                else {
-                    color = '#7E0023'
-                }
-                return color
-            },
-            getVOCLeveColorIndex(voc) {
-                let level = 0;
-                if (voc == 0) {
-                    level = 0;
-                }
-                else if (1 <= voc && voc <= 60) {
-                    level = 1
-                }
-                else if (61 <= voc && voc <= 100) {
-                    level = 2
-                }
-                else if (101 <= voc && voc <= 200) {
-                    level = 3
-                }
-                else if (201 <= voc && voc <= 300) {
-                    level = 4
-                }
-                else if (301 <= voc && voc <= 500) {
-                    level = 5
-                }
-                else {
-                    level = 6
-                }
-                return level
-            },
+
             //传感器
             setCGInfoWindow(data){
                 return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
@@ -418,7 +368,7 @@
                     let obj = {
                         x: converTimeFormat(item.CollectTime).getTime(),
                         y: parseInt(item.TVOC_V),
-                        color: this.getVOCLeveColor(item.TVOC_V)
+                        color: getVOCLeveColor(item.TVOC_V)
                     };
                     //console.log(obj.x)
                     rtValue.push(obj);
@@ -480,7 +430,7 @@
                             millisecond: '%H:%M:%S.%L',
                             second: '%H:%M:%S',
                             minute: '%H:%M',
-                            hour: '%H+8:%M',
+                            hour: '%H:%M',
                             day: '%m-%d',
                             week: '%m-%d',
                             month: '%Y-%m',
