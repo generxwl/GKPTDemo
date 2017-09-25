@@ -50,39 +50,53 @@
             src: 'static/imgs/main/gd.png',
             checkedSrc: 'static/imgs/main/gd_c.png'
           },
-
-        {
-          name: 'layer_qy',
-          value: '企业',
-          src:'static/imgs/main/qy.png',
-          checkedSrc:'static/imgs/main/qy_c.png'
-        },
+          {
+            name: 'layer_qy',
+            value: '企业',
+            src: 'static/imgs/main/qy.png',
+            checkedSrc: 'static/imgs/main/qy_c.png'
+          },
+//        {
+//          name: 'layer_qy',
+//          value: '企业',
+//          src:'static/imgs/main/qy.png',
+//          checkedSrc:'static/imgs/main/qy_c.png'
+//        },
           {
             name: 'layer_sp',
             value: '视频',
             src: 'static/imgs/main/sp.png',
             checkedSrc: 'static/imgs/main/sp_c.png'
-          }, {
+          }
+          ,
+          {
             name: 'layer_lk',
             value: '路况',
             src: 'static/imgs/main/lk.png',
             checkedSrc: 'static/imgs/main/lk_c.png'
-          }, {
+          }
+          ,
+          {
             name: 'layer_zt',
             value: '渣土车',
             src: 'static/imgs/main/zt.png',
             checkedSrc: 'static/imgs/main/zt_c.png'
-          }, {
+          }
+          ,
+          {
             name: 'layer_hw',
             value: '环卫车',
             src: 'static/imgs/main/hw.png',
             checkedSrc: 'static/imgs/main/hw_c.png'
-          }, {
+          }
+          ,
+          {
             name: 'layer_jy',
             value: '加油站',
             src: 'static/imgs/main/jy.png',
             checkedSrc: 'static/imgs/main/jy_c.png'
-          }],
+          }
+        ],
         //
         KQtargets: [
           {
@@ -107,7 +121,7 @@
             parentName: 'layer_cg',
             parentIndex: '0',
             src: 'static/imgs/mues/sixzb/vocw.png',
-            checkedSrc: 'static/imgs/mues/sixzb/vocz.png'
+            checkedSrc: 'static/imgs/mues/sixzb/vocw_c.png'
           }
 //              {
 //                  name: 'layer_kq_tvo',
@@ -150,7 +164,7 @@
             checkedSrc: 'static/imgs/mues/video/gkw_c.png'
           }
         ]
-      };
+      }
     },
     created(){
     },
@@ -191,7 +205,7 @@
         imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
 
         let hasParentChecked = this.hasCheckedChildElement('KQ') || false;
-        this.setParentStates(parentIndex,hasParentChecked, parentName);
+        this.setParentStates(parentIndex, hasParentChecked, parentName);
 
 //            bus.$emit('targetMainLayer',type,hasChecked);
       },
@@ -209,9 +223,9 @@
 //            bus.$emit('targetMainLayer',type,hasChecked);
 
         let hasParentChecked = this.hasCheckedChildElement('SP') || false;
-        this.setParentStates(parentIndex,hasParentChecked, parentName);
+        this.setParentStates(parentIndex, hasParentChecked, parentName);
       },
-      setParentStates(index,hasChecked, name){
+      setParentStates(index, hasChecked, name){
         let item = this.$data.targets[index];
         let element = document.querySelectorAll('ul>li[data-type="' + name + '"]');
         if (element && element.length) {
