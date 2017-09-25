@@ -51,17 +51,11 @@
             checkedSrc: 'static/imgs/main/gd_c.png'
           },
           {
-            name: 'layer_voc',
-            value: 'TVOC监测',
-            src: 'static/imgs/mues/sixzb/vocw.png',
-            checkedSrc: 'static/imgs/mues/sixzb/vocz.png'
+            name: 'layer_qy',
+            value: '企业',
+            src: 'static/imgs/main/qy.png',
+            checkedSrc: 'static/imgs/main/qy_c.png'
           },
-//        {
-//          name: 'layer_qy',
-//          value: '企业',
-//          src:'static/imgs/main/qy.png',
-//          checkedSrc:'static/imgs/main/qy_c.png'
-//        },
           {
             name: 'layer_sp',
             value: '视频',
@@ -106,12 +100,14 @@
             src: 'static/imgs/mues/sixzb/btw.png',
             checkedSrc: 'static/imgs/mues/sixzb/btw_c.png'
           },
-//              {
-//                  name: 'layer_kq_tvo',
-//                  value: 'TVOC监测',
-//                  src:'static/imgs/mues/sixzb/vocw.png',
-//                  checkedSrc:'static/imgs/mues/sixzb/vocz.png'
-//              }
+          {
+            name: 'layer_voc',
+            value: 'TVOC监测',
+            parentName: 'layer_cg',
+            parentIndex: '0',
+            src: 'static/imgs/mues/sixzb/vocw.png',
+            checkedSrc: 'static/imgs/mues/sixzb/vocw_c.png'
+          }
         ],
         VDtargets: [
           {
@@ -188,9 +184,9 @@
         imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
 
         let hasParentChecked = this.hasCheckedChildElement('KQ') || false;
-        this.setParentStates(parentIndex,hasParentChecked, parentName);
+        this.setParentStates(parentIndex, hasParentChecked, parentName);
 
-//            bus.$emit('targetMainLayer',type,hasChecked);
+        bus.$emit('targetMainLayer', type, hasChecked);
       },
       OVDClick(e){
         let childElement = e.currentTarget;
@@ -206,9 +202,9 @@
 //            bus.$emit('targetMainLayer',type,hasChecked);
 
         let hasParentChecked = this.hasCheckedChildElement('SP') || false;
-        this.setParentStates(parentIndex,hasParentChecked, parentName);
+        this.setParentStates(parentIndex, hasParentChecked, parentName);
       },
-      setParentStates(index,hasChecked, name){
+      setParentStates(index, hasChecked, name){
         let item = this.$data.targets[index];
         let element = document.querySelectorAll('ul>li[data-type="' + name + '"]');
         if (element && element.length) {
