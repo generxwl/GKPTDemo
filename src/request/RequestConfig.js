@@ -33,10 +33,20 @@ export default {
         cf = this.release[0];
         url = cf.site + cf.port + cf.path + '/FcStation/GetFcStationList';
         break;
+        case 'VOCPOLLUTION':
+            cf = this.release[1];
+            // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbPoint';
+            url = cf.site + cf.port + cf.path + '/XhHb/GetXhHbPoint';
+            break;
       case 'SENSECHART':
         cf = this.release[0];
         url = cf.site + cf.port + cf.path + '/FcStation/GetSingleStationInfo';
         break;
+        case 'VOCCHART':
+            cf = this.release[1];
+            // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbHistory';
+            url = cf.site + cf.port + cf.path + '/XhHb/GetXhHbHistory';
+            break;
       case 'DUSTPOLLUTION':
         cf = this.release[1];
         url = cf.site + cf.port + cf.path + '/Dust/GetDustHourRanking';

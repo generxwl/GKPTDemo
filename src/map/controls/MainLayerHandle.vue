@@ -1,12 +1,24 @@
 <template>
   <div class="main-layer">
-    <div class="main-layer-handle">监测点</div>
+    <div class="main-layer-handle">筛选监测点</div>
     <ul>
       <li v-for="(item,index) in targets" :data-index="index" :data-type="item.name" @click="liClick">
         <img :src="item.src" title="" />
         <span>{{item.value}}</span>
       </li>
     </ul>
+    <ol class="kqworp" v-if="kongqi">
+      <li v-for="(item,index) in KQtargets" :data-index="index" :data-type="item.name" @click="OKQClick">
+        <img :src="item.src" title="" />
+        <span>{{item.value}}</span>
+      </li>
+    </ol>
+    <ol class="vdworp" v-if="shiping">
+      <li v-for="(item,index) in VDtargets" :data-index="index" :data-type="item.name" @click="OVDClick">
+        <img :src="item.src" title="" />
+        <span>{{item.value}}</span>
+      </li>
+    </ol>
     <main-handle></main-handle>
   </div>
 </template>
@@ -18,6 +30,8 @@
     name: 'MainLayerHandle',
     data () {
       return {
+        kongqi:false,
+        shiping:false,
         targets: [
             {
           name: 'layer_cg',
@@ -29,17 +43,26 @@
           value: '国省控点',
           src:'static/imgs/main/gs.png',
           checkedSrc:'static/imgs/main/gs_c.png'
-        },{
+        },
+        {
           name: 'layer_gd',
           value: '工地',
           src:'static/imgs/main/gd.png',
           checkedSrc:'static/imgs/main/gd_c.png'
-        },{
-          name: 'layer_qy',
-          value: '企业',
-          src:'static/imgs/main/qy.png',
-          checkedSrc:'static/imgs/main/qy_c.png'
-        },{
+        },
+        {
+           name: 'layer_voc',
+           value: 'TVOC监测',
+           src:'static/imgs/mues/sixzb/vocw.png',
+           checkedSrc:'static/imgs/mues/sixzb/vocz.png'
+        },
+//        {
+//          name: 'layer_qy',
+//          value: '企业',
+//          src:'static/imgs/main/qy.png',
+//          checkedSrc:'static/imgs/main/qy_c.png'
+//        },
+            {
           name: 'layer_sp',
           value: '视频',
           src:'static/imgs/main/sp.png',
@@ -64,13 +87,61 @@
           value: '加油站',
           src:'static/imgs/main/jy.png',
           checkedSrc:'static/imgs/main/jy_c.png'
-        }]
+        }],
+      //
+          KQtargets:[
+              {
+                  name: 'layer_kq_lcs',
+                  value: '六参数监测',
+                  src:'static/imgs/mues/sixzb/gdycw.png',
+                  checkedSrc:'static/imgs/mues/sixzb/gdycw.png'
+              },
+              {
+                  name: 'layer_kq_gsx',
+                  value: 'β射线扬尘',
+                  src:'static/imgs/mues/sixzb/btw.png',
+                  checkedSrc:'static/imgs/mues/sixzb/btz.png'
+              },
+//              {
+//                  name: 'layer_kq_tvo',
+//                  value: 'TVOC监测',
+//                  src:'static/imgs/mues/sixzb/vocw.png',
+//                  checkedSrc:'static/imgs/mues/sixzb/vocz.png'
+//              }
+          ],
+          VDtargets:[
+              {
+                  name: 'layer_vd_slw',
+                  value: '散乱污企业',
+                  src:'static/imgs/mues/video/voc.png',
+                  checkedSrc:'static/imgs/mues/video/voc.png'
+              },
+              {
+                  name: 'layer_vd_voc',
+                  value: 'VOCs企业',
+                  src:'static/imgs/mues/video/gdyc.png',
+                  checkedSrc:'static/imgs/mues/video/gdyc.png'
+              },
+              {
+                  name: 'layer_vd_gd',
+                  value: '工地扬尘',
+                  src:'static/imgs/mues/video/slw.png',
+                  checkedSrc:'static/imgs/mues/video/slw.png'
+              },
+              {
+                  name: 'layer_vd_gkw',
+                  value: '高空五公里',
+                  src:'static/imgs/mues/video/gkw.png',
+                  checkedSrc:'static/imgs/mues/video/gkw.png'
+              }
+          ]
       };
     },
     created(){},
     mounted(){},
     methods:{
       liClick(e){
+        let t = this;
         let childElement = e.currentTarget;
         let imgElement = childElement.querySelector('img');
         let index = childElement.getAttribute('data-index');
@@ -78,21 +149,65 @@
         let targets = this.$data.targets;
         let item = targets[index];
         let hasChecked = false;
+//        if(index == 0){
+//            t.kongqi = !t.kongqi;
+//        }
+//        if(index == 4){
+//              t.shiping = !t.shiping;
+//        }
         imgElement.getAttribute('src') !== item.src ? (imgElement.src=item.src,childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc,childElement.style.backgroundColor = '#1080cc',hasChecked=true);
         bus.$emit('targetMainLayer',type,hasChecked);
-      }
+      },
+        OKQClick(e){
+            let childElement = e.currentTarget;
+            let imgElement = childElement.querySelector('img');
+            let index = childElement.getAttribute('data-index');
+            let type = childElement.getAttribute('data-type');
+            let targets = this.$data.KQtargets;
+            let item = targets[index];
+            let hasChecked = false;
+            imgElement.getAttribute('src') !== item.src ? (imgElement.src=item.src,childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc,childElement.style.backgroundColor = '#1080cc',hasChecked=true);
+//            bus.$emit('targetMainLayer',type,hasChecked);
+        },
+        OVDClick(e){
+            let childElement = e.currentTarget;
+            let imgElement = childElement.querySelector('img');
+            let index = childElement.getAttribute('data-index');
+            let type = childElement.getAttribute('data-type');
+            let targets = this.$data.VDtargets;
+            let item = targets[index];
+            let hasChecked = false;
+            imgElement.getAttribute('src') !== item.src ? (imgElement.src=item.src,childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc,childElement.style.backgroundColor = '#1080cc',hasChecked=true);
+//            bus.$emit('targetMainLayer',type,hasChecked);
+        }
     },
     components:{MainHandle}
   };
 </script>
-<style scoped>
+<style lang="scss" scoped>
   .main-layer {
     position: absolute;
     left: 0;
-    top: 80px;
+    top:50px;
     z-index: 1;
   }
+  .kqworp{
+    position: absolute;
+    top:26px;
+    left:100px;
+    color: #fff;
 
+  }
+  .vdworp{
+    position: absolute;
+    top:168px;
+    left:100px;
+    color: #fff;
+    img{
+      width: 15px!important;
+      height: 15px!important;
+    }
+  }
   .main-layer-handle {
     width: 100px;
     background: #fff;
