@@ -66,7 +66,7 @@
           case 'LAYER_CG':
           case 'LAYER_CGQ_LCS':
           case 'LAYER_CGQ_GSX':
-            pmsKey = uppercaseType === 'LAYER_CG' ? undefined : (uppercaseType === 'LAYER_CGQ_LCS' ? '' : (uppercaseType === 'LAYER_CGQ_GSX' ? '' : (uppercaseType === 'LAYER_CGQ_VOC' ? '' : undefined)))
+            pmsKey = uppercaseType === 'LAYER_CG' ? undefined : (uppercaseType === 'LAYER_CGQ_LCS' ? '' : (uppercaseType === 'LAYER_CGQ_GSX' ? '' : (uppercaseType === 'LAYER_CGQ_VOC' ? '' : undefined)));
             url = RequestHandle.getRequestUrl('SENSEPOLLUTION');
             pmsKey && (pms = {key: pmsKey});
             fieldName = 'aqi';
@@ -260,6 +260,7 @@
           let ptType = attributes.ptType;
           switch (ptType.toUpperCase()) {
             case 'LAYER_CG':
+            case 'LAYER_CGQ_LCS':
               res = t.setCGInfoWindow(attributes);
               charUrl = RequestHandle.getRequestUrl('SENSECHART');
               pms = {stationid: attributes.stationid, pollute: 'AQI'};
@@ -307,6 +308,7 @@
             let data = result.obj;
             switch (ptType.toUpperCase()) {
               case 'LAYER_CG':
+              case 'LAYER_CGQ_LCS':
                 t.setCGChart(attributes.stationid, data.hourdatas);
                 break;
               case 'LAYER_GS':
