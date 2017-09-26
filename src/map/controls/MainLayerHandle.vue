@@ -34,34 +34,28 @@
         shiping: false,
         targets: [
           {
-            name: 'layer_cg',
-            value: '空气传感器',
+            name: 'layer_cg_z',
+            value: '空气传感器监测',
             src: 'static/imgs/main/cg.png',
             checkedSrc: 'static/imgs/main/cg_c.png'
           }, {
             name: 'layer_gs',
-            value: '国省控点',
+            value: '国省控监测',
             src: 'static/imgs/main/gs.png',
             checkedSrc: 'static/imgs/main/gs_c.png'
           },
           {
             name: 'layer_gd',
-            value: '工地',
+            value: '工地扬尘监测',
             src: 'static/imgs/main/gd.png',
             checkedSrc: 'static/imgs/main/gd_c.png'
           },
           {
             name: 'layer_qy',
-            value: '企业',
+            value: '企业污染源监测',
             src: 'static/imgs/main/qy.png',
             checkedSrc: 'static/imgs/main/qy_c.png'
           },
-//        {
-//          name: 'layer_qy',
-//          value: '企业',
-//          src:'static/imgs/main/qy.png',
-//          checkedSrc:'static/imgs/main/qy_c.png'
-//        },
           {
             name: 'layer_sp',
             value: '视频',
@@ -71,21 +65,21 @@
           ,
           {
             name: 'layer_lk',
-            value: '路况',
+            value: '道路路况',
             src: 'static/imgs/main/lk.png',
             checkedSrc: 'static/imgs/main/lk_c.png'
           }
           ,
           {
             name: 'layer_zt',
-            value: '渣土车',
+            value: '渣土车GPS',
             src: 'static/imgs/main/zt.png',
             checkedSrc: 'static/imgs/main/zt_c.png'
           }
           ,
           {
             name: 'layer_hw',
-            value: '环卫车',
+            value: '环卫车GPS',
             src: 'static/imgs/main/hw.png',
             checkedSrc: 'static/imgs/main/hw_c.png'
           }
@@ -100,20 +94,12 @@
         //
         KQtargets: [
           {
-            name: 'layer_kq_lcs',
+            name: 'layer_cg',
             value: '六参数监测',
             parentName: 'layer_cg',
             parentIndex: '0',
             src: 'static/imgs/mues/sixzb/gdycw.png',
             checkedSrc: 'static/imgs/mues/sixzb/gdycw_c.png'
-          },
-          {
-            name: 'layer_kq_gsx',
-            parentName: 'layer_cg',
-            parentIndex: '0',
-            value: 'β射线扬尘',
-            src: 'static/imgs/mues/sixzb/btw.png',
-            checkedSrc: 'static/imgs/mues/sixzb/btw_c.png'
           },
           {
             name: 'layer_voc',
@@ -123,12 +109,6 @@
             src: 'static/imgs/mues/sixzb/vocw.png',
             checkedSrc: 'static/imgs/mues/sixzb/vocw_c.png'
           }
-//              {
-//                  name: 'layer_kq_tvo',
-//                  value: 'TVOC监测',
-//                  src:'static/imgs/mues/sixzb/vocw.png',
-//                  checkedSrc:'static/imgs/mues/sixzb/vocz.png'
-//              }
         ],
         VDtargets: [
           {
@@ -207,7 +187,7 @@
         let hasParentChecked = this.hasCheckedChildElement('KQ') || false;
         this.setParentStates(parentIndex, hasParentChecked, parentName);
 
-//            bus.$emit('targetMainLayer',type,hasChecked);
+           bus.$emit('targetMainLayer',type,hasChecked);
       },
       OVDClick(e){
         let childElement = e.currentTarget;
@@ -220,7 +200,7 @@
         let item = targets[index];
         let hasChecked = false;
         imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
-//            bus.$emit('targetMainLayer',type,hasChecked);
+           bus.$emit('targetMainLayer',type,hasChecked);
 
         let hasParentChecked = this.hasCheckedChildElement('SP') || false;
         this.setParentStates(parentIndex, hasParentChecked, parentName);
@@ -262,7 +242,7 @@
   .kqworp {
     position: absolute;
     top: 26px;
-    left: 100px;
+    left: 134px;
     color: #fff;
 
   }
@@ -270,7 +250,7 @@
   .vdworp {
     position: absolute;
     top: 168px;
-    left: 100px;
+    left: 134px;
     color: #fff;
 
   img {
@@ -280,7 +260,7 @@
 
   }
   .main-layer-handle {
-    width: 100px;
+    width: 134px;
     background: #fff;
     color: #1080cc;
     border: solid 1px #1080cc;
@@ -292,7 +272,7 @@
     -moz-border-radius: 1px;
     border-radius: 1px;
     border: solid 1px #1080CC;
-    width: 100px;
+    width: 134px;
     color: #fff;
   }
 
@@ -303,7 +283,7 @@
     background-color: rgba(0, 79, 137, 0.6);
     list-style: none;
     line-height: 30px;
-    width: 98px;
+    width: 132px;
     padding: 0;
     cursor: pointer;
   }
