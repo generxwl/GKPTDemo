@@ -12,7 +12,74 @@
                         <a id="shishi" >网络污染源数量超标统计</a>
                         <div class="xian"></div>
                     </div>
-
+                    <!---->
+                    <div class="table_container">
+                        <el-table
+                                :data="tableList"
+                                border
+                                stripe
+                                highlight-current-row
+                                @current-change="RowCurrentChange"
+                                style="width: 400px">
+                            <el-table-column
+                                    property="NetworkName"
+                                    label="网络名称"
+                                    width="100">
+                            </el-table-column>
+                            <el-table-column
+                                    property="PollutionSourceNum"
+                                    label="污染源数量"
+                                    width="140">
+                            </el-table-column>
+                            <el-table-column
+                                    property="PollutionSourceCBNum"
+                                    label="污染源超标数量"
+                                    >
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                    <!---->
+                    <div class="table_container">
+                        <el-table
+                                :data="tableData"
+                                border
+                                stripe
+                                highlight-current-row
+                                @current-change="RowCurrentChange"
+                                style="width: 400px">
+                            <el-table-column
+                                    property="NetworkName"
+                                    label="网络名称"
+                                    width="120">
+                            </el-table-column>
+                            <el-table-column
+                                    property="Name"
+                                    label="名称"
+                                    width="100">
+                            </el-table-column>
+                            <el-table-column
+                                    property="EmploymentRate"
+                                    label="超标率"
+                                    width="80">
+                            </el-table-column>
+                            <el-table-column
+                                    property="TheAverage"
+                                    :label="labelType"
+                                    >
+                            </el-table-column>
+                        </el-table>
+                        <!--分页条-->
+                        <div class="Pagination" style="text-align: left;margin-top: 10px;">
+                            <el-pagination
+                                    @size-change="handleSizeChange"
+                                    @current-change="handleCurrentChange"
+                                    :current-page="currentPage"
+                                    :page-size="pagesize"
+                                    layout="total, prev, pager, next"
+                                    :total="totalCount">
+                            </el-pagination>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,8 +95,69 @@
             return {
                 zuo:false,
                 you:true,
-                tableData:[],
+                tableData:[
+                    {
+                        NetworkName:'开发区梨园村一区',
+                        Name:'广炎热力',
+                        EmploymentRate:'45%',
+                        TheAverage:'41'
+                    },
+                    {
+                        NetworkName:'开发区梨园村一区',
+                        Name:'广炎热力',
+                        EmploymentRate:'45%',
+                        TheAverage:'41'
+                    },
+                    {
+                        NetworkName:'开发区梨园村一区',
+                        Name:'广炎热力',
+                        EmploymentRate:'45%',
+                        TheAverage:'41'
+                    },
+                    {
+                        NetworkName:'开发区梨园村一区',
+                        Name:'广炎热力',
+                        EmploymentRate:'45%',
+                        TheAverage:'41'
+                    },
+                    {
+                        NetworkName:'开发区梨园村一区',
+                        Name:'广炎热力',
+                        EmploymentRate:'45%',
+                        TheAverage:'41'
+                    },
+                    {
+                        NetworkName:'开发区梨园村一区',
+                        Name:'广炎热力',
+                        EmploymentRate:'45%',
+                        TheAverage:'41'
+                    },
+                    {
+                        NetworkName:'开发区梨园村一区',
+                        Name:'广炎热力',
+                        EmploymentRate:'45%',
+                        TheAverage:'41'
+                    }
+                ],
+                tableList:[
+                    {
+                        NetworkName:'开发区',
+                        PollutionSourceNum:'66',
+                        PollutionSourceCBNum:'16'
+                    },
+                    {
+                        NetworkName:'广阳区',
+                        PollutionSourceNum:'66',
+                        PollutionSourceCBNum:'16'
+                    },
+                    {
+                        NetworkName:'安次区',
+                        PollutionSourceNum:'66',
+                        PollutionSourceCBNum:'16'
+                    }
+                ],
                 allData:[],
+                labelType:"NOX排放量",
                 currentRow: null,
                 pagesize: 10,
                 currentPage: 1,
@@ -212,6 +340,10 @@
         position: absolute;
         top: 50px;
         right: 0;
+        .table_container {
+            margin-left: 16px;
+            margin-top: 20px;
+        }
         #list {
             background: #fff;
             position: fixed;
