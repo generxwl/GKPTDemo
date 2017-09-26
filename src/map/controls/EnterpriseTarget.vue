@@ -10,7 +10,7 @@
 </template>
 <script>
   import {bus} from '@/js/bus.js'
-  import EnterpriseHandle from '@/map/handle/EnterpriseHandle'
+  import EnterpriseHandle from '@/map/handle/EnterpriseHandel'
   export default {
     name: 'EnterpriseTarget',
     data () {

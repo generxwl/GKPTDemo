@@ -2,14 +2,13 @@
     <div class="videos">
         <!--企业监测-->
         <v-header></v-header>
-        <video-map></video-map>
+        <enterprise-map></enterprise-map>
         <paneldata-enterprise></paneldata-enterprise>
     </div>
 </template>
 <script>
-    import VideoCtrl from '@/components/VideoCtrl'
     import PaneldataEnterprise from '@/components/Paneldata-enterprise'
-    import VideoMap from '@/map/VideoMap' //0809
+    import EnterpriseMap from '@/map/EnterpriseMap' //0809
     export default {
         name:'videos',
         data(){
@@ -32,7 +31,7 @@
         methods: {
             // 所有方法
         },
-        components: {VideoCtrl,PaneldataEnterprise,VideoMap}//0809
+        components: {PaneldataEnterprise,EnterpriseMap}//0809
 
     };
 </script>
