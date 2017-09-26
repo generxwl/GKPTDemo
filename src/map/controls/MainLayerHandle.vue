@@ -100,7 +100,7 @@
         //
         KQtargets: [
           {
-            name: 'layer_kq_lcs',
+            name: 'layer_cgq_lcs',
             value: '六参数监测',
             parentName: 'layer_cg',
             parentIndex: '0',
@@ -108,7 +108,7 @@
             checkedSrc: 'static/imgs/mues/sixzb/gdycw_c.png'
           },
           {
-            name: 'layer_kq_gsx',
+            name: 'layer_cgq_gsx',
             parentName: 'layer_cg',
             parentIndex: '0',
             value: 'β射线扬尘',
@@ -116,7 +116,7 @@
             checkedSrc: 'static/imgs/mues/sixzb/btw_c.png'
           },
           {
-            name: 'layer_voc',
+            name: 'layer_cgq_voc',
             value: 'TVOC监测',
             parentName: 'layer_cg',
             parentIndex: '0',
@@ -132,7 +132,7 @@
         ],
         VDtargets: [
           {
-            name: 'layer_vd_slw',
+            name: 'layer_sp_slw',
             value: '散乱污企业',
             parentName: 'layer_sp',
             parentIndex: '4',
@@ -140,7 +140,7 @@
             checkedSrc: 'static/imgs/mues/video/voc_c.png'
           },
           {
-            name: 'layer_vd_voc',
+            name: 'layer_sp_voc',
             value: 'VOCs企业',
             parentName: 'layer_sp',
             parentIndex: '4',
@@ -148,7 +148,7 @@
             checkedSrc: 'static/imgs/mues/video/gdyc_c.png'
           },
           {
-            name: 'layer_vd_gd',
+            name: 'layer_sp_gd',
             parentName: 'layer_sp',
             parentIndex: '4',
             value: '工地扬尘',
@@ -156,7 +156,7 @@
             checkedSrc: 'static/imgs/mues/video/slw_c.png'
           },
           {
-            name: 'layer_vd_gkw',
+            name: 'layer_sp_gkw',
             value: '高空五公里',
             parentName: 'layer_sp',
             parentIndex: '4',
@@ -180,10 +180,10 @@
         let targets = this.$data.targets;
         let item = targets[index];
         let hasChecked = false;
-        if (index == 0) {
+        if (parseInt(index) === 0) {
           t.kongqi = !t.kongqi;
         }
-        else if (index == 4) {
+        else if (parseInt(index) === 4) {
           t.shiping = !t.shiping;
         }
         else {
@@ -207,7 +207,7 @@
         let hasParentChecked = this.hasCheckedChildElement('KQ') || false;
         this.setParentStates(parentIndex, hasParentChecked, parentName);
 
-//            bus.$emit('targetMainLayer',type,hasChecked);
+        bus.$emit('targetMainLayer', type, hasChecked);
       },
       OVDClick(e){
         let childElement = e.currentTarget;
@@ -220,10 +220,10 @@
         let item = targets[index];
         let hasChecked = false;
         imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
-//            bus.$emit('targetMainLayer',type,hasChecked);
 
         let hasParentChecked = this.hasCheckedChildElement('SP') || false;
         this.setParentStates(parentIndex, hasParentChecked, parentName);
+        bus.$emit('targetMainLayer', type, hasChecked);
       },
       setParentStates(index, hasChecked, name){
         let item = this.$data.targets[index];
