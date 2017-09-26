@@ -64,7 +64,7 @@
       },
       resetImg(){
         let targets = this.$data.targets;
-        jQuery.find('.video-target-content li').forEach(function (value, index) {
+        jQuery.find('.enterprise-target-content li').forEach(function (value, index) {
           value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)';
         });
       }

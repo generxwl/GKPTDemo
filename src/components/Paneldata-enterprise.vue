@@ -19,7 +19,6 @@
                                 border
                                 stripe
                                 highlight-current-row
-                                @current-change="RowCurrentChange"
                                 style="width: 400px">
                             <el-table-column
                                     property="NetworkName"
@@ -196,13 +195,6 @@
                     flag = true;
                 }
             })
-            //视频进度图
-            setTimeout(function () {
-                that.yuantuset1();
-                that.yuantuset2();
-                that.yuantuset3();
-                that.yuantuset4()
-            }, 500)
         },
         methods: {
             initlistData(data){
@@ -232,6 +224,7 @@
                 this.setPageTable(10,val);
                 //console.log(val)
             },
+            handleSizeChange(){},
             //分页部分功能
             getPointByType(type){
                 let rtValue = [];
