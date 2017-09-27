@@ -139,7 +139,7 @@
           case 'AQI':
             index = getAQILevelIndex(value);
             break;
-          case 'PM2.5':
+          case 'PM25':
             index = getPM25LevelIndex(value);
             break;
           case 'PM10':

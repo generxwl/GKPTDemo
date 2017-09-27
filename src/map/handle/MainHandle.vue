@@ -542,7 +542,7 @@
           let icon = new BMap.Icon(imgUrl, new BMap.Size(25, 25));
           marker = new BMap.Marker((lyType.toUpperCase() === 'LAYER_SP' || lyType.toUpperCase() === 'LAYER_SP_VOC') ? conPoint : pt, {
             icon: icon,
-            offset: new BMap.Size(0, -16)
+            offset: new BMap.Size(0, 0)
           });
         }
         return marker;
