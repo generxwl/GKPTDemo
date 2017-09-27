@@ -199,6 +199,20 @@
                 this.allData = this.ALLdata;
                 this.setPageTable(10, 1);
             },
+            ArrayQC(array){
+                let a = array;
+                let map = {};
+                let b = [];
+                for (var i = 0; i < a.length; i++) {
+                    var ai = a[i],
+                        key = ai.stationname;
+                    if (!map[key]) {
+                        b.push(ai);
+                        map[key] = ai;
+                    }
+                }
+                return b
+            },
             //type更改
             refreshTable(type){
                 this.type = type;
@@ -213,8 +227,8 @@
             },
             //设置分页所需要数据
             SetDataList(data, type){
-                this.data = data;
-                console.log(this.data);
+                this.data = this.ArrayQC(data);
+                //console.log(this.data);
                 this.ALLdata = [];
                 let i = 1;
                 let dt1 = this.getPointByType(this.ptType);
@@ -227,7 +241,6 @@
                     tableData.latitude = item.latitude;//纬度
                     tableData.longitude = item.longitude;//经度
                     tableData.aqi = item[type.toLowerCase()];//数值
-                    // console.log(this.getPollution(tableData.aqi))
                     this.ALLdata.push(tableData);
                 })
             },
