@@ -6,21 +6,21 @@
         {{layers[0].name}}
         <!--<input data-attr="0" title="" @click="radioClick" name="layer" type="radio" checked/>{{layers[0].name}}-->
         <!--<div class="block layerSwitch-slider">-->
-          <!--<el-slider id="slider_0" data-attr="0" v-model="sliderValue0" :disabled="disabledSlider0" @change="sliderChangeEvent"></el-slider>-->
+        <!--<el-slider id="slider_0" data-attr="0" v-model="sliderValue0" :disabled="disabledSlider0" @change="sliderChangeEvent"></el-slider>-->
         <!--</div>-->
       </li>
       <li :id="layers[1].id" data-attr="1" @click="radioClick">
         {{layers[1].name}}
         <!--<input data-attr="1" title="" @click="radioClick" name="layer" type="radio"/>{{layers[1].name}}-->
         <!--<div class="block layerSwitch-slider">-->
-          <!--<el-slider id="slider_1" data-attr="1" v-model="sliderValue1" :disabled="disabledSlider1" @change="sliderChangeEvent"></el-slider>-->
+        <!--<el-slider id="slider_1" data-attr="1" v-model="sliderValue1" :disabled="disabledSlider1" @change="sliderChangeEvent"></el-slider>-->
         <!--</div>-->
       </li>
       <li :id="layers[2].id" data-attr="2" @click="radioClick">
         {{layers[2].name}}
         <!--<input data-attr="2" title="" @click="radioClick" name="layer" type="radio"/>{{layers[2].name}}-->
         <!--<div class="block layerSwitch-slider">-->
-          <!--<el-slider id="slider_2" data-attr="2" v-model="sliderValue2" :disabled="disabledSlider2" @change="sliderChangeEvent"></el-slider>-->
+        <!--<el-slider id="slider_2" data-attr="2" v-model="sliderValue2" :disabled="disabledSlider2" @change="sliderChangeEvent"></el-slider>-->
         <!--</div>-->
       </li>
     </ul>
@@ -67,13 +67,20 @@
       ready() {
       },
       radioClick(e) {
-        let ckLayerId = e.target.getAttribute('data-attr');
-        bus.$emit('setVisible', ckLayerId);
-        bus.$emit('setLabelVisible', ckLayerId);
+        this.resetLi();
+        let el = e.target;
+        let qel = jQuery(el);
+        let ckLayerId = el.getAttribute('data-attr');
+
         this.setSliderDisable(ckLayerId);
         this.checkedId = ckLayerId;
-        $(e.target).addClass('layer-checked').siblings().removeClass('layer-checked');
-      }, setSliderDisable(id){
+        let hasChecked = false;
+        qel.hasClass('layer-checked') ? (qel.removeClass('layer-checked')) : (qel.addClass('layer-checked').siblings().removeClass('layer-checked'),hasChecked=true);
+        bus.$emit('setVisible', ckLayerId,hasChecked);
+        bus.$emit('setLabelVisible', ckLayerId);
+        //$(e.target).addClass('layer-checked').siblings().removeClass('layer-checked');
+      },
+      setSliderDisable(id){
         this.disabledSlider0 = true;
         this.disabledSlider1 = true;
         this.disabledSlider2 = true;
@@ -87,6 +94,11 @@
       },
       sliderChangeEvent(e){
         bus.$emit('setOpacity', this.checkedId, e === 100 ? 0.001 : 1.0 - e / 100)
+      },
+      resetLi(){
+        jQuery.find('.dust-target-content li').forEach(function (value, index) {
+          value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)';
+        });
       }
     },
     components: {BdPolygon, BdLabel}
@@ -109,7 +121,7 @@
     /*display: inline-block;*/
     vertical-align: middle;
     margin: 0 5px;
-    display:none;
+    display: none;
     background: url('/static/imgs/map/layer.png') no-repeat;
   }
 
@@ -119,7 +131,7 @@
     text-align: center;
     margin: 0;
     background-color: #fff;
-    font-size:12px;
+    font-size: 12px;
   }
 
   .layerSwitch li span {
@@ -139,7 +151,7 @@
   }
 
   .layerSwitch li {
-    width:60px;
+    width: 60px;
     list-style-type: none;
     text-align: center;
     font-size: 12px;
@@ -147,15 +159,15 @@
     border-radius: 0;
     color: #fff;
     padding: 1px 5px;
-    line-height:30px;
+    line-height: 30px;
     background-color: rgba(0, 79, 137, 0.6);
   }
 
-  .layerSwitch li:hover{
-   cursor:pointer;
+  .layerSwitch li:hover {
+    cursor: pointer;
   }
 
-  .layer-checked{
+  .layer-checked {
     background-color: #1080cc !important;
   }
 
