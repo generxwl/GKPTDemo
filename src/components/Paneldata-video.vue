@@ -64,9 +64,20 @@
                                     label="监控类型">
                             </el-table-column>
                         </el-table>
+                        <!--分页条-->
+                        <div class="Pagination" style="text-align: left;margin-top: 10px;">
+                            <el-pagination
+                                    @size-change="handleSizeChange"
+                                    @current-change="handleCurrentChange"
+                                    :current-page="currentPage"
+                                    :page-size="pagesize"
+                                    layout="total, prev, pager, next"
+                                    :total="totalCount">
+                            </el-pagination>
+                        </div>
                     </div>
                     <div class="zhichi">
-                        <p>技术支持单位，开发区管委会，广阳区政府，安次区政府，市建设局</p>
+                        <p>技术支持单位：开发区管委会，广阳区政府，安次区政府，市建设局</p>
                     </div>
                 </div>
             </div>
