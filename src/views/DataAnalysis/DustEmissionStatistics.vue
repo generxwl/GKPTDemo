@@ -224,7 +224,7 @@
 					})
 					return
 				}
-				console.log(this.upData)
+				//console.log(this.upData)
 
 				//获取数据
 				this.initlistData(this.upData)
@@ -336,8 +336,8 @@
 			bingtucanvas(res) {
 				var data = res.data.ExtraData
                 data = typeof data === 'string' ? JSON.parse(data) : data;
-				console.log('canvas数据')
-				console.log(data)
+				//console.log('canvas数据')
+				//console.log(data)
 				let canvas = document.getElementById("wcanvas");
 				canvas.border = "1px solid #000";
 				canvas.backgroundColor = "#FFFFFF";
@@ -351,7 +351,7 @@
 					data[i].color = color.pop()
 				}
 				this.colorArr = data
-				console.log(data)
+				//console.log(data)
 
 				let tempAngle = -90;
 				for(let i = 0; i < data.length; i++) {
@@ -381,7 +381,7 @@
 					//console.log(res)
 					let dt = res.data.ExtraData || '';
                     dt = typeof dt === 'string' ? JSON.parse(dt) : dt;
-					console.table(dt)
+					//console.table(dt)
 					this.totalCount = dt.length;
 					this.allData = dt;
 					this.setPageTable(10, 1);
