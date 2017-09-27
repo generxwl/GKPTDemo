@@ -69,12 +69,12 @@
           })
         }
       },
-      setLayerVisible(index) {
+      setLayerVisible(index,hasVisible) {
         this.setLayerHide();
         let layer = this.layers[index];
         let geometry = layer.geometry;
         for (let i = 0, length = geometry.length; i < length; i++) {
-          geometry[i].show();
+          hasVisible ? geometry[i].show() : geometry[i].hide();
         }
       },
       setOpacity(index, opacity){
