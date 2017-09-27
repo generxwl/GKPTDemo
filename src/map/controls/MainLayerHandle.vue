@@ -19,6 +19,13 @@
         <span>{{item.value}}</span>
       </li>
     </ol>
+    <a href="https://auth.ys7.com/signIn?from=509cb5ddedd147e486fb&r=1767655759&returnUrl=https%3A%2F%2Fys7.com%2F%3FloginRedirect%3D1&host=www.ys7.com%2Flogin%2F"
+       class="ACvideo"
+       target="view_window"
+        v-show="aclink"
+    >
+      查看安次区污染源企业视频
+    </a>
     <main-handle></main-handle>
   </div>
 </template>
@@ -32,6 +39,7 @@
       return {
         kongqi: false,
         shiping: false,
+        aclink:false,
         targets: [
           {
             name: 'layer_cg',
@@ -198,6 +206,7 @@
         bus.$emit('targetMainLayer', type, hasChecked);
       },
       OVDClick(e){
+        let t = this;
         let childElement = e.currentTarget;
         let imgElement = childElement.querySelector('img');
         let index = childElement.getAttribute('data-index');
@@ -207,6 +216,9 @@
         let targets = this.$data.VDtargets;
         let item = targets[index];
         let hasChecked = false;
+        if (parseInt(index) === 0) {
+              t.aclink = !t.aclink;
+        }
         imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
         let hasParentChecked = this.hasCheckedChildElement('SP') || false;
         this.setParentStates(parentIndex, hasParentChecked, parentName);
@@ -253,7 +265,16 @@
     color: #fff;
 
   }
-
+  .ACvideo{
+      position: fixed;
+      display: inline-block;
+      padding: 5px 15px;
+      color: #fff;
+      background:rgba(0, 79, 137, 0.6) ;
+      left: 50%;
+      bottom:20px ;
+      margin-left: -140px;
+  }
   .vdworp {
     position: absolute;
     top: 168px;

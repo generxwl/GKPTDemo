@@ -57,7 +57,7 @@
                             <el-table-column
                                     prop="VideoName"
                                     label="视频名称"
-                                    width="170">
+                                    width="220">
                             </el-table-column>
                             <el-table-column
                                     prop="MonitoringType"
@@ -67,7 +67,6 @@
                         <!--分页条-->
                         <div class="Pagination" style="text-align: left;margin-top: 10px;">
                             <el-pagination
-                                    @size-change="handleSizeChange"
                                     @current-change="handleCurrentChange"
                                     :current-page="currentPage"
                                     :page-size="pagesize"
@@ -77,7 +76,7 @@
                         </div>
                     </div>
                     <div class="zhichi">
-                        <p>技术支持单位：开发区管委会，广阳区政府，安次区政府，市建设局</p>
+                        <p style="color: #666;padding-top: 10px">技术支持单位：开发区管委会，广阳区政府，安次区政府，市建设局</p>
                     </div>
                 </div>
             </div>
@@ -490,6 +489,17 @@
                         fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                 return fmt;
             },
+//            searchData() {
+//                var search = this.filters.name;
+//                if (search) {
+//                    return this.tableData.filter(function(product) {
+//                        return Object.keys(product).some(function(key) {
+//                            return String(product[key]).toLowerCase().indexOf(search) > -1
+//                        })
+//                    })
+//                }
+//                return this.tableData;
+//            },
             search(){//搜索
                 let _this=this;
                 if(this.filters.name){
