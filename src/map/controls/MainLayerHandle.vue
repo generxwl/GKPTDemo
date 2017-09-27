@@ -106,8 +106,10 @@
             value: '六参数监测',
             parentName: 'layer_cg',
             parentIndex: '0',
-            src: 'static/imgs/mues/sixzb/gdycw.png',
-            checkedSrc: 'static/imgs/mues/sixzb/gdycw_c.png'
+            src: 'static/imgs/main/cg.png',
+            checkedSrc: 'static/imgs/main/cg_c.png'
+//            src: 'static/imgs/mues/sixzb/gdycw.png',
+//            checkedSrc: 'static/imgs/mues/sixzb/gdycw_c.png'
           },
 //          {
 //            name: 'layer_cgq_gsx',
@@ -287,9 +289,9 @@
       padding: 5px 15px;
       color: #fff;
       background:rgba(0, 79, 137, 0.6) ;
-      left: 50%;
-      bottom:20px ;
-      margin-left: -140px;
+      left: calc(50% - 100px);
+      bottom:20px;
+      /*margin-left: auto;*/
   }
   .vdworp {
     position: absolute;
