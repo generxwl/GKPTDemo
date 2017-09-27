@@ -1,7 +1,7 @@
 <template>
   <div class="main-layer">
     <div class="main-layer-handle">筛选监测点</div>
-    <ul>
+    <ul class="warp-box">
       <li v-for="(item,index) in targets" :data-index="index" :data-type="item.name" @click="liClick">
         <img :src="item.src" title=""/>
         <span>{{item.value}}</span>
@@ -44,8 +44,8 @@
           {
             name: 'layer_cg',
             value: '空气传感器监测',
-            src: 'static/imgs/main/cg.png',
-            checkedSrc: 'static/imgs/main/cg_c.png'
+            src: 'static/imgs/main/left.png',
+            checkedSrc: 'static/imgs/main/left.png'
           }, {
             name: 'layer_gs',
             value: '国省控监测',
@@ -67,8 +67,8 @@
           {
             name: 'layer_sp',
             value: '视频',
-            src: 'static/imgs/main/sp.png',
-            checkedSrc: 'static/imgs/main/sp_c.png'
+            src: 'static/imgs/main/left.png',
+            checkedSrc: 'static/imgs/main/left.png'
           }
           ,
           {
@@ -256,6 +256,22 @@
     left: 0;
     top: 50px;
     z-index: 1;
+    .warp-box{
+      li:nth-child(1){
+        padding: 2px;
+        img{
+          float: right;
+          padding-right: 6px;
+        }
+      }
+      li:nth-child(5){
+        padding: 2px;
+        img{
+          float: right;
+          padding-right: 6px;
+        }
+      }
+    }
   }
 
   .kqworp {
@@ -277,14 +293,13 @@
   }
   .vdworp {
     position: absolute;
-    top: 168px;
+    top: 167px;
     left: 134px;
     color: #fff;
-
-  img {
-    width: 15px !important;
-    height: 15px !important;
-  }
+    img {
+      width: 15px !important;
+      height: 15px !important;
+    }
 
   }
   .main-layer-handle {
