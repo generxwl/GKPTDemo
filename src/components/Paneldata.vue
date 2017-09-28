@@ -267,7 +267,6 @@
                 uptime:''
             }
         },
-
         created(){
             api.GetLfAirData().then(res => {
                 let shoulist = res.data;
@@ -650,7 +649,6 @@
             handleSizeChange(val) {
                 //this.pagesize = val;
             },
-
             //页码变更
             handleCurrentChange(val) {
                 this.setPageTable(10, val);
@@ -732,7 +730,6 @@
                 return fmt;
             },
             //fangfa
-
         },
         components: {MapHandle}
     }
