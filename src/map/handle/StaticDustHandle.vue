@@ -9,6 +9,7 @@
     },
     data () {
       return {
+        map: undefined,
         markers: [],
         hasVisible: true,
         checkedName: 'AQI',
@@ -31,13 +32,20 @@
     methods: {
       //页面初始化
       ready(){
-        bus.$on('setStaticVisible', this.markerLayerToggle);
-        bus.$on('staticTarget', this.pollutionTarget);
-        bus.$once('staticMap', this.loadMarkerLayer);
-        bus.$on('loadStaticChart', this.refreshLoadChart);
-        bus.$on('staticDust', this.refreshLayer);
+          bus.$on('setStaticMap',this.getMap);
       },
-
+      getMap(map){
+        this.map = map;
+      },
+      loadStaticMarker(){
+        let url = RequestHandle.getRequestUrl('SENSEPOLLUTION');
+        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+          if (result.status === 0) {
+          }
+        }, function (ex) {
+          console.error(ex);
+        });
+      },
       //加载marker数据
       loadMarkerLayer(map, data){
 //        console.log(this.hasVisible);
@@ -87,9 +95,9 @@
             background: 'none',
             fontSize: '14px',
             fontFamily: 'Microsoft YaHei',
-            textShadow:'0 0 2px #fff'
+            textShadow: '0 0 2px #fff'
           });
-          let offsetLength = (''+value.count).length >= 4 ? ((''+value.count).length === 5 ? -2 : 2) : ((''+value.count).length > 1 ? 8 : 12);
+          let offsetLength = ('' + value.count).length >= 4 ? (('' + value.count).length === 5 ? -2 : 2) : (('' + value.count).length > 1 ? 8 : 12);
           label.setOffset(new BMap.Size(offsetLength, -2));
 
           marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = {stationName: value.stationname}, t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
