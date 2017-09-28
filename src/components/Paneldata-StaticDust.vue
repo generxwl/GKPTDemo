@@ -7,7 +7,60 @@
         <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
         <img id="shrink" src="../assets/img/右.png" v-if="you"/>
         <div class="main">
-
+          <!---->
+          <div class="tables">
+            <!--选项-->
+            <a id="shishi" >污染源分类统计</a>
+            <div class="xian"></div>
+          </div>
+          <!---->
+          <div class="table_container">
+            <el-table
+                    :data="tableData"
+                    border
+                    stripe
+                    highlight-current-row
+                    @current-change="RowCurrentChange"
+                    style="width: 400px">
+              <el-table-column
+                      property="NetworkName"
+                      label="网络名称"
+                      width="90">
+              </el-table-column>
+              <el-table-column
+                      property="Name"
+                      label="名称"
+                      width="110">
+              </el-table-column>
+              <el-table-column
+                      property="Industry"
+                      label="行业"
+                      width="70">
+              </el-table-column>
+              <el-table-column
+                      property="Emission"
+                      label="排放物"
+                      width="65">
+              </el-table-column>
+              <el-table-column
+                      property="EmissionAmount"
+                      label="排放量"
+                      width="65"
+              >
+              </el-table-column>
+            </el-table>
+            <!--分页条-->
+            <div class="Pagination" style="text-align: left;margin-top: 10px;">
+              <el-pagination
+                      @size-change="handleSizeChange"
+                      @current-change="handleCurrentChange"
+                      :current-page="currentPage"
+                      :page-size="pagesize"
+                      layout="total, prev, pager, next"
+                      :total="totalCount">
+              </el-pagination>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -27,7 +80,43 @@
         type: 'PM2.5',
         labelType: 'PM2.5',
         ALLdata: [],
-        tableData: [],
+        tableData: [
+            {
+                NetworkName:'梨园村',
+                Name:'廊坊天昊',
+                Industry:'餐饮',
+                Emission:'SO2',
+                EmissionAmount:'42'
+            },
+            {
+                NetworkName:'梨园村',
+                Name:'廊坊天昊',
+                Industry:'餐饮',
+                Emission:'SO2',
+                EmissionAmount:'42'
+            },
+            {
+                NetworkName:'梨园村',
+                Name:'廊坊天昊',
+                Industry:'餐饮',
+                Emission:'SO2',
+                EmissionAmount:'42'
+            },
+            {
+                NetworkName:'梨园村',
+                Name:'廊坊天昊',
+                Industry:'餐饮',
+                Emission:'SO2',
+                EmissionAmount:'42'
+            },
+            {
+                NetworkName:'梨园村',
+                Name:'廊坊天昊',
+                Industry:'餐饮',
+                Emission:'SO2',
+                EmissionAmount:'42'
+            }
+        ],
         allData: [],
         currentRow: null,
         pagesize: 10,
@@ -258,103 +347,52 @@
     top: 50px;
     right: 0;
 
-  #list {
-    background: #fff;
-    position: fixed;
-    width: 437px;
-    height: 100%;
-    top: 51px;
-    right: 0;
-    z-index: 9;
-    box-shadow: 0 0 15px #333333;
+    #list {
+      background: #fff;
+      position: fixed;
+      width: 437px;
+      height: 100%;
+      top: 51px;
+      right: 0;
+      z-index: 9;
+      box-shadow: 0 0 15px #333333;
+      .qianren {
+        position: absolute;
+        left: -96px;
+        top: 64%;
+      }
+      img {
+        position: absolute;
+        top: 40%;
+        left: -17px;
+        cursor: pointer;
+        float: left;
+      }
+      .table_container {
+        margin-top: 30px;
+        margin-left: 16px;
+      }
+      .main {
+        height: auto;
+          .tables{
+            width: 100%;
+            line-height: 38px;
+            a{
+              margin-left: -248px;
+              display: inline-block;
+              font-size: 16px;
+              border-bottom: solid 2px #1080cc;
+              padding: 0 20px;
+              margin-bottom: -2px;
+            }
+            .xian{
+              width: 100%;
+              border:solid 1px #ccc;
+            }
+          }
 
-  .qianren {
-    position: absolute;
-    left: -96px;
-    top: 64%;
-  }
-
-  img {
-    position: absolute;
-    top: 40%;
-    left: -17px;
-    cursor: pointer;
-    float: left;
-  }
-
-  .main {
-    height: auto;
-
-  .kbiaoti {
-    padding: 10px 0px;
-  }
-
-  .bluexian {
-    width: 26px;
-    border: 1px solid #1080cc;
-    margin: 0 auto;
-  }
-
-  .first {
-    width: 100%;
-    height: 44px;
-    margin-top: 30px;
-
-  .tables {
-    float: left;
-    margin-left: 14px;
-
-  a {
-    padding: 0 15px;
-    float: left;
-    text-decoration: none;
-    color: #666;
-    display: inline-block;
-    line-height: 34px;
-    width: 100px;
-    height: 34px;
-    margin-right: 16px;
-    border: solid 1px #ccc;
-    background: #fff;
-    border-radius: 2px;
-  }
-
-  }
-  .shijian {
-    float: left;
-    margin-left: 6px;
-  }
-
-  .btnns {
-    float: left;
-    margin-left: 6px;
-
-  button {
-    border: none;
-    width: 80px;
-    height: 34px;
-    background: #1080cc;
-    color: #fff;
-    border-radius: 4px;
-  }
-
-  }
-  }
-  .tqbiaoti {
-    width: 100%;
-    height: 22px;
-    padding-left: 20px;
-    text-align: left;
-    margin-left: 16px;
-    border-left: solid 3px #2a6496;
-  }
-
-  .table_container {
-    margin-left: 16px;
-  }
-
-  }
-  }
+      }
+    }
   }
 
 
