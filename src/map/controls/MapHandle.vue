@@ -63,6 +63,7 @@
       bus.$once('setMainMap', this.getMap);
       bus.$once('setVideoMap',this.getMap);
       bus.$once('setEnterpriseMap',this.getMap);
+      bus.$once('setStaticMap', this.getMap);
     },
     mounted(){
       let t = this;
