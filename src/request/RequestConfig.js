@@ -16,10 +16,10 @@ export default {
     site: 'http://devgkptplat.zhiscity.com',
     port: '',
     path: '/api'
-  },{
-    site:'http://10.6.80.93',
-    port:'8080',
-    path:'/servicePlatform'
+  }, {
+    site: 'http://10.6.80.93',
+    port: '8080',
+    path: '/servicePlatform'
   }],
   getRequestUrlByType(type){
     let url = undefined;
@@ -37,23 +37,23 @@ export default {
         cf = this.release[0];
         url = cf.site + cf.port + cf.path + '/FcStation/GetFcStationList';
         break;
-        case 'VOCPOLLUTION':
-            cf = this.release[1];
-            // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbPoint';
-            url = cf.site + cf.port + cf.path + '/XhHb/GetXhHbPoint';
-            break;
+      case 'VOCPOLLUTION':
+        cf = this.release[1];
+        // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbPoint';
+        url = cf.site + cf.port + cf.path + '/XhHb/GetXhHbPoint';
+        break;
       case 'SENSECHART':
         cf = this.release[0];
         url = cf.site + cf.port + cf.path + '/FcStation/GetSingleStationInfo';
         break;
-        case 'VOCCHART':
-            cf = this.release[1];
-            // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbHistory';
-            url = cf.site + cf.port + cf.path + '/XhHb/GetXhHbHistory';
-            break;
+      case 'VOCCHART':
+        cf = this.release[1];
+        // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbHistory';
+        url = cf.site + cf.port + cf.path + '/XhHb/GetXhHbHistory';
+        break;
       case 'DUSTPOLLUTION':
         cf = this.release[1];
-        url = cf.site + cf.port + cf.path;
+        url = cf.site + cf.port + cf.path + '/Dust/GetDustHourRanking';
         break;
       case 'DUSTCHART':
         cf = this.release[1];
