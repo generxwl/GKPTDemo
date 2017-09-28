@@ -176,11 +176,11 @@
           case 'HUMI':
             rtValue = 'humi';
             break;
-          case 'WS':
+          case 'WINDSPEED':
             rtValue = 'windspeed';
             break;
-          case 'WD':
-            rtValue = 'wdirection';
+          case 'WINDDIRECTION':
+            rtValue = 'winddirection';
             break;
         }
         //console.log(rtValue);
@@ -198,10 +198,10 @@
           case 'HUMI':
             rtValue = '湿度';
             break;
-          case 'WS':
+          case 'WINDSPEED':
             rtValue = '风级';
             break;
-          case 'WD':
+          case 'WINDDIRECTION':
             rtValue = '风向';
             break;
         }

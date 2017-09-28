@@ -42,12 +42,12 @@
             checked: 'static/imgs/map/湿度1.png'
           }, {
             name: '风向',
-            value: 'WD',
+            value: 'WINDDIRECTION',
             src: 'static/imgs/map/风向.png',
             checked: 'static/imgs/map/风向1.png'
           }, {
             name: '风力',
-            value: 'WS',
+            value: 'WINDSPEED',
             src: 'static/imgs/map/风力.png',
             checked: 'static/imgs/map/风力1.png'
           }

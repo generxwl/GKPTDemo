@@ -193,7 +193,7 @@
                 unit = '%';
                 index = getHumiLevelIndex(value);
                 break;
-              case 'WS':
+              case 'WINDSPEED':
                 if (hourdiff < 2) {
                   value = parseInt(data[i].windspeed);
                 } else {
@@ -202,7 +202,7 @@
                 unit = '级';
                 index = getWindLevelIndex(value);
                 break;
-              case 'WD':
+              case 'WINDDIRECTION':
                 if (hourdiff < 2) {
                   value = parseInt(data[i].winddirection) + '|' + parseInt(data[i].windspeed);
                 } else {
@@ -231,7 +231,7 @@
         let label = new BMap.Label(value + '<div class="arrow" style="width: 0;  height: 0; border-left: 8px solid transparent; border-top: 8px solid; border-right: 8px solid transparent; color:' + bgcolor + '; position: absolute;  margin-top:-2px;margin-left:8px  " ></div>', opts)  // 创建文本标注对象
         let maplevel = this.map.getZoom();
 
-        if (this.item === 'WD') {
+        if (this.item === 'WINDDIRECTION') {
           if (value === 0) {
             return;
           }
@@ -297,7 +297,7 @@
               height: '18px',
               lineHeight: '18px'
             });
-            if (this.item !== 'WD' || maplevel !== 9) {
+            if (this.item !== 'WINDDIRECTION' || maplevel !== 9) {
               this.lsRenderOverlay.push(label_tip);
               this.map.addOverlay(label_tip);
             }
@@ -419,10 +419,10 @@
                 case 'HUMI':
                     rtValue = '湿度';
                     break;
-                case 'WS':
+                case 'WINDSPEED':
                     rtValue = '风级';
                     break;
-                case 'WD':
+                case 'WINDDIRECTION':
                     rtValue = '风向';
                     break;
             }
