@@ -22,13 +22,13 @@
     },
     methods:{
         ready(){
-          let map = new BMap.Map('video_map');
+          let map = new BMap.Map('static_map');
           map.centerAndZoom('廊坊', 10);
           map.enableScrollWheelZoom();
           this.map = map;
 
           map.addEventListener('tilesloaded', function () {
-            bus.$emit('setVideoMap', map);
+            bus.$emit('setStaticMap', map);
           });
         }
     },
