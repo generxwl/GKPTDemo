@@ -4,7 +4,6 @@
             <!--环境监测-->
             <div class="logo">
                 <img src="../assets/img/logo.png" alt="logo">
-
             </div>
             <div style="color: #fff;float: left;height: 50px;line-height: 72px">2017版</div>
             <ul class="bnav">
