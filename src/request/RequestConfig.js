@@ -16,6 +16,10 @@ export default {
     site: 'http://devgkptplat.zhiscity.com',
     port: '',
     path: '/api'
+  },{
+    site:'http://10.6.80.93',
+    port:'8080',
+    path:'/servicePlatform'
   }],
   getRequestUrlByType(type){
     let url = undefined;
@@ -49,7 +53,7 @@ export default {
             break;
       case 'DUSTPOLLUTION':
         cf = this.release[1];
-        url = cf.site + cf.port + cf.path + '/Dust/GetDustHourRanking';
+        url = cf.site + cf.port + cf.path;
         break;
       case 'DUSTCHART':
         cf = this.release[1];
@@ -58,6 +62,10 @@ export default {
       case 'VIDEOTAEGET':
         cf = this.release[1];
         url = cf.site + cf.port + cf.path + '/Video/GetVideoDeviceInfo';
+        break;
+      case 'STATICTARGET':
+        cf = this.release[2];
+        url = cf.site + ':' + cf.port + cf.path + '/enterprise/allInfo';
         break;
     }
     return url;

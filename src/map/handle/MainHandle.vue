@@ -85,7 +85,6 @@
             fieldName = 'pm25';
             break;
         }
-        pms = {type: 't'};
         let reqPms = undefined;
         if (pms) {
           for (let k in pms) {
@@ -96,7 +95,7 @@
             }
           }
         }
-        let params = {url: url + '?' + (reqPms ? reqPms : ''), type: 'GET', pms: null};
+        let params = {url: url + (reqPms ? ('?' + reqPms) : ''), type: 'GET', pms: null};
         RequestHandle.request(params, function (result) {
 //          if (result.status) {
           t.loadMarker(result.obj, type, fieldName);

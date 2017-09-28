@@ -32,42 +32,25 @@
     methods: {
       //页面初始化
       ready(){
-          bus.$on('setStaticMap',this.getMap);
+          bus.$once('setStaticMap',this.getMap);
       },
       getMap(map){
         this.map = map;
+        this.loadStaticMarker();
       },
       loadStaticMarker(){
-        let url = RequestHandle.getRequestUrl('SENSEPOLLUTION');
-        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-          if (result.status === 0) {
+        let url = RequestHandle.getRequestUrl('STATICTARGET');
+        RequestHandle.request({url: url, type: 'POST', pms: {}}, function (result) {
+          if (result.status === 1) {
+              let data = result.obj;
           }
         }, function (ex) {
           console.error(ex);
         });
       },
       //加载marker数据
-      loadMarkerLayer(map, data){
-//        console.log(this.hasVisible);
-//        this.map = map;
-//        if (!this.data.length) {
-//          this.data = data;
-//          bus.$emit('loadMarkerData', this.data,this.checkedName);
-//        }
-//        let t = this;
-//        let lsMarkers = this.getPollutionByType(this.checkedName);
-//        for (let i = 0, length = lsMarkers.length; i < length; i++) {
-//          let value = lsMarkers[i];
-//          let pt = new BMap.Point(value.lng, value.lat);
-//          let v = value.count;
-//          let marker = t.getMarker(pt, v);
-//          marker && ((t.hasVisible ? marker.show() : marker.hide()), t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
-//            let tg = e.target;
-//            let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
-//            t.markerClick(value.stationid, point);
-//          }));
+      loadMarkerLayer(data){
         this.markers && this.clearMarker();
-        this.map = map;
         this.map && this.map.addOverlay(this.mouseLabel);
         this.mouseLabel.setStyle({
           background: 'none',
@@ -78,7 +61,6 @@
         });
         if (!this.data.length) {
           this.data = data;
-          bus.$emit('loadMarkerData', this.data, this.checkedName);
         }
         let t = this;
         let lsMarkers = this.getPollutionByType(this.checkedName);
@@ -88,7 +70,7 @@
           let v = value.count;
           let marker = t.getMarker(pt, v);
 
-          let label = new BMap.Label(value.count);
+          let label = new BMap.Label(value.entname);
           label.setStyle({
             border: 'none',
             color: '#333',
@@ -185,7 +167,7 @@
       //图标点击事件
       markerClick(code, point){
         let t = this;
-        let charUrl = RequestHandle.getRequestUrl('SENSECHART');
+        let charUrl = RequestHandle.getRequestUrl('STATICTARGET');
         let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
 
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
@@ -228,22 +210,22 @@
         let level = this.getPollutionLeave(value);
         level > 0 && (level -= 1);
         if (level === 0) {
-          imgPath = '/static/imgs/sense/sg1.png';
+          imgPath = '/static/imgs/stcdust/sg1.png';
         }
         else if (level === 2) {
-          imgPath = '/static/imgs/sense/so1.png';
+          imgPath = '/static/imgs/stcdust/so1.png';
         }
         else if (level === 1) {
-          imgPath = '/static/imgs/sense/sy1.png';
+          imgPath = '/static/imgs/stcdust/sy1.png';
         }
         else if (level === 5) {
-          imgPath = '/static/imgs/sense/sm1.png';
+          imgPath = '/static/imgs/stcdust/sm1.png';
         }
         else if (level === 4) {
-          imgPath = '/static/imgs/sense/sv1.png';
+          imgPath = '/static/imgs/stcdust/sv1.png';
         }
         else if (level === 3) {
-          imgPath = '/static/imgs/sense/sr1.png';
+          imgPath = '/static/imgs/stcdust/sr1.png';
         }
         return imgPath;
       },
@@ -252,22 +234,22 @@
       getIconUrl(value){
         let imgPath = undefined;
         if (value > 0 && value <= 10) {
-          imgPath = '/static/imgs/sense/gv1.png';
+          imgPath = '/static/imgs/stcdust/gv1.png';
         }
         else if (value > 10 && value <= 20) {
-          imgPath = '/static/imgs/sense/ov1.png';
+          imgPath = '/static/imgs/stcdust/ov1.png';
         }
         else if (value > 20 && value <= 40) {
-          imgPath = '/static/imgs/sense/yv1.png';
+          imgPath = '/static/imgs/stcdust/yv1.png';
         }
         else if (value > 40 && value <= 60) {
-          imgPath = '/static/imgs/sense/mv1.png';
+          imgPath = '/static/imgs/stcdust/mv1.png';
         }
         else if (value > 60 && value <= 80) {
-          imgPath = '/static/imgs/sense/vv1.png';
+          imgPath = '/static/imgs/stcdust/vv1.png';
         }
         else if (value > 80) {
-          imgPath = '/static/imgs/sense/rv1.png';
+          imgPath = '/static/imgs/stcdust/rv1.png';
         }
         return imgPath;
       },
