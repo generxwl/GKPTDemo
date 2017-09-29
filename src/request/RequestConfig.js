@@ -37,10 +37,20 @@ export default {
         cf = this.release[0];
         url = cf.site + cf.port + cf.path + '/FcStation/GetFcStationList';
         break;
+      case 'XHPOLLUTION':
+        cf = this.release[1];
+        // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbPoint';
+        url = cf.site + cf.port + cf.path + '/XhHb/GetXhHbPointsMicro';
+        break;
+      case 'XHPOLLUTIONCHAR':
+        cf = this.release[1];
+        // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbPoint';
+        url = cf.site + cf.port + cf.path + '/XhHb/GetXhHistoriesMicro';
+        break;
       case 'VOCPOLLUTION':
         cf = this.release[1];
         // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbPoint';
-        url = cf.site + cf.port + cf.path + '/XhHb/GetXhHbPoint';
+        url = cf.site + cf.port + cf.path + '/XhHb/GetXhHbPointsVoc';
         break;
       case 'SENSECHART':
         cf = this.release[0];
@@ -49,7 +59,7 @@ export default {
       case 'VOCCHART':
         cf = this.release[1];
         // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbHistory';
-        url = cf.site + cf.port + cf.path + '/XhHb/GetXhHbHistory';
+        url = cf.site + cf.port + cf.path + '/XhHb/GetXhHistoriesVoc';
         break;
       case 'DUSTPOLLUTION':
         cf = this.release[1];
@@ -62,6 +72,16 @@ export default {
       case 'VIDEOTAEGET':
         cf = this.release[1];
         url = cf.site + cf.port + cf.path + '/Video/GetVideoDeviceInfo';
+        break;
+      case 'XHDUST':
+        cf = this.release[1];
+        // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbPoint';
+        url = cf.site + cf.port + cf.path + '/XhHb/GetXhHbPointsRaise';
+        break;
+      case 'XHDUSTCHAR':
+        cf = this.release[1];
+        // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbPoint';
+        url = cf.site + cf.port + cf.path + '/XhHb/GetXhHistoriesRaise';
         break;
       case 'STATICTARGET':
         cf = this.release[2];

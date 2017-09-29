@@ -47,8 +47,9 @@
         }
       },
       requestData(type){
+        this.lsMarkers.length && this.removeMarkerByList(this.getMarkerByType(type), type);
         let t = this;
-        let url = undefined;
+        let lsUrl = [];
         let fieldName = undefined;
         let pms = undefined;
         let pmsKey = undefined;
@@ -60,29 +61,38 @@
           case 'LAYER_SP_GD':
           case 'LAYER_SP_GKW':
             pmsKey = uppercaseType === 'LAYER_SP' ? undefined : (uppercaseType === 'LAYER_SP_SLW' ? '' : (uppercaseType === 'LAYER_SP_VOC' ? '' : (uppercaseType === 'LAYER_SP_GD' ? '' : (uppercaseType === 'LAYER_SP_GKW' ? '' : undefined))))
-            url = RequestHandle.getRequestUrl('VIDEOTAEGET');
+            let urlSP = RequestHandle.getRequestUrl('VIDEOTAEGET');
             pmsKey && (pms = {key: pmsKey});
+            lsUrl.push(urlSP);
             break;
           case 'LAYER_CG':
           case 'LAYER_CGQ_LCS':
           case 'LAYER_CGQ_GSX':
             pmsKey = uppercaseType === 'LAYER_CG' ? undefined : (uppercaseType === 'LAYER_CGQ_LCS' ? '' : (uppercaseType === 'LAYER_CGQ_GSX' ? '' : (uppercaseType === 'LAYER_CGQ_VOC' ? '' : undefined)));
-            url = RequestHandle.getRequestUrl('SENSEPOLLUTION');
+            let urlLCS = RequestHandle.getRequestUrl('SENSEPOLLUTION');
+            let urlXH = RequestHandle.getRequestUrl('XHPOLLUTION');
             pmsKey && (pms = {key: pmsKey});
             fieldName = 'aqi';
+            lsUrl.push(urlLCS);
+            lsUrl.push(urlXH);
             break;
           case 'LAYER_VOC':
           case 'LAYER_CGQ_VOC':
-            url = RequestHandle.getRequestUrl('VOCPOLLUTION');
+            let urlVOC = RequestHandle.getRequestUrl('VOCPOLLUTION');
             fieldName = 'aqi';
+            lsUrl.push(urlVOC);
             break;
           case 'LAYER_GS':
-            url = RequestHandle.getRequestUrl('MONPOLLUTION');
+            let urlGS = RequestHandle.getRequestUrl('MONPOLLUTION');
             fieldName = 'aqi';
+            lsUrl.push(urlGS);
             break;
           case 'LAYER_GD':
-            url = RequestHandle.getRequestUrl('DUSTPOLLUTION');
+            let urlGD = RequestHandle.getRequestUrl('DUSTPOLLUTION');
+            let urlXHGD = RequestHandle.getRequestUrl('XHDUST');
             fieldName = 'pm25';
+            lsUrl.push(urlGD);
+            lsUrl.push(urlXHGD);
             break;
         }
         let reqPms = undefined;
@@ -95,14 +105,17 @@
             }
           }
         }
-        let params = {url: url + (reqPms ? ('?' + reqPms) : ''), type: 'GET', pms: null};
-        RequestHandle.request(params, function (result) {
+        for (let i = 0, length = lsUrl.length; i < length; i++) {
+          let url = lsUrl[i];
+          let params = {url: url + (reqPms ? ('?' + reqPms) : ''), type: 'GET', pms: null};
+          RequestHandle.request(params, function (result) {
 //          if (result.status) {
-          t.loadMarker(result.obj, type, fieldName);
+            t.loadMarker(result.obj, type, fieldName);
 //          }
-        }, function (e) {
-          console.error(e);
-        });
+          }, function (e) {
+            console.error(e);
+          });
+        }
       },
       targetTrafficLayer(hasVisible){
         if (hasVisible) {
@@ -115,7 +128,6 @@
         }
       },
       loadMarker(data, type, fieldName){
-        this.lsMarkers.length && this.removeMarkerByList(this.getMarkerByType(type), type);
         let t = this;
         for (let i = 0, length = data.length; i < length; i++) {
           let value = data[i];
@@ -261,7 +273,8 @@
             case 'LAYER_CG':
             case 'LAYER_CGQ_LCS':
               res = t.setCGInfoWindow(attributes);
-              charUrl = RequestHandle.getRequestUrl('SENSECHART');
+              let dtCGType = (attributes.hasOwnProperty('dataType') && attributes.dataType) || undefined;
+              charUrl = !dtCGType ? RequestHandle.getRequestUrl('SENSECHART') : RequestHandle.getRequestUrl('XHPOLLUTIONCHAR');
               pms = {stationid: attributes.stationid, pollute: 'AQI'};
               displayName = 'stationname';
               break;
@@ -279,7 +292,8 @@
               break;
             case 'LAYER_GD':
               res = t.setGDInfoWindow(attributes);
-              charUrl = RequestHandle.getRequestUrl('DUSTCHART');
+              let dtGDType = (attributes.hasOwnProperty('dataType') && attributes.dataType) || undefined;
+              charUrl = !dtGDType ? RequestHandle.getRequestUrl('DUSTCHART') : RequestHandle.getRequestUrl('XHDUSTCHAR');
               pms = {deviceid: attributes.deviceid, ptype: 'pm25'};
               displayName = 'name';
               break;
@@ -305,20 +319,22 @@
 
           RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
             let data = result.obj;
-            switch (ptType.toUpperCase()) {
-              case 'LAYER_CG':
-              case 'LAYER_CGQ_LCS':
-                t.setCGChart(attributes.stationid, data.hourdatas);
-                break;
-              case 'LAYER_GS':
-                t.setGSChart(attributes.citygid, data);
-                break;
-              case 'LAYER_GD':
-                t.setGDChart(attributes.deviceid, data[0].valuelist || []);
-                break;
-              case 'LAYER_CGQ_VOC':
-                t.setVOCChart(attributes.StationID, data);
-                break;
+            if(data) {
+              switch (ptType.toUpperCase()) {
+                case 'LAYER_CG':
+                case 'LAYER_CGQ_LCS':
+                  t.setCGChart(attributes.stationid, data.hourdatas);
+                  break;
+                case 'LAYER_GS':
+                  t.setGSChart(attributes.citygid, data);
+                  break;
+                case 'LAYER_GD':
+                  t.setGDChart(attributes.deviceid, data.valuelist || data[0].valuelist || []);
+                  break;
+                case 'LAYER_CGQ_VOC':
+                  t.setVOCChart(attributes.StationID, data);
+                  break;
+              }
             }
           }, function (ex) {
             console.error(ex);
@@ -438,7 +454,7 @@
           + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.humi) + '%'
           + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data.winddirection
           + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.windlevel || 0) + '级'
-          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + (data.time.replace(/T/g, ' ') || '') + '</td></tr></table>'
+          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + (data.time && (data.time.replace(/T/g, ' ')) || '') + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
           + '</tr></table><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;height:110px\'>';

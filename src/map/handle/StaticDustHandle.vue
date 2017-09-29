@@ -40,7 +40,7 @@
       },
       loadStaticMarker(){
         let url = RequestHandle.getRequestUrl('STATICTARGET');
-        RequestHandle.request({url: url, type: 'POST', pms: {}}, function (result) {
+        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
           if (result.status === 1) {
               let data = result.obj;
           }
