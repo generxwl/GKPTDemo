@@ -48,18 +48,18 @@
         let qs = require('qs');
         let mapLevel = this.map.getZoom();
         let bs = this.map.getBounds();
-        //let url = this.pollutionUrl;
-        let url = RequestHandle.getRequestUrl('DUSTPOLLUTION');
-        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-//          console.log(result);
-          if (result.status === 1) {
-            t.data = result.obj;
-            t.render(result.obj, type);
-            bus.$emit('refreshDustRanking', result.obj, type);
-          }
-        }, function (ex) {
-          console.error(ex);
-        });
+//        //let url = this.pollutionUrl;
+//        let url = RequestHandle.getRequestUrl('DUSTPOLLUTION');
+//        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+////          console.log(result);
+//          if (result.status === 1) {
+//            t.data = result.obj;
+//            t.render(result.obj, type);
+//            bus.$emit('refreshDustRanking', result.obj, type);
+//          }
+//        }, function (ex) {
+//          console.error(ex);
+//        });
       },
       getPointByType(type){
         let rtValue = [];

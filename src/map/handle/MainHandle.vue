@@ -94,6 +94,11 @@
             lsUrl.push(urlGD);
             lsUrl.push(urlXHGD);
             break;
+          case 'LAYER_QY':
+//            let urlQY = RequestHandle.getRequestUrl('');
+//            lsUrl.push(urlQY);
+//            fieldName = 'NOX';
+            break;
         }
         let reqPms = undefined;
         if (pms) {
@@ -160,6 +165,8 @@
         let level = 0;
         if (ptType.toUpperCase() === 'LAYER_VOC' || ptType.toUpperCase() === 'LAYER_CGQ_VOC') {
           level = getVOCLeveColorIndex(data.TVOC_V) || 1;
+        } else if (ptType.toUpperCase() === 'LAYER_QY') {
+          level = getNO2LevelIndex(value) || 1;
         } else {
           level = getAQILevelIndex(value) || 1;
         }
@@ -319,7 +326,7 @@
 
           RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
             let data = result.obj;
-            if(data) {
+            if (data) {
               switch (ptType.toUpperCase()) {
                 case 'LAYER_CG':
                 case 'LAYER_CGQ_LCS':
