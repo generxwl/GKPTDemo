@@ -3,9 +3,9 @@
  */
 import {API_ROOT} from './config.js'
 const apiconfig = {
-  devt:'http://devgkptplat.zhiscity.com',//开发环境
+  devt:'http://devgkptplat.zhiscity.com',//正式环境
   devc:'http://devgkptfc.zhiscity.com',
-  formalt:'http://lftdkplat.zhiscity.com',//正式环境
+  formalt:'http://lftdkplat.zhiscity.com',//开发环境
   formalc:'http://lftdkfc.zhiscity.com'
 }
 const apilangfangTDK= {
