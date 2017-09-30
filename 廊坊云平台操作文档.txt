@@ -3,12 +3,12 @@ config---配置静态文件和端口号处，ingdex默认输出
 node_modules---安装依赖文件处
 dist-----打包完生成的文件夹
 src------开发编译根目录
-   1.api----resource文件为配置接口部分
+   1.api----resource文件为配置接口部分（发布前陪配置）
    2.assets---静态文件存放
    3.components---部分小组件
    4.js----bus数据
    5.map----地图部分
-   6.request----地图配置接口部分
+   6.request----地图配置接口部分（发布前陪配置）
    7.router----路由配置
    8.store-----vuex配置
    9.style-----公共样式scss
