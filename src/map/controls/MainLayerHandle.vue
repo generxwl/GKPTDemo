@@ -133,6 +133,7 @@
             name: 'layer_sp_slw',
             value: '散乱污企业',
             parentName: 'layer_sp',
+            from:'4',
             parentIndex: '4',
             src: 'static/imgs/mues/video/voc.png',
             checkedSrc: 'static/imgs/mues/video/voc_c.png'
@@ -141,6 +142,7 @@
             name: 'layer_sp_voc',
             value: 'VOCs企业',
             parentName: 'layer_sp',
+            from:'3',
             parentIndex: '4',
             src: 'static/imgs/mues/video/gdyc.png',
             checkedSrc: 'static/imgs/mues/video/gdyc_c.png'
@@ -218,13 +220,14 @@
         let targets = this.$data.VDtargets;
         let item = targets[index];
         let hasChecked = false;
+        let from = item.from;
         if (parseInt(index) === 0) {
               t.aclink = !t.aclink;
         }
         imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
         let hasParentChecked = this.hasCheckedChildElement('SP') || false;
         this.setParentStates(parentIndex, hasParentChecked, parentName);
-        bus.$emit('targetMainLayer', type, hasChecked);
+        bus.$emit('targetMainLayer', type, hasChecked,from);
       },
       setParentStates(index, hasChecked, name){
         let item = this.$data.targets[index];

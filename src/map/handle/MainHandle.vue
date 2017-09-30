@@ -24,7 +24,7 @@
       setMap(map){
         this.map = map;
       },
-      targetClick(type, hasVisible){
+      targetClick(type, hasVisible,from){
         switch (type.toUpperCase()) {
           case 'LAYER_SP':
           case 'LAYER_SP_SLW':
@@ -39,14 +39,14 @@
           case 'LAYER_GS':
           case 'LAYER_GD':
             //请求接口触发
-            hasVisible ? this.requestData(type) : this.removeMarkerByList(this.getMarkerByType(type), type);
+            hasVisible ? this.requestData(type,from) : this.removeMarkerByList(this.getMarkerByType(type), type);
             break;
           case 'LAYER_LK':
             this.targetTrafficLayer(hasVisible);
             break;
         }
       },
-      requestData(type){
+      requestData(type,from){
         this.lsMarkers.length && this.removeMarkerByList(this.getMarkerByType(type), type);
         let t = this;
         let lsUrl = [];
@@ -62,6 +62,7 @@
           case 'LAYER_SP_GKW':
             pmsKey = uppercaseType === 'LAYER_SP' ? undefined : (uppercaseType === 'LAYER_SP_SLW' ? '' : (uppercaseType === 'LAYER_SP_VOC' ? '' : (uppercaseType === 'LAYER_SP_GD' ? '' : (uppercaseType === 'LAYER_SP_GKW' ? '' : undefined))))
             let urlSP = RequestHandle.getRequestUrl('VIDEOTAEGET');
+            //console.log(urlSP)
             pmsKey && (pms = {key: pmsKey});
             lsUrl.push(urlSP);
             break;
@@ -82,6 +83,11 @@
             fieldName = 'aqi';
             lsUrl.push(urlVOC);
             break;
+          case 'LAYER_CGQ_SLW':
+              let urlSLW = RequestHandle.getRequestUrl('VOCPOLLUTION');
+              fieldName = 'aqi';
+              lsUrl.push(urlSLW);
+             break;
           case 'LAYER_GS':
             let urlGS = RequestHandle.getRequestUrl('MONPOLLUTION');
             fieldName = 'aqi';
@@ -115,7 +121,18 @@
           let params = {url: url + (reqPms ? ('?' + reqPms) : ''), type: 'GET', pms: null};
           RequestHandle.request(params, function (result) {
 //          if (result.status) {
-            t.loadMarker(result.obj, type, fieldName);
+              let rtValue = [];
+              let dt = result.obj;
+              if (dt) {
+                  for (let k = 0, length = dt.length; k< length; k++) {
+                      let item = dt[k];
+                      if (item.Type == from) {
+                          rtValue.push(dt[k]);
+                      }
+                  }
+              }
+                console.log(rtValue)
+            t.loadMarker(rtValue, type, fieldName);
 //          }
           }, function (e) {
             console.error(e);
@@ -258,7 +275,7 @@
       //图标点击事件
       markerClick(attributes, point){
         let t = this;
-        if (attributes.hasOwnProperty('ptType') && (attributes.ptType.toUpperCase() === 'LAYER_SP' || attributes.ptType.toUpperCase() === 'LAYER_SP_VOC')) {
+        if (attributes.hasOwnProperty('ptType') && (attributes.ptType.toUpperCase() === 'LAYER_SP' || attributes.ptType.toUpperCase() === 'LAYER_SP_VOC' ||attributes.ptType.toUpperCase() === 'LAYER_SP_SLW' )) {
           let res = t.setCameraWindow(attributes);
           this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
             title: '<sapn style="font-size:16px"><b>' + (attributes['CamName'] || '') + ' - ' + (attributes['TypeName'] || '') + '</b>' + '</span>',             //标题
