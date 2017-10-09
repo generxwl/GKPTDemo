@@ -325,7 +325,7 @@
           this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
             title: '<sapn style="font-size:16px" ><b title="' + (attributes[displayName] || '') + '">' + (attributes[displayName] || '') + '</b>' + '</span>',             //标题
             width: 320,
-            height: 240,
+            height: "auto",
             enableAutoPan: true,
             enableSendToPhone: false,
             searchTypes: []

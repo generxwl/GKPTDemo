@@ -117,7 +117,7 @@
       getImgUrl(value){
         let imgPath = undefined;
         if (value) {
-          imgPath = '/static/imgs/main/sp-g.png';
+          imgPath = '/static/imgs/main/sp-voc-g.png';
         }
         else {
           imgPath = '/static/imgs/sense/sp-ng.png';
