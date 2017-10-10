@@ -24,7 +24,7 @@
       setMap(map){
         this.map = map;
       },
-      targetClick(type, hasVisible,from){
+      targetClick(type, hasVisible, from){
         switch (type.toUpperCase()) {
           case 'LAYER_SP':
           case 'LAYER_SP_SLW':
@@ -39,14 +39,14 @@
           case 'LAYER_GS':
           case 'LAYER_GD':
             //请求接口触发
-            hasVisible ? this.requestData(type,from) : this.removeMarkerByList(this.getMarkerByType(type), type);
+            hasVisible ? this.requestData(type, from) : this.removeMarkerByList(this.getMarkerByType(type), type);
             break;
           case 'LAYER_LK':
             this.targetTrafficLayer(hasVisible);
             break;
         }
       },
-      requestData(type,from){
+      requestData(type, from){
         this.lsMarkers.length && this.removeMarkerByList(this.getMarkerByType(type), type);
         let t = this;
         let lsUrl = [];
@@ -84,10 +84,10 @@
             lsUrl.push(urlVOC);
             break;
           case 'LAYER_CGQ_SLW':
-              let urlSLW = RequestHandle.getRequestUrl('VOCPOLLUTION');
-              fieldName = 'aqi';
-              lsUrl.push(urlSLW);
-             break;
+            let urlSLW = RequestHandle.getRequestUrl('VOCPOLLUTION');
+            fieldName = 'aqi';
+            lsUrl.push(urlSLW);
+            break;
           case 'LAYER_GS':
             let urlGS = RequestHandle.getRequestUrl('MONPOLLUTION');
             fieldName = 'aqi';
@@ -116,22 +116,23 @@
             }
           }
         }
+        console.log(lsUrl.length);
         for (let i = 0, length = lsUrl.length; i < length; i++) {
           let url = lsUrl[i];
           let params = {url: url + (reqPms ? ('?' + reqPms) : ''), type: 'GET', pms: null};
           RequestHandle.request(params, function (result) {
 //          if (result.status) {
-              let rtValue = [];
-              let dt = result.obj;
-              if (dt) {
-                  for (let k = 0, length = dt.length; k< length; k++) {
-                      let item = dt[k];
-                      if (item.Type == from) {
-                          rtValue.push(dt[k]);
-                      }
-                  }
+            let rtValue = [];
+            let dt = result.obj;
+            if (dt) {
+              for (let k = 0, length = dt.length; k < length; k++) {
+                let item = dt[k];
+                if (item.Type == from) {
+                  rtValue.push(dt[k]);
+                }
               }
-                console.log(rtValue)
+            }
+            console.log(rtValue);
             t.loadMarker(rtValue, type, fieldName);
 //          }
           }, function (e) {
@@ -275,7 +276,7 @@
       //图标点击事件
       markerClick(attributes, point){
         let t = this;
-        if (attributes.hasOwnProperty('ptType') && (attributes.ptType.toUpperCase() === 'LAYER_SP' || attributes.ptType.toUpperCase() === 'LAYER_SP_VOC' ||attributes.ptType.toUpperCase() === 'LAYER_SP_SLW' )) {
+        if (attributes.hasOwnProperty('ptType') && (attributes.ptType.toUpperCase() === 'LAYER_SP' || attributes.ptType.toUpperCase() === 'LAYER_SP_VOC' || attributes.ptType.toUpperCase() === 'LAYER_SP_SLW' )) {
           let res = t.setCameraWindow(attributes);
           this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
             title: '<sapn style="font-size:16px"><b>' + (attributes['CamName'] || '') + ' - ' + (attributes['TypeName'] || '') + '</b>' + '</span>',             //标题
@@ -579,7 +580,8 @@
           let conPoint = this.wgsPointToBd(pt);
           let imgUrl = this.getMarkerIcon(type);
           let icon = new BMap.Icon(imgUrl, new BMap.Size(25, 25));
-          marker = new BMap.Marker((lyType.toUpperCase() === 'LAYER_SP' || lyType.toUpperCase() === 'LAYER_SP_VOC') ? conPoint : pt, {
+          marker = new BMap.Marker((lyType.toUpperCase() === 'LAYER_SP' || lyType.toUpperCase() === 'LAYER_SP_VOC' || lyType.toUpperCase() === 'LAYER_CGQ_LCS' || lyType.toUpperCase() === 'LAYER_CGQ_VOC'|| lyType.toUpperCase() === 'LAYER_GD') ? conPoint : pt, {
+          //marker = new BMap.Marker((lyType.toUpperCase() === 'LAYER_GS') ? pt:conPoint, {
             icon: icon,
             offset: new BMap.Size(0, 0)
           });
