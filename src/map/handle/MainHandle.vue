@@ -116,7 +116,6 @@
             }
           }
         }
-        console.log(lsUrl.length);
         for (let i = 0, length = lsUrl.length; i < length; i++) {
           let url = lsUrl[i];
           let params = {url: url + (reqPms ? ('?' + reqPms) : ''), type: 'GET', pms: null};

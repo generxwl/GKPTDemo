@@ -1,5 +1,6 @@
 <script>
   import BMap from 'BMap'
+  import Coordtransform from 'coordtransform'
   import RequestHandle from '@/request'
   import {bus} from '@/js/bus.js'
 
@@ -39,10 +40,12 @@
         this.loadStaticMarker();
       },
       loadStaticMarker(){
+          let t = this;
         let url = RequestHandle.getRequestUrl('STATICTARGET');
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-          if (result.status === 1) {
+          if (parseInt(result.status) === 1) {
               let data = result.obj;
+              t.loadMarkerLayer(data);
           }
         }, function (ex) {
           console.error(ex);
@@ -63,10 +66,12 @@
           this.data = data;
         }
         let t = this;
-        let lsMarkers = this.getPollutionByType(this.checkedName);
+        let lsMarkers = this.data;//this.getPollutionByType(this.checkedName);
         for (let i = 0, length = lsMarkers.length; i < length; i++) {
           let value = lsMarkers[i];
-          let pt = new BMap.Point(value.lng, value.lat);
+          let latGPS = parseInt(value.latitude) + parseFloat(value.latitudem)/60 + parseFloat(value.latitudes)/3600;
+          let lngGPS = parseInt(value.longitude) + parseFloat(value.longitudem)/60 + parseFloat(value.longitudes)/3600;
+          let pt = new BMap.Point(lngGPS, latGPS);
           let v = value.count;
           let marker = t.getMarker(pt, v);
 
@@ -100,6 +105,17 @@
         }
       },
 
+      wgsPointToBd: function (pt) {
+        let transPoint = this.transformFun([pt.lng, pt.lat]);
+        let bdPoint = new BMap.Point(transPoint[0], transPoint[1]);
+
+        return bdPoint;
+      },
+      transformFun: function (path) {
+        let gcPoint = Coordtransform.wgs84togcj02(path[0], path[1]);
+        return Coordtransform.gcj02tobd09(gcPoint[0], gcPoint[1]);
+      },
+
       //指标切换响应事件
       pollutionTarget(type){
         this.checkedName = type;
@@ -113,7 +129,7 @@
       refreshMarker(data){
         if (this.markers.length) {
           this.clearMarker();
-          this.loadMarkerLayer(this.map, data);
+          this.loadMarkerLayer(data);
         }
       },
 
@@ -196,10 +212,11 @@
       //获取图标对象
       getMarker(pt, value){
         let marker = undefined;
-        if (pt && value) {
+        if (pt) {
+          let bdPoint = this.wgsPointToBd(pt);
           let imgUrl = this.getImgUrl(value);
           let icon = new BMap.Icon(imgUrl, new BMap.Size(36, 25));
-          marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(0, -16)});
+          marker = new BMap.Marker(bdPoint, {icon: icon, offset: new BMap.Size(0, -16)});
         }
         return marker;
       },
@@ -227,6 +244,7 @@
         else if (level === 3) {
           imgPath = '/static/imgs/stcdust/sr1.png';
         }
+        imgPath = '/static/imgs/stcdust/y1.png';
         return imgPath;
       },
 
