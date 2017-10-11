@@ -416,7 +416,7 @@
           + '<tr height=\'32px\'><th>TVOC</th><td style=\'width:70px;text-align:center;background-color:' + getVOCLeveColor(data.TVOC_V) + ';color:#fff\'>' + data.TVOC_V
           + '</td></tr><tr height=\'32px\'><th>温度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + parseInt(data.TP_V)
           + '℃</td><th>湿度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + parseInt(data.TD_V)
-          + '%</td></tr><tr height=\'32px\'><th>更新时间</th><td colspan=\'3\' style=\'text-align:center;color:#000\'>' + data.CollectTime
+          + '%</td></tr><tr height=\'32px\'><th>更新时间</th><td colspan=\'3\' style=\'text-align:center;color:#000\'>' + (data.CollectTime || data.RecordTime)
           + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
@@ -434,7 +434,7 @@
           + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + parseInt(data.no2)
           + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + parseInt(data.so2)
           + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + parseInt(data.o3)
-          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data.CollectTime+ '</td></tr></table>'
+          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + (data.CollectTime || data.RecordTime)+ '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
           + '</tr></table><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'>';
@@ -461,7 +461,7 @@
         for (let i = 0, length = data.length; i < length; i++) {
           let item = data[i];
           let obj = {
-            x: converTimeFormat(item.CollectTime).getTime(),
+            x: converTimeFormat(item.CollectTime || item.RecordTime).getTime(),
             y: parseInt(item.TVOC_V),
             color: getVOCLeveColor(item.TVOC_V)
           };
