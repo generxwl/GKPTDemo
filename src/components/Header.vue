@@ -231,7 +231,7 @@
                         font-family: "Microsoft YaHei";
                         cursor: pointer;
                     }
-                    :hover {
+                    :hover:not(p) {
                         color: #1080cc;
                     }
                 }
@@ -248,12 +248,6 @@
                     line-height: 22px;
                     text-align: left;
                     box-shadow: 0 0 5px #1080cc;
-                    p{
-                        text-align: left;
-                        font-weight: bold;
-                        padding: 0;
-
-                    }
                     a {
                         display: inline-block;
                         color: #666;
@@ -261,8 +255,13 @@
                         font-family: "Microsoft YaHei";
                         cursor: pointer;
                     }
-                    :hover {
+                    :hover:not(p){
                         color: #1080cc;
+                    }
+                    p{
+                      text-align: left;
+                      font-weight: bold;
+                      padding: 0;
                     }
                 }
                 .Threeitem {
@@ -287,7 +286,7 @@
                             font-family: "Microsoft YaHei";
                             cursor: pointer;
                         }
-                        :hover {
+                        :hover:not(p){
                             color: #1080cc;
                         }
                         p{
@@ -345,7 +344,7 @@
                             font-family: "Microsoft YaHei";
                             cursor: pointer;
                         }
-                        :hover {
+                        :hover:not(h3) {
                             color: #1080cc;
                         }
                         h3 {

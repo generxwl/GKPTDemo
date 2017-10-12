@@ -39,7 +39,7 @@
                             <el-input v-model="filters.name" placeholder="请输入地址"></el-input>
                         </div>
                         <div class="sright">
-                            <el-button type="primary" @click="search">搜索</el-button>
+                            <el-button type="primary" @click="searchData()">搜索</el-button>
                         </div>
 
                     </div>
@@ -140,6 +140,11 @@
                 that.yuantuset3();
                 that.yuantuset4()
             }, 500)
+          $("body").keydown(function(evt) {
+            if (event.keyCode == "13") {
+              that.searchData();
+            }
+          });
         },
         methods: {
             initlistData(data){
@@ -489,43 +494,25 @@
                         fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                 return fmt;
             },
-//            searchData() {
-//                var search = this.filters.name;
-//                if (search) {
-//                    return this.tableData.filter(function(product) {
-//                        return Object.keys(product).some(function(key) {
-//                            return String(product[key]).toLowerCase().indexOf(search) > -1
-//                        })
-//                    })
-//                }
-//                return this.tableData;
-//            },
-            search(){//搜索
-                let _this=this;
-                if(this.filters.name){
-                   let data = _this.data;
-                    _this.tableData = [];
-                    let i = 1;
-                        data.forEach(item => {
-                            const Data = {};
-                            if(item.CamName == _this.filters.name) {
-                                Data.SerialNumber = i++;//序号
-                                Data.VideoName = item.CamName;//行业
-                                Data.MonitoringType = item.TypeName;//类型
-                                Data.Id = item.Id;//城市id
-                                Data.Latitude = item.Latitude;//纬度
-                                Data.Longitude = item.Longitude;//经度
-                            _this.tableData.push(Data);
-                            }
-                        })
+            searchData() {
+              // 声明变量
+              let filter, table, tr, td, i;
+              filter = this.filters.name;
+              table = document.getElementsByClassName("el-table__body")[0];
+              tr = table.getElementsByTagName("tr");
+              // 循环表格每一行，查找匹配项
+              for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                  if (td.innerHTML.indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                  } else {
+                    tr[i].style.display = "none";
+                  }
+                }
+              }
+            },
 
-                }else{
-                    _this.$message({
-                        message: '请输入筛选条件!',
-                        type: 'success'
-                    });
-                };
-            }
         },
 //        filters: {
 //            two (value){
