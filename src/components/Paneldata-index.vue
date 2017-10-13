@@ -184,7 +184,7 @@
                     flag = true;
                 }
             })
-            //圆进度图
+            //首页统计饼图
             setTimeout(function () {
                 that.yuantuset1();
                 that.yuantuset2();
@@ -238,7 +238,7 @@
               }
               return rtValue;
             },
-            //饼图1
+            //空气传感器占比图
             yuantuset1(){
 
                 // 基于准备好的dom，初始化echarts实例
@@ -313,6 +313,7 @@
 //                    }]
 //                })
             },
+            //视频类型占比
             yuantuset2(){
 
                 // 基于准备好的dom，初始化echarts实例
@@ -387,6 +388,7 @@
 //                    }]
 //                })
             },
+            //网络类型占比
             yuantuset3(){
 
                 // 基于准备好的dom，初始化echarts实例
@@ -459,6 +461,7 @@
 //                    }]
 //                })
             },
+            //网格员占比
             yuantuset4(){
 
                 // 基于准备好的dom，初始化echarts实例
@@ -599,8 +602,8 @@
             box-shadow: 0 0 15px #333333;
             .qianren {
                 position: absolute;
-                left: -90px;
-                top: 76%;
+                left: -80px;
+                top: 64%;
             }
             img {
                 position: absolute;
