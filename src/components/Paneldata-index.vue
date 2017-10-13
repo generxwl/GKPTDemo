@@ -58,20 +58,20 @@
                                 </div>
                             </div>
                             <!--饼图展示-->
-                            <!--<div class="bing">-->
-                                <!--<div class="bing_item1" id="bing_item1" style="width: 203px;height: 180px;">-->
+                            <div class="bing">
+                                <div class="bing_item1" id="bing_item1" style="width: 203px;height: 180px;">
 
-                                <!--</div>-->
-                                <!--<div class="bing_item2" id="bing_item2" style="width: 203px;height: 180px;">-->
+                                </div>
+                                <div class="bing_item2" id="bing_item2" style="width: 203px;height: 180px;">
 
-                                <!--</div>-->
-                                <!--<div class="bing_item3" id="bing_item3" style="width: 203px;height: 180px;">-->
+                                </div>
+                                <div class="bing_item3" id="bing_item3" style="width: 203px;height: 180px;">
 
-                                <!--</div>-->
-                                <!--<div class="bing_item4" id="bing_item4" style="width: 203px;height: 180px;">-->
+                                </div>
+                                <div class="bing_item4" id="bing_item4" style="width: 203px;height: 180px;">
 
-                                <!--</div>-->
-                            <!--</div>-->
+                                </div>
+                            </div>
                         </el-tab-pane>
                         <el-tab-pane label="各局输入接入进度" name="second">
                             <!--表格-->
@@ -248,7 +248,10 @@
                 let option = {
                     title : {
                         text: '空气传感器占比',
-
+                      textStyle: {
+                        fontSize: '14',
+                        fontWeight: 'bold'
+                      },
                         x:'left'
                     },
                     tooltip : {
@@ -267,6 +270,19 @@
                             type: 'pie',
                             radius : '60%',
                             center: ['30%', '60%'],
+                          label: {
+                            normal: {
+                              show: false,
+                              position: 'center'
+                            },
+                            emphasis: {
+                              show: true,
+                              textStyle: {
+                                fontSize: '20',
+                                fontWeight: 'bold'
+                              }
+                            }
+                          },
                             data:[
                                 {value:335, name:'六参数'},
                                 {value:310, name:'微型站'},
@@ -306,7 +322,10 @@
                 let option = {
                     title : {
                         text: '视频类型占比',
-
+                      textStyle: {
+                        fontSize: '14',
+                        fontWeight: 'bold'
+                      },
                         x:'left'
                     },
                     tooltip : {
@@ -325,6 +344,19 @@
                             type: 'pie',
                             radius : '60%',
                             center: ['30%', '60%'],
+                          label: {
+                            normal: {
+                              show: false,
+                              position: 'center'
+                            },
+                            emphasis: {
+                              show: true,
+                              textStyle: {
+                                fontSize: '20',
+                                fontWeight: 'bold'
+                              }
+                            }
+                          },
                             data:[
                                 {value:2, name:'交警'},
                                 {value:3, name:'餐饮'},
@@ -364,7 +396,10 @@
                 let option = {
                     title : {
                         text: '网络类型占比',
-
+                      textStyle: {
+                        fontSize: '14',
+                        fontWeight: 'bold'
+                      },
                         x:'left'
                     },
                     tooltip : {
@@ -383,6 +418,19 @@
                             type: 'pie',
                             radius : '60%',
                             center: ['30%', '50%'],
+                          label: {
+                            normal: {
+                              show: false,
+                              position: 'center'
+                            },
+                            emphasis: {
+                              show: true,
+                              textStyle: {
+                                fontSize: '20',
+                                fontWeight: 'bold'
+                              }
+                            }
+                          },
                             data:[
                                 {value:4, name:'广阳区'},
                                 {value:3, name:'开发区'},
@@ -420,6 +468,10 @@
                 let option = {
                     title : {
                         text: '网格员占比',
+                      textStyle: {
+                        fontSize: '14',
+                        fontWeight: 'bold'
+                      },
                         x:'left'
                     },
                     tooltip : {
@@ -438,6 +490,19 @@
                             type: 'pie',
                             radius : '60%',
                             center: ['30%', '50%'],
+                          label: {
+                            normal: {
+                              show: false,
+                              position: 'center'
+                            },
+                            emphasis: {
+                              show: true,
+                              textStyle: {
+                                fontSize: '20',
+                                fontWeight: 'bold'
+                              }
+                            }
+                          },
                             data:[
                                 {value:4, name:'广阳区'},
                                 {value:3, name:'开发区'},

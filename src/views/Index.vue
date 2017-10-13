@@ -5,8 +5,8 @@
 
     <main-map></main-map>
     <!--<video-ctrl class="v-video"></video-ctrl>-->
-    <!--<indexpanel></indexpanel>-->
-    <map-handle class="fliex"></map-handle>
+    <indexpanel></indexpanel>
+    <!--<map-handle class="fliex"></map-handle>-->
   </div>
 </template>
 
