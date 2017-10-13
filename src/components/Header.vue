@@ -231,7 +231,7 @@
                         font-family: "Microsoft YaHei";
                         cursor: pointer;
                     }
-                    :hover:not(p) {
+                    :hover{
                         color: #1080cc;
                     }
                 }
