@@ -21,6 +21,14 @@
 				</div>
 			</div>
 		</div>
+    <div class="bottom_title">
+        <div class="title_banquan">
+          <p>版权所有：廊坊市环保局；廊坊市大气办 <span>技术支持：PM2.5专家小组</span></p>
+        </div>
+        <div class="img-qianren">
+          <img src="../assets/img/千人计划logo.png" alt="">
+        </div>
+    </div>
 	</div>
 </template>
 
@@ -91,6 +99,29 @@
 		background: url("../assets/img/beijing.jpg") no-repeat center;
 		background-size: cover;
 		position: relative;
+    .bottom_title{
+      position: absolute;
+      width: 620px;
+      left: 50%;
+      margin-left: -310px;
+      bottom:40px ;
+      color: #333;
+      text-shadow: 0 0 3px #0f0;
+      .title_banquan{
+        float: left;
+        span{
+          padding-left: 20px;
+        }
+      }
+      .img-qianren{
+        float: left;
+        img{
+          margin-top: -15px;
+          padding-left: 30px;
+          width: 120px;
+        }
+      }
+    }
 		.sky{
 			position: absolute;
 			top:0;
