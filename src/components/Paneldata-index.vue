@@ -600,7 +600,7 @@
             .qianren {
                 position: absolute;
                 left: -90px;
-                top: 76%;
+                top: 64%;
             }
             img {
                 position: absolute;
