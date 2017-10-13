@@ -10,6 +10,7 @@
     data () {
       return {
         lsMarkers: [],
+        lsLabels: [],
         trafficLayer: undefined,
         searchInfoWindow: undefined
       };
@@ -38,8 +39,9 @@
           case 'LAYER_CGQ_VOC':
           case 'LAYER_GS':
           case 'LAYER_GD':
+          case 'LAYER_QY':
             //请求接口触发
-            hasVisible ? this.requestData(type, from) : this.removeMarkerByList(this.getMarkerByType(type), type);
+            hasVisible ? this.requestData(type, from) : (this.removeMarkerByList(this.getMarkerByType(type), type), this.removeMarkerLabel(this.getMarkerLabelByType(type), type));
             break;
           case 'LAYER_LK':
             this.targetTrafficLayer(hasVisible);
@@ -48,9 +50,11 @@
       },
       requestData(type, from){
         this.lsMarkers.length && this.removeMarkerByList(this.getMarkerByType(type), type);
+        this.lsLabels.length && this.removeMarkerLabel(this.getMarkerLabelByType(type), type);
         let t = this;
         let lsUrl = [];
         let fieldName = undefined;
+        let displayName = undefined;
         let pms = undefined;
         let pmsKey = undefined;
         let uppercaseType = type.toUpperCase();
@@ -63,6 +67,7 @@
             pmsKey = uppercaseType === 'LAYER_SP' ? undefined : (uppercaseType === 'LAYER_SP_SLW' ? '' : (uppercaseType === 'LAYER_SP_VOC' ? '' : (uppercaseType === 'LAYER_SP_GD' ? '' : (uppercaseType === 'LAYER_SP_GKW' ? '' : undefined))))
             let urlSP = RequestHandle.getRequestUrl('VIDEOTAEGET');
             //console.log(urlSP)
+            displayName = 'CamName';
             pmsKey && (pms = {key: pmsKey});
             lsUrl.push(urlSP);
             break;
@@ -74,6 +79,7 @@
             let urlXH = RequestHandle.getRequestUrl('XHPOLLUTION');
             pmsKey && (pms = {key: pmsKey});
             fieldName = 'aqi';
+            displayName = 'stationname';
             lsUrl.push(urlLCS);
             lsUrl.push(urlXH);
             break;
@@ -81,6 +87,7 @@
           case 'LAYER_CGQ_VOC':
             let urlVOC = RequestHandle.getRequestUrl('VOCPOLLUTION');
             fieldName = 'aqi';
+            displayName = 'PointName';
             lsUrl.push(urlVOC);
             break;
           case 'LAYER_CGQ_SLW':
@@ -91,19 +98,22 @@
           case 'LAYER_GS':
             let urlGS = RequestHandle.getRequestUrl('MONPOLLUTION');
             fieldName = 'aqi';
+            displayName = 'pointname';
             lsUrl.push(urlGS);
             break;
           case 'LAYER_GD':
             let urlGD = RequestHandle.getRequestUrl('DUSTPOLLUTION');
             let urlXHGD = RequestHandle.getRequestUrl('XHDUST');
             fieldName = 'pm10';
+            displayName = 'name';
             lsUrl.push(urlGD);
             lsUrl.push(urlXHGD);
             break;
           case 'LAYER_QY':
-//            let urlQY = RequestHandle.getRequestUrl('');
-//            lsUrl.push(urlQY);
-//            fieldName = 'NOX';
+            let urlQY = RequestHandle.getRequestUrl('ENTERPRISE');
+            lsUrl.push(urlQY);
+            fieldName = 'SmokeStatus';
+            displayName = 'psname';
             break;
         }
         let reqPms = undefined;
@@ -132,7 +142,7 @@
               }
             }
             console.log(rtValue);
-            t.loadMarker(rtValue, type, fieldName);
+            t.loadMarker(rtValue, type, fieldName, displayName);
 //          }
           }, function (e) {
             console.error(e);
@@ -149,24 +159,17 @@
           this.trafficLayer = undefined;
         }
       },
-      loadMarker(data, type, fieldName){
+      loadMarker(data, type, fieldName, displayName){
         let t = this;
         for (let i = 0, length = data.length; i < length; i++) {
           let value = data[i];
           value['ptType'] = type;
-          let labelName = '';//value.CamName || '';
+          let labelName = ((displayName && value) && (value[displayName]));//value.CamName || '';
           let pt = new BMap.Point(value.lng || value.Longitude || value.longitude, value.lat || value.Latitude || value.latitude);
           let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName), type);
-          let label = new BMap.Label(labelName || '');
-          label.setStyle({
-            border: 'none',
-            color: '#fff',
-            background: 'none',
-            fontSize: '14px',
-            fontFamily: 'Microsoft YaHei'
-          });
-          label.setOffset(new BMap.Size(-(labelName.length * 4), 15));
-          marker && (t.map.addOverlay(marker), marker.attributes = value, marker.setLabel(label), t.lsMarkers.push({
+          let label = t.setMarkerLabel(labelName, '', pt, type);//, marker.setLabel(label)
+          label && (t.lsLabels.push({label: label, type: type}), t.map.addOverlay(label));
+          marker && (t.map.addOverlay(marker), marker.attributes = value, t.lsMarkers.push({
             marker: marker,
             type: type
           }), marker.addEventListener('click', function (e) {
@@ -183,7 +186,7 @@
         if (ptType.toUpperCase() === 'LAYER_VOC' || ptType.toUpperCase() === 'LAYER_CGQ_VOC') {
           level = getVOCLeveColorIndex(data.TVOC_V) || 1;
         } else if (ptType.toUpperCase() === 'LAYER_QY') {
-          level = getNO2LevelIndex(value) || 1;
+          level = data['isOnline'] ? (value ? 1 : 4) : 0;//getNO2LevelIndex(value) || 1;
         } else {
           level = getAQILevelIndex(value) || 1;
         }
@@ -248,6 +251,9 @@
             break;
         }
         switch (level) {
+          case -1:
+            iconName += 'ng';
+            break;
           case 0:
             iconName += 'g';
             break;
@@ -261,12 +267,9 @@
             iconName += 'r';
             break;
           case 4:
-            iconName += 'v';
-            break;
-          case 5:
             iconName += 'm';
             break;
-          case 6:
+          case 5:
             iconName += 'v';
             break;
         }
@@ -321,6 +324,9 @@
               pms = {deviceid: attributes.deviceid, ptype: 'pm10'};
               displayName = 'name';
               break;
+            case 'LAYER_QY':
+              displayName = 'psname';
+              break;
           }
           this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
             title: '<sapn style="font-size:16px" ><b title="' + (attributes[displayName] || '') + '">' + (attributes[displayName] || '') + '</b>' + '</span>',             //标题
@@ -357,6 +363,10 @@
                   break;
                 case 'LAYER_CGQ_VOC':
                   t.setVOCChart(attributes.StationID, data);
+                  break;
+                case 'LAYER_QY':
+                  t.searchInfoWindow.setContent('');
+                  t.setQYChart('');
                   break;
               }
             }
@@ -413,10 +423,10 @@
       setVOCInfoWindow(data){
         return '<table width=\'100%\' ><tr><td style=\'font-size:14px\' valign=\'top\'>'
           + '<table width=\'100%\' class=\'fitem\'>'
-          + '<tr height=\'32px\'><th>TVOC</th><td style=\'width:70px;text-align:center;background-color:' + getVOCLeveColor(data.TVOC_V) + ';color:#fff\'>' + (data.TVOC_V?data.TVOC_V:'--')
-          + '</td></tr><tr height=\'32px\'><th>温度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + (data.TP_V?parseInt(data.TP_V)+'℃':'--')
-          + '</td><th>湿度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + (data.TD_V?parseInt(data.TD_V)+'%':'--')
-          + '</td></tr><tr height=\'32px\'><th>更新时间</th><td colspan=\'3\' style=\'text-align:center;color:#000\'>' + (data.CollectTime || data.RecordTime.replace(/T/g,' '))
+          + '<tr height=\'32px\'><th>TVOC</th><td style=\'width:70px;text-align:center;background-color:' + getVOCLeveColor(data.TVOC_V) + ';color:#fff\'>' + (data.TVOC_V ? data.TVOC_V : '--')
+          + '</td></tr><tr height=\'32px\'><th>温度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + (data.TP_V ? parseInt(data.TP_V) + '℃' : '--')
+          + '</td><th>湿度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + (data.TD_V ? parseInt(data.TD_V) + '%' : '--')
+          + '</td></tr><tr height=\'32px\'><th>更新时间</th><td colspan=\'3\' style=\'text-align:center;color:#000\'>' + (data.CollectTime || data.RecordTime.replace(/T/g, ' '))
           + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
@@ -428,13 +438,13 @@
         return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
           + '<table width=\'100%\' class=\'fitem\'>'
           + '<tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(data.aqi)) + ';color:#fff\'>' + (data.aqi ? data.aqi : '--')
-          + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + (data.pm25?parseInt(data.pm25):'--')
-          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + (data.pm10?parseInt(data.pm10):'--')
-          + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + (data.co?parseFloat(data.co).toFixed(1):'--')
-          + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + (data.no2?parseInt(data.no2):'--')
-          + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + (data.so2?parseInt(data.so2):'--')
-          + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + (data.o3?parseInt(data.o3):'--')
-          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + ((data.CollectTime && data.CollectTime.replace(/T/g,' ')) || data.RecordTime.replace(/T/g,' '))+ '</td></tr></table>'
+          + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + (data.pm25 ? parseInt(data.pm25) : '--')
+          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + (data.pm10 ? parseInt(data.pm10) : '--')
+          + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + (data.co ? parseFloat(data.co).toFixed(1) : '--')
+          + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + (data.no2 ? parseInt(data.no2) : '--')
+          + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + (data.so2 ? parseInt(data.so2) : '--')
+          + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + (data.o3 ? parseInt(data.o3) : '--')
+          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + ((data.CollectTime && data.CollectTime.replace(/T/g, ' ')) || data.RecordTime.replace(/T/g, ' ')) + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
           + '</tr></table><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'>';
@@ -473,7 +483,7 @@
       },
       //工地信息
       setGDInfoWindow(data){
-        return '<table width=\'100%\' class="fitem"><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + (data.pm25?parseInt(data.pm25):'--')
+        return '<table width=\'100%\' class="fitem"><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + (data.pm25 ? parseInt(data.pm25) : '--')
           + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + (data.pm10 ? parseInt(data.pm10) : '--')
           + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + (data.temp ? (parseInt(data.temp) + '℃') : '--')
           + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + (data.humi ? (parseInt(data.humi) + '%') : '--')
@@ -500,6 +510,30 @@
         }
         let title = '最近24小时PM2.5变化趋势';
         this.loadChar(code, 'PM2.5', rtValue, title);
+      },
+
+      //企业InfoWindow
+      setQYInfoWindow(data){
+        let dts = data || [];
+        let headerElements = '<tr><td rowspan="2">名称</td><td colspan="2">氮氧化物</td><td colspan="2">二氧化硫</td><td colspan="2">烟尘</td><td rowspan="2">总排放量</td></tr><tr><td>实测</td><td>折算</td><td>实测</td><td>折算</td><td>实测</td><td>折算</td></tr>';
+        let els = '';
+        for (let i = 0, length = dts.length; i < length; i++) {
+          let item = dts[i];
+          els += '<tr><td>' + item.name + '</td><td>' +
+            item.a + '</td><td>' +
+            item.ac + '</td><td>' +
+            item.b + '</td><td>' +
+            item.bc + '</td><td>' +
+            item.c + '</td><td>' +
+            item.cc + '</td><td>' +
+            item.count + '</td></tr>';
+        }
+        els += '<tr><td>时间</td><td colspan="7">' + data.time + '</td></tr>';
+
+        return '<table cellpadding="0" cellspacing="0">' + headerElements + els + '</table><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;height:110px\'>';
+      },
+      //企业24小时
+      setQYChart(code, data){
       },
 
       //加载Chart数据
@@ -580,13 +614,30 @@
           let conPoint = this.wgsPointToBd(pt);
           let imgUrl = this.getMarkerIcon(type);
           let icon = new BMap.Icon(imgUrl, new BMap.Size(25, 25));
-          marker = new BMap.Marker((lyType.toUpperCase() === 'LAYER_SP' || lyType.toUpperCase() === 'LAYER_SP_VOC' || lyType.toUpperCase() === 'LAYER_CGQ_LCS' || lyType.toUpperCase() === 'LAYER_CGQ_VOC'|| lyType.toUpperCase() === 'LAYER_GD') ? conPoint : pt, {
-          //marker = new BMap.Marker((lyType.toUpperCase() === 'LAYER_GS') ? pt:conPoint, {
+          marker = new BMap.Marker((lyType.toUpperCase() === 'LAYER_SP' || lyType.toUpperCase() === 'LAYER_SP_VOC' || lyType.toUpperCase() === 'LAYER_CGQ_LCS' || lyType.toUpperCase() === 'LAYER_CGQ_VOC' || lyType.toUpperCase() === 'LAYER_GD') ? conPoint : pt, {
+            //marker = new BMap.Marker((lyType.toUpperCase() === 'LAYER_GS') ? pt:conPoint, {
             icon: icon,
             offset: new BMap.Size(0, 0)
           });
         }
         return marker;
+      },
+      setMarkerLabel(displayValue, stateValue, point, lyType){
+        let conPoint = this.wgsPointToBd(point);
+        let label = new BMap.Label(displayValue || '');
+        label.setStyle({
+          border: 'none',
+          color: '#fff',
+          background: 'none',
+          fontSize: '14px',
+          fontFamily: 'Microsoft YaHei'
+        });
+        label.setPosition((lyType.toUpperCase() === 'LAYER_SP' || lyType.toUpperCase() === 'LAYER_SP_VOC' || lyType.toUpperCase() === 'LAYER_CGQ_LCS' || lyType.toUpperCase() === 'LAYER_CGQ_VOC' || lyType.toUpperCase() === 'LAYER_GD') ? conPoint : point);
+        label.setOffset(new BMap.Size(-(displayValue.length * 14 / 2), 0));
+        return undefined;
+      },
+      getMarkerLabelByType(type){
+        return this.lsLabels.filter(v => v.type.toUpperCase() === type.toUpperCase());
       },
       wgsPointToBd: function (pt) {
         let transPoint = this.transformFun([pt.lng, pt.lat]);
@@ -828,6 +879,15 @@
         }
         this.lsMarkers = lsAllMarkers;
         this.searchInfoWindow && (this.searchInfoWindow.close(), this.searchInfoWindow = undefined);
+      },
+      removeMarkerLabel(ls = [], type){
+        let t = this;
+        ls.forEach(v => t.map.removeOverlay(v.label));
+        let lsAllLabels = [];
+        this.lsLabels.forEach(function (v) {
+          v.type.toUpperCase() !== type.toUpperCase() && lsAllLabels.push(v);
+        });
+        this.lsLabels = lsAllLabels;
       },
       clearMarkers(){
         for (let i = 0, length = this.lsMarkers.length; i < length; i++) {

@@ -87,6 +87,10 @@ export default {
         cf = this.release[2];
         url = cf.site + ':' + cf.port + cf.path + '/enterprise/allInfo';
         break;
+      case 'ENTERPRISE':
+        cf = this.release[1];
+        url = cf.site + cf.port + cf.path + '/Company/GetCompanyPointList';
+        break;
     }
     return url;
   }
