@@ -55,12 +55,12 @@
                                     width="80">
                             </el-table-column>
                             <el-table-column
-                                    prop="VideoName"
+                                    prop="CamName"
                                     label="视频名称"
                                     width="220">
                             </el-table-column>
                             <el-table-column
-                                    prop="MonitoringType"
+                                    prop="TypeName"
                                     label="监控类型">
                             </el-table-column>
                         </el-table>
@@ -470,8 +470,8 @@
                 this.data.forEach(item => {
                     const tableData = {};
                     tableData.SerialNumber = i++;//序号
-                    tableData.VideoName = item.CamName;//行业
-                    tableData.MonitoringType = item.TypeName;//类型
+                    tableData.CamName = item.CamName;//行业
+                    tableData.TypeName = item.TypeName;//类型
                     tableData.Id = item.Id;//城市id
                     tableData.Latitude = item.Latitude;//纬度
                     tableData.Longitude = item.Longitude;//经度
