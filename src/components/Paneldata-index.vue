@@ -2,7 +2,10 @@
     <div class="Paneldataindex">
         <!--首页面板-->
         <div id="list">
-            <div class="qianren"><map-handle></map-handle></div>
+            <div class="qianren">
+                <img style="margin-top: -180px;margin-left: 15px" src="../assets/img/fulu.png" alt="">
+                <map-handle></map-handle>
+            </div>
             <div class="panel">
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
                 <img id="shrink" src="../assets/img/右.png" v-if="you"/>

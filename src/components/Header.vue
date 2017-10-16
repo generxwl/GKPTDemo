@@ -15,13 +15,13 @@
                     <div class="Twoitem">
                         <div>
                             <p>监测网</p>
-                            <a href="#/indexjcd">国省控点监测</a>
+                            <a href="#/Monitor">国省控点监测</a>
                             <a href="#/superstation">超级站</a>
                             <a href="#/SensorNetwork">传感网</a>
                         </div>
                         <div>
                             <p>散乱污监控</p>
-                            <a>散乱污监控</a>
+                            <a href="#/ScatteredDirtVideos">散乱污监控</a>
                             <a href="#/Videos">企业及工地监控</a>
                         </div>
                         <div>

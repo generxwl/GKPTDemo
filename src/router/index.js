@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/views/Login'//登录页面
 import Index from '@/views/Index'//首页
-import Indexjcd from '@/views/IndexMonitoring'//首页监测点
+import Monitor from '@/views/IndexMonitoring'//首页监测点
 import SensorNetwork from '@/views/SensorNetwork'//传感网
 import DustOnline from '@/views/DustOnline'//在线扬尘清单
 import Dynamicwindfield from '@/views/Dynamic-wind-field'//动态风场
@@ -10,7 +10,8 @@ import SuperStation from '@/views/Super-station'//超级站
 import Pollutionmap from '@/views/Pollution-map'//污染地图
 import WeatherStation from '@/views/weather-station'//气象站
 import Weather from '@/views/Weather'//天气预报
-import Videos from '@/views/Videos'//视频监测
+import Videos from '@/views/Videos'//企业工地视频监测
+import ScatteredDirtVideos from '@/views/ScatteredDirtVideos'//散乱污视频监测
 import EnterpriseEonitoring from '@/views/Enterprise-monitoring'//企业监测
 import StaticOriginalList from '@/views/StaticOriginalList'//静态原清单
 import GridPrediction from '@/views/GridPrediction'//网格预报
@@ -31,9 +32,14 @@ export default new Router({
             component: Index
         },
         {
-            path: '/indexjcd',
-            name: 'indexjcd',
-            component: Indexjcd
+            path: '/Monitor',
+            name: 'Monitor',
+            component: Monitor
+        },
+        {
+            path: '/ScatteredDirtVideos',
+            name: 'ScatteredDirtVideos',
+            component: ScatteredDirtVideos
         },
         {
             path: '/StaticOriginalList',

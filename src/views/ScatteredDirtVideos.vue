@@ -1,17 +1,17 @@
 <template>
-    <div class="videos">
-        <!--企业工地视频监测-->
+    <div class="ScatteredDirtVideos">
+        <!--散乱污视频监测-->
         <v-header></v-header>
-        <video-map></video-map>
+        <!--<video-map></video-map>-->
         <paneldata-video></paneldata-video>
     </div>
 </template>
 <script>
     import VideoCtrl from '@/components/VideoCtrl'
-    import PaneldataVideo from '@/components/Paneldata-video'
-    import VideoMap from '@/map/VideoMap' //0809
+    import PaneldataVideo from '@/components/Paneldata-ScatteredDirtVideo'
+
     export default {
-        name:'videos',
+        name:'ScatteredDirtVideos',
         data(){
             return {
                 //页面数据
@@ -32,12 +32,12 @@
         methods: {
             // 所有方法
         },
-        components: {VideoCtrl,PaneldataVideo,VideoMap}//0809
+        components: {PaneldataVideo}//
 
     };
 </script>
 <style lang="scss" scoped>
-    .videos{
+    .ScatteredDirtVideos{
         width: 100%;
         height: 100%;
     }

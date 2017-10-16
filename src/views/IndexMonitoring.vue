@@ -13,7 +13,7 @@
   import MonitorMap from '@/map/MonitorMapMain' //0809
   import ScrollBar from '@/components/ScrollBar'
   export default {
-    name: 'indexjcd',
+    name: 'Monitor',
     data () {
       return {
         fullscreenLoading: false
