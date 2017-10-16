@@ -63,39 +63,44 @@
 
             OnInit();
             function OnStartPreview() {
-                var Area = GetQueryString('Area');
-                var ip,username,password;
+                var area = GetQueryString('area');
+                var ip,username,password,port;
                 var canshu = [
                     //广阳区
                     {
                         username:'admin',
                         password:'Admin123',
-                        ip:'192.168.31.1'
+                        ip:'192.168.31.1',
+                        port:'7302'
                     },
                     //开发区
                     {
                         username:'admin',
                         password:'Admin12345?',
-                        ip:'192.168.20.11'
+                        ip:'192.168.20.11',
+                        port:'7302'
                     }
-                ]
-                switch(Area)
+                ];
+                switch(area)
                 {
                     case '开发区':
                         ip = canshu[1].ip;
                         username = canshu[1].username;
                         password = canshu[1].password;
+                        port = canshu[1].port;
                         break;
                     case '广阳区':
                         ip = canshu[0].ip;
                         username = canshu[0].username;
                         password = canshu[0].password;
+                        port = canshu[0].port;
                         break;
                 }
-                var camIndexCode = GetQueryString('camIndexCode');
-                var devIndexCode = GetQueryString('devIndexCode');
-                var name = GetQueryString('name');
-                var _param = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+              var camIndexCode = GetQueryString('camIndexCode');
+              var devIndexCode = GetQueryString('devIndexCode');
+              var name = GetQueryString('name');
+                if(ip && username && password && name && camIndexCode && devIndexCode && port) {
+                  var _param = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
                     + "<Preview>"
                     + "<CamIndexCode>" + camIndexCode + "</CamIndexCode>"//摄像头编码
                     + "<DevIndexCode>" + devIndexCode + "</DevIndexCode>"//设备编码
@@ -110,7 +115,7 @@
                     + "<SubStream>MAIN</SubStream>"
                     + "<NetZone cnid=\"1\" pnid=\"1\"/>"
                     + "<StreamSvr>"
-                    + "<Svr type=\"3\" ip="+ ip +" port=\"7302\"/>"//验证
+                    + "<Svr type=\"3\" ip=" + ip + " port=\""+port+"\"/>"//验证
                     + "</StreamSvr>"
                     + "<ProSeries>201</ProSeries>"
                     + "<TreatyType>SDK</TreatyType>"
@@ -119,12 +124,13 @@
                     + "<VideoDevType>16</VideoDevType>"
                     + "</FishEyeInfo>"
                     + "</Preview>";
-                //alert(_param);
+                  //alert(_param);
 
-                var StartPreviewExstate = preview.StartPreviewEx(_param);
+                  var StartPreviewExstate = preview.StartPreviewEx(_param);
+                }
 
             }
-            OnStartPreview()
+            OnStartPreview();
 
             function OnStopPreview() {
                 var StopPreviewstate = preview.StopPreview();
