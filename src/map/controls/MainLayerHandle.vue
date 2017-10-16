@@ -8,13 +8,13 @@
       </li>
     </ul>
     <ol class="kqworp" v-show="kongqi">
-      <li v-for="(item,index) in KQtargets" :data-parent-index="item.parentIndex" :data-parent="item.parentName" :data-index="index" :data-type="item.name" @click="OKQClick">
+      <li style="width: 100px;" v-for="(item,index) in KQtargets" :data-parent-index="item.parentIndex" :data-parent="item.parentName" :data-index="index" :data-type="item.name" @click="OKQClick">
         <img :src="item.src" title=""/>
         <span>{{item.value}}</span>
       </li>
     </ol>
     <ol class="vdworp" v-show="shiping">
-      <li v-for="(item,index) in VDtargets" :data-parent-index="item.parentIndex" :data-parent="item.parentName" :data-index="index" :data-type="item.name" @click="OVDClick">
+      <li style="width: 100px;" v-for="(item,index) in VDtargets" :data-parent-index="item.parentIndex" :data-parent="item.parentName" :data-index="index" :data-type="item.name" @click="OVDClick">
         <img :src="item.src" title=""/>
         <span>{{item.value}}</span>
       </li>
@@ -261,6 +261,7 @@
     left: 0;
     top: 50px;
     z-index: 1;
+    box-shadow: 0 0 14px #fff;
     .warp-box{
       li:nth-child(1){
         padding: 2px;
@@ -282,9 +283,9 @@
   .kqworp {
     position: absolute;
     top: 26px;
-    left: 134px;
+    left: 129px;
     color: #fff;
-
+    box-shadow: 0 0 14px #fff;
   }
   .ACvideo{
       position: fixed;
@@ -300,8 +301,9 @@
   .vdworp {
     position: absolute;
     top: 167px;
-    left: 134px;
+    left: 129px;
     color: #fff;
+    box-shadow: 0 0 14px #fff;
     img {
       width: 15px !important;
       height: 15px !important;
@@ -309,7 +311,7 @@
 
   }
   .main-layer-handle {
-    width: 134px;
+    width: 128px;
     background: #fff;
     color: #1080cc;
     border: solid 1px #1080cc;
@@ -321,7 +323,7 @@
     -moz-border-radius: 1px;
     border-radius: 1px;
     border: solid 1px #1080CC;
-    width: 134px;
+    width: 128px;
     color: #fff;
   }
 
@@ -332,7 +334,7 @@
     background-color: rgba(0, 79, 137, 0.6);
     list-style: none;
     line-height: 30px;
-    width: 132px;
+    width: 128px;
     padding: 0;
     cursor: pointer;
   }
