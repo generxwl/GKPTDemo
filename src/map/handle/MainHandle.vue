@@ -186,7 +186,7 @@
         if (ptType.toUpperCase() === 'LAYER_VOC' || ptType.toUpperCase() === 'LAYER_CGQ_VOC') {
           level = getVOCLeveColorIndex(data.TVOC_V) || 1;
         } else if (ptType.toUpperCase() === 'LAYER_QY') {
-          level = data['isOnline'] ? (value ? 1 : 4) : 0;//getNO2LevelIndex(value) || 1;
+          level = data['isOnline'] ? (value ? 4 : 1) : 0;//getNO2LevelIndex(value) || 1;
         } else {
           level = getAQILevelIndex(value) || 1;
         }
@@ -295,6 +295,7 @@
           let charUrl = undefined;
           let pms = undefined;
           let displayName = undefined;
+          let infoWidth = 320;
           let ptType = attributes.ptType;
           switch (ptType.toUpperCase()) {
             case 'LAYER_CG':
@@ -326,11 +327,14 @@
               break;
             case 'LAYER_QY':
               displayName = 'psname';
+              charUrl = RequestHandle.getRequestUrl('ENTERPRISECHAR');
+              pms = {pscode:attributes.pscode};
+              infoWidth = 410;
               break;
           }
           this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
             title: '<sapn style="font-size:16px" ><b title="' + (attributes[displayName] || '') + '">' + (attributes[displayName] || '') + '</b>' + '</span>',             //标题
-            width: 320,
+            width: infoWidth,
             height: "auto",
             enableAutoPan: true,
             enableSendToPhone: false,
@@ -365,8 +369,9 @@
                   t.setVOCChart(attributes.StationID, data);
                   break;
                 case 'LAYER_QY':
-                  t.searchInfoWindow.setContent('');
-                  t.setQYChart('');
+                  let content = t.setQYInfoWindow(data);
+                  t.searchInfoWindow.setContent(content);
+                  t.setQYChart(attributes.pscode,result.history);
                   break;
               }
             }
@@ -519,21 +524,34 @@
         let els = '';
         for (let i = 0, length = dts.length; i < length; i++) {
           let item = dts[i];
-          els += '<tr><td>' + item.name + '</td><td>' +
-            item.a + '</td><td>' +
-            item.ac + '</td><td>' +
-            item.b + '</td><td>' +
-            item.bc + '</td><td>' +
-            item.c + '</td><td>' +
-            item.cc + '</td><td>' +
-            item.count + '</td></tr>';
+          els += '<tr><td>' + item.outputname + '</td><td>' +
+            (item.nox || '--') + '</td><td>' +
+            (item.nox_convert || '--') + '</td><td>' +
+            (item.so2  || '--') + '</td><td>' +
+            (item.so2_convert  || '--') + '</td><td>' +
+            (item.smoke  || '--') + '</td><td>' +
+            (item.smoke_convert || '--') + '</td><td>' +
+            (item.gasoutputflow || '--') + '</td></tr>';
         }
-        els += '<tr><td>时间</td><td colspan="7">' + data.time + '</td></tr>';
+        els += '<tr><td>时间</td><td colspan="7">' + ((data.length ? data[0].time : '--') || '--') + '</td></tr>';
 
-        return '<table cellpadding="0" cellspacing="0">' + headerElements + els + '</table><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;height:110px\'>';
+        return '<table class="fitem" cellpadding="0" cellspacing="0">' + headerElements + els + '</table><div id=\'citychart_' + (data.length && data[0].pscode) + '\' style=\'width:100%;height:110px;\'>';
       },
       //企业24小时
       setQYChart(code, data){
+        let rtValue = [];
+        for (let i = 0, length = data.length; i < length; i++) {
+          let item = data[i];
+          let value = item['smoke'] || 0;
+          let obj = {
+            x: converTimeFormat(item.time && item.time.replace('T', ' ')).getTime(),
+            y: parseInt(value),
+            color: value['SmokeStatus'] ? '#ff0000': '#00ff00'//getColorByIndex(getPM25LevelIndex(parseInt(value)))
+          };
+          rtValue.push(obj);
+        }
+        let title = '最近24小时烟尘变化趋势';
+        this.loadChar(code, '烟尘', rtValue, title);
       },
 
       //加载Chart数据
@@ -901,7 +919,7 @@
 <style>
   .fitem {
     border: 1px solid #ddd;
-    margin-right: 10px;
+    margin:2px auto ;
     line-height: 18px;
   }
 
@@ -915,7 +933,8 @@
 
   .fitem td {
     font-size: 12px;
-    text-align: left;
+    text-align: center;
     border: 1px solid #ddd;
+    padding:4px 2px;
   }
 </style>
