@@ -83,7 +83,7 @@
         this.eventCameraWindow(tg.attributes, tg.getPosition().lng, tg.getPosition().lat);
       },
       setCameraWindow(data){
-        return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode=' + data['CamIndexCode'] + '&devIndexCode=' + data['DevIndexCode'] + '&name=' + data['CamName'] + '"></iframe>';
+          return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode=' + data['CamIndexCode'] + '&devIndexCode=' + data['DevIndexCode'] + '&area=' + data['Area'] +'&name=' + data['CamName'] + '"></iframe>';
       },
       //获取图标对象
       getMarker(pt, value){

@@ -100,6 +100,7 @@
                 currentPage: 1,
                 totalCount:0,
                 value2: '',
+                type:'VOC企业',
                 filters: {
                     name: ''
                 },
@@ -437,15 +438,15 @@
                 //console.log(val)
             },
             //分页部分功能
-            getPointByType(type){
+            getPointByType(type,data){
                 let rtValue = [];
-                let dt = this.data;
+                let dt = data;
                 if (dt) {
                     for (let i = 0, length = dt.length; i < length; i++) {
                         let item = dt[i];
-//                        if (item.type === type) {
-//                            rtValue.push(dt[i]);
-//                        }
+                        if (item.TypeName === type) {
+                            rtValue.push(dt[i]);
+                        }
                     }
                 }
                 return rtValue;
@@ -463,7 +464,7 @@
             },
             //设置分页所需要数据
             SetDataList(data){
-                this.data = data;
+                this.data = this.getPointByType(this.type,data);
                 this.ALLdata = [];
                 let i = 1;
                 this.data.forEach(item => {
