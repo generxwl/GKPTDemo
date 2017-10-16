@@ -45,7 +45,7 @@
             name: 'layer_cg',
             value: '空气传感器监测',
             src: 'static/imgs/main/left.png',
-            checkedSrc: 'static/imgs/main/left.png'
+            checkedSrc: 'static/imgs/main/right.png'
           }, {
             name: 'layer_gs',
             value: '国省控监测',
@@ -68,7 +68,7 @@
             name: 'layer_sp',
             value: '视频',
             src: 'static/imgs/main/left.png',
-            checkedSrc: 'static/imgs/main/left.png'
+            checkedSrc: 'static/imgs/main/right.png'
           }
           ,
           {
@@ -135,8 +135,8 @@
             parentName: 'layer_sp',
             from:'4',
             parentIndex: '4',
-            src: 'static/imgs/mues/video/voc.png',
-            checkedSrc: 'static/imgs/mues/video/voc_c.png'
+            src: 'static/imgs/mues/video/slw.png',
+            checkedSrc: 'static/imgs/mues/video/slw_c.png'
           },
           {
             name: 'layer_sp_voc',
@@ -144,16 +144,16 @@
             parentName: 'layer_sp',
             from:'3',
             parentIndex: '4',
-            src: 'static/imgs/mues/video/gdyc.png',
-            checkedSrc: 'static/imgs/mues/video/gdyc_c.png'
+            src: 'static/imgs/mues/video/voc.png',
+            checkedSrc: 'static/imgs/mues/video/voc_c.png'
           },
 //          {
 //            name: 'layer_sp_gd',
 //            parentName: 'layer_sp',
 //            parentIndex: '4',
 //            value: '工地扬尘',
-//            src: 'static/imgs/mues/video/slw.png',
-//            checkedSrc: 'static/imgs/mues/video/slw_c.png'
+//            src: 'static/imgs/mues/video/gdyc.png',
+//            checkedSrc: 'static/imgs/mues/video/gdyc_c.png'
 //          },
           {
             name: 'layer_sp_gkw',

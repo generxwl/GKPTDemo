@@ -2,6 +2,10 @@
     <div class="PaneldataCgw">
         <!--传感网面板-->
         <div id="list">
+            <div class="qianren">
+                <img style="margin-top: -180px;margin-left: 15px" src="../assets/img/fulu.png" alt="">
+                <!--<map-handle></map-handle>-->
+            </div>
             <div class="panel">
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
                 <img id="shrink" src="../assets/img/右.png" v-if="you"/>
@@ -389,8 +393,8 @@
             box-shadow: 0 0 15px #333333;
             .qianren {
                 position: absolute;
-                left: -156px;
-                top: 499px;
+                left: -96px;
+                top: 64%;
             }
             img {
                 position: absolute;
