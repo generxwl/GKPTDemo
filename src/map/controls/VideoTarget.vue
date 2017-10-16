@@ -20,8 +20,8 @@
         charUrl:'http://lftdkplat.zhiscity.com/api/Monitoring/GetMonitoringPointChart',
         targets: [
           {
-            name: 'TOVC',
-            value: 'TOVC',
+            name: 'TVOC',
+            value: 'TVOC',
             src: 'static/imgs/map/AQI.png',
             checked: 'static/imgs/map/AQI1.png'
           }, {
