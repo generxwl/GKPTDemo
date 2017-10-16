@@ -94,7 +94,7 @@
           ,
           {
             name: 'layer_jy',
-            value: '加油站',
+            value: '加油站在线监测',
             src: 'static/imgs/main/jy.png',
             checkedSrc: 'static/imgs/main/jy_c.png'
           }
@@ -259,9 +259,11 @@
   .main-layer {
     position: absolute;
     left: 0;
+    border: solid 1px #fff;
+    border-radius: 4px;
     top: 50px;
     z-index: 1;
-    box-shadow: 0 0 14px #fff;
+    box-shadow: 0 0 5px #666;
     .warp-box{
       li:nth-child(1){
         padding: 2px;
@@ -282,10 +284,11 @@
 
   .kqworp {
     position: absolute;
-    top: 26px;
+    top: 28px;
     left: 129px;
     color: #fff;
-    box-shadow: 0 0 14px #fff;
+    border: solid 1px #fff;
+    box-shadow: 0 0 5px #666;
   }
   .ACvideo{
       position: fixed;
@@ -303,7 +306,8 @@
     top: 167px;
     left: 129px;
     color: #fff;
-    box-shadow: 0 0 14px #fff;
+    border: solid 1px #fff;
+    box-shadow: 0 0 5px #666;
     img {
       width: 15px !important;
       height: 15px !important;
@@ -314,15 +318,16 @@
     width: 128px;
     background: #fff;
     color: #1080cc;
-    border: solid 1px #1080cc;
+    border: solid 1px #fff;
     line-height: 25px;
   }
 
   .main-layer ul {
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
+
     border-radius: 1px;
-    border: solid 1px #1080CC;
+    border: solid 1px #fff;
     width: 128px;
     color: #fff;
   }
@@ -334,7 +339,7 @@
     background-color: rgba(0, 79, 137, 0.6);
     list-style: none;
     line-height: 30px;
-    width: 128px;
+    width: 127px;
     padding: 0;
     cursor: pointer;
   }

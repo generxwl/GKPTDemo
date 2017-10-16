@@ -105,8 +105,7 @@
       left: 50%;
       margin-left: -310px;
       bottom:40px ;
-      color: #333;
-      text-shadow: 0 0 3px #0f0;
+      color: #888;
       .title_banquan{
         float: left;
         span{
