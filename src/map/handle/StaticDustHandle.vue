@@ -16,6 +16,7 @@
         checkedName: 'AQI',
         mouseLabel: new BMap.Label(''),
         data: [],
+        mkm: undefined,
         infoWindowConfig: {
           width: 250,     // 信息窗口宽度
           height: 240,     // 信息窗口高度
@@ -33,19 +34,19 @@
     methods: {
       //页面初始化
       ready(){
-          bus.$once('setStaticMap',this.getMap);
+        bus.$once('setStaticMap', this.getMap);
       },
       getMap(map){
         this.map = map;
         this.loadStaticMarker();
       },
       loadStaticMarker(){
-          let t = this;
+        let t = this;
         let url = RequestHandle.getRequestUrl('STATICTARGET');
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
           if (parseInt(result.status) === 1) {
-              let data = result.obj;
-              t.loadMarkerLayer(data);
+            let data = result.obj;
+            t.loadMarkerLayer(data);
           }
         }, function (ex) {
           console.error(ex);
@@ -54,6 +55,7 @@
       //加载marker数据
       loadMarkerLayer(data){
         this.markers && this.clearMarker();
+        !this.mkm && (this.mkm = new BMapLib.MarkerClusterer(this.map));
         this.map && this.map.addOverlay(this.mouseLabel);
         this.mouseLabel.setStyle({
           background: 'none',
@@ -67,10 +69,11 @@
         }
         let t = this;
         let lsMarkers = this.data;//this.getPollutionByType(this.checkedName);
+        let markerManager = [];
         for (let i = 0, length = lsMarkers.length; i < length; i++) {
           let value = lsMarkers[i];
-          let latGPS = parseInt(value.latitude) + parseFloat(value.latitudem)/60 + parseFloat(value.latitudes)/3600;
-          let lngGPS = parseInt(value.longitude) + parseFloat(value.longitudem)/60 + parseFloat(value.longitudes)/3600;
+          let latGPS = parseInt(value.latitude) + parseFloat(value.latitudem) / 60 + parseFloat(value.latitudes) / 3600;
+          let lngGPS = parseInt(value.longitude) + parseFloat(value.longitudem) / 60 + parseFloat(value.longitudes) / 3600;
           let pt = new BMap.Point(lngGPS, latGPS);
           let v = value.count;
           let marker = t.getMarker(pt, v);
@@ -87,7 +90,8 @@
           let offsetLength = ('' + value.count).length >= 4 ? (('' + value.count).length === 5 ? -2 : 2) : (('' + value.count).length > 1 ? 8 : 12);
           label.setOffset(new BMap.Size(offsetLength, -2));
 
-          marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = {stationName: value.stationname}, t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
+          //t.map.addOverlay(marker),
+          marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = {stationName: value.stationname}, t.markers.push(marker), marker.addEventListener('click', function (e) {
             let tg = e.target;
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
             t.markerClick(value.stationid, point);
@@ -103,6 +107,7 @@
             t.mouseLabel.hide();
           }));
         }
+        t.markers.length && (t.mkm.addMarkers(t.markers));
       },
 
       wgsPointToBd: function (pt) {

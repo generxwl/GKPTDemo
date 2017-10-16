@@ -4,7 +4,7 @@
   import RequestHandle from '@/request/'
   import {bus} from '@/js/bus'
   export default {
-    name: 'VideoHandle',
+    name: 'ScatterHandle',
     render(){
     },
     data () {
@@ -15,9 +15,9 @@
       };
     },
     created(){
-      bus.$once('setVideoMap', this.setMap);
-      bus.$on('loadVideoChart', this.setMarkbox);
-      bus.$on('cameraEvent',this.refreshCamera);
+      bus.$once('setScatterMap', this.setMap);
+//      bus.$on('cameraEvent', this.eventCameraWindow);
+      bus.$on('cameraEvent', this.refreshCamera);
     },
     mounted(){
     },
@@ -27,11 +27,6 @@
       },
       loadVideoData(){
         this.requestVideoData();
-      },
-      setMarkbox(lng, lat, code){
-        let point = new BMap.Point(lng, lat);
-        let tPoint = this.wgsPointToBd(point);
-        this.showCameraWindow(code, tPoint);
       },
       refreshCamera(attributes,lng, lat){
         let point = new BMap.Point(lng, lat);
@@ -53,27 +48,29 @@
       renderMarker(data){
         if (data && data.length) {
           //数据
-          bus.$emit('loadVideoData', data);
+          bus.$emit('loadScatterData', data);
           let t = this;
           for (let i = 0, length = data.length; i < length; i++) {
             let value = data[i];
-            let camName = value.CamName;
-            let pt = new BMap.Point(value.Longitude, value.Latitude);
-            let marker = this.getMarker(pt, 1);
-            marker.attributes = value;
-            let label = new BMap.Label(camName || '');
-            label.setStyle({
-              display:'none',
-              border: 'none',
-              color: '#fff',
-              background: 'none',
-              fontSize: '14px',
-              fontFamily: 'Microsoft YaHei'
-            });
-            label.setOffset(new BMap.Size(-(camName.length * 4), 15));
-            marker && (this.map.addOverlay(marker), marker.setLabel(label), this.lsMarkers.push(marker), marker.addEventListener('click', function (e) {
-              t.showCameraWindow(e);
-            }));
+            if (value && value['Type'] && value['Type'] === 4) {
+              let camName = value.CamName;
+              let pt = new BMap.Point(value.Longitude, value.Latitude);
+              let marker = this.getMarker(pt, 1);
+              marker.attributes = value;
+              let label = new BMap.Label(camName || '');
+              label.setStyle({
+                display: 'none',
+                border: 'none',
+                color: '#fff',
+                background: 'none',
+                fontSize: '14px',
+                fontFamily: 'Microsoft YaHei'
+              });
+              label.setOffset(new BMap.Size(-(camName.length * 4), 15));
+              marker && (this.map.addOverlay(marker), marker.setLabel(label), this.lsMarkers.push(marker), marker.addEventListener('click', function (e) {
+                t.showCameraWindow(e);
+              }));
+            }
           }
         }
       },

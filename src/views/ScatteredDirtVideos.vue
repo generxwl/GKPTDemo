@@ -3,11 +3,13 @@
         <!--散乱污视频监测-->
         <v-header></v-header>
         <!--<video-map></video-map>-->
+      <scatter-map></scatter-map>
         <paneldata-video></paneldata-video>
     </div>
 </template>
 <script>
     import VideoCtrl from '@/components/VideoCtrl'
+    import ScatterMap from '@/map/ScatterMap'
     import PaneldataVideo from '@/components/Paneldata-ScatteredDirtVideo'
 
     export default {
@@ -32,7 +34,7 @@
         methods: {
             // 所有方法
         },
-        components: {PaneldataVideo}//
+        components: {PaneldataVideo,ScatterMap}//
 
     };
 </script>

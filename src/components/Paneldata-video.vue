@@ -167,7 +167,8 @@
               this.currentRow = val;
               let latitude = this.currentRow.Latitude;//纬度
               let longitude = this.currentRow.Longitude;//经度
-              bus.$emit('cameraEvent',{CamName:this.currentRow.VideoName},longitude, latitude);
+              //bus.$emit('cameraEvent',{CamName:this.currentRow.VideoName},longitude, latitude);
+              bus.$emit('cameraEvent',this.currentRow,longitude, latitude);
             },
             //开发区进度
             yuantuset1(){
