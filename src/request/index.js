@@ -21,6 +21,7 @@ export default {
         //parseInt((data.status && data.status.toString()) || (data.Status && data.Status.toString()))
         data = {
           status: data.hasOwnProperty('status') ? data.status : data.Status,
+          history:data.history ? (typeof data.history === 'string' ? JSON.parse(data.history) : data.history) : undefined,
           obj: (typeof data.obj === 'string' ? JSON.parse(data.obj) : data.obj) || (typeof data.ExtraData === 'string' ? JSON.parse(data.ExtraData) : data.ExtraData)
         };
         callback1(data);
