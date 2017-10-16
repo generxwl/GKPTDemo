@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                         </el-tab-pane>
-                        <el-tab-pane label="各局输入接入进度" name="second">
+                        <el-tab-pane label="各局数据接入进度" name="second">
                             <!--表格-->
                            <ul class="table_tie">
                                <li class="table_title" style="background:#ddd">

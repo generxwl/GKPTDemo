@@ -295,6 +295,7 @@
       left: calc(50% - 100px);
       bottom:20px;
       /*margin-left: auto;*/
+
   }
   .vdworp {
     position: absolute;
