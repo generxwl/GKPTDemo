@@ -63,7 +63,35 @@
 
             OnInit();
             function OnStartPreview() {
-
+                var Area = GetQueryString('Area');
+                var ip,username,password;
+                var canshu = [
+                    //广阳区
+                    {
+                        username:'admin',
+                        password:'Admin123',
+                        ip:'192.168.31.1'
+                    },
+                    //开发区
+                    {
+                        username:'admin',
+                        password:'Admin12345?',
+                        ip:'192.168.20.11'
+                    }
+                ]
+                switch(Area)
+                {
+                    case '开发区':
+                        ip = canshu[1].ip;
+                        username = canshu[1].username;
+                        password = canshu[1].password;
+                        break;
+                    case '广阳区':
+                        ip = canshu[0].ip;
+                        username = canshu[0].username;
+                        password = canshu[0].password;
+                        break;
+                }
                 var camIndexCode = GetQueryString('camIndexCode');
                 var devIndexCode = GetQueryString('devIndexCode');
                 var name = GetQueryString('name');
@@ -71,8 +99,8 @@
                     + "<Preview>"
                     + "<CamIndexCode>" + camIndexCode + "</CamIndexCode>"//摄像头编码
                     + "<DevIndexCode>" + devIndexCode + "</DevIndexCode>"//设备编码
-                    + "<UserName>admin</UserName>" //验证
-                    + "<PassWord>Admin123</PassWord>"//验证
+                    + "<UserName>" + username + "</UserName>" //验证
+                    + "<PassWord>" + password + "</PassWord>"//验证
                     + "<UserLevel>50</UserLevel>"
                     + "<CamName>" + name + "</CamName>"//摄像头名称
                     + "<DevType>0</DevType>"
@@ -82,7 +110,7 @@
                     + "<SubStream>MAIN</SubStream>"
                     + "<NetZone cnid=\"1\" pnid=\"1\"/>"
                     + "<StreamSvr>"
-                    + "<Svr type=\"3\" ip=\"192.168.31.1\" port=\"7302\"/>"//验证
+                    + "<Svr type=\"3\" ip="+ ip +" port=\"7302\"/>"//验证
                     + "</StreamSvr>"
                     + "<ProSeries>201</ProSeries>"
                     + "<TreatyType>SDK</TreatyType>"
