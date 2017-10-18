@@ -362,7 +362,8 @@
             name: name,
             data: data
           }]
-        })
+        });
+        Highcharts.setOptions({global: {useUTC: false}});
       },
 
       //清除当前Marker图层
