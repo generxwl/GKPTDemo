@@ -50,7 +50,7 @@
                                     width="80">
                             </el-table-column>
                             <el-table-column
-                                    property="InControl"
+                                    property="stationname"
                                     label="名称"
                                     width="220">
                             </el-table-column>
@@ -240,11 +240,12 @@
                 dt2.forEach(item => {
                     const tableData = {};
                     tableData.ranking = i++;//排名
-                    tableData.InControl = item.stationname;//类型
-                    tableData.citygid = item.stationid;//城市id
+                    tableData.stationname = item.stationname;//类型
+                    tableData.stationid = item.stationid;//城市id
                     tableData.latitude = item.latitude;//纬度
                     tableData.longitude = item.longitude;//经度
                     tableData.aqi = item[type.toLowerCase()];//数值
+                    tableData.dataType = item.hasOwnProperty('dataType') ? item['dataType'] : undefined;
                     this.ALLdata.push(tableData);
                 })
             },
@@ -316,7 +317,8 @@
                 let citygid = this.currentRow.citygid;//城市id
                 let latitude = this.currentRow.latitude;//纬度
                 let longitude = this.currentRow.longitude;//经度
-                bus.$emit('loadChart', longitude, latitude, citygid);
+                bus.$emit('loadChart', longitude, latitude, this.currentRow);
+                console.log(this.currentRow);
             },
             //每页显示数据量变更
             handleSizeChange(val) {
