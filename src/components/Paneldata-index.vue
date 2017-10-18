@@ -16,48 +16,52 @@
                             <!--统计部分-->
                             <div class="tongji" v-if="tongji">
                                 <div class="table_item">
-                                    <strong>325</strong>
+                                    <strong>124</strong>
                                     <p>接入空气传感器</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>325</strong>
-                                    <p>接入空气传感器</p>
+                                    <strong>118</strong>
+                                    <p>接入工地监测</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>325</strong>
-                                    <p>接入空气传感器</p>
+                                    <strong>400</strong>
+                                    <p>接入视频</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>325</strong>
-                                    <p>接入空气传感器</p>
+                                    <strong>120</strong>
+                                    <p>接入企业监测</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>325</strong>
-                                    <p>接入空气传感器</p>
+                                    <strong>2014</strong>
+                                    <p>网格总数</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>325</strong>
-                                    <p>接入空气传感器</p>
+                                    <strong>1810</strong>
+                                    <p>网格员总数</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>325</strong>
-                                    <p>接入空气传感器</p>
+                                    <strong>3333</strong>
+                                    <p>污染源清单总数</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>325</strong>
-                                    <p>接入空气传感器</p>
+                                    <strong>--</strong>
+                                    <p>煤改气进度</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>325</strong>
-                                    <p>接入空气传感器</p>
+                                    <strong>--</strong>
+                                    <p>煤改电进度</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>325</strong>
-                                    <p>接入空气传感器</p>
+                                    <strong>--</strong>
+                                    <p>接入车辆</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>325</strong>
-                                    <p>接入空气传感器</p>
+                                    <strong>--</strong>
+                                    <p>接入餐饮监测</p>
+                                </div>
+                                <div class="table_item">
+                                    <strong>--</strong>
+                                    <p>接入加油站</p>
                                 </div>
                             </div>
                             <!--饼图展示-->
@@ -126,7 +130,7 @@
                                    <div class="item-table2" style="height: 80px;line-height: 80px">市建设局</div>
                                    <div class="item-table3" style="height: 80px;">
                                        <p>接入工地视频监控60个，正常50个，离线10个</p>
-                                       <p>煤改气数据最近跟新时间：2017-09-21</p>
+                                       <p>煤改气数据最近跟新时间：2017-10-16</p>
                                    </div>
                                </li>
                            </ul>
