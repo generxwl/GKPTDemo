@@ -91,7 +91,7 @@
           label.setOffset(new BMap.Size(offsetLength, -2));
 
           //t.map.addOverlay(marker),
-          marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = {stationName: value.stationname}, t.markers.push(marker), marker.addEventListener('click', function (e) {
+          marker && ((t.hasVisible ? marker.show() : marker.hide()),t.map.addOverlay(marker), marker.setLabel(label), marker.attributes = {stationName: value.stationname}, t.markers.push(marker), marker.addEventListener('click', function (e) {
             let tg = e.target;
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
             t.markerClick(value.stationid, point);
@@ -107,7 +107,7 @@
             t.mouseLabel.hide();
           }));
         }
-        t.markers.length && (t.mkm.addMarkers(t.markers));
+        //t.markers.length && (t.mkm.addMarkers(t.markers));
       },
 
       wgsPointToBd: function (pt) {
