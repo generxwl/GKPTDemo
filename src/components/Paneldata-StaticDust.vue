@@ -25,6 +25,7 @@
             <a>其他溶剂使用源</a>
           </div>
           <div class="fenbutu">
+            <div class="bing_text">总排放量：{{1998}} <span>污染总数：{{122}}</span></div>
             <div class="bing_item1" id="bing_item1" style="width: 190px;height: 180px;"></div>
             <div class="bing_item_lable">
               <ul>
@@ -474,7 +475,12 @@
       .fenbutu{
         padding-top: 20px;
         width: 90%;
-        height: 190px;
+        height: 220px;
+        .bing_text{
+          text-align: left;
+          padding-left: 25px;
+          font-weight: bold;
+        }
         .bing_item1{
           width: 180px;
           margin-left: 20px;
