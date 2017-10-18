@@ -92,16 +92,17 @@
           let offsetLength = (''+value.count).length >= 4 ? ((''+value.count).length === 5 ? -2 : 2) : ((''+value.count).length > 1 ? 8 : 12);
           label.setOffset(new BMap.Size(offsetLength, -2));
 
-          marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = {stationName: value.stationname}, t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
+          marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = value, t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
             let tg = e.target;
+            let attributes = tg.attributes;
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
-            t.markerClick(value.stationid, point);
+            t.markerClick(attributes, point);
           }), marker.addEventListener('mouseover', function (e) {
             let tg = e.target;
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
-            let stationName = e.currentTarget.attributes.stationName;
+            let stationName = tg.attributes.stationname;
             t.mouseLabel.setContent(stationName);
-            t.mouseLabel.setOffset(new BMap.Size(-stationName.length * 4, -10));
+            stationName && t.mouseLabel.setOffset(new BMap.Size(-stationName.length * 4, -10));
             t.mouseLabel.setPosition(point);
             t.mouseLabel.show()
           }), marker.addEventListener('mouseout', function (e) {
@@ -167,7 +168,7 @@
         if (this.data) {
           for (let i = 0, length = this.data.length; i < length; i++) {
             let item = this.data[i];
-            let obj = {'stationid': item.stationid, 'stationname': item.stationname, 'lng': item.longitude, 'lat': item.latitude, 'count': item[type.toLowerCase()]};
+            let obj = {'dataType':(item.hasOwnProperty('dataType') ? item['dataType'] : undefined),'stationid': item.stationid, 'stationname': item.stationname, 'lng': item.longitude, 'lat': item.latitude, 'count': item[type.toLowerCase()]};
             rtValue.push(obj);
           }
         }
@@ -175,13 +176,14 @@
       },
 
       //图标点击事件
-      markerClick(code, point){
+      markerClick(attributes, point){
         let t = this;
-        let charUrl = RequestHandle.getRequestUrl('SENSECHART');
+        let code = attributes.stationid;
+        let charUrl = attributes.hasOwnProperty('dataType') ? ((attributes['dataType'] && attributes['dataType'].toUpperCase() === 'XH1') ? RequestHandle.getRequestUrl('XHPOLLUTIONCHAR') : RequestHandle.getRequestUrl('SENSECHART')) : RequestHandle.getRequestUrl('SENSECHART');
         let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
 
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-          if (result.status === 0) {
+          //if (result.status === 0) {
             let data = result.obj;
             let res = t.setInfoWindow(data);
 
@@ -197,7 +199,7 @@
               let title = '最近24小时' + t.checkedName + '变化趋势';
               t.loadChar(code, t.checkedName, t.getHourData(data.hourdatas), title);
             }, 100);
-          }
+          //}
         }, function (ex) {
           console.error(ex);
         });

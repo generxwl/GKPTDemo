@@ -1,6 +1,6 @@
 <template>
   <div class="enterprise-target-content">
-    <div class="enterprise-target-header">视频</div>
+    <div class="enterprise-target-header">企业</div>
     <ul>
       <!--<li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index"><img :title="item.name" :src="index===0?item.checked:item.src"/></li>-->
       <li @click="liClickEvent" v-for="(item,index) in targets" :data-type="item.value" :data-index="index">{{item.name}}</li>
@@ -15,7 +15,7 @@
     name: 'EnterpriseTarget',
     data () {
       return {
-        checkedName: 'AQI',
+        checkedName: 'NOX',
         pollutionUrl: 'http://lftdkplat.zhiscity.com/api/Monitoring/GetMonitoringPointReal',
         charUrl: 'http://lftdkplat.zhiscity.com/api/Monitoring/GetMonitoringPointChart',
         targets: [
@@ -26,7 +26,7 @@
             checked: 'static/imgs/map/AQI1.png'
           }, {
             name: '烟尘',
-            value: 'YANC',
+            value: 'SMOKE',
             src: 'static/imgs/map/PM-2.5.png',
             checked: 'static/imgs/map/PM-2.51.png',
           }, {
@@ -37,7 +37,7 @@
           }
           , {
             name: '总排放量',
-            value: 'ZCOUNT',
+            value: 'COUNT',
             src: 'static/imgs/map/so2.png',
             checked: 'static/imgs/map/so21.png'
           }

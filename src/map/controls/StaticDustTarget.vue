@@ -15,32 +15,57 @@
     name: 'StaticDustTarget',
     data () {
       return {
-        checkedName:'AQI',
+        checkedName:'SO2',
         pollutionUrl:'http://lftdkplat.zhiscity.com/api/Monitoring/GetMonitoringPointReal',
         charUrl:'http://lftdkplat.zhiscity.com/api/Monitoring/GetMonitoringPointChart',
         targets: [
           {
-            name: 'TOVC',
-            value: 'TOVC',
+            name: 'SO2',
+            value: 'SO2',
             src: 'static/imgs/map/AQI.png',
             checked: 'static/imgs/map/AQI1.png'
           }, {
-            name: '工地',
-            value: 'GD',
+            name: 'NO2',
+            value: 'NO2',
             src: 'static/imgs/map/PM-2.5.png',
             checked: 'static/imgs/map/PM-2.51.png',
           }, {
-            name: '高空五公里',
-            value: 'GKWGL',
+            name: 'CO',
+            value: 'CO',
             src: 'static/imgs/map/PM-10.png',
             checked: 'static/imgs/map/PM-101.png'
           }
-//          , {
-//            name: '小散乱污',
-//            value: 'XSLW',
-//            src: 'static/imgs/map/so2.png',
-//            checked: 'static/imgs/map/so21.png'
-//          }
+          , {
+            name: 'NH3',
+            value: 'NH3',
+            src: 'static/imgs/map/so2.png',
+            checked: 'static/imgs/map/so21.png'
+          }, {
+            name: 'PM2.5',
+            value: 'PM25',
+            src: 'static/imgs/map/so2.png',
+            checked: 'static/imgs/map/so21.png'
+          }, {
+            name: 'PM10',
+            value: 'PM10',
+            src: 'static/imgs/map/so2.png',
+            checked: 'static/imgs/map/so21.png'
+          }, {
+            name: 'BC',
+            value: 'BC',
+            src: 'static/imgs/map/so2.png',
+            checked: 'static/imgs/map/so21.png'
+          }, {
+            name: 'OC',
+            value: 'OC',
+            src: 'static/imgs/map/so2.png',
+            checked: 'static/imgs/map/so21.png'
+          }, {
+            name: 'VOC',
+            value: 'VOC',
+            src: 'static/imgs/map/so2.png',
+            checked: 'static/imgs/map/so21.png'
+          }
         ]
       }
     },
@@ -63,7 +88,7 @@
       },
       resetImg(){
         let targets = this.$data.targets;
-        jQuery.find('.video-target-content li').forEach(function (value, index) {
+        jQuery.find('.static-target-content li').forEach(function (value, index) {
           value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)';
         });
       }
@@ -89,11 +114,9 @@
     color: #1080cc;
     border: solid 1px #1080cc;
     line-height: 25px;
-    display: none;
   }
 
   .static-target-content ul {
-    display: none;
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
     border-radius: 1px;
