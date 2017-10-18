@@ -17,6 +17,7 @@ import StaticOriginalList from '@/views/StaticOriginalList'//静态原清单
 import GridPrediction from '@/views/GridPrediction'//网格预报
 import DustEmissionStatistics from '@/views/DataAnalysis/DustEmissionStatistics'//扬尘源统计
 import DistrictsCounties from '@/views/DataAnalysis/DistrictsCounties'//区县打分
+import LikeWinter from '@/views/DataAnalysis/LikeWinter'//冬防战报
 Vue.use(Router)
 
 export default new Router({
@@ -95,6 +96,11 @@ export default new Router({
             path: '/DistrictsCounties',
             name: 'DistrictsCounties',
             component: DistrictsCounties
+        },
+        {
+            path: '/LikeWinter',
+            name: 'likewinter',
+            component: LikeWinter
         },
         {
             path: '/GridPrediction',

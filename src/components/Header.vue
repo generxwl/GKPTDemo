@@ -91,7 +91,7 @@
                         </div>
                         <div>
                             <h3>综合统计</h3>
-                            <a>冬防战报</a>
+                            <a href="#/LikeWinter">冬防战报</a>
                         </div>
                     </div>
                 </li>

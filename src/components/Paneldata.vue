@@ -107,23 +107,23 @@
                             </ol>
                         </div>
                         <div class="wrjingdu">
-                            <p>主要污染物：{{Datalist.mainpoll}}</p>
+                            <p>首要污染物：{{Datalist.mainpoll}}</p>
                             <div class="jdhezi">
-                            <div class="font">日</div>
+                            <div class="font">日倒排</div>
                             <div class="tiaojd">
-                                <v-progress :width="YearMonthDay(Datalist.dayrank_74)" :text="Datalist.dayrank_74" :color="YearMonthDayColor(Datalist.dayrank_74)"></v-progress>
-                            </div>
-                            </div>
-                            <div class="jdhezi">
-                            <div class="font">月</div>
-                            <div class="tiaojd">
-                                <v-progress :width="YearMonthDay(Datalist.monthrank_74)" :text="Datalist.monthrank_74" :color="YearMonthDayColor(Datalist.monthrank_74)"></v-progress>
+                                <v-progress :width="YearMonthDay(Datalist.dayrank_74)" :text="('倒排'+Datalist.dayrank_74)" :color="YearMonthDayColor(Datalist.dayrank_74)"></v-progress>
                             </div>
                             </div>
                             <div class="jdhezi">
-                            <div class="font">年</div>
+                            <div class="font">月倒排</div>
                             <div class="tiaojd">
-                                <v-progress :width="YearMonthDay(Datalist.yearrank_74)" :text="Datalist.yearrank_74" :color="YearMonthDayColor(Datalist.yearrank_74)"></v-progress>
+                                <v-progress :width="YearMonthDay(Datalist.monthrank_74)" :text="('倒排'+Datalist.monthrank_74)" :color="YearMonthDayColor(Datalist.monthrank_74)"></v-progress>
+                            </div>
+                            </div>
+                            <div class="jdhezi">
+                            <div class="font">年倒排</div>
+                            <div class="tiaojd">
+                                <v-progress :width="YearMonthDay(Datalist.yearrank_74)" :text="('倒排'+Datalist.yearrank_74)" :color="YearMonthDayColor(Datalist.yearrank_74)"></v-progress>
                             </div>
                             </div>
 
@@ -948,8 +948,9 @@
                             overflow: hidden;
                             .font {
                                 margin-left: 30px;
+                                margin-right: 10px;
                                 text-align: center;
-                                width: 30px;
+                                width: 45px;
                                 font-size: 14px;
                                 float: left;
                             }

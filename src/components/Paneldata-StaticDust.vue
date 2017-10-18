@@ -13,8 +13,40 @@
           <!---->
           <div class="tables">
             <!--选项-->
-            <a id="shishi" >污染源分类统计</a>
-            <div class="xian"></div>
+            <a id="shishi" >污染源分类</a>
+            <font>收起</font>
+          </div>
+          <div class="symume">
+            <a>工业企业源</a>
+            <a>移动源</a>
+            <a>加油站</a>
+            <a>餐饮油烟</a>
+            <a>扬尘源</a>
+            <a>其他溶剂使用源</a>
+          </div>
+          <div class="fenbutu">
+            <div class="bing_item1" id="bing_item1" style="width: 190px;height: 180px;"></div>
+            <div class="bing_item_lable">
+              <ul>
+                <li><i style="background: #08a1ed"></i>工业企业</li>
+                <li><i style="background: #a2c73b"></i>汽修</li>
+                <li><i style="background: #f2cd49"></i>干洗</li>
+                <li><i style="background: #85dbce"></i>餐饮油烟</li>
+                <li><i style="background: #ce93e3"></i>移动源</li>
+                <li><i style="background: #6c68e1"></i>加油站</li>
+                <li><i style="background: #e5763f"></i>施工扬尘源</li>
+              </ul>
+            </div>
+          </div>
+          <!---->
+          <div class="sousuo">
+            <div class="sleft">
+              <el-input v-model="filters.name" placeholder="请输入地址"></el-input>
+            </div>
+            <div class="sright">
+              <el-button type="primary" @click="searchData()">搜索</el-button>
+            </div>
+
           </div>
           <!---->
           <div class="table_container">
@@ -83,6 +115,9 @@
         type: 'PM2.5',
         labelType: 'PM2.5',
         ALLdata: [],
+          filters: {
+              name: ''
+          },
         tableData: [
             {
                 NetworkName:'梨园村',
@@ -154,6 +189,9 @@
         }
       })
       //
+        setTimeout(function () {
+            that.yuantuset1();
+        }, 500)
     },
     methods: {
       //排序
@@ -257,6 +295,78 @@
         this.setPageTable(10, val);
         console.log(val)
       },
+        //行业排放量分布图
+        yuantuset1(){
+
+            // 基于准备好的dom，初始化echarts实例
+            let myChart = echarts.init(document.getElementById('bing_item1'));
+            // 指定图表的配置项和数据
+//
+            let option = {
+                title : {
+                    text: '行业排放量分布图',
+                    textStyle: {
+                        fontSize: '14',
+                        fontWeight: 'bold'
+                    },
+                    x:'left'
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+
+                series : [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius : '70%',
+                        center: ['50%', '60%'],
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '20',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        data:[
+                            {value:335, name:'工业企业'},
+                            {value:310, name:'汽修'},
+                            {value:234, name:'干洗'},
+                            {value:135, name:'餐饮油烟'},
+                            {value:548, name:'移动源'},
+                            {value:500, name:'加油站'},
+                            {value:500, name:'施工扬尘源'}
+                        ],
+
+                    }
+                ]
+            };
+
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+            //动态设置参数
+//                myChart.setOption({
+//                    series: [{
+//                        data: [
+//                            {value: Datavlue, name: '占比'},
+//                            {value: Bianvlue, name: 'api'}
+//
+//                        ],
+//                        color: [
+//                            '#ccc',
+//                            Color
+//                        ]
+//                    }]
+//                })
+        },
       //
       setPageTable(pageSize, pageNum){
         let rtValue = [];
@@ -315,24 +425,7 @@
         this.labelType = this.getPollutionTarget(type);
         this.setdata(this.data, this.type)
       },
-      //时间转换
-      dateFtt(fmt, date){
-        var o = {
-          "M+": date.getMonth() + 1,                 //月份
-          "d+": date.getDate(),                    //日
-          "h+": date.getHours(),                   //小时
-          "m+": date.getMinutes(),                 //分
-          "s+": date.getSeconds(),                 //秒
-          "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-          "S": date.getMilliseconds()             //毫秒
-        };
-        if (/(y+)/.test(fmt))
-          fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-          if (new RegExp("(" + k + ")").test(fmt))
-            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-      },
+
 
     },
    components: {MapHandle}
@@ -359,6 +452,36 @@
       right: 0;
       z-index: 9;
       box-shadow: 0 0 15px #333333;
+      .fenbutu{
+        width: 90%;
+        height: 190px;
+        .bing_item1{
+          width: 180px;
+          margin-left: 20px;
+          float: left;
+        }
+        .bing_item_lable{
+          float: left;
+          width: 160px;
+          padding-top: 58px;
+          ul{
+            li{
+              text-align: left;
+              font-size: 12px;
+              width: 80px;
+              list-style: none;
+              margin-top: 5px;
+              float: left;
+              i{
+                display: inline-block;
+                width: 18px;
+                height: 8px;
+                border-radius: 5px;
+              }
+            }
+          }
+        }
+      }
       .qianren {
         position: absolute;
         left: -96px;
@@ -370,6 +493,22 @@
         left: -17px;
         cursor: pointer;
         float: left;
+      }
+      .sousuo{
+        width: 96%;
+        margin-top: 10px;
+        margin-left: 4%;
+        border-top:solid 1px #ccc;
+        margin-bottom: 25px;
+        height: 40px;
+        padding-top: 15px;
+        .sleft{
+          float: left;
+        }
+        .sright{
+          margin-left: 10px;
+          float: left;
+        }
       }
       .table_container {
         margin-top: 30px;
@@ -384,13 +523,8 @@
               margin-left: -248px;
               display: inline-block;
               font-size: 16px;
-              border-bottom: solid 2px #1080cc;
               padding: 0 20px;
               margin-bottom: -2px;
-            }
-            .xian{
-              width: 100%;
-              border:solid 1px #ccc;
             }
           }
 
