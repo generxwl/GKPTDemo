@@ -71,7 +71,6 @@
         }
         .warp_box{
             width: 1324px;
-
             overflow-y: auto;
             overflow-x: hidden;
             padding-bottom: 20px;

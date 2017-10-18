@@ -452,7 +452,27 @@
       right: 0;
       z-index: 9;
       box-shadow: 0 0 15px #333333;
+      .tables{
+        font{
+          float: right;
+          margin-right: 30px;
+        }
+      }
+      .symume{
+        width: 100%;
+        padding-left: 20px;
+        padding-bottom: 15px;
+        a{
+          display:inline-block;
+          color: #666;
+          width: 120px;
+          text-align: left;
+          margin-top: 10px;
+        }
+        border-bottom:solid 1px #ccc ;
+      }
       .fenbutu{
+        padding-top: 20px;
         width: 90%;
         height: 190px;
         .bing_item1{
@@ -522,6 +542,7 @@
             a{
               margin-left: -248px;
               display: inline-block;
+              font-weight: bold;
               font-size: 16px;
               padding: 0 20px;
               margin-bottom: -2px;

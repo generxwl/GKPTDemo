@@ -295,11 +295,20 @@
             },
             //累计
             CumulativeFatch(){
-                this.$notify({
-                    title: '温馨提示！',
-                    message: '此功能正在开发中！敬请期待',
-                    type: 'warning'
-                });
+                api.GetAnalysisData().then(res => {
+                    let data = res.data;
+                    data = typeof data === 'string' ? JSON.parse(data) : data;
+                    data = {
+                        status: data.hasOwnProperty('status') ? data.status : data.Status,
+                        obj: data.obj || data.ExtraData
+                    };
+                    let shoulist = data;
+                    let sudata = shoulist.obj;
+                    this.SetDataList(sudata, this.type)
+                    this.totalCount = this.ALLdata.length;
+                    this.allData = this.ALLdata;
+                    this.setPageTable(10, 1);
+                })
             },
             //table点击事件
             RowCurrentChange(val){

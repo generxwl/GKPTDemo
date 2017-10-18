@@ -10,6 +10,7 @@ import {
     GetMonitoringPointHourResource, //这是小时查询部分
     GetMonitoringPointRealResource,//国控点，这是实时监测点信息
     GetDustStatisticsResource,//扬尘统计
+    GetAnalysisDataResource,//传感网累计
     GetFcStationListResource,//传感网接口全部数据，暂无累计
     GetDustHourRankingResource,//在线源清单查询
 } from './resource'
@@ -59,6 +60,13 @@ export default {
     //传感网数据
     GetFcStationList(){
         return axios.get(GetFcStationListResource,{
+
+            }
+        )
+    },
+    //传感网累计
+    GetAnalysisData(){
+        return axios.get(GetAnalysisDataResource,{
 
             }
         )
