@@ -16,7 +16,9 @@
   export default {
     name: 'MainMap',
     data () {
-      return {};
+      return {
+        zoom:13
+      };
     },
     mounted(){
         this.ready();
@@ -27,9 +29,11 @@
           map.centerAndZoom('廊坊', 10);
           map.enableScrollWheelZoom();
           this.map = map;
+          let t = this;
 
           map.addEventListener('tilesloaded', function () {
             bus.$emit('setMainMap', map);
+            bus.$emit('setMainMarkerLabel',map.getZoom() >= t.zoom);
           });
         }
     },

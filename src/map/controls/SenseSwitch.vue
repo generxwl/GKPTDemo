@@ -14,13 +14,14 @@
   import SenseMarkerLayer from '@/map/handle/SenseMarkerLayer'
   import RequestHandle from '@/request'
   import {bus} from '@/js/bus.js'
-//  import SenseMarkerLayer from "../handle/SenseMarkerLayer";
+  //  import SenseMarkerLayer from "../handle/SenseMarkerLayer";
 
   export default {
     name: 'SenseSwitch',
     data () {
       return {
-        hasLoaded:false,
+        hasLoaded: false,
+        count: 0,
         target: [{
           name: 'HotMap',
           value: '热力图',
@@ -45,19 +46,45 @@
       requestHandle(map){
 //        let url = this.pollutionUrl;
 //        console.log(url);
-        let url = RequestHandle.getRequestUrl('SENSEPOLLUTION');
-        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+        //let url = RequestHandle.getRequestUrl('SENSEPOLLUTION');
+        let t = this;
+        let urlLCS = RequestHandle.getRequestUrl('SENSEPOLLUTION');
+        let urlXH = RequestHandle.getRequestUrl('XHPOLLUTION');
+        let lsUrl = [];
+        let lsResult = [];
+        lsUrl.push(urlLCS);
+        lsUrl.push(urlXH);
+        for (let i = 0, length = lsUrl.length; i < length; i++) {
+          console.log(i);
+          let url = lsUrl[i];
+          RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
 //          console.log(result);
-          if (result.status === 0) {
+//            if (result.status === 0) {
 //            console.log(result.obj);
-            bus.$emit('getSenseData', result.obj);
-            bus.$emit('loadHotLayer', map, result.obj);
-            bus.$emit('loadMarker', map, result.obj);
-            bus.$emit('loadSenseMarker', map, result.obj);
-          }
-        }, function (ex) {
-          console.error(ex);
-        });
+            lsResult = lsResult.concat(result.obj);
+//            }
+            if (t.count === (lsUrl.length - 1) && lsResult.length) {
+              t.count = 0;
+              bus.$emit('getSenseData', lsResult);
+              bus.$emit('loadHotLayer', map, lsResult);
+              bus.$emit('loadMarker', map, lsResult);
+              bus.$emit('loadSenseMarker', map, lsResult);
+            } else {
+              t.count++;
+            }
+          }, function (ex) {
+            console.error(ex);
+            if (i + 1 === lsUrl.length && lsResult.length) {
+              t.count = 0;
+              bus.$emit('getSenseData', lsResult);
+              bus.$emit('loadHotLayer', map, lsResult);
+              bus.$emit('loadMarker', map, lsResult);
+              bus.$emit('loadSenseMarker', map, lsResult);
+            } else {
+              t.count++;
+            }
+          });
+        }
       },
       liClickEvent(e){
         let element = e.currentTarget;
@@ -87,7 +114,8 @@
     },
     components: {
       SenseMarkerLayer,
-      HotLayer, MarkerLayer}
+      HotLayer, MarkerLayer
+    }
   };
 </script>
 <style scoped>

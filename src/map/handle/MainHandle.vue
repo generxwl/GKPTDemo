@@ -11,12 +11,14 @@
       return {
         lsMarkers: [],
         lsLabels: [],
+        maxZoom: 13,
         trafficLayer: undefined,
         searchInfoWindow: undefined
       };
     },
     created(){
       bus.$once('setMainMap', this.setMap);
+      bus.$on('setMainMarkerLabel', this.setMarkerLabelVisible);
       bus.$on('targetMainLayer', this.targetClick);
     },
     mounted(){
@@ -86,7 +88,7 @@
           case 'LAYER_VOC':
           case 'LAYER_CGQ_VOC':
             let urlVOC = RequestHandle.getRequestUrl('VOCPOLLUTION');
-            fieldName = 'aqi';
+            fieldName = 'TVOC_V';
             displayName = 'PointName';
             lsUrl.push(urlVOC);
             break;
@@ -166,8 +168,8 @@
           value['ptType'] = type;
           let labelName = ((displayName && value) && (value[displayName]));//value.CamName || '';
           let pt = new BMap.Point(value.lng || value.Longitude || value.longitude, value.lat || value.Latitude || value.latitude);
-          let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName), type);
-          let label = t.setMarkerLabel(labelName, '', pt, type);//, marker.setLabel(label)
+          let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName), type,value[fieldName] || undefined);
+          let label = t.setMarkerLabel(labelName, t.getMarkerLabelState(value, type, fieldName), pt, type);//, marker.setLabel(label)
           label && (t.lsLabels.push({label: label, type: type}), t.map.addOverlay(label));
           marker && (t.map.addOverlay(marker), marker.attributes = value, t.lsMarkers.push({
             marker: marker,
@@ -179,6 +181,23 @@
           }));
         }
       },
+      getMarkerLabelState(data, ptType, fieldName){
+        let value = data[fieldName];
+        let level = 0;
+        if (ptType.toUpperCase() === 'LAYER_VOC' || ptType.toUpperCase() === 'LAYER_CGQ_VOC') {
+          level = getVOCLeveColorIndex(data.TVOC_V) || -1;
+          value = data[fieldName] || '--';
+        } else if (ptType.toUpperCase() === 'LAYER_QY') {
+          level = data['isOnline'] ? (value ? 4 : -1) : -1;//getNO2LevelIndex(value) || 1;
+          value = data['smoke'] || '--';
+        }else if(ptType.toUpperCase() === 'LAYER_SP_SLW' || ptType.toUpperCase() === 'LAYER_SP_VOC' || ptType.toUpperCase() === 'LAYER_SP_GKW'){
+          value = data[fieldName];
+        }else {
+          level = getAQILevelIndex(value) || -1;
+          value = data[fieldName] || '--';
+        }
+        return {level: level, value: value};
+      },
       getMarkerState(data, ptType, fieldName){
         //console.log(data)
         let value = data[fieldName] || 0;
@@ -187,6 +206,8 @@
           level = getVOCLeveColorIndex(data.TVOC_V) || 1;
         } else if (ptType.toUpperCase() === 'LAYER_QY') {
           level = data['isOnline'] ? (value ? 4 : 1) : 0;//getNO2LevelIndex(value) || 1;
+        }else if(ptType.toUpperCase() === 'LAYER_GD'){
+          level = getPM10LevelIndex(value) || 1;
         } else {
           level = getAQILevelIndex(value) || 1;
         }
@@ -328,7 +349,7 @@
             case 'LAYER_QY':
               displayName = 'psname';
               charUrl = RequestHandle.getRequestUrl('ENTERPRISECHAR');
-              pms = {pscode:attributes.pscode};
+              pms = {pscode: attributes.pscode};
               infoWidth = 410;
               break;
           }
@@ -371,7 +392,7 @@
                 case 'LAYER_QY':
                   let content = t.setQYInfoWindow(data);
                   t.searchInfoWindow.setContent(content);
-                  t.setQYChart(attributes.pscode,result.history);
+                  t.setQYChart(attributes.pscode, result.history);
                   break;
               }
             }
@@ -513,8 +534,8 @@
           };
           rtValue.push(obj);
         }
-        let title = '最近24小时PM2.5变化趋势';
-        this.loadChar(code, 'PM2.5', rtValue, title);
+        let title = '最近24小时PM10变化趋势';
+        this.loadChar(code, 'PM10', rtValue, title);
       },
 
       //企业InfoWindow
@@ -524,18 +545,18 @@
         let els = '';
         for (let i = 0, length = dts.length; i < length; i++) {
           let item = dts[i];
-          els += '<tr><td>' + item.outputname + '</td><td>' +
+          els += '<tr><td>' + (i === (dts.length-1) ? '总计' : item.outputname) + '</td><td>' +
             (item.nox || '--') + '</td><td>' +
             (item.nox_convert || '--') + '</td><td>' +
-            (item.so2  || '--') + '</td><td>' +
-            (item.so2_convert  || '--') + '</td><td>' +
-            (item.smoke  || '--') + '</td><td>' +
+            (item.so2 || '--') + '</td><td>' +
+            (item.so2_convert || '--') + '</td><td>' +
+            (item.smoke || '--') + '</td><td>' +
             (item.smoke_convert || '--') + '</td><td>' +
             (item.gasoutputflow || '--') + '</td></tr>';
         }
         els += '<tr><td>时间</td><td colspan="7">' + ((data.length ? data[0].time : '--') || '--') + '</td></tr>';
 
-        return '<table class="fitem" cellpadding="0" cellspacing="0">' + headerElements + els + '</table><div id=\'citychart_' + (data.length && data[0].pscode) + '\' style=\'width:100%;height:110px;\'>';
+        return '<table style="min-width:390px;" class="fitem" cellpadding="0" cellspacing="0">' + headerElements + els + '</table><div id=\'citychart_' + (data.length && data[0].pscode) + '\' style=\'width:100%;height:110px;\'>';
       },
       //企业24小时
       setQYChart(code, data){
@@ -546,7 +567,7 @@
           let obj = {
             x: converTimeFormat(item.time && item.time.replace('T', ' ')).getTime(),
             y: parseInt(value),
-            color: value['SmokeStatus'] ? '#ff0000': '#00ff00'//getColorByIndex(getPM25LevelIndex(parseInt(value)))
+            color: value['SmokeStatus'] ? '#ff0000' : '#00ff00'//getColorByIndex(getPM25LevelIndex(parseInt(value)))
           };
           rtValue.push(obj);
         }
@@ -623,10 +644,10 @@
       },
 
       setCameraWindow(data){
-        return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode=' + data['CamIndexCode'] + '&devIndexCode=' + data['DevIndexCode'] + '&area=' + data['Area'] +'&name=' + data['CamName'] + '"></iframe>';
+        return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode=' + data['CamIndexCode'] + '&devIndexCode=' + data['DevIndexCode'] + '&area=' + data['Area'] + '&name=' + data['CamName'] + '"></iframe>';
       },
       //获取图标对象
-      getMarker(pt, type, lyType){
+      getMarker(pt, type, lyType,value){
         let marker = undefined;
         if (pt && type) {
           let conPoint = this.wgsPointToBd(pt);
@@ -637,22 +658,49 @@
             icon: icon,
             offset: new BMap.Size(0, 0)
           });
+          if(lyType.toUpperCase() === 'LAYER_GS'){
+            let label = new BMap.Label(value || '');
+            label.setStyle({
+              border: 'none',
+              color: '#333',
+              background: 'none',
+              fontSize: '14px',
+              fontFamily: 'Microsoft YaHei'
+            });
+            //marker.setLabel(label);
+          }
         }
         return marker;
       },
-      setMarkerLabel(displayValue, stateValue, point, lyType){
+      setMarkerLabel(displayValue, state, point, lyType){
         let conPoint = this.wgsPointToBd(point);
-        let label = new BMap.Label(displayValue || '');
+        let label = new BMap.Label(((!state.value) ? displayValue : this.getLabelContent(displayValue, state, lyType)) || '');
         label.setStyle({
           border: 'none',
-          color: '#fff',
-          background: 'none',
+          color: '#333',
+          background: '#fff',
           fontSize: '14px',
           fontFamily: 'Microsoft YaHei'
         });
         label.setPosition((lyType.toUpperCase() === 'LAYER_SP' || lyType.toUpperCase() === 'LAYER_SP_VOC' || lyType.toUpperCase() === 'LAYER_CGQ_LCS' || lyType.toUpperCase() === 'LAYER_CGQ_VOC' || lyType.toUpperCase() === 'LAYER_GD') ? conPoint : point);
-        label.setOffset(new BMap.Size(-(displayValue.length * 14 / 2), 0));
+        displayValue && label.setOffset(new BMap.Size(-(displayValue.length * 14 / 2), 14));
+        this.map.getZoom() >= this.maxZoom ? label.show() : label.hide();
         return undefined;
+      },
+      getLabelContent(displayValue, state, lyType){
+        let col = '#00ff00';
+        if (lyType.toUpperCase() === 'LAYER_QY') {
+          col = state.level ? '#43ce17' : '#d20040';
+        } else {
+          col = getColorByIndex(state.level);
+        }
+        return '<div><span>' + displayValue + '</span><span>|</span><span style="color:'+col+'">' + state.value + '</span></div>';
+      },
+      setMarkerLabelVisible(hasVisible){
+        for (let i = 0, length = this.lsLabels.length; i < length; i++) {
+          let v = this.lsLabels[i];
+          hasVisible ? v.label.show() : v.label.hide();
+        }
       },
       getMarkerLabelByType(type){
         return this.lsLabels.filter(v => v.type.toUpperCase() === type.toUpperCase());
@@ -919,7 +967,7 @@
 <style>
   .fitem {
     border: 1px solid #ddd;
-    margin:2px auto ;
+    margin: 2px auto;
     line-height: 18px;
   }
 
@@ -935,6 +983,6 @@
     font-size: 12px;
     text-align: center;
     border: 1px solid #ddd;
-    padding:4px 2px;
+    /*padding: 4px 2px;*/
   }
 </style>
