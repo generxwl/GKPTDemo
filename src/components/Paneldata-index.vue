@@ -16,51 +16,51 @@
                             <!--统计部分-->
                             <div class="tongji" v-if="tongji">
                                 <div class="table_item">
-                                    <strong>124</strong>
+                                    <strong>{{Statistics.AirCount}}</strong>
                                     <p>接入空气传感器</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>118</strong>
+                                    <strong>{{Statistics.DustCount}}</strong>
                                     <p>接入工地监测</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>400</strong>
+                                    <strong>{{Statistics.VideoCount}}</strong>
                                     <p>接入视频</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>120</strong>
+                                    <strong>{{Statistics.CompanyCount}}</strong>
                                     <p>接入企业监测</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>2014</strong>
+                                    <strong>{{Statistics.GridCount}}</strong>
                                     <p>网格总数</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>1810</strong>
+                                    <strong>{{Statistics.GridMemberCount}}</strong>
                                     <p>网格员总数</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>3333</strong>
+                                    <strong>{{Statistics.PollutionCount?Statistics.PollutionCount:'--'}}</strong>
                                     <p>污染源清单总数</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>--</strong>
+                                    <strong>{{Statistics.CoalToGasCount?Statistics.CoalToGasCount:'--'}}</strong>
                                     <p>煤改气进度</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>--</strong>
+                                    <strong>{{Statistics.ColaToEle?Statistics.ColaToEle:'--'}}</strong>
                                     <p>煤改电进度</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>--</strong>
+                                    <strong>{{Statistics.CarCount?Statistics.CarCount:'--'}}</strong>
                                     <p>接入车辆</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>--</strong>
+                                    <strong>{{Statistics.RestaurantCount?Statistics.RestaurantCount:'--'}}</strong>
                                     <p>接入餐饮监测</p>
                                 </div>
                                 <div class="table_item">
-                                    <strong>--</strong>
+                                    <strong>{{Statistics.GasStationCount?Statistics.GasStationCount:'--'}}</strong>
                                     <p>接入加油站</p>
                                 </div>
                             </div>
@@ -158,12 +158,23 @@
                 table:false,
                 tongji:true,
                 activeName: 'first',
-                tableData:[]
+                tableData:[],
+                Statistics:{},
             }
         },
 
         created(){
+            api.GetXhHbPoints().then(res => {
+                console.log('')
+                let data = res.data;
+                data = typeof data === 'string' ? JSON.parse(data) : data;
+                data = {
+                    status: data.hasOwnProperty('status') ? data.status : data.Status,
+                    obj: data.obj || data.ExtraData
+                };
+                this.Statistics = data.obj;
 
+            })
         },
         mounted(){
             //右侧收放

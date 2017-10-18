@@ -13,6 +13,7 @@ import {
     GetAnalysisDataResource,//传感网累计
     GetFcStationListResource,//传感网接口全部数据，暂无累计
     GetDustHourRankingResource,//在线源清单查询
+    GetXhHbPointsRaiseResource,//首页接入数据统计
 } from './resource'
 export default {
   //首页天气面板数据
@@ -22,6 +23,13 @@ export default {
       }
     )
   },
+    //首页接入数据统计
+    GetXhHbPoints() {
+        return axios.get(GetXhHbPointsRaiseResource,{
+
+            }
+        )
+    },
   //首页面部累计数值
     GetLfAirPollution(){
         return axios.get(GetLfAirPollutionResource,{

@@ -17,6 +17,7 @@ const apilangfangTDK= {
   GetDustStatistics:apiconfig.devt+'/api/Dust/GetDustStatistics',//扬尘统计
   GetFcStationList:apiconfig.devc+'/api/FcStation/GetFcStationList',//传感网数据实时
   GetAnalysisData:apiconfig.devc+'/api/FcStation/GetAnalysisData',//传感网数据累计
+  GetXhHbPointsRaise:apiconfig.devt+'/api/IndexStatistics/GetXhHbPointsRaise',//首页接入数据统计
   GetDustHourRanking:apiconfig.devt+'/api/Dust/GetDustHourRanking?',//在线源清单查询
 }
 
@@ -28,4 +29,5 @@ export const GetMonitoringPointRealResource = API_ROOT.concat(apilangfangTDK.Get
 export const GetDustStatisticsResource = API_ROOT.concat(apilangfangTDK.GetDustStatistics);
 export const GetFcStationListResource = API_ROOT.concat(apilangfangTDK.GetFcStationList);
 export const GetAnalysisDataResource = API_ROOT.concat(apilangfangTDK.GetAnalysisData);
+export const GetXhHbPointsRaiseResource = API_ROOT.concat(apilangfangTDK.GetXhHbPointsRaise);
 export const GetDustHourRankingResource = API_ROOT.concat(apilangfangTDK.GetDustHourRanking);

@@ -24,7 +24,7 @@
                 地图部分
             </div>
             <div class="Window_Three" style="margin-left: 20px">
-                <el-tabs v-model="activeName_s" @tab-click="handleClick">
+                <el-tabs v-model="activeName_s" @tab-click="">
                     <el-tab-pane label="廊坊市秋冬季采暖期考核" name="first_s">
                         廊坊市秋冬季采暖期考核内容
                     </el-tab-pane>
