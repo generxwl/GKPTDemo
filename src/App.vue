@@ -35,6 +35,7 @@
 </script>
 
 <style lang="scss">
+    @import "styles/tab";
     * {
         margin: 0;
         padding: 0;
@@ -119,14 +120,7 @@
         .BMapLib_SearchInfoWindow .BMapLib_sendToPhone {
             background: none;
         }
-        //
-        .el-tabs__nav{
-            margin-left: 20px!important;
-            .el-tabs__item{
-                font-size: 16px!important;
-                padding: 0 22px!important;
-            }
-        }
+
         /*圆圈进度*/
         .el-icon-close:hover{
             cursor:pointer;

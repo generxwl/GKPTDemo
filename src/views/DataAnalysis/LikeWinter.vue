@@ -130,42 +130,42 @@
             width: 370px;
             height: 305px;
             border:solid 1px #428bca;
-            background: #fff;
+            background: #1d2339;
             float: left;
         }
         .Window_Two{
             width: 428px;
             height: 305px;
             border:solid 1px #428bca;
-            background: #fff;
+            background: #1d2339;
             float: left;
         }
         .Window_Three{
             width: 480px;
             height: 378px;
             border:solid 1px #428bca;
-            background: #fff;
+            background: #1d2339;
             float: left;
         }
         .Window_Four{
             width: 370px;
             height: 276px;
             border:solid 1px #428bca;
-            background: #fff;
+            background: #1d2339;
             float: left;
         }
         .Window_Five{
             width: 428px;
             height: 276px;
             border:solid 1px #428bca;
-            background: #fff;
+            background: #1d2339;
             float: left;
         }
         .Window_six{
             width: 480px;
             height: 202px;
             border:solid 1px #428bca;
-            background: #fff;
+            background: #1d2339;
             float: left;
         }
     }
