@@ -1,6 +1,7 @@
 <script>
   import BMap from 'BMap'
   import axios from 'axios'
+  import Coordtransform from 'coordtransform'
   import RequestHandle from '@/request'
   import {bus} from '@/js/bus.js'
 
@@ -93,7 +94,8 @@
       },
       showDustInfoWindow(lng, lat, code){
         let point = new BMap.Point(lng, lat);
-        this.showCityPointChart(code, point);
+        let transPoint = this.wgsPointToBd(point);
+        this.showCityPointChart(code, transPoint);
       },
       render (data, type) {
 //        console.log(data);
@@ -214,11 +216,23 @@
             lat = data[i].latitude;
             lng = data[i].longitude;
             let point = new BMap.Point(lng, lat);
+            //坐标转换
+            let transPoint = this.wgsPointToBd(point);
             bgcolor = getColorByIndex(index);
 
-            this.showMapByPoint(value, bgcolor, point, city, region, pointname, index, data[i].deviceid);
+            this.showMapByPoint(value, bgcolor, transPoint, city, region, pointname, index, data[i].deviceid);
           }
         }
+      },
+      wgsPointToBd: function (pt) {
+        let transPoint = this.transformFun([pt.lng, pt.lat]);
+        let bdPoint = new BMap.Point(transPoint[0], transPoint[1]);
+
+        return bdPoint;
+      },
+      transformFun: function (path) {
+        let gcPoint = Coordtransform.wgs84togcj02(path[0], path[1]);
+        return Coordtransform.gcj02tobd09(gcPoint[0], gcPoint[1]);
       },
       showMapByPoint (value, bgcolor, point, city, region, pointname, index, citycode) {
         let t = this;

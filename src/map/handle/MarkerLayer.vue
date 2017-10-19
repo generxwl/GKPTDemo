@@ -1,6 +1,7 @@
 <script>
   import BMap from 'BMap'
   import RequestHandle from '@/request'
+  import Coordtransform from 'coordtransform'
   import {bus} from '@/js/bus.js'
 
   export default {
@@ -181,6 +182,7 @@
         let code = attributes.stationid;
         let charUrl = attributes.hasOwnProperty('dataType') ? ((attributes['dataType'] && attributes['dataType'].toUpperCase() === 'XH1') ? RequestHandle.getRequestUrl('XHPOLLUTIONCHAR') : RequestHandle.getRequestUrl('SENSECHART')) : RequestHandle.getRequestUrl('SENSECHART');
         let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
+        let transPoint = this.wgsPointToBd(point);
 
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
           //if (result.status === 0) {
@@ -194,7 +196,7 @@
               enableAutoPan: true,
               searchTypes: []
             });
-            searchInfoWindow.open(point);
+            searchInfoWindow.open(transPoint);
             setTimeout(function () {
               let title = '最近24小时' + t.checkedName + '变化趋势';
               t.loadChar(code, t.checkedName, t.getHourData(data.hourdatas), title);
@@ -209,11 +211,22 @@
       getMarker(pt, value){
         let marker = undefined;
         if (pt && value) {
+          let transPoint = this.wgsPointToBd(pt);
           let imgUrl = this.getImgUrl(value);
           let icon = new BMap.Icon(imgUrl, new BMap.Size(36, 25));
-          marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(0, -16)});
+          marker = new BMap.Marker(transPoint, {icon: icon, offset: new BMap.Size(0, -16)});
         }
         return marker;
+      },
+      wgsPointToBd: function (pt) {
+        let transPoint = this.transformFun([pt.lng, pt.lat]);
+        let bdPoint = new BMap.Point(transPoint[0], transPoint[1]);
+
+        return bdPoint;
+      },
+      transformFun: function (path) {
+        let gcPoint = Coordtransform.wgs84togcj02(path[0], path[1]);
+        return Coordtransform.gcj02tobd09(gcPoint[0], gcPoint[1]);
       },
 
       //获取图标地址，根据指标参考值
