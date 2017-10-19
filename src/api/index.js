@@ -13,6 +13,10 @@ import {
     GetAnalysisDataResource,//传感网累计
     GetFcStationListResource,//传感网接口全部数据，暂无累计
     GetDustHourRankingResource,//在线源清单查询
+    GetAirPieResource,//空气传感器占比统计
+    GetVideoPieResource,//视频占比统计
+    GetGridPieResource,//网格类型占比统计
+    GetGridMemberPieResource,//网格员占比统计
     GetXhHbPointsRaiseResource,//首页接入数据统计
 } from './resource'
 export default {
@@ -26,6 +30,34 @@ export default {
     //首页接入数据统计
     GetXhHbPoints() {
         return axios.get(GetXhHbPointsRaiseResource,{
+
+            }
+        )
+    },
+    //首页传感器统计
+    GetAirPie() {
+        return axios.get(GetAirPieResource,{
+
+            }
+        )
+    },
+    //首页视频统计
+    GetVideoPie() {
+        return axios.get(GetVideoPieResource,{
+
+            }
+        )
+    },
+    //首页网格类型占比统计
+    GetGridPie() {
+        return axios.get(GetGridPieResource,{
+
+            }
+        )
+    },
+    //首页网格员占比统计
+    GetGridMemberPie() {
+        return axios.get(GetGridMemberPieResource,{
 
             }
         )

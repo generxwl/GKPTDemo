@@ -136,9 +136,6 @@
                            </ul>
                         </el-tab-pane>
                     </el-tabs>
-
-
-
                 </div>
             </div>
         </div>
@@ -158,8 +155,12 @@
                 table:false,
                 tongji:true,
                 activeName: 'first',
-                tableData:[],
-                Statistics:{},
+                tableData:[],//
+                Statistics:{},//
+                AirPie:[],//传感器
+                VideoPie:[],//视频
+                GridPie:[],//网格类
+                GridMemberPie:[],//网格员
             }
         },
 
@@ -175,6 +176,7 @@
                 this.Statistics = data.obj;
 
             })
+            this.GetEcharsData()
         },
         mounted(){
             //右侧收放
@@ -258,7 +260,9 @@
             },
             //空气传感器占比图
             yuantuset1(){
-
+                let count = this.AirPie.count;
+                console.log(count)
+                let name = this.AirPie.name;
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = echarts.init(document.getElementById('bing_item1'));
                 // 指定图表的配置项和数据
@@ -280,7 +284,7 @@
                         orient: 'vertical',
                         left: 'right',
                         top:50,
-                        data: ['六参数','微型站','小型站','TVOC','工地']
+
                     },
                     series : [
                         {
@@ -301,13 +305,6 @@
                               }
                             }
                           },
-                            data:[
-                                {value:335, name:'六参数'},
-                                {value:310, name:'微型站'},
-                                {value:234, name:'小型站'},
-                                {value:135, name:'TVOC'},
-                                {value:1548, name:'工地'}
-                            ],
 
                         }
                     ]
@@ -317,19 +314,17 @@
                 // 使用刚指定的配置项和数据显示图表。
                 myChart.setOption(option);
                 //动态设置参数
-//                myChart.setOption({
-//                    series: [{
-//                        data: [
-//                            {value: Datavlue, name: '占比'},
-//                            {value: Bianvlue, name: 'api'}
-//
-//                        ],
-//                        color: [
-//                            '#ccc',
-//                            Color
-//                        ]
-//                    }]
-//                })
+                myChart.setOption({
+//                    legend:{
+//                        data: this.AirPie.name
+//                    },
+                    series: [{
+                        data: [
+                            {value: count, name:name},
+                        ],
+
+                    }]
+                })
             },
             //视频类型占比
             yuantuset2(){
@@ -565,8 +560,52 @@
 
             },
             //
-            TimeChaXun(){
+            GetEcharsData(){
+                //传感器
+                api.GetAirPie().then(res => {
 
+                    let data = res.data;
+                    data = typeof data === 'string' ? JSON.parse(data) : data;
+                    data = {
+                        status: data.hasOwnProperty('status') ? data.status : data.Status,
+                        obj: data.obj || data.ExtraData
+                    };
+                    this.AirPie = data.obj;
+                    console.log(this.AirPie)
+                })
+                //视频
+                api.GetVideoPie().then(res => {
+                    console.log('')
+                    let data = res.data;
+                    data = typeof data === 'string' ? JSON.parse(data) : data;
+                    data = {
+                        status: data.hasOwnProperty('status') ? data.status : data.Status,
+                        obj: data.obj || data.ExtraData
+                    };
+                    this.VideoPie = data.obj;
+                })
+                //网格类
+                api.GetGridPie().then(res => {
+                    console.log('')
+                    let data = res.data;
+                    data = typeof data === 'string' ? JSON.parse(data) : data;
+                    data = {
+                        status: data.hasOwnProperty('status') ? data.status : data.Status,
+                        obj: data.obj || data.ExtraData
+                    };
+                    this.GridPie = data.obj;
+                })
+                //网格员
+                api.GetGridMemberPie().then(res => {
+                    console.log('')
+                    let data = res.data;
+                    data = typeof data === 'string' ? JSON.parse(data) : data;
+                    data = {
+                        status: data.hasOwnProperty('status') ? data.status : data.Status,
+                        obj: data.obj || data.ExtraData
+                    };
+                    this.GridMemberPie = data.obj;
+                })
             },
             //时间转换
             dateFtt(fmt, date){

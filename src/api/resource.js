@@ -17,7 +17,11 @@ const apilangfangTDK= {
   GetDustStatistics:apiconfig.devt+'/api/Dust/GetDustStatistics',//扬尘统计
   GetFcStationList:apiconfig.devc+'/api/FcStation/GetFcStationList',//传感网数据实时
   GetAnalysisData:apiconfig.devc+'/api/FcStation/GetAnalysisData',//传感网数据累计
-  GetXhHbPointsRaise:apiconfig.devt+'/api/IndexStatistics/GetXhHbPointsRaise',//首页接入数据统计
+  GetXhHbPointsRaise:apiconfig.devt+'/api/IndexStatistics/GetIndexStatistics',//首页接入数据统计
+  GetAirPie:apiconfig.devt+'/api/IndexStatistics/GetAirPie',//空气传感器占比统计
+  GetVideoPie:apiconfig.devt+'/api/IndexStatistics/GetVideoPie',//视频占比统计
+  GetGridPie:apiconfig.devt+'/api/IndexStatistics/GetGridPie',//网格类型占比统计
+  GetGridMemberPie:apiconfig.devt+'/api/IndexStatistics/GetGridMemberPie',//网格员占比统计
   GetDustHourRanking:apiconfig.devt+'/api/Dust/GetDustHourRanking?',//在线源清单查询
 }
 
@@ -30,4 +34,8 @@ export const GetDustStatisticsResource = API_ROOT.concat(apilangfangTDK.GetDustS
 export const GetFcStationListResource = API_ROOT.concat(apilangfangTDK.GetFcStationList);
 export const GetAnalysisDataResource = API_ROOT.concat(apilangfangTDK.GetAnalysisData);
 export const GetXhHbPointsRaiseResource = API_ROOT.concat(apilangfangTDK.GetXhHbPointsRaise);
+export const GetAirPieResource = API_ROOT.concat(apilangfangTDK.GetAirPie);
+export const GetVideoPieResource = API_ROOT.concat(apilangfangTDK.GetVideoPie);
+export const GetGridPieResource = API_ROOT.concat(apilangfangTDK.GetGridPie);
+export const GetGridMemberPieResource = API_ROOT.concat(apilangfangTDK.GetGridMemberPie);
 export const GetDustHourRankingResource = API_ROOT.concat(apilangfangTDK.GetDustHourRanking);

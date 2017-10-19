@@ -66,9 +66,30 @@
                 </el-tabs>
             </div>
             <div class="Window_six" style="margin-left: 20px;margin-top: 20px">
-                <div class="">今天数据</div>
-                <div class="">每天数据</div>
-                <div class="">后天数据</div>
+                <div class="data_water1">
+                    <p>今天（09月04日）</p>
+                    <a>AQI日报范围<span>{{20-100}}</span></a><br/>
+                    <a>级别<span>{{优良}}</span></a><br/>
+                    <a>首要污染物<span>{{PM25}}</span></a>
+                    <p>晴</p>
+                    <a>18-28度，微风，西南风</a>
+                </div>
+                <div class="data_water2">
+                    <p>明天（09月05日）</p>
+                    <a>AQI日报范围<span>{{20-100}}</span></a><br/>
+                    <a>级别<span>{{优良}}</span></a><br/>
+                    <a>首要污染物<span>{{PM25}}</span></a>
+                    <p>晴</p>
+                    <a>18-28度，微风，西南风</a>
+                </div>
+                <div class="data_water3">
+                    <p>后天（09月06日）</p>
+                    <a>AQI日报范围<span>{{20-100}}</span></a><br/>
+                    <a>级别<span>{{优良}}</span></a><br/>
+                    <a>首要污染物<span>{{PM25}}</span></a>
+                    <p>晴</p>
+                    <a>18-28度，微风，西南风</a>
+                </div>
             </div>
         </div>
     </div>
@@ -132,6 +153,7 @@
             border:solid 1px #428bca;
             background: #1d2339;
             float: left;
+            overflow: hidden;
         }
         .Window_Two{
             width: 428px;
@@ -139,6 +161,7 @@
             border:solid 1px #428bca;
             background: #1d2339;
             float: left;
+            overflow: hidden;
         }
         .Window_Three{
             width: 480px;
@@ -146,6 +169,7 @@
             border:solid 1px #428bca;
             background: #1d2339;
             float: left;
+            overflow: hidden;
         }
         .Window_Four{
             width: 370px;
@@ -153,6 +177,7 @@
             border:solid 1px #428bca;
             background: #1d2339;
             float: left;
+            overflow: hidden;
         }
         .Window_Five{
             width: 428px;
@@ -160,13 +185,89 @@
             border:solid 1px #428bca;
             background: #1d2339;
             float: left;
+            overflow: hidden;
         }
         .Window_six{
             width: 480px;
             height: 202px;
             border:solid 1px #428bca;
             background: #1d2339;
+            overflow: hidden;
             float: left;
+            .data_water1{
+                margin-top: 18px;
+                width: 158px;
+                height: auto;
+                border-right: solid 1px #1080cc;
+                float: left;
+                p{
+                    color: #fff;
+                    font-size: 14px;
+                    padding-bottom: 10px;
+                }
+                a{
+                    display: inline-block;
+                    width: 100%;
+                    margin-top: 4px;
+                    padding-left: 14px;
+                    color: #9ea9c7;
+                    font-size:12px ;
+                    line-height: 20px;
+                    text-align: left;
+                }
+                span{
+                    color: #fff;
+                }
+            }
+            .data_water2{
+                margin-top: 18px;
+                width: 158px;
+                height: auto;
+                border-right: solid 1px #1080cc;
+                float: left;
+                p{
+                    color: #fff;
+                    font-size: 14px;
+                    padding-bottom: 10px;
+                }
+                a{
+                    display: inline-block;
+                    width: 100%;
+                    margin-top: 4px;
+                    padding-left: 14px;
+                    color: #9ea9c7;
+                    font-size:12px ;
+                    line-height: 20px;
+                    text-align: left;
+                }
+                span{
+                    color: #fff;
+                }
+            }
+            .data_water3{
+                margin-top: 18px;
+                float: left;
+                width: 158px;
+                height: auto;
+                p{
+                    color: #fff;
+                    font-size: 14px;
+                    padding-bottom: 10px;
+                }
+                a{
+                    display: inline-block;
+                    width: 100%;
+                    margin-top: 4px;
+                    padding-left: 14px;
+                    color: #9ea9c7;
+                    font-size:12px ;
+                    line-height: 20px;
+                    text-align: left;
+                }
+                span{
+                    color: #fff;
+                }
+            }
         }
     }
 </style>
