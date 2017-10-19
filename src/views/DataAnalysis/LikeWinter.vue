@@ -6,18 +6,24 @@
         </div>
         <div class="warp_box">
             <div class="Window_one">
-                <div class="">距下次跟新时间：15分钟</div>
-                <div class="">
+                <div class="item_text1">
+                    <font>距下次跟新时间：15分钟</font>
+                </div>
+                <div class="item_text2">
                     <p>廊坊市实时AQI<span>333</span></p>
                     <p>74城市AQI倒数排名<span>74</span></p>
                     <p>74城市年倒排<span>22</span></p>
                     <p>74城市月倒排<span>22</span></p>
                 </div>
-                <div class="">
+                <div class="item_text3">
                     今日控制目标：PM2.5 PM10 SO2 NO2 O3
                 </div>
-                <div class="">
-                    进度条部分
+                <div class="item_text4">
+                    <el-carousel indicator-position="outside">
+                        <el-carousel-item v-for="item in 4" :key="item">
+                            <h3>{{ item }}</h3>
+                        </el-carousel-item>
+                    </el-carousel>
                 </div>
             </div>
             <div class="Window_Two" style="margin-left: 20px">
@@ -29,7 +35,14 @@
                         廊坊市秋冬季采暖期考核内容
                     </el-tab-pane>
                     <el-tab-pane label="县市区考核" name="second_s">
-                        县市区考核内容
+                        <el-tabs v-model="activeName_z" @tab-click="">
+                            <el-tab-pane label="周考核" name="first_z">
+                                周内容
+                            </el-tab-pane>
+                            <el-tab-pane label="月考核" name="second_z">
+                                月内容
+                            </el-tab-pane>
+                        </el-tabs>
                     </el-tab-pane>
                 </el-tabs>
             </div>
@@ -52,7 +65,45 @@
             <div class="Window_Five" style="margin-left: 20px;margin-top: -54px">
                 <el-tabs v-model="activeName_f" @tab-click="">
                     <el-tab-pane label="空气质量检测" name="first_f">
-
+                        <div class="table_container">
+                            <el-table
+                                    :data="kongqiData"
+                                    border
+                                    stripe
+                                    highlight-current-row
+                                    style="width: 400px">
+                                <el-table-column
+                                        property="xuhao"
+                                        label="序号"
+                                        width="58">
+                                </el-table-column>
+                                <el-table-column
+                                        property="wlname"
+                                        label="网格名称"
+                                        width="130">
+                                </el-table-column>
+                                <el-table-column
+                                        property="jiancedian"
+                                        label="监测点"
+                                        width="110">
+                                </el-table-column>
+                                <el-table-column
+                                        property="chaowrw"
+                                        label="超预警值污染物"
+                                        >
+                                </el-table-column>
+                            </el-table>
+                            <div class="Pagination" style="text-align: left;margin-top: 10px;">
+                                <el-pagination
+                                        @size-change="handleSizeChange"
+                                        @current-change="handleCurrentChange"
+                                        :current-page="currentPage"
+                                        :page-size="pagesize"
+                                        layout="total, prev, pager, next"
+                                        :total="totalCount">
+                                </el-pagination>
+                            </div>
+                        </div>
                     </el-tab-pane>
                     <el-tab-pane label="工地扬尘监测" name="second_f">
 
@@ -103,6 +154,43 @@
                 activeName_s:'first_s',//默认选项
                 activeName_t:'first_t',//默认选项
                 activeName_f:'first_f',//默认选项
+                activeName_z:'first_z',//
+                currentRow: null,
+                pagesize: 5,
+                currentPage: 1,
+                totalCount:0,
+                kongqiData:[
+                    {
+                        xuhao:'1',
+                        wlname:'开发区梨园村一区',
+                        jiancedian:'特价商城',
+                        chaowrw:'SO2'
+                    },
+                    {
+                        xuhao:'2',
+                        wlname:'开发区梨园村一区',
+                        jiancedian:'特价商城',
+                        chaowrw:'SO2'
+                    },
+                    {
+                        xuhao:'3',
+                        wlname:'开发区梨园村一区',
+                        jiancedian:'特价商城',
+                        chaowrw:'SO2'
+                    },
+                    {
+                        xuhao:'4',
+                        wlname:'开发区梨园村一区',
+                        jiancedian:'特价商城',
+                        chaowrw:'SO2'
+                    },
+                    {
+                        xuhao:'5',
+                        wlname:'开发区梨园村一区',
+                        jiancedian:'特价商城',
+                        chaowrw:'SO2'
+                    }
+                ]
             };
         },
         beforeCreate() {
@@ -128,9 +216,11 @@
     };
 </script>
 <style lang="scss" scoped>
+    @import "../../styles/carousel";//轮播图样式
     .Like-winter{
         width: 100%;
         height: 100%;
+        color: #fff;
         background: #242953;
         .title{
             h1{
@@ -154,6 +244,26 @@
             background: #1d2339;
             float: left;
             overflow: hidden;
+            .item_text1{
+                width: 100%;
+                height: 24px;
+                font{
+                    float: right;
+                    padding-right: 10px;
+                    padding-top: 4px;
+                }
+            }
+            .item_text2{
+                p{
+                    width: 180px;
+                    height: 24px;
+                    float: left;
+                }
+            }
+            .item_text3{
+
+            }
+            .item_text4{}
         }
         .Window_Two{
             width: 428px;

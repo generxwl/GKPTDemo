@@ -743,7 +743,7 @@
                         width: 203px;
                         height: 180px;
                         float: left;
-                        overflow: hidden;
+
                     }
 
                     .bing_item3 {
