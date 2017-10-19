@@ -1,0 +1,52 @@
+
+/*圆圈进度*/
+.el-icon-close:hover{
+  cursor:pointer;
+}
+.el-progress-circle {
+  width: 80px !important;
+  height: 80px !important;
+}
+/*表格*/
+.el-table__body-wrapper{
+  tr{
+
+  }
+  :hover{
+    cursor:pointer;
+  }
+  overflow: inherit;
+}
+.table {
+
+  .cell {
+    font-size: 12px;
+  }
+  :hover{
+    cursor:pointer;
+  }
+}
+//
+.el-pagination{
+  margin-top: 20px;
+}
+.DustEmissionStatistics{
+  .cell{
+    text-align: left!important;
+  }
+}
+//tables样式
+.el-table .cell, .el-table th>div{
+  padding: 0;
+  text-align: center;
+}
+.DustEmissionStatistics{
+  .el-table .cell, .el-table th>div{
+    padding-left: 20px;
+    text-align: center;
+  }
+}
+
+.el-tabs--border-card{
+  border: 0!important;
+}

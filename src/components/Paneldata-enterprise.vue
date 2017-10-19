@@ -3,7 +3,7 @@
         <!--企业监测-->
         <div id="list">
             <div class="qianren">
-                <img style="margin-top: -180px;margin-left: 15px" src="../assets/img/fulu.png" alt="">
+                <!--<img style="margin-top: -180px;margin-left: 15px" src="../assets/img/fulu.png" alt="">-->
                 <map-handle></map-handle>
             </div>
             <div class="panel">
