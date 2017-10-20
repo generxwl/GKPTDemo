@@ -3,6 +3,7 @@
     <div class="Like-winter">
         <div class="title">
             <h1>廊坊市空气质量智能管控平台冬防战报</h1>
+            <el-button class="goback" @click="$router.go(-1)">返回上级</el-button>
         </div>
         <div class="warp_box">
             <div class="Window_one">
@@ -10,10 +11,14 @@
                     <font>距下次跟新时间：15分钟</font>
                 </div>
                 <div class="item_text2">
-                    <p>廊坊市实时AQI<span>333</span></p>
-                    <p>74城市AQI倒数排名<span>74</span></p>
-                    <p>74城市年倒排<span>22</span></p>
-                    <p>74城市月倒排<span>22</span></p>
+                    <div class="item_box1">
+                        <p style="border-right: solid 1px #ccc">廊坊市实时AQI<span>333</span></p>
+                        <p>74城市AQI倒数排名<span>74</span></p>
+                    </div>
+                    <div class="item_box1">
+                        <p style="border-right: solid 1px #ccc">74城市年倒排<span>22</span></p>
+                        <p>74城市月倒排<span>22</span></p>
+                    </div>
                 </div>
                 <div class="item_text3">
                     今日控制目标：PM2.5 PM10 SO2 NO2 O3
@@ -234,11 +239,23 @@
         color: #fff;
         background: #242953;
         .title{
+            width: 1324px;
+            height: auto;
+            margin: 0 auto;
+            position: relative;
             h1{
                 margin: 0;
                 font-size: 24px;
                 line-height: 80px;
                 color:#b0d6fa ;
+            }
+            .goback{
+                top:20px;
+                right:10px;
+                position: absolute;
+                color: #fcfcfc;
+                background: #0b598e;
+                border: none;
             }
         }
         .warp_box{
@@ -265,14 +282,26 @@
                 }
             }
             .item_text2{
-                p{
-                    width: 180px;
-                    height: 24px;
-                    float: left;
+                .item_box1{
+                    width: 100%;
+                    height: 18px;
+                    text-align: left;
+                    margin-top: 12px;
+                    p{
+                        width: 180px;
+                        height: 18px;
+                        padding-left: 20px;
+                        float: left;
+                    }
                 }
+
             }
             .item_text3{
-
+                width: 100%;
+                height: 24px;
+                padding-top: 15px;
+                text-align: left;
+                padding-left: 20px;
             }
             .item_text4{}
         }

@@ -12,6 +12,7 @@ html,body{
   .el-tabs__header{
     margin: 0!important;
   }
+
   .Like-winter{
     //轮播样式
     .el-carousel{
@@ -23,7 +24,7 @@ html,body{
       border-radius: 5px!important;
     }
     .el-carousel__container{
-
+      margin-top: 50px!important;
       height: 110px!important;
     }
     //表格样式
