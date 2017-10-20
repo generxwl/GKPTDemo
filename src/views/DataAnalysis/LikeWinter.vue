@@ -32,7 +32,17 @@
             <div class="Window_Three" style="margin-left: 20px">
                 <el-tabs v-model="activeName_s" @tab-click="">
                     <el-tab-pane label="廊坊市秋冬季采暖期考核" name="first_s">
-                        廊坊市秋冬季采暖期考核内容
+                        <el-tabs v-model="activeName_a" @tab-click="">
+                            <el-tab-pane label="全期" name="first_a">
+                                全期内容图表
+                            </el-tab-pane>
+                            <el-tab-pane label="月度" name="second_a">
+                                月度内容图表
+                            </el-tab-pane>
+                            <el-tab-pane label="季度" name="third_a">
+                                季度内容图表
+                            </el-tab-pane>
+                        </el-tabs>
                     </el-tab-pane>
                     <el-tab-pane label="县市区考核" name="second_s">
                         <el-tabs v-model="activeName_z" @tab-click="">
@@ -95,8 +105,6 @@
                             </el-table>
                             <div class="Pagination" style="text-align: left;margin-top: 10px;">
                                 <el-pagination
-                                        @size-change="handleSizeChange"
-                                        @current-change="handleCurrentChange"
                                         :current-page="currentPage"
                                         :page-size="pagesize"
                                         layout="total, prev, pager, next"
@@ -120,24 +128,24 @@
                 <div class="data_water1">
                     <p>今天（09月04日）</p>
                     <a>AQI日报范围<span>{{20-100}}</span></a><br/>
-                    <a>级别<span>{{优良}}</span></a><br/>
-                    <a>首要污染物<span>{{PM25}}</span></a>
+                    <a>级别<span>{{wather}}</span></a><br/>
+                    <a>首要污染物<span>{{wuranwu}}</span></a>
                     <p>晴</p>
                     <a>18-28度，微风，西南风</a>
                 </div>
                 <div class="data_water2">
                     <p>明天（09月05日）</p>
                     <a>AQI日报范围<span>{{20-100}}</span></a><br/>
-                    <a>级别<span>{{优良}}</span></a><br/>
-                    <a>首要污染物<span>{{PM25}}</span></a>
+                    <a>级别<span>{{wather}}</span></a><br/>
+                    <a>首要污染物<span>{{wuranwu}}</span></a>
                     <p>晴</p>
                     <a>18-28度，微风，西南风</a>
                 </div>
                 <div class="data_water3">
                     <p>后天（09月06日）</p>
                     <a>AQI日报范围<span>{{20-100}}</span></a><br/>
-                    <a>级别<span>{{优良}}</span></a><br/>
-                    <a>首要污染物<span>{{PM25}}</span></a>
+                    <a>级别<span>{{wather}}</span></a><br/>
+                    <a>首要污染物<span>{{wuranwu}}</span></a>
                     <p>晴</p>
                     <a>18-28度，微风，西南风</a>
                 </div>
@@ -155,10 +163,13 @@
                 activeName_t:'first_t',//默认选项
                 activeName_f:'first_f',//默认选项
                 activeName_z:'first_z',//
+                activeName_a:'first_a',
                 currentRow: null,
                 pagesize: 5,
                 currentPage: 1,
                 totalCount:0,
+                wather:'优~良',
+                wuranwu:'PM2.5',
                 kongqiData:[
                     {
                         xuhao:'1',
