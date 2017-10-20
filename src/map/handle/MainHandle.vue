@@ -676,9 +676,9 @@
         let conPoint = this.wgsPointToBd(point);
         let label = new BMap.Label(((!state.value) ? displayValue : this.getLabelContent(displayValue, state, lyType)) || '');
         label.setStyle({
-          border: 'none',
+          border: 'solid 1px rgba(51, 51, 51, 0.9)',
           color: '#333',
-          background: '#fff',
+          background: 'rgba(255, 255, 255, 0.8)',
           fontSize: '14px',
           fontFamily: 'Microsoft YaHei'
         });
