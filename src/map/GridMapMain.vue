@@ -27,6 +27,7 @@
         let map = new BMap.Map('grid_map');
         map.centerAndZoom('廊坊', 8);
         map.enableScrollWheelZoom();
+        mapStyle && map.setMapStyle(mapStyle);
         this.map = map;
 
         bus.$emit('getGridMap', map);

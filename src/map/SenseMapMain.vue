@@ -35,6 +35,7 @@
         let map = new BMap.Map('sense_map');
         map.centerAndZoom('廊坊', 10);
         map.enableScrollWheelZoom();
+        mapStyle && map.setMapStyle(mapStyle);
         this.map = map;
 
         bus.$emit('getSenseMap', map);

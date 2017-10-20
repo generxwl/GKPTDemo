@@ -87,8 +87,8 @@
             fontFamily: 'Microsoft YaHei',
             textShadow: '0 0 2px #fff'
           });
-          let offsetLength = ('' + value.count).length >= 4 ? (('' + value.count).length === 5 ? -2 : 2) : (('' + value.count).length > 1 ? 8 : 12);
-          label.setOffset(new BMap.Size(offsetLength, -2));
+          let offsetLength = value.entname.length*14/2 || 0;//('' + value.count).length >= 4 ? (('' + value.count).length === 5 ? -2 : 2) : (('' + value.count).length > 1 ? 8 : 12);
+          label.setOffset(new BMap.Size(-offsetLength, 2));
 
           //t.map.addOverlay(marker),
           marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = {stationName: value.stationname}, t.markers.push(marker), marker.addEventListener('click', function (e) {
@@ -96,13 +96,13 @@
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
             t.markerClick(value.stationid, point);
           }), marker.addEventListener('mouseover', function (e) {
-            let tg = e.target;
-            let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
-            let stationName = e.currentTarget.attributes.stationName;
-            t.mouseLabel.setContent(stationName);
-            stationName && t.mouseLabel.setOffset(new BMap.Size(-stationName.length * 4, -10));
-            t.mouseLabel.setPosition(point);
-            t.mouseLabel.show()
+//            let tg = e.target;
+//            let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
+//            let stationName = e.currentTarget.attributes.stationName;
+//            t.mouseLabel.setContent(stationName);
+//            stationName && t.mouseLabel.setOffset(new BMap.Size(-stationName.length * 4, -10));
+//            t.mouseLabel.setPosition(point);
+//            t.mouseLabel.show()
           }), marker.addEventListener('mouseout', function (e) {
             t.mouseLabel.hide();
           }));

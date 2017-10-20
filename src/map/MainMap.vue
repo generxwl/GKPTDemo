@@ -28,6 +28,7 @@
           let map = new BMap.Map('main_map');
           map.centerAndZoom('廊坊', 10);
           map.enableScrollWheelZoom();
+          mapStyle && map.setMapStyle(mapStyle);
           this.map = map;
           let t = this;
 

@@ -34,6 +34,7 @@
         let map = new BMap.Map('monitor_map');
         map.centerAndZoom('廊坊', 10);
         map.enableScrollWheelZoom();
+        mapStyle && map.setMapStyle(mapStyle);
         this.map = map;
 //        let trafficControl = new BMapLib.TrafficControl({
 //          showPanel: false //是否显示路况提示面板
