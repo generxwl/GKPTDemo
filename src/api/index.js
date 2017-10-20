@@ -11,6 +11,7 @@ import {
     GetMonitoringPointRealResource,//国控点，这是实时监测点信息
     GetDustStatisticsResource,//扬尘统计
     GetAnalysisDataResource,//传感网累计
+    GetXhHbPointsMicroAccuResource,//先河传感网累计
     GetFcStationListResource,//传感网接口全部数据，暂无累计
     GetDustHourRankingResource,//在线源清单查询
     GetAirPieResource,//空气传感器占比统计
@@ -110,7 +111,14 @@ export default {
 
             }
         )
-    },
+    },//
+    //传感网累计先河
+    GetXhHbPointsMicroAccu(){
+        return axios.get(GetXhHbPointsMicroAccuResource,{
+
+            }
+        )
+    },//GetXhHbPointsMicroAccuResource
     //传感网数据查询
     ChaxunGetFcStationList(time){
         return axios.get(GetFcStationListResource+'?recordtime='+time,{
