@@ -139,8 +139,8 @@
             field = 'So2Status';
             level = level ? (data[field] ? 1 : 2) : 0;
             break;
-          case 'COUNT':
-            level  = data['isOnline'] ? 1 : 0;
+          case 'GASOUTPUTFLOW':
+            level = data['isOnline'] ? 1 : 0;
             break;
         }
         return level;
@@ -175,7 +175,7 @@
         });
         this.searchInfoWindow.open(point);
         let charUrl = RequestHandle.getRequestUrl('ENTERPRISECHAR');
-        let url = charUrl + '?pscode=' + attributes.pscode;
+        let url = charUrl + '?pscode=' + attributes.pscode + '&type=' + (this.checkedField.toLowerCase() || 'nox');
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
           let data = result.obj;
           if (data) {
@@ -208,18 +208,36 @@
       },
       setQYChart(code, data){
         let rtValue = [];
+        let pollutionName = '氮氧化物';
+        let valueField = 'value';
+        let stateField = 'status';
+        switch (this.checkedField.toUpperCase()) {
+          case 'NOX':
+            pollutionName = '氮氧化物';
+            break;
+          case 'SO2':
+            pollutionName = '二氧化硫';
+            break;
+          case 'SMOKE':
+            pollutionName = '烟尘';
+            break;
+          case 'GASOUTPUTFLOW':
+            pollutionName = '总排放量';
+            break;
+        }
         for (let i = 0, length = data.length; i < length; i++) {
           let item = data[i];
-          let value = item['smoke'] || 0;
+          let value = item[valueField] || 0;
           let obj = {
             x: converTimeFormat(item.time && item.time.replace('T', ' ')).getTime(),
             y: parseInt(value),
-            color: value['SmokeStatus'] ? '#ff0000' : '#00ff00'//getColorByIndex(getPM25LevelIndex(parseInt(value)))
+            color: value[stateField] ? '#ff0000' : '#00ff00'//getColorByIndex(getPM25LevelIndex(parseInt(value)))
           };
           rtValue.push(obj);
         }
-        let title = '最近24小时烟尘变化趋势';
-        this.loadChar(code, '烟尘', rtValue, title);
+
+        let title = '最近24小时' + pollutionName + '变化趋势';
+        this.loadChar(code, pollutionName, rtValue, title);
       },//加载Chart数据
       loadChar(container, name, data, title){
         let dateTypeFormat = '%Y-%m-%d %H:%M';

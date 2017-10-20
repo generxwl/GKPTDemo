@@ -196,7 +196,7 @@
               enableAutoPan: true,
               searchTypes: []
             });
-            searchInfoWindow.open(transPoint);
+            searchInfoWindow.open(point);
             setTimeout(function () {
               let title = '最近24小时' + t.checkedName + '变化趋势';
               t.loadChar(code, t.checkedName, t.getHourData(data.hourdatas), title);
