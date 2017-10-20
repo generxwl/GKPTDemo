@@ -407,8 +407,6 @@
         return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
           + '<table width=\'100%\' class=\'fitem\'>'
           + '</td></tr><tr><th>类型</th><td style=\'width:70px;text-align:center;\'>' + data.type
-          + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
-          + '</td><th></th><td  style=\'width:70px;text-align:center;\'>' + ''
           + '</td></tr></tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(aqi)) + ';color:#fff\'>' + aqi
           + '</td><th>综指</th><td  style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getComplexIndex(data.complexindex)) + ';color:#fff\'>' + parseFloat(data.complexindex).toFixed(3)
           + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
@@ -419,10 +417,8 @@
           + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + parseInt(data.o3)
           + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.temp) + '℃'
           + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.humi) + '%'
-          + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
           + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data.winddirection
           + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + (parseInt(data.windspeed) || 0) + '级'
-          + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
           + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data.time.replace(/T/g, ' ') + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
@@ -450,8 +446,8 @@
         return '<table width=\'100%\' ><tr><td style=\'font-size:14px\' valign=\'top\'>'
           + '<table width=\'100%\' class=\'fitem\'>'
           + '<tr height=\'32px\'><th>TVOC</th><td style=\'width:70px;text-align:center;background-color:' + getVOCLeveColor(data.TVOC_V) + ';color:#fff\'>' + (data.TVOC_V ? data.TVOC_V : '--')
-          + '</td></tr><tr height=\'32px\'><th>温度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + (data.TP_V ? parseInt(data.TP_V) + '℃' : '--')
-          + '</td><th>湿度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + (data.TD_V ? parseInt(data.TD_V) + '%' : '--')
+//          + '</td></tr><tr height=\'32px\'><th>温度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + (data.TP_V ? parseInt(data.TP_V) + '℃' : '--')
+//          + '</td><th>湿度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + (data.TD_V ? parseInt(data.TD_V) + '%' : '--')
           + '</td></tr><tr height=\'32px\'><th>更新时间</th><td colspan=\'3\' style=\'text-align:center;color:#000\'>' + (data.CollectTime || data.RecordTime.replace(/T/g, ' '))
           + '</td></tr></table>'
           + '</td>'

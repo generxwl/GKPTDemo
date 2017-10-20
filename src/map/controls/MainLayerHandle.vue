@@ -221,7 +221,7 @@
         let item = targets[index];
         let hasChecked = false;
         let from = item.from;
-        if (parseInt(index) === 0) {
+        if (parseInt(index) === 0 || parseInt(index) === 1) {
               t.aclink = !t.aclink;
         }
         imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
