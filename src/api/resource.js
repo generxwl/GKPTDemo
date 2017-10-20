@@ -16,7 +16,8 @@ const apilangfangTDK= {
   GetMonitoringPointReal:apiconfig.devt+'/api/Monitoring/GetMonitoringPointReal?pointLevel=',//实时监测点信息
   GetDustStatistics:apiconfig.devt+'/api/Dust/GetDustStatistics',//扬尘统计
   GetFcStationList:apiconfig.devc+'/api/FcStation/GetFcStationList',//传感网数据实时
-  GetAnalysisData:apiconfig.devc+'/api/FcStation/GetAnalysisData',//传感网数据累计
+  GetAnalysisData:apiconfig.devc+'/api/XhHb/GetAnalysisData',//传感网数据累计
+  GetXhHbPointsMicroAccu:apiconfig.devt+'/api/XhHb/GetXhHbPointsMicroAccu',//传感网数据累计先河
   GetXhHbPointsRaise:apiconfig.devt+'/api/IndexStatistics/GetIndexStatistics',//首页接入数据统计
   GetAirPie:apiconfig.devt+'/api/IndexStatistics/GetAirPie',//空气传感器占比统计
   GetVideoPie:apiconfig.devt+'/api/IndexStatistics/GetVideoPie',//视频占比统计
@@ -33,6 +34,7 @@ export const GetMonitoringPointRealResource = API_ROOT.concat(apilangfangTDK.Get
 export const GetDustStatisticsResource = API_ROOT.concat(apilangfangTDK.GetDustStatistics);
 export const GetFcStationListResource = API_ROOT.concat(apilangfangTDK.GetFcStationList);
 export const GetAnalysisDataResource = API_ROOT.concat(apilangfangTDK.GetAnalysisData);
+export const GetXhHbPointsMicroAccuResource = API_ROOT.concat(apilangfangTDK.GetXhHbPointsMicroAccu);
 export const GetXhHbPointsRaiseResource = API_ROOT.concat(apilangfangTDK.GetXhHbPointsRaise);
 export const GetAirPieResource = API_ROOT.concat(apilangfangTDK.GetAirPie);
 export const GetVideoPieResource = API_ROOT.concat(apilangfangTDK.GetVideoPie);

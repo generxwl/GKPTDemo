@@ -95,7 +95,7 @@
                 currentPage: 1,
                 totalCount:0,
                 value2: '',
-                type:'小散乱污',
+                type:'散乱污企业',
                 filters: {
                     name: ''
                 },

@@ -296,7 +296,23 @@
             },
             //累计
             CumulativeFatch(){
+                //源传感网数据
                 api.GetAnalysisData().then(res => {
+                    let data = res.data;
+                    data = typeof data === 'string' ? JSON.parse(data) : data;
+                    data = {
+                        status: data.hasOwnProperty('status') ? data.status : data.Status,
+                        obj: data.obj || data.ExtraData
+                    };
+                    let shoulist = data;
+                    let sudata = shoulist.obj;
+                    this.SetDataList(sudata, this.type)
+                    this.totalCount = this.ALLdata.length;
+                    this.allData = this.ALLdata;
+                    this.setPageTable(10, 1);
+                })
+                //先河数据
+                api.GetXhHbPointsMicroAccu().then(res => {
                     let data = res.data;
                     data = typeof data === 'string' ? JSON.parse(data) : data;
                     data = {

@@ -3,6 +3,7 @@
     <div class="Like-winter">
         <div class="title">
             <h1>廊坊市空气质量智能管控平台冬防战报</h1>
+            <el-button class="goback" @click="$router.go(-1)">返回上级</el-button>
         </div>
         <div class="warp_box">
             <div class="Window_one">
@@ -10,10 +11,14 @@
                     <font>距下次跟新时间：15分钟</font>
                 </div>
                 <div class="item_text2">
-                    <p>廊坊市实时AQI<span>333</span></p>
-                    <p>74城市AQI倒数排名<span>74</span></p>
-                    <p>74城市年倒排<span>22</span></p>
-                    <p>74城市月倒排<span>22</span></p>
+                    <div class="item_box1">
+                        <p style="border-right: solid 1px #ccc">廊坊市实时AQI<span>333</span></p>
+                        <p>74城市AQI倒数排名<span>74</span></p>
+                    </div>
+                    <div class="item_box1">
+                        <p style="border-right: solid 1px #ccc">74城市年倒排<span>22</span></p>
+                        <p>74城市月倒排<span>22</span></p>
+                    </div>
                 </div>
                 <div class="item_text3">
                     今日控制目标：PM2.5 PM10 SO2 NO2 O3
@@ -32,7 +37,17 @@
             <div class="Window_Three" style="margin-left: 20px">
                 <el-tabs v-model="activeName_s" @tab-click="">
                     <el-tab-pane label="廊坊市秋冬季采暖期考核" name="first_s">
-                        廊坊市秋冬季采暖期考核内容
+                        <el-tabs v-model="activeName_a" @tab-click="">
+                            <el-tab-pane label="全期" name="first_a">
+                                全期内容图表
+                            </el-tab-pane>
+                            <el-tab-pane label="月度" name="second_a">
+                                月度内容图表
+                            </el-tab-pane>
+                            <el-tab-pane label="季度" name="third_a">
+                                季度内容图表
+                            </el-tab-pane>
+                        </el-tabs>
                     </el-tab-pane>
                     <el-tab-pane label="县市区考核" name="second_s">
                         <el-tabs v-model="activeName_z" @tab-click="">
@@ -95,8 +110,6 @@
                             </el-table>
                             <div class="Pagination" style="text-align: left;margin-top: 10px;">
                                 <el-pagination
-                                        @size-change="handleSizeChange"
-                                        @current-change="handleCurrentChange"
                                         :current-page="currentPage"
                                         :page-size="pagesize"
                                         layout="total, prev, pager, next"
@@ -120,24 +133,24 @@
                 <div class="data_water1">
                     <p>今天（09月04日）</p>
                     <a>AQI日报范围<span>{{20-100}}</span></a><br/>
-                    <a>级别<span>{{优良}}</span></a><br/>
-                    <a>首要污染物<span>{{PM25}}</span></a>
+                    <a>级别<span>{{wather}}</span></a><br/>
+                    <a>首要污染物<span>{{wuranwu}}</span></a>
                     <p>晴</p>
                     <a>18-28度，微风，西南风</a>
                 </div>
                 <div class="data_water2">
                     <p>明天（09月05日）</p>
                     <a>AQI日报范围<span>{{20-100}}</span></a><br/>
-                    <a>级别<span>{{优良}}</span></a><br/>
-                    <a>首要污染物<span>{{PM25}}</span></a>
+                    <a>级别<span>{{wather}}</span></a><br/>
+                    <a>首要污染物<span>{{wuranwu}}</span></a>
                     <p>晴</p>
                     <a>18-28度，微风，西南风</a>
                 </div>
                 <div class="data_water3">
                     <p>后天（09月06日）</p>
                     <a>AQI日报范围<span>{{20-100}}</span></a><br/>
-                    <a>级别<span>{{优良}}</span></a><br/>
-                    <a>首要污染物<span>{{PM25}}</span></a>
+                    <a>级别<span>{{wather}}</span></a><br/>
+                    <a>首要污染物<span>{{wuranwu}}</span></a>
                     <p>晴</p>
                     <a>18-28度，微风，西南风</a>
                 </div>
@@ -155,10 +168,13 @@
                 activeName_t:'first_t',//默认选项
                 activeName_f:'first_f',//默认选项
                 activeName_z:'first_z',//
+                activeName_a:'first_a',
                 currentRow: null,
                 pagesize: 5,
                 currentPage: 1,
                 totalCount:0,
+                wather:'优~良',
+                wuranwu:'PM2.5',
                 kongqiData:[
                     {
                         xuhao:'1',
@@ -223,11 +239,23 @@
         color: #fff;
         background: #242953;
         .title{
+            width: 1324px;
+            height: auto;
+            margin: 0 auto;
+            position: relative;
             h1{
                 margin: 0;
                 font-size: 24px;
                 line-height: 80px;
                 color:#b0d6fa ;
+            }
+            .goback{
+                top:20px;
+                right:10px;
+                position: absolute;
+                color: #fcfcfc;
+                background: #0b598e;
+                border: none;
             }
         }
         .warp_box{
@@ -254,14 +282,26 @@
                 }
             }
             .item_text2{
-                p{
-                    width: 180px;
-                    height: 24px;
-                    float: left;
+                .item_box1{
+                    width: 100%;
+                    height: 18px;
+                    text-align: left;
+                    margin-top: 12px;
+                    p{
+                        width: 180px;
+                        height: 18px;
+                        padding-left: 20px;
+                        float: left;
+                    }
                 }
+
             }
             .item_text3{
-
+                width: 100%;
+                height: 24px;
+                padding-top: 15px;
+                text-align: left;
+                padding-left: 20px;
             }
             .item_text4{}
         }

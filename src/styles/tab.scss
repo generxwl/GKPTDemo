@@ -12,8 +12,26 @@ html,body{
   .el-tabs__header{
     margin: 0!important;
   }
+
   .Like-winter{
-    //
+    //轮播样式
+    .el-carousel{
+      margin-left: 30px!important;
+      width: 300px!important;
+    }
+    .el-carousel__item{
+      height: auto!important;
+      border-radius: 5px!important;
+    }
+    .el-carousel__container{
+      margin-top: 50px!important;
+      height: 110px!important;
+    }
+    //表格样式
+    .el-table{
+      width: 426px!important;
+    }
+    //切换tab样式
     .el-tabs__item.is-active {
       color: #fff!important;
     }
