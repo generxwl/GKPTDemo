@@ -119,13 +119,13 @@
                         </div>
                     </el-tab-pane>
                     <el-tab-pane label="工地扬尘监测" name="second_f">
-
+                            表格22222
                     </el-tab-pane>
                     <el-tab-pane label="企业在线监测" name="third_f">
-
+                        表格33333
                     </el-tab-pane>
                     <el-tab-pane label="散乱污视频" name="fourth_f">
-
+                        表格44444
                     </el-tab-pane>
                 </el-tabs>
             </div>
