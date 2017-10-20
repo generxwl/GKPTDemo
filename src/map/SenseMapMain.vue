@@ -5,7 +5,7 @@
     <sense-pollution></sense-pollution>
     <sense-switch :pollutionUrl="pollutionUrl" :charUrl="charUrl"></sense-switch>
     <!--<sense-map-handle></sense-map-handle>-->
-    <!--<history-handle></history-handle>-->
+    <history-handle></history-handle>
   </div>
 </template>
 <script>

@@ -37,7 +37,7 @@
           }
           , {
             name: '总排放量',
-            value: 'COUNT',
+            value: 'GASOUTPUTFLOW',
             src: 'static/imgs/map/so2.png',
             checked: 'static/imgs/map/so21.png'
           }
