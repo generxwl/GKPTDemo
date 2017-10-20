@@ -349,7 +349,7 @@
             case 'LAYER_QY':
               displayName = 'psname';
               charUrl = RequestHandle.getRequestUrl('ENTERPRISECHAR');
-              pms = {pscode: attributes.pscode};
+              pms = {pscode: attributes.pscode,type:'nox'};
               infoWidth = 410;
               break;
           }
@@ -563,16 +563,16 @@
         let rtValue = [];
         for (let i = 0, length = data.length; i < length; i++) {
           let item = data[i];
-          let value = item['smoke'] || 0;
+          let value = item['value'] || 0;
           let obj = {
             x: converTimeFormat(item.time && item.time.replace('T', ' ')).getTime(),
             y: parseInt(value),
-            color: value['SmokeStatus'] ? '#ff0000' : '#00ff00'//getColorByIndex(getPM25LevelIndex(parseInt(value)))
+            color: value['status'] ? '#ff0000' : '#00ff00'//getColorByIndex(getPM25LevelIndex(parseInt(value)))
           };
           rtValue.push(obj);
         }
-        let title = '最近24小时烟尘变化趋势';
-        this.loadChar(code, '烟尘', rtValue, title);
+        let title = '最近24小时氮氧化物变化趋势';
+        this.loadChar(code, '氮氧化物', rtValue, title);
       },
 
       //加载Chart数据
