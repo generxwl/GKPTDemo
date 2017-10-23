@@ -80,27 +80,29 @@
 
                     </el-tab-pane>
                     <el-tab-pane label="用电量数据" name="second_t">
-                        <div class="">区县9月14日用电量</div>
-                        <div id="dian_1" style="width: 300px;height: 170px;"></div>
-                        <div class="">
-                            <a>广阳区</a>
-                            <a>安次区</a>
-                            <a>开发区</a>
-                            <a>香河县</a>
-                            <a>大厂县</a>
-                            <a>三河市</a>
-                            <a>固安县</a>
-                            <a>永清县</a>
-                            <a>霸州市</a>
-                            <a>文安县</a>
-                            <a>大城县</a>
-                        </div>
+                        <div class="" style="padding: 10px 0">区县9月14日用电量</div>
+                        <div id="dian_1" style="width: 366px;height: 200px;color: #fff!important;"></div>
+                        <!--<div class="">-->
+                            <!--<a>广阳区</a>-->
+                            <!--<a>安次区</a>-->
+                            <!--<a>开发区</a>-->
+                            <!--<a>香河县</a>-->
+                            <!--<a>大厂县</a>-->
+                            <!--<a>三河市</a>-->
+                            <!--<a>固安县</a>-->
+                            <!--<a>永清县</a>-->
+                            <!--<a>霸州市</a>-->
+                            <!--<a>文安县</a>-->
+                            <!--<a>大城县</a>-->
+                        <!--</div>-->
                     </el-tab-pane>
                     <el-tab-pane label="经济数据" name="third_t">
-
+                        <div class=""  style="padding: 10px 0">区县9月14日经济数据</div>
+                        <div id="dian_2" style="width: 366px;height: 200px;color: #fff!important;"></div>
                     </el-tab-pane>
                     <el-tab-pane label="数据接入进度" name="fourth_t">
-
+                        <div class="">区县9月14日数据接入进度</div>
+                        <div id="dian_3" style="width: 366px;height: 200px;color: #fff!important;"></div>
                     </el-tab-pane>
                 </el-tabs>
             </div>
@@ -251,11 +253,13 @@
         mounted() {
             //mounted 挂载结束状态=====
             setTimeout(()=>{
-                this.ElectricityConsumption()
+                this.ElectricityConsumption();
+                this.EconomicsConsumption();
+                this.DataConsumption();
             },500)
         },
         methods: {
-            // 所有方法
+            // 用电量
             ElectricityConsumption(){
 //                let data = this.VideoPie.map(function (v) {
 //                        return {value: v.count, name: v.name}
@@ -264,12 +268,13 @@
                 let myChart = echarts.init(document.getElementById('dian_1'));
                 // 指定图表的配置项和数据
                 let option = {
+
                     tooltip: {
                         trigger: 'axis',
                         axisPointer: {
                             type: 'cross',
                             crossStyle: {
-                                color: '#999'
+                                color: '#fff'
                             }
                         }
                     },
@@ -282,58 +287,207 @@
                         }
                     },
                     legend: {
-                        data:['蒸发量','降水量','平均温度']
+                        data:['用电量','增长率'],
+                        left: 'left',
+                        textStyle: {
+                            color: '#fff'
+                        },
                     },
                     xAxis: [
                         {
                             type: 'category',
-                            data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+                            data: ['广阳区','安次区','开发区','香河县','大厂县','三河市','固安县','永清县','霸州市','文安县','大城县'],
                             axisPointer: {
                                 type: 'shadow'
-                            }
+                            },
+                            axisLabel: {
+                                textStyle: {
+                                    color: '#fff'
+                                }
+                            },
                         }
                     ],
                     yAxis: [
                         {
                             type: 'value',
-                            name: '水量',
+                            name: '单位(万千瓦时)',
                             min: 0,
-                            max: 250,
-                            interval: 50,
+                            max: 800,
+                            interval: 200,
                             axisLabel: {
-                                formatter: '{value} ml'
-                            }
+                                formatter: '{value}',
+                                textStyle: {
+                                    color: '#fff',
+                                }
+                            },
+                            nameTextStyle: {
+                                color: '#fff'
+                            },
                         },
                         {
                             type: 'value',
-                            name: '温度',
-                            min: 0,
-                            max: 25,
+                            name: '单位（%）',
+                            min: -10,
+                            max: 10,
                             interval: 5,
                             axisLabel: {
-                                formatter: '{value} °C'
-                            }
+                                formatter: '{value}',
+                                textStyle: {
+                                    color: '#fff'
+                                }
+                            },
+                            nameTextStyle: {
+                                color: '#fff'
+                            },
                         }
                     ],
                     series: [
                         {
-                            name:'蒸发量',
+                            name:'用电量',
                             type:'bar',
-                            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+                            data:[200.6, 500.9, 239.0, 296.4, 699.7, 470.7, 175.6, 182.2, 648.7, 718.8, 360.0]
                         },
                         {
-                            name:'降水量',
-                            type:'bar',
-                            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
-                        },
-                        {
-                            name:'平均温度',
+                            name:'增长率',
                             type:'line',
                             yAxisIndex: 1,
-                            data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+                            data:[1.0, 2.2, 3.3, 4.5, 6.3, 8.2, 9, 9.4, 5.0, 6.5, 2.0]
                         }
                     ]
                 };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+                myChart.setOption({
+//                    legend: {
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
+//                    series: [{
+//                        data: data
+//                    }]
+                })
+            },
+            // 经济数据
+            EconomicsConsumption(){
+//                let data = this.VideoPie.map(function (v) {
+//                        return {value: v.count, name: v.name}
+//                    }) || [];
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById('dian_2'));
+                // 指定图表的配置项和数据
+                let option = {
+
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross',
+                            crossStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    toolbox: {
+                        feature: {
+                            dataView: {show: true, readOnly: false},
+                            magicType: {show: true, type: ['line', 'bar']},
+                            restore: {show: true},
+                            saveAsImage: {show: true}
+                        }
+                    },
+                    legend: {
+                        data:['用电量','增长率'],
+                        left: 'left',
+                        textStyle: {
+                            color: '#fff'
+                        },
+                    },
+                    xAxis: [
+                        {
+                            type: 'category',
+                            data: ['广阳区','安次区','开发区','香河县','大厂县','三河市','固安县','永清县','霸州市','文安县','大城县'],
+                            axisPointer: {
+                                type: 'shadow'
+                            },
+                            axisLabel: {
+                                textStyle: {
+                                    color: '#fff'
+                                }
+                            },
+                        }
+                    ],
+                    yAxis: [
+                        {
+                            type: 'value',
+                            name: '万千瓦时',
+                            min: 0,
+                            max: 800,
+                            interval: 200,
+                            axisLabel: {
+                                formatter: '{value}',
+                                textStyle: {
+                                    color: '#fff'
+                                }
+                            },
+                            nameTextStyle: {
+                                color: '#fff'
+                            },
+                        },
+                        {
+                            type: 'value',
+                            name: '增长率',
+                            min: -10,
+                            max: 10,
+                            interval: 5,
+                            axisLabel: {
+                                formatter: '{value}',
+                                textStyle: {
+                                    color: '#fff'
+                                }
+                            },
+                            nameTextStyle: {
+                                color: '#fff'
+                            },
+                        }
+                    ],
+                    series: [
+                        {
+                            name:'用电量',
+                            type:'bar',
+                            data:[200.6, 500.9, 239.0, 296.4, 699.7, 470.7, 175.6, 182.2, 648.7, 718.8, 360.0]
+                        },
+                        {
+                            name:'增长率',
+                            type:'line',
+                            yAxisIndex: 1,
+                            data:[1.0, 2.2, 3.3, 4.5, 6.3, 8.2, 9, 9.4, 5.0, 6.5, 2.0]
+                        }
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+                myChart.setOption({
+//                    legend: {
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
+//                    series: [{
+//                        data: data
+//                    }]
+                })
+            },
+            // 数据接入
+            DataConsumption(){
+//                let data = this.VideoPie.map(function (v) {
+//                        return {value: v.count, name: v.name}
+//                    }) || [];
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById('dian_3'));
+                // 指定图表的配置项和数据
+
                 // 使用刚指定的配置项和数据显示图表。
                 myChart.setOption(option);
                 //动态设置参数

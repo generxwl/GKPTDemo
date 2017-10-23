@@ -62,7 +62,6 @@
                         </el-table>
                         <div class="Pagination" style="text-align: left;margin-top: 10px;">
                             <el-pagination
-                                    @size-change="handleSizeChange"
                                     @current-change="handleCurrentChange"
                                     :current-page="currentPage"
                                     :page-size="pagesize"
