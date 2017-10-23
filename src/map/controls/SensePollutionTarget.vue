@@ -94,21 +94,22 @@
 </script>
 <style scoped>
   .sense-target-content {
-    -webkit-border-radius: 1px;
-    -moz-border-radius: 1px;
-    border-radius: 1px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
     position: absolute;
     width:60px;
     left: 0;
     top: 50px;
     z-index: 1;
+    box-shadow: 0 0 5px #666;
   }
 
   .sense-target-header{
     width: 62px;
     background: #fff;
     color: #1080cc;
-    border: solid 1px #1080cc;
+    border: solid 1px #fff;
     line-height: 25px;
   }
 
@@ -116,7 +117,8 @@
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
     border-radius: 1px;
-    border: solid 1px #1080CC;
+    border: solid 1px #fff;
+
     width: 62px;
     color: #fff;
   }

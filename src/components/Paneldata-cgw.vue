@@ -3,8 +3,8 @@
         <!--传感网面板-->
         <div id="list">
             <div class="qianren">
-                <img style="margin-top: -180px;margin-left: 15px" src="../assets/img/fulu.png" alt="">
-                <!--<map-handle></map-handle>-->
+                <img style="margin-top: -180px;margin-left: 12px" src="../assets/img/fulu.png" alt="">
+                <map-handle></map-handle>
             </div>
             <div class="panel">
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
@@ -80,6 +80,7 @@
 <script>
     import {bus} from '@/js/bus.js'
     import api from '../api/index'
+    import MapHandle from '@/map/controls/MapHandle'
     export default {
         name: 'PaneldataCgw',
         data () {
@@ -94,28 +95,28 @@
                 pagesize: 10,
                 currentPage: 1,
                 totalCount: 0,
-                pickerOptions1: {
-                    shortcuts: [{
-                        text: '今天',
-                        onClick(picker) {
-                            picker.$emit('pick', new Date());
-                        }
-                    }, {
-                        text: '昨天',
-                        onClick(picker) {
-                            const date = new Date();
-                            date.setTime(date.getTime() - 3600 * 1000 * 24);
-                            picker.$emit('pick', date);
-                        }
-                    }, {
-                        text: '一周前',
-                        onClick(picker) {
-                            const date = new Date();
-                            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', date);
-                        }
-                    }]
-                },
+//                pickerOptions1: {
+//                    shortcuts: [{
+//                        text: '今天',
+//                        onClick(picker) {
+//                            picker.$emit('pick', new Date());
+//                        }
+//                    }, {
+//                        text: '昨天',
+//                        onClick(picker) {
+//                            const date = new Date();
+//                            date.setTime(date.getTime() - 3600 * 1000 * 24);
+//                            picker.$emit('pick', date);
+//                        }
+//                    }, {
+//                        text: '一周前',
+//                        onClick(picker) {
+//                            const date = new Date();
+//                            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+//                            picker.$emit('pick', date);
+//                        }
+//                    }]
+//                },
                 value1: '',
                 value2: '',
                 uptime:''
@@ -249,15 +250,6 @@
                     this.ALLdata.push(tableData);
                 })
             },
-//            getPollution(type){
-//                let rtValue = type;
-//                switch(type){
-//                    case 'PM25':
-//                        rtValue = 'PM2.5';
-//                        break;
-//                }
-//                return rtValue;
-//            },
             //查询
             ChaXunJianCe(){
                 let t = this;
@@ -296,6 +288,7 @@
             },
             //累计
             CumulativeFatch(){
+                let cumudata = [];
                 //源传感网数据
                 api.GetAnalysisData().then(res => {
                     let data = res.data;
@@ -336,15 +329,9 @@
                 bus.$emit('loadChart', longitude, latitude, this.currentRow);
                 console.log(this.currentRow);
             },
-            //每页显示数据量变更
-            handleSizeChange(val) {
-                //this.pagesize = val;
-            },
-
             //页码变更
             handleCurrentChange(val) {
                 this.setPageTable(10, val);
-
             },
             //分页部分功能
             setPageTable(pageSize, pageNum){
@@ -395,7 +382,8 @@
                         fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                 return fmt;
             },
-        }
+        },
+        components: {MapHandle}
     }
 </script>
 

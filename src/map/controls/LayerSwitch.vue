@@ -112,7 +112,7 @@
     left: 0;
     z-index: 1;
     width: 60px;
-
+    border-radius: 2px;
   }
 
   .b-icon {
@@ -143,8 +143,9 @@
   }
 
   .layerSwitch ul {
-    border: solid 1px #1080CC;
-    /*background: #fff;*/
+    border: solid 1px #fff;
+    box-shadow: 0 0 6px #666;
+    border-radius: 2px;
     width: 62px;
     list-style-type: none;
     padding: 0;
