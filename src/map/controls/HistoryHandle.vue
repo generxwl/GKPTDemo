@@ -25,41 +25,77 @@
     data () {
       return {
         labelTime: '周四 08-01 00:00',
-        times: [
-          {
-            date: '08-01',
-            week: '周四'
-          }, {
-            date: '08-01',
-            week: '周四'
-          }, {
-            date: '08-01',
-            week: '周四'
-          }, {
-            date: '08-01',
-            week: '周四'
-          }, {
-            date: '08-01',
-            week: '周四'
-          }, {
-            date: '08-01',
-            week: '周四'
-          }, {
-            date: '08-01',
-            week: '周四'
-          }, {
-            date: '08-01',
-            week: '周四'
-          }],
+        times: [],
+        lsLabelTime:[],
+        sum: 0,
         interval: undefined
       };
     },
     created(){
+      let t = this;
+      //开始时间
+      let startTime = new Date();
+      let labelTime = new Date();
+      startTime.setDate(startTime.getDate() - 7);
+      labelTime.setDate(labelTime.getDate() - 6);
+
+      //结束时间
+      let endTime = new Date();
+
+      for (let i = 0; i < 7; i++) {
+        startTime.setDate(startTime.getDate() + 1);
+        let tm = {
+          date: (startTime.getMonth() + 1) + '-' + startTime.getDate(),
+          week: t.getWeek(startTime.getDay())
+        };
+        t.times.push(tm);
+      }
+
+      labelTime.setHours(0);
+      for (let j = 0; j < 7 * 24; j++) {
+        let month = labelTime.getMonth() + 1;
+        let date = labelTime.getDate();
+        let hours = labelTime.getHours();
+        let lt = {
+          date: (month > 9 ? month : ('0'+month)) + '-' + (date > 9 ? date : ('0'+date)),
+          time: (hours > 9 ? hours : ('0'+hours)) +':00'
+        };
+        t.lsLabelTime.push(lt);
+        j === 0 && (t.labelTime = (month > 9 ? month : ('0'+month)) + '-' + (date > 9 ? date : ('0'+date)) + ' ' + '00:00');
+        labelTime.setHours(labelTime.getHours() + 1);
+      }
     },
     mounted(){
     },
     methods: {
       ready(){
+      },
+      getWeek(d){
+        let week = '周一';
+        switch (d) {
+          case 1:
+            week = '周一';
+            break;
+          case 2:
+            week = '周二';
+            break;
+          case 3:
+            week = '周三';
+            break;
+          case 4:
+            week = '周四';
+            break;
+          case 5:
+            week = '周五';
+            break;
+          case 6:
+            week = '周六';
+            break;
+          case 7:
+            week = '周日';
+            break;
+        }
+        return week;
       },
       liStateClick(e){
         let t = this;
@@ -73,15 +109,13 @@
       setProcess(type, el){
         let t = this;
         if (!t.interval) {
+          let historyContent = document.getElementsByClassName('history-content')[0];
+          let labelProcess = document.getElementsByClassName('label-process')[0];
+          let hcProcess = document.getElementsByClassName('hc-process')[0];
           t.interval = setInterval(function () {
-            let historyContent = document.getElementsByClassName('history-content')[0];
-            let labelProcess = document.getElementsByClassName('label-process')[0];
-            let hcProcess = document.getElementsByClassName('hc-process')[0];
             let process = hcProcess.offsetWidth;
-
-            t.labelTime = (new Date()).getSeconds();
-
-            if (process + 20 >= historyContent.offsetWidth) {
+            //t.labelTime = (new Date()).getSeconds();
+            if (process + 5 > historyContent.offsetWidth) {
               window.clearInterval(t.interval);
               t.interval = undefined;
               labelProcess.style.left = '100%';
@@ -90,6 +124,8 @@
               el.setAttribute('data-state', 'START');
               t.resetProcess();
             } else {
+              let tm = t.lsLabelTime[++t.sum];
+              t.labelTime = tm.date + ' ' + tm.time;
               labelProcess.style.left = process + 5 + 'px';
               hcProcess.style.width = process + 5 + 'px';
             }
@@ -104,6 +140,10 @@
 
         labelProcess.style.left = '55px';
         hcProcess.style.width = '55px';
+
+        this.sum = 0;
+        let tm = t.lsLabelTime[0];
+        t.labelTime = tm.date + ' ' + tm.time;
       }
     }
   };
@@ -133,8 +173,8 @@
     border-right: solid 1px #53a0ff;
   }
 
-  .history-content li:first-child{
-    width:55px;
+  .history-content li:first-child {
+    width: 55px;
   }
 
   .history-content li:first-child img {

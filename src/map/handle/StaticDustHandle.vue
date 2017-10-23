@@ -47,6 +47,7 @@
           if (parseInt(result.status) === 1) {
             let data = result.obj;
             t.loadMarkerLayer(data);
+            console.log(JSON.stringify(data[0]));
           }
         }, function (ex) {
           console.error(ex);

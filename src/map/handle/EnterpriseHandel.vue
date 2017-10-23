@@ -103,7 +103,7 @@
               fontSize: '14px',
               fontFamily: 'Microsoft YaHei'
             });
-            label.setOffset(new BMap.Size(-(displayValue.length * 14 / 2), 18));
+            label.setOffset(new BMap.Size(-(displayValue.length * 14 / 2), 24));
             marker.setLabel(label);
             marker && (t.map.addOverlay(marker), marker.attributes = value, t.lsMarkers.push(marker), marker.addEventListener('click', function (e) {
               let tg = e.target;
