@@ -90,8 +90,8 @@
               el.setAttribute('data-state', 'START');
               t.resetProcess();
             } else {
-              labelProcess.style.left = process + 20 + 'px';
-              hcProcess.style.width = process + 20 + 'px';
+              labelProcess.style.left = process + 5 + 'px';
+              hcProcess.style.width = process + 5 + 'px';
             }
           }, 1000);
         }
@@ -102,8 +102,8 @@
         let labelProcess = document.getElementsByClassName('label-process')[0];
         let hcProcess = document.getElementsByClassName('hc-process')[0];
 
-        labelProcess.style.left = '0%';
-        hcProcess.style.width = '0%';
+        labelProcess.style.left = '55px';
+        hcProcess.style.width = '55px';
       }
     }
   };
@@ -127,15 +127,21 @@
 
   .history-content li {
     float: left;
-    width: auto;
-    margin: 0 20px;
+    width: 120px;
+    /*margin: 0 20px;*/
     line-height: 32px;
+    border-right: solid 1px #53a0ff;
+  }
+
+  .history-content li:first-child{
+    width:55px;
   }
 
   .history-content li:first-child img {
     height: 16px;
     width: 16px;
     vertical-align: baseline;
+    cursor: pointer;
   }
 
   .history-content label {
@@ -157,11 +163,11 @@
 
   .label-process {
     position: absolute;
-    left: 50%;
+    left: 55px;
   }
 
   .hc-process {
-    width: 50%;
+    width: 55px;
     background: #20a0ff;
     height: 5px;
   }

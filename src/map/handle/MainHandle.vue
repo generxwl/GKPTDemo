@@ -541,14 +541,17 @@
         let els = '';
         for (let i = 0, length = dts.length; i < length; i++) {
           let item = dts[i];
-          els += '<tr><td>' + (i === (dts.length-1) ? '总计' : item.outputname) + '</td><td>' +
+          els += '<tr><td>' + item.outputname + '</td><td style="color:'+(item.noxStatus ? '#ff0000' : '')+'">' +
             (item.nox || '--') + '</td><td>' +
-            (item.nox_convert || '--') + '</td><td>' +
+            (item.nox_convert || '--') + '</td><td style="color:'+(item.so2Status ? '#ff0000' : '')+'">' +
             (item.so2 || '--') + '</td><td>' +
-            (item.so2_convert || '--') + '</td><td>' +
+            (item.so2_convert || '--') + '</td><td style="color:'+(item.smokeStatus ? '#ff0000' : '')+'">' +
             (item.smoke || '--') + '</td><td>' +
             (item.smoke_convert || '--') + '</td><td>' +
             (item.gasoutputflow || '--') + '</td></tr>';
+          if (i === (dts.length - 1)) {
+            els += '<tr><td>排放限量</td><td colspan="2">' + (item.NoxLimit || ' --') + '</td><td colspan="2">' + (item.So2Limit || ' --') + '</td><td colspan="2">' + (item.SmokeLimit || ' --') + '</td><td>--</td></tr>'
+          }
         }
         els += '<tr><td>时间</td><td colspan="7">' + ((data.length ? data[0].time : '--') || '--') + '</td></tr>';
 
