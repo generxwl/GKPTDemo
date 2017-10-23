@@ -50,25 +50,26 @@
                                 @current-change="RowCurrentChange"
                                 style="width: 400px">
                             <el-table-column
-                                    property="NetworkName"
-                                    label="网络名称"
-                                    width="120">
-                            </el-table-column>
-                            <el-table-column
-                                    property="Name"
-                                    label="名称"
-                                    width="100">
-                            </el-table-column>
-                            <el-table-column
-                                    property="EmploymentRate"
-                                    label="超标率"
+                                    property="WanggeName"
+                                    label="网格名称"
                                     width="80">
                             </el-table-column>
                             <el-table-column
-                                    property="TheAverage"
-                                    :label="labelType"
+                                    property="NetworkName"
+                                    label="企业名称"
+                                    width="220">
+                            </el-table-column>
+
+                            <el-table-column
+                                    property="Statues"
+                                    label="是否超标"
                                     >
                             </el-table-column>
+                            <!--<el-table-column-->
+                                    <!--property="TheAverage"-->
+                                    <!--:label="labelType"-->
+                                    <!--&gt;-->
+                            <!--</el-table-column>-->
                         </el-table>
                         <!--分页条-->
                         <div class="Pagination" style="text-align: left;margin-top: 10px;">
@@ -90,6 +91,7 @@
 
 <script>
     import {bus} from '@/js/bus.js'
+    import api from '../api/index'
     import MapHandle from '@/map/controls/MapHandle'
     export default {
         name: 'PaneldataGrid',
@@ -172,6 +174,7 @@
         },
         created(){
             bus.$on('loadVideoData', this.initlistData);
+            this.GetListqyData()
         },
         mounted(){
             //右侧收放
@@ -261,12 +264,43 @@
                 this.data.forEach(item => {
                     const tableData = {};
                     tableData.SerialNumber = i++;//序号
-                    tableData.VideoName = item.CamName;//行业
-                    tableData.MonitoringType = item.TypeName;//类型
-                    tableData.Id = item.Id;//城市id
-                    tableData.Latitude = item.Latitude;//纬度
-                    tableData.Longitude = item.Longitude;//经度
+                    tableData.NetworkName = item.psname;//企业名称
+                    tableData.pscode = item.pscode;//城市id
+                    tableData.Statues = this.ChaoBiaoData(item.NoxStatus);//是否超标
+                    tableData.WanggeName ='----' ;//网格名称item.WanggeName
+                    tableData.latitude = item.latitude;//纬度
+                    tableData.longitude = item.longitude;//经度
                     this.ALLdata.push(tableData);
+                })
+            },
+            //数据判断
+            ChaoBiaoData(data){
+                let vdata = '';
+                switch (data){
+                    case false:
+                        vdata = '否';
+                        break;
+                    case true:
+                        vdata = '是';
+                        break;
+                }
+                return vdata
+            },
+            //数据
+            GetListqyData(){
+                api.GetCompanyPointList().then(res => {
+                    let data = res.data;
+                    data = typeof data === 'string' ? JSON.parse(data) : data;
+                    data = {
+                        status: data.hasOwnProperty('status') ? data.status : data.Status,
+                        obj: data.obj || data.ExtraData
+                    };
+                    let shoulist = data;
+                    let sudata = shoulist.obj;
+                    this.SetDataList(sudata, this.type)
+                    this.totalCount = this.ALLdata.length;
+                    this.allData = this.ALLdata;
+                    this.setPageTable(10, 1);
                 })
             },
             //时间转换

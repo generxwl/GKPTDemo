@@ -18,6 +18,7 @@ import {
     GetVideoPieResource,//视频占比统计
     GetGridPieResource,//网格类型占比统计
     GetGridMemberPieResource,//网格员占比统计
+    GetCompanyPointListResource,//企业在线右侧
     GetXhHbPointsRaiseResource,//首页接入数据统计
 } from './resource'
 export default {
@@ -28,6 +29,13 @@ export default {
       }
     )
   },
+    //企业在线右侧
+    GetCompanyPointList() {
+        return axios.get(GetCompanyPointListResource,{
+
+            }
+        )
+    },
     //首页接入数据统计
     GetXhHbPoints() {
         return axios.get(GetXhHbPointsRaiseResource,{

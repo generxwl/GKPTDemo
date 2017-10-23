@@ -23,6 +23,7 @@ const apilangfangTDK= {
   GetVideoPie:apiconfig.devt+'/api/IndexStatistics/GetVideoPie',//视频占比统计
   GetGridPie:apiconfig.devt+'/api/IndexStatistics/GetGridPie',//网格类型占比统计
   GetGridMemberPie:apiconfig.devt+'/api/IndexStatistics/GetGridMemberPie',//网格员占比统计
+  GetCompanyPointList:apiconfig.devt+'/api/Company/GetCompanyPointList',//企业在线右侧
   GetDustHourRanking:apiconfig.devt+'/api/Dust/GetDustHourRanking?',//在线源清单查询
 }
 
@@ -40,4 +41,5 @@ export const GetAirPieResource = API_ROOT.concat(apilangfangTDK.GetAirPie);
 export const GetVideoPieResource = API_ROOT.concat(apilangfangTDK.GetVideoPie);
 export const GetGridPieResource = API_ROOT.concat(apilangfangTDK.GetGridPie);
 export const GetGridMemberPieResource = API_ROOT.concat(apilangfangTDK.GetGridMemberPie);
+export const GetCompanyPointListResource = API_ROOT.concat(apilangfangTDK.GetCompanyPointList);
 export const GetDustHourRankingResource = API_ROOT.concat(apilangfangTDK.GetDustHourRanking);
