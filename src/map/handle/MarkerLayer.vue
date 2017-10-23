@@ -132,7 +132,8 @@
       //刷新Chart数据
       refreshLoadChart(lng, lat, code){
         let point = new BMap.Point(lng, lat);
-        this.markerClick(code, point);
+        let transPoint = this.wgsPointToBd(point);
+        this.markerClick(code, transPoint);
       },
 
       getPollutionLeave(value){
@@ -182,7 +183,7 @@
         let code = attributes.stationid;
         let charUrl = attributes.hasOwnProperty('dataType') ? ((attributes['dataType'] && attributes['dataType'].toUpperCase() === 'XH1') ? RequestHandle.getRequestUrl('XHPOLLUTIONCHAR') : RequestHandle.getRequestUrl('SENSECHART')) : RequestHandle.getRequestUrl('SENSECHART');
         let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
-        let transPoint = this.wgsPointToBd(point);
+
 
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
           //if (result.status === 0) {
