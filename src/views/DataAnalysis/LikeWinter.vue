@@ -248,6 +248,7 @@
     @import "../../styles/carousel";//轮播图样式
     .Like-winter{
         width: 100%;
+        min-height: 800px;
         height: 100%;
         color: #fff;
         background: #242953;

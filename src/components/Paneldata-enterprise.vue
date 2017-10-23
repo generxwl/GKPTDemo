@@ -3,8 +3,7 @@
         <!--企业监测-->
         <div id="list">
             <div class="qianren">
-                <!--<img style="margin-top: -180px;margin-left: 15px" src="../assets/img/fulu.png" alt="">-->
-                <map-handle></map-handle>
+               <map-handle></map-handle>
             </div>
             <div class="panel">
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
@@ -65,11 +64,6 @@
                                     label="是否超标"
                                     >
                             </el-table-column>
-                            <!--<el-table-column-->
-                                    <!--property="TheAverage"-->
-                                    <!--:label="labelType"-->
-                                    <!--&gt;-->
-                            <!--</el-table-column>-->
                         </el-table>
                         <!--分页条-->
                         <div class="Pagination" style="text-align: left;margin-top: 10px;">
@@ -99,65 +93,22 @@
             return {
                 zuo:false,
                 you:true,
-                tableData:[
-                    {
-                        NetworkName:'开发区梨园村一区',
-                        Name:'广炎热力',
-                        EmploymentRate:'45%',
-                        TheAverage:'41'
-                    },
-                    {
-                        NetworkName:'开发区梨园村一区',
-                        Name:'广炎热力',
-                        EmploymentRate:'45%',
-                        TheAverage:'41'
-                    },
-                    {
-                        NetworkName:'开发区梨园村一区',
-                        Name:'广炎热力',
-                        EmploymentRate:'45%',
-                        TheAverage:'41'
-                    },
-                    {
-                        NetworkName:'开发区梨园村一区',
-                        Name:'广炎热力',
-                        EmploymentRate:'45%',
-                        TheAverage:'41'
-                    },
-                    {
-                        NetworkName:'开发区梨园村一区',
-                        Name:'广炎热力',
-                        EmploymentRate:'45%',
-                        TheAverage:'41'
-                    },
-                    {
-                        NetworkName:'开发区梨园村一区',
-                        Name:'广炎热力',
-                        EmploymentRate:'45%',
-                        TheAverage:'41'
-                    },
-                    {
-                        NetworkName:'开发区梨园村一区',
-                        Name:'广炎热力',
-                        EmploymentRate:'45%',
-                        TheAverage:'41'
-                    }
-                ],
+                tableData:[],
                 tableList:[
                     {
                         NetworkName:'开发区',
-                        PollutionSourceNum:'66',
-                        PollutionSourceCBNum:'16'
+                        PollutionSourceNum:'--',
+                        PollutionSourceCBNum:'--'
                     },
                     {
                         NetworkName:'广阳区',
-                        PollutionSourceNum:'66',
-                        PollutionSourceCBNum:'16'
+                        PollutionSourceNum:'--',
+                        PollutionSourceCBNum:'--'
                     },
                     {
                         NetworkName:'安次区',
-                        PollutionSourceNum:'66',
-                        PollutionSourceCBNum:'16'
+                        PollutionSourceNum:'--',
+                        PollutionSourceCBNum:'--'
                     }
                 ],
                 allData:[],

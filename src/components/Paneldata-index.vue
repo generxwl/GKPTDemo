@@ -129,7 +129,7 @@
                                     <div class="item-table1" style="height: 80px;line-height: 80px">5</div>
                                     <div class="item-table2" style="height: 80px;line-height: 80px">市建设局</div>
                                     <div class="item-table3" style="height: 80px;">
-                                        <p>煤改气数据最近跟新时间：---</p>
+                                        <p>煤改气数据最近更新时间：---</p>
                                         <p>接入工地视频监控--个，正常--个，离线--个</p>
                                     </div>
                                 </li>
@@ -137,14 +137,14 @@
                                     <div class="item-table1" style="height: 40px;line-height: 40px">6</div>
                                     <div class="item-table2" style="height: 40px;line-height: 40px">供电公司</div>
                                     <div class="item-table3" style="height: 40px;">
-                                        <p>用电量数据最近跟新时间：---</p>
+                                        <p>用电量数据最近更新时间：---</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="item-table1" style="height: 40px;line-height: 40px">7</div>
                                     <div class="item-table2" style="height: 40px;line-height: 40px">市统计局</div>
                                     <div class="item-table3" style="height: 40px;">
-                                        <p>经济运行数据最近跟新时间：---</p>
+                                        <p>经济运行数据最近更新时间：---</p>
                                     </div>
                                 </li>
                                 <li>

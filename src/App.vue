@@ -53,7 +53,15 @@
     html, body {
         height: 100%;
         border: none;
-        overflow: hidden;
+        #tip-arrow-bottom{
+            display: none;
+        }
+        #tip-arrow-top{
+            display: none;
+        }
+        #trans-tooltip{
+            display: none;
+        }
         #app {
             font-family: '微软雅黑';
             -webkit-font-smoothing: antialiased;
