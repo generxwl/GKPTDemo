@@ -421,6 +421,7 @@
 <style lang="scss" scoped>
 	.DustEmissionStatistics {
 		width: 100%;
+		min-height: 800px;
 		height: 100%;
 		background: rgb(250, 250, 250);
 		.tanchukuang {

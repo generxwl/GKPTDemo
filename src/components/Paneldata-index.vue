@@ -92,37 +92,37 @@
                                     <div class="item-table1" style="height: 40px;line-height: 40px">1</div>
                                     <div class="item-table2" style="height: 40px;line-height: 40px">市环保局</div>
                                     <div class="item-table3" style="height: 40px;line-height: 40px">
-                                        <p>接入在线监测企业50个，正常49个，离线1个</p>
+                                        <p>接入在线监测企业{{RightStatistics.companyCount}}个，正常{{RightStatistics.CompanyCountOnline}}个，离线{{RightStatistics.companyCountUnline}}个</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="item-table1" style="height: 240px;line-height: 240px">2</div>
                                     <div class="item-table2" style="height: 240px;line-height: 240px">开发区管委会</div>
                                     <div class="item-table3" style="height: 240px;">
-                                        <p>接入六参数空气质量传感器50个，正常49个，离线1个</p>
-                                        <p>接入扬尘传感器15个，正常10个，离线5个</p>
-                                        <p>接入TVOC传感器50个，离线50个</p>
-                                        <p>接入TVOC企业视频监控50个</p>
-                                        <p>接入小散乱污企业视频60个</p>
+                                        <p>接入六参数空气质量传感器{{RightStatistics.kfqSixCount}}个，正常{{RightStatistics.kfqSixCountOnline}}个，离线{{RightStatistics.kfqSixCountUnline}}个</p>
+                                        <p>接入扬尘传感器{{RightStatistics.kfqDustCount}}个，正常{{RightStatistics.kfqDustCountOnline}}个，离线{{RightStatistics.kfqDustCountUnline}}个</p>
+                                        <p>接入TVOC传感器{{RightStatistics.kfqVocCount}}个，正常{{RightStatistics.kfqVocCountOnline}}个，离线{{RightStatistics.kfqVocCountUnline}}</p>
+                                        <p>接入TVOC企业视频监控{{RightStatistics.kfqVideoVoc}}个</p>
+                                        <p>接入小散乱污企业视频{{RightStatistics.kfqVideoSlw}}个</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="item-table1" style="height: 80px;line-height: 80px">3</div>
                                     <div class="item-table2" style="height: 80px;line-height: 80px">广阳区政府</div>
                                     <div class="item-table3" style="height: 80px;">
-                                        <p>接入TVOC企业视频监控50个</p>
-                                        <p>接入小散乱污视频15个</p>
+                                        <p>接入TVOC企业视频监控{{RightStatistics.gyqVideoVoc}}个</p>
+                                        <p>接入小散乱污视频{{RightStatistics.gyqVideoSlw}}个</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="item-table1" style="height: 240px;line-height: 240px">4</div>
                                     <div class="item-table2" style="height: 240px;line-height: 240px">安次区政府</div>
                                     <div class="item-table3" style="height: 240px;">
-                                        <p>接入六参数空气质量传感器50个，正常49个，离线1个</p>
-                                        <p>接入扬尘传感器--个，正常--个，离线--个</p>
-                                        <p>接入TVOC传感器--个，离线--个</p>
-                                        <p>接入TVOC企业视频监控--个</p>
-                                        <p>接入小散乱污企业视频--个</p>
+                                        <p>接入六参数空气质量传感器{{RightStatistics.acqSixCount}}个，正常{{RightStatistics.acqSixCountOnline}}个，离线{{RightStatistics.acqSixCountUnline}}个</p>
+                                        <p>接入扬尘传感器{{RightStatistics.acqDustCount}}个，正常{{RightStatistics.acqDustCountOnline}}个，离线{{RightStatistics.acqDustCountUnline}}个</p>
+                                        <p>接入TVOC传感器{{RightStatistics.acqVocCount}}个，正常{{RightStatistics.acqVocCountOnline}}个，离线{{RightStatistics.acqVocCountUnline}}个</p>
+                                        <p>接入TVOC企业视频监控{{RightStatistics.acqVideoVoc}}个</p>
+                                        <p>接入小散乱污企业视频{{RightStatistics.acqVideoSlw}}个</p>
                                     </div>
                                 </li>
                                 <li>
@@ -203,12 +203,12 @@
                 VideoPie: [],//视频
                 GridPie: [],//网格类
                 GridMemberPie: [],//网格员
+                RightStatistics:{},//右侧栏统计2
             }
         },
 
         created(){
             api.GetXhHbPoints().then(res => {
-                console.log('')
                 let data = res.data;
                 data = typeof data === 'string' ? JSON.parse(data) : data;
                 data = {
@@ -216,7 +216,15 @@
                     obj: data.obj || data.ExtraData
                 };
                 this.Statistics = data.obj;
-
+            })
+            api.GetOfficeProgess().then(res => {
+                let data = res.data;
+                data = typeof data === 'string' ? JSON.parse(data) : data;
+                data = {
+                    status: data.hasOwnProperty('status') ? data.status : data.Status,
+                    obj: data.obj || data.ExtraData
+                };
+                this.RightStatistics = data.obj;
             })
             this.GetEcharsData()
         },
@@ -317,6 +325,10 @@
                     legend: {
                         orient: 'vertical',
                         left: 'right',
+                        textStyle: {
+                            fontSize: '10',
+                            fontWeight: 'bold'
+                        },
                         top: 50
                     },
                     series: [
