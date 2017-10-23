@@ -44,8 +44,8 @@
           {
             name: 'layer_cg',
             value: '空气传感器监测',
-            src: 'static/imgs/main/left.png',
-            checkedSrc: 'static/imgs/main/right.png'
+            src: 'static/imgs/main/right.png',
+            checkedSrc: 'static/imgs/main/left.png'
           }, {
             name: 'layer_gs',
             value: '国省控监测',
@@ -67,8 +67,8 @@
           {
             name: 'layer_sp',
             value: '视频',
-            src: 'static/imgs/main/left.png',
-            checkedSrc: 'static/imgs/main/right.png'
+            src: 'static/imgs/main/right.png',
+            checkedSrc: 'static/imgs/main/left.png'
           }
           ,
           {

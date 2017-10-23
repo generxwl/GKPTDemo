@@ -856,13 +856,13 @@
             path = '/static/imgs/main/jyz-r.png';
             break;
           case 'QY-G':
-            path = '/static/imgs/main/qy-g.png';
+            path = '/static/imgs/main/e_g.png';
             break;
           case 'QY-NG':
-            path = '/static/imgs/main/qy-ng.png';
+            path = '/static/imgs/main/e_ng.png';
             break;
           case 'QY-R':
-            path = '/static/imgs/main/qy-r.png';
+            path = '/static/imgs/main/e_r.png';
             break;
           case 'SP-G':
             path = '/static/imgs/main/sp-g.png';
