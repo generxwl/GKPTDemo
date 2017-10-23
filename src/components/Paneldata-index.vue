@@ -90,47 +90,89 @@
                                 </li>
                                 <li>
                                     <div class="item-table1" style="height: 40px;line-height: 40px">1</div>
-                                    <div class="item-table2" style="height: 40px;line-height: 40px">环保局</div>
+                                    <div class="item-table2" style="height: 40px;line-height: 40px">市环保局</div>
                                     <div class="item-table3" style="height: 40px;line-height: 40px">
-                                        <p>接入TVOC视频监控50个，正常49个，离线1个</p>
+                                        <p>接入在线监测企业50个，正常49个，离线1个</p>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="item-table1" style="height: 200px;line-height: 200px">2</div>
-                                    <div class="item-table2" style="height: 200px;line-height: 200px">开发区管委会</div>
-                                    <div class="item-table3" style="height: 200px;">
-                                        <p>接入TVOC视频监控50个，正常49个，离线1个</p>
-                                        <p>接入小散乱污视频15个，正常10个，离线5个</p>
-                                        <p>接入空气质量传感器60个，正常50个，离线10个</p>
-                                        <p>接入扬尘传感器60个，正常50个，离线10个</p>
+                                    <div class="item-table1" style="height: 240px;line-height: 240px">2</div>
+                                    <div class="item-table2" style="height: 240px;line-height: 240px">开发区管委会</div>
+                                    <div class="item-table3" style="height: 240px;">
+                                        <p>接入六参数空气质量传感器50个，正常49个，离线1个</p>
+                                        <p>接入扬尘传感器15个，正常10个，离线5个</p>
                                         <p>接入TVOC传感器50个，离线50个</p>
+                                        <p>接入TVOC企业视频监控50个</p>
+                                        <p>接入小散乱污企业视频60个</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="item-table1" style="height: 80px;line-height: 80px">3</div>
                                     <div class="item-table2" style="height: 80px;line-height: 80px">广阳区政府</div>
                                     <div class="item-table3" style="height: 80px;">
-                                        <p>接入TVOC视频监控50个，正常49个，离线1个</p>
-                                        <p>接入小散乱污视频15个，正常10个，离线5个</p>
+                                        <p>接入TVOC企业视频监控50个</p>
+                                        <p>接入小散乱污视频15个</p>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="item-table1" style="height: 200px;line-height: 200px">4</div>
-                                    <div class="item-table2" style="height: 200px;line-height: 200px">安次区政府</div>
-                                    <div class="item-table3" style="height: 200px;">
-                                        <p>接入TVOC视频监控50个，正常49个，离线1个</p>
-                                        <p>接入小散乱污视频15个，正常10个，离线5个</p>
-                                        <p>接入空气质量传感器60个，正常50个，离线10个</p>
-                                        <p>接入扬尘传感器60个，正常50个，离线10个</p>
-                                        <p>接入TVOC传感器50个，离线50个</p>
+                                    <div class="item-table1" style="height: 240px;line-height: 240px">4</div>
+                                    <div class="item-table2" style="height: 240px;line-height: 240px">安次区政府</div>
+                                    <div class="item-table3" style="height: 240px;">
+                                        <p>接入六参数空气质量传感器50个，正常49个，离线1个</p>
+                                        <p>接入扬尘传感器--个，正常--个，离线--个</p>
+                                        <p>接入TVOC传感器--个，离线--个</p>
+                                        <p>接入TVOC企业视频监控--个</p>
+                                        <p>接入小散乱污企业视频--个</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="item-table1" style="height: 80px;line-height: 80px">5</div>
                                     <div class="item-table2" style="height: 80px;line-height: 80px">市建设局</div>
                                     <div class="item-table3" style="height: 80px;">
-                                        <p>接入工地视频监控60个，正常50个，离线10个</p>
-                                        <p>煤改气数据最近跟新时间：2017-10-16</p>
+                                        <p>煤改气数据最近跟新时间：---</p>
+                                        <p>接入工地视频监控--个，正常--个，离线--个</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-table1" style="height: 40px;line-height: 40px">6</div>
+                                    <div class="item-table2" style="height: 40px;line-height: 40px">供电公司</div>
+                                    <div class="item-table3" style="height: 40px;">
+                                        <p>用电量数据最近跟新时间：---</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-table1" style="height: 40px;line-height: 40px">7</div>
+                                    <div class="item-table2" style="height: 40px;line-height: 40px">市统计局</div>
+                                    <div class="item-table3" style="height: 40px;">
+                                        <p>经济运行数据最近跟新时间：---</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-table1" style="height: 40px;line-height: 40px">8</div>
+                                    <div class="item-table2" style="height: 40px;line-height: 40px">市气象局</div>
+                                    <div class="item-table3" style="height: 40px;">
+                                        <p>接入气象站--个</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-table1" style="height: 40px;line-height: 40px">9</div>
+                                    <div class="item-table2" style="height: 40px;line-height: 40px">是综合执法局</div>
+                                    <div class="item-table3" style="height: 40px;">
+                                        <p>接入车辆--个</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-table1" style="height: 40px;line-height: 40px">10</div>
+                                    <div class="item-table2" style="height: 40px;line-height: 40px">市环卫局</div>
+                                    <div class="item-table3" style="height: 40px;">
+                                        <p>接入车辆--个</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-table1" style="height: 40px;line-height: 40px">11</div>
+                                    <div class="item-table2" style="height: 40px;line-height: 40px">市交警支队</div>
+                                    <div class="item-table3" style="height: 40px;">
+                                        <p>接入监控视频--个</p>
                                     </div>
                                 </li>
                             </ul>

@@ -26,7 +26,20 @@
                 <div class="item_text4">
                     <el-carousel indicator-position="outside">
                         <el-carousel-item v-for="item in 4" :key="item">
-                            <h3>{{ item }}</h3>
+                            <div class="pm">
+                                <h2>PM2.5
+                                    <span style="font-size: 14px">控制值：35</span>
+                                </h2>
+                            </div>
+                            <div class="yujing">
+                                <p>预警站点：北华航天工业学院↑</p>
+                            </div>
+                            <div class="Progress">
+                                <p style="float:left;width: 100%">
+                                    控制进度：
+                                    <el-progress :percentage="70"></el-progress>
+                                </p>
+                            </div>
                         </el-carousel-item>
                     </el-carousel>
                 </div>
