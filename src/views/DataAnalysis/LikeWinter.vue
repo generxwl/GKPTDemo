@@ -397,7 +397,7 @@
                         }
                     },
                     legend: {
-                        data:['用电量','增长率'],
+                        data:['产值','增长率'],
                         left: 'left',
                         textStyle: {
                             color: '#fff'
@@ -406,7 +406,7 @@
                     xAxis: [
                         {
                             type: 'category',
-                            data: ['广阳区','安次区','开发区','香河县','大厂县','三河市','固安县','永清县','霸州市','文安县','大城县'],
+                            data: ['工业增加值','轻工业','重工业'],
                             axisPointer: {
                                 type: 'shadow'
                             },
@@ -420,10 +420,10 @@
                     yAxis: [
                         {
                             type: 'value',
-                            name: '万千瓦时',
+                            name: '单位(万)',
                             min: 0,
-                            max: 800,
-                            interval: 200,
+                            max: 500,
+                            interval: 100,
                             axisLabel: {
                                 formatter: '{value}',
                                 textStyle: {
@@ -436,10 +436,10 @@
                         },
                         {
                             type: 'value',
-                            name: '增长率',
-                            min: -10,
-                            max: 10,
-                            interval: 5,
+                            name: '单位(%)',
+                            min: -4,
+                            max: 6,
+                            interval: 2,
                             axisLabel: {
                                 formatter: '{value}',
                                 textStyle: {
@@ -453,15 +453,15 @@
                     ],
                     series: [
                         {
-                            name:'用电量',
+                            name:'产值',
                             type:'bar',
-                            data:[200.6, 500.9, 239.0, 296.4, 699.7, 470.7, 175.6, 182.2, 648.7, 718.8, 360.0]
+                            data:[200.6, 500.9, 239.0]
                         },
                         {
                             name:'增长率',
                             type:'line',
                             yAxisIndex: 1,
-                            data:[1.0, 2.2, 3.3, 4.5, 6.3, 8.2, 9, 9.4, 5.0, 6.5, 2.0]
+                            data:[1.0, 2.2, 3.3]
                         }
                     ]
                 };

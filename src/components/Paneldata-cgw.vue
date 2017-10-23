@@ -288,6 +288,8 @@
             //累计
             CumulativeFatch(){
                 let cumudata = [];
+                let sudata1 =[];
+                let sudata2 =[];
                 //源传感网数据
                 api.GetAnalysisData().then(res => {
                     let data = res.data;
@@ -297,11 +299,7 @@
                         obj: data.obj || data.ExtraData
                     };
                     let shoulist = data;
-                    let sudata = shoulist.obj;
-                    this.SetDataList(sudata, this.type)
-                    this.totalCount = this.ALLdata.length;
-                    this.allData = this.ALLdata;
-                    this.setPageTable(10, 1);
+                    sudata1 = shoulist.obj;
                 })
                 //先河数据
                 api.GetXhHbPointsMicroAccu().then(res => {
@@ -312,12 +310,15 @@
                         obj: data.obj || data.ExtraData
                     };
                     let shoulist = data;
-                    let sudata = shoulist.obj;
-                    this.SetDataList(sudata, this.type)
+                    sudata2 = shoulist.obj;
+                })
+                setTimeout(()=>{
+                    cumudata = sudata1.concat(sudata2);
+                    this.SetDataList(cumudata, this.type);
                     this.totalCount = this.ALLdata.length;
                     this.allData = this.ALLdata;
                     this.setPageTable(10, 1);
-                })
+                },700)
             },
             //table点击事件
             RowCurrentChange(val){
