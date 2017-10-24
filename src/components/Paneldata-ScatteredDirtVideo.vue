@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="zhichi">
-                        <p style="color: #666;padding-top: 10px">技术支持单位：开发区管委会，广阳区政府，安次区政府，市建设局</p>
+                        <p style="color: #666;padding-top: 10px">技术支持单位：开发区管委会，广阳区政府，安次区政府</p>
                     </div>
                 </div>
             </div>
