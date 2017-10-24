@@ -28,6 +28,8 @@
         }],
         labelSymbol: new BMap.Label()
       }
+    }, create(){
+
     },
     mounted() {
       let t = this;
@@ -35,11 +37,12 @@
         t.map = t.$parent.$parent.map;
         t.map.addOverlay(t.labelSymbol);
         t.labelSymbol.hide();
-        t.labelSymbol.setStyle({color:'#333',backgroundColor:'#fff',border:'solid 1px #333'});
+        t.labelSymbol.setStyle({color: '#333', backgroundColor: '#fff', border: 'solid 1px #333'});
         t.ready();
       }, 10);
       bus.$on('setVisible', this.setLayerVisible);
-      bus.$on('setOpacity', this.setOpacity);
+      bus.$on('setOpacity', this.setOpacity);//setLayerHide
+      bus.$on('setLayerHide', this.setLayerHide);//setLayerHide
     },
     methods: {
       ready() {
@@ -69,7 +72,7 @@
           })
         }
       },
-      setLayerVisible(index,hasVisible) {
+      setLayerVisible(index, hasVisible) {
         this.setLayerHide();
         let layer = this.layers[index];
         let geometry = layer.geometry;
@@ -85,11 +88,11 @@
           geometry[i].setStrokeOpacity(opacity);
         }
       },
-      setLayerHide() {
+      setLayerHide(hasVisible = false) {
         for (let i = 0, length = this.layers.length; i < length; i++) {
           let geometry = this.layers[i].geometry;
           for (let j = 0, count = geometry.length; j < count; j++) {
-            geometry[j].hide();
+            hasVisible ? geometry[j].show() : geometry[j].hide();
           }
         }
       },

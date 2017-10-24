@@ -11,6 +11,7 @@
     data () {
       return {
         markers: [],
+        lsLabels: [],
         hasVisible: true,
         checkedName: 'AQI',
         mouseLabel: new BMap.Label(''),
@@ -63,11 +64,14 @@
         this.map = map;
         this.map && this.map.addOverlay(this.mouseLabel);
         this.mouseLabel.setStyle({
-          background: 'none',
-          color: '#333',
-          fontSize: '14px',
-          fontFamily: 'Microsoft YaHei',
-          border: 'none'
+          color: 'black',
+          background: 'rgba(255,255,255,0.8)',
+          fontSize: '12px',
+          border: '1px solid #999',
+          width: 'auto',
+          textAlign: 'center',
+          height: '18px',
+          lineHeight: '18px'
         });
         if (!this.data.length) {
           this.data = data;
@@ -88,10 +92,12 @@
             background: 'none',
             fontSize: '14px',
             fontFamily: 'Microsoft YaHei',
-            textShadow:'0 0 2px #fff'
+            textShadow: '0 0 2px #fff'
           });
-          let offsetLength = (''+value.count).length >= 4 ? ((''+value.count).length === 5 ? -2 : 2) : ((''+value.count).length > 1 ? 8 : 12);
+          let offsetLength = ('' + value.count).length >= 4 ? (('' + value.count).length === 5 ? -2 : 2) : (('' + value.count).length > 1 ? 8 : 12);
           label.setOffset(new BMap.Size(offsetLength, -2));
+
+          t.setLabels(pt,value,'stationname');
 
           marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = value, t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
             let tg = e.target;
@@ -99,13 +105,13 @@
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
             t.markerClick(attributes, point);
           }), marker.addEventListener('mouseover', function (e) {
-            let tg = e.target;
-            let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
-            let stationName = tg.attributes.stationname;
-            t.mouseLabel.setContent(stationName);
-            stationName && t.mouseLabel.setOffset(new BMap.Size(-stationName.length * 4, -10));
-            t.mouseLabel.setPosition(point);
-            t.mouseLabel.show()
+//            let tg = e.target;
+//            let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
+//            let stationName = tg.attributes.stationname;
+//            t.mouseLabel.setContent(stationName);
+//            stationName && t.mouseLabel.setOffset(new BMap.Size(-stationName.length * 6, -5));
+//            t.mouseLabel.setPosition(point);
+//            t.mouseLabel.show()
           }), marker.addEventListener('mouseout', function (e) {
             t.mouseLabel.hide();
           }));
@@ -170,7 +176,7 @@
         if (this.data) {
           for (let i = 0, length = this.data.length; i < length; i++) {
             let item = this.data[i];
-            let obj = {'dataType':(item.hasOwnProperty('dataType') ? item['dataType'] : undefined),'stationid': item.stationid, 'stationname': item.stationname, 'lng': item.longitude, 'lat': item.latitude, 'count': item[type.toLowerCase()]};
+            let obj = {'dataType': (item.hasOwnProperty('dataType') ? item['dataType'] : undefined), 'stationid': item.stationid, 'stationname': item.stationname, 'lng': item.longitude, 'lat': item.latitude, 'count': item[type.toLowerCase()]};
             rtValue.push(obj);
           }
         }
@@ -187,25 +193,47 @@
 
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
           //if (result.status === 0) {
-            let data = result.obj;
-            let res = t.setInfoWindow(data);
+          let data = result.obj;
+          let res = t.setInfoWindow(data);
 
-            let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
-              title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
-              width: 320,
-              height: 200,
-              enableAutoPan: true,
-              searchTypes: []
-            });
-            searchInfoWindow.open(point);
-            setTimeout(function () {
-              let title = '最近24小时' + t.checkedName + '变化趋势';
-              t.loadChar(code, t.checkedName, t.getHourData(data.hourdatas), title);
-            }, 100);
+          let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
+            title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
+            width: 320,
+            height: 200,
+            enableAutoPan: true,
+            searchTypes: []
+          });
+          searchInfoWindow.open(point);
+          setTimeout(function () {
+            let title = '最近24小时' + t.checkedName + '变化趋势';
+            t.loadChar(code, t.checkedName, t.getHourData(data.hourdatas), title);
+          }, 100);
           //}
         }, function (ex) {
           console.error(ex);
         });
+      },
+
+      setLabels(pt, value, displayField){
+        if (pt && value) {
+          let stationName = value[displayField];
+          let label = new BMap.Label(stationName);
+          let transPoint = this.wgsPointToBd(pt);
+          label.setStyle({
+            color: 'black',
+            background: 'rgba(255,255,255,0.8)',
+            fontSize: '12px',
+            border: '1px solid #999',
+            width: 'auto',
+            textAlign: 'center',
+            height: '18px',
+            lineHeight: '18px'
+          });
+          stationName && label.setOffset(new BMap.Size(-stationName.length * 6, -5));
+          label.setPosition(transPoint);
+          this.map.addOverlay(label);
+          this.lsLabels.push(label);
+        }
       },
 
       //获取图标对象
@@ -284,13 +312,13 @@
       setInfoWindow(data){
         return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
           + '<table width=\'100%\' class=\'fitem\'>'
-          + '<tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(data.aqi)) + ';color:#fff\'>' + data.aqi
-          + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
-          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
-          + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + data.co /*parseFloat(data.co).toFixed(1)*/
-          + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + parseInt(data.no2)
-          + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + parseInt(data.so2)
-          + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + parseInt(data.o3)
+          + '<tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(data.aqi)) + ';color:#fff\'>' + (data.aqi || '--')
+          + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + (parseInt(data.pm25) || '--')
+          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + (parseInt(data.pm10) || '--')
+          + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + (data.co || '--') /*parseFloat(data.co).toFixed(1)*/
+          + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + (parseInt(data.no2) || '--')
+          + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + (parseInt(data.so2) || '--')
+          + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + (parseInt(data.o3) || '--')
           + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
@@ -385,7 +413,11 @@
         for (let i = 0, length = this.markers.length; i < length; i++) {
           this.map.removeOverlay(this.markers[i]);
         }
+        for (let i = 0, length = this.lsLabels.length; i < length; i++) {
+          this.map.removeOverlay(this.lsLabels[i]);
+        }
         this.markers = [];
+        this.lsLabels = [];
       },
 
       //设置图层显隐性

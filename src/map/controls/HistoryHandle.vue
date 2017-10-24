@@ -1,5 +1,6 @@
 <template>
   <div class="history-content">
+    <div @click="closeClick" v-show="hasClose" class="history-close">退出历史查询</div>
     <div>
       <div class="label-process">
         <label>{{labelTime}}</label>
@@ -20,14 +21,17 @@
   </div>
 </template>
 <script>
+  import {bus} from '@/js/bus.js'
+
   export default {
     name: 'HistoryHandle',
     data () {
       return {
         labelTime: '周四 08-01 00:00',
         times: [],
-        lsLabelTime:[],
+        lsLabelTime: [],
         sum: 0,
+        hasClose:false,
         interval: undefined
       };
     },
@@ -57,11 +61,11 @@
         let date = labelTime.getDate();
         let hours = labelTime.getHours();
         let lt = {
-          date: (month > 9 ? month : ('0'+month)) + '-' + (date > 9 ? date : ('0'+date)),
-          time: (hours > 9 ? hours : ('0'+hours)) +':00'
+          date: (month > 9 ? month : ('0' + month)) + '-' + (date > 9 ? date : ('0' + date)),
+          time: (hours > 9 ? hours : ('0' + hours)) + ':00'
         };
         t.lsLabelTime.push(lt);
-        j === 0 && (t.labelTime = (month > 9 ? month : ('0'+month)) + '-' + (date > 9 ? date : ('0'+date)) + ' ' + '00:00');
+        j === 0 && (t.labelTime = (month > 9 ? month : ('0' + month)) + '-' + (date > 9 ? date : ('0' + date)) + ' ' + '00:00');
         labelTime.setHours(labelTime.getHours() + 1);
       }
     },
@@ -105,6 +109,12 @@
           type.toUpperCase() === 'START' ? (value.setAttribute('src', '/static/imgs/sense/stop.png'), value.setAttribute('data-state', 'STOP')) : (value.setAttribute('src', '/static/imgs/sense/start.png'), value.setAttribute('data-state', 'START'));
           t.setProcess(type, value);
         });
+        this.hasClose = true;
+        bus.$emit('setLayerHide',false);
+        bus.$emit('resetLayerLi',false);
+      },closeClick(){
+          this.hasClose = false;
+          this.resetProcess();
       },
       setProcess(type, el){
         let t = this;
@@ -116,7 +126,6 @@
             let process = hcProcess.offsetWidth;
             //t.labelTime = (new Date()).getSeconds();
             if (process + 5 > historyContent.offsetWidth) {
-              window.clearInterval(t.interval);
               t.interval = undefined;
               labelProcess.style.left = '100%';
               hcProcess.style.width = '100%';
@@ -135,6 +144,7 @@
         type.toUpperCase() !== 'START' && (window.clearInterval(this.interval), this.interval = undefined);
       },
       resetProcess(){
+        window.clearInterval(this.interval);
         let labelProcess = document.getElementsByClassName('label-process')[0];
         let hcProcess = document.getElementsByClassName('hc-process')[0];
 
@@ -142,8 +152,8 @@
         hcProcess.style.width = '55px';
 
         this.sum = 0;
-        let tm = t.lsLabelTime[0];
-        t.labelTime = tm.date + ' ' + tm.time;
+        let tm = this.lsLabelTime[0];
+        this.labelTime = tm.date + ' ' + tm.time;
       }
     }
   };
@@ -163,6 +173,18 @@
     margin: 0;
     padding: 0;
     list-style: none;
+  }
+
+  .history-close {
+    height: 32px;
+    background: #53a0ff;
+    width: 120px;
+    color: #fff;
+    text-align: center;
+    position:absolute;
+    margin-top:-60%;
+    margin-left:calc(50% + 60px);
+    line-height:32px;
   }
 
   .history-content li {

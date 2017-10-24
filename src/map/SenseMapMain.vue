@@ -33,7 +33,7 @@
       ready(){
           let t= this;
         let map = new BMap.Map('sense_map');
-        map.centerAndZoom('廊坊', 10);
+        map.centerAndZoom('廊坊', 13);
         map.enableScrollWheelZoom();
         mapStyle && map.setMapStyle(mapStyle);
         this.map = map;

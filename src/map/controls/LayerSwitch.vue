@@ -62,9 +62,11 @@
     },
     mounted() {
       this.ready();
+      bus.$on('resetLayerLi',this.resetLi);
     },
     methods: {
       ready() {
+
       },
       radioClick(e) {
         this.resetLi();
@@ -95,9 +97,9 @@
       sliderChangeEvent(e){
         bus.$emit('setOpacity', this.checkedId, e === 100 ? 0.001 : 1.0 - e / 100)
       },
-      resetLi(){
-        jQuery.find('.dust-target-content li').forEach(function (value, index) {
-          value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)';
+      resetLi(hasReset){
+        jQuery.find('.layerSwitch li').forEach(function (value, index) {
+          index !== 0 && (value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)',value.className='');
         });
       }
     },
