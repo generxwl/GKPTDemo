@@ -2,8 +2,8 @@
   <div class="main-layer">
     <div class="main-layer-handle">筛选监测点</div>
     <ul class="warp-box">
-      <li v-for="(item,index) in targets" :data-index="index" :data-type="item.name" @click="liClick">
-        <img :src="item.src" title=""/>
+      <li v-for="(item,index) in targets" :style="'background:'+(item.checked ? '#1080cc' : 'rgba(0, 79, 137, 0.6)')" :data-index="index" :data-type="item.name" @click="liClick">
+        <img :src="item.checked ? item.checkedSrc : item.src" title=""/>
         <span>{{item.value}}</span>
       </li>
     </ul>
@@ -40,63 +40,73 @@
         kongqi: false,
         shiping: false,
         aclink:false,
+        defaultType:'LAYER_GS',
         targets: [
           {
             name: 'layer_cg',
             value: '空气传感器监测',
             src: 'static/imgs/main/right.png',
-            checkedSrc: 'static/imgs/main/left.png'
+            checkedSrc: 'static/imgs/main/left.png',
+            checked:false
           }, {
             name: 'layer_gs',
             value: '国省控监测',
             src: 'static/imgs/main/gs.png',
-            checkedSrc: 'static/imgs/main/gs_c.png'
+            checkedSrc: 'static/imgs/main/gs_c.png',
+            checked:true
           },
           {
             name: 'layer_gd',
             value: '工地扬尘监测',
             src: 'static/imgs/main/gd.png',
-            checkedSrc: 'static/imgs/main/gd_c.png'
+            checkedSrc: 'static/imgs/main/gd_c.png',
+            checked:false
           },
           {
             name: 'layer_qy',
             value: '企业污染源监测',
             src: 'static/imgs/main/qy.png',
-            checkedSrc: 'static/imgs/main/qy_c.png'
+            checkedSrc: 'static/imgs/main/qy_c.png',
+            checked:false
           },
           {
             name: 'layer_sp',
             value: '视频',
             src: 'static/imgs/main/right.png',
-            checkedSrc: 'static/imgs/main/left.png'
+            checkedSrc: 'static/imgs/main/left.png',
+            checked:false
           }
           ,
           {
             name: 'layer_lk',
             value: '道路路况',
             src: 'static/imgs/main/lk.png',
-            checkedSrc: 'static/imgs/main/lk_c.png'
+            checkedSrc: 'static/imgs/main/lk_c.png',
+            checked:false
           }
           ,
           {
             name: 'layer_zt',
             value: '渣土车GPS',
             src: 'static/imgs/main/zt.png',
-            checkedSrc: 'static/imgs/main/zt_c.png'
+            checkedSrc: 'static/imgs/main/zt_c.png',
+            checked:false
           }
           ,
           {
             name: 'layer_hw',
             value: '环卫车GPS',
             src: 'static/imgs/main/hw.png',
-            checkedSrc: 'static/imgs/main/hw_c.png'
+            checkedSrc: 'static/imgs/main/hw_c.png',
+            checked:false
           }
           ,
           {
             name: 'layer_jy',
             value: '加油站在线监测',
             src: 'static/imgs/main/jy.png',
-            checkedSrc: 'static/imgs/main/jy_c.png'
+            checkedSrc: 'static/imgs/main/jy_c.png',
+            checked:false
           }
         ],
         //
@@ -171,6 +181,8 @@
     mounted(){
     },
     methods: {
+
+      //指标切换点击事件
       liClick(e){
         let t = this;
         let childElement = e.currentTarget;
@@ -191,6 +203,8 @@
           bus.$emit('targetMainLayer', type, hasChecked);
         }
       },
+
+      //指标切换点击事件
       OKQClick(e){
         let childElement = e.currentTarget;
         let imgElement = childElement.querySelector('img');
@@ -209,6 +223,8 @@
 
         bus.$emit('targetMainLayer', type, hasChecked);
       },
+
+      //指标切换点击事件
       OVDClick(e){
         let t = this;
         let childElement = e.currentTarget;
@@ -229,6 +245,8 @@
         this.setParentStates(parentIndex, hasParentChecked, parentName);
         bus.$emit('targetMainLayer', type, hasChecked,from);
       },
+
+      //设置父节点状态
       setParentStates(index, hasChecked, name){
         let item = this.$data.targets[index];
         let element = document.querySelectorAll('ul>li[data-type="' + name + '"]');
@@ -238,6 +256,8 @@
           !hasChecked ? (imgElement.src = item.src, el.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, el.style.backgroundColor = '#1080cc');
         }
       },
+
+      //判断父节点是否选中
       hasCheckedChildElement(type){
         let childTarget = (type.toUpperCase() === 'KQ' ? this.$data.KQtargets : this.$data.VDtargets) || [];
         let childElement = (type.toUpperCase() === 'KQ' ? $('ol[class="kqworp"] li') : $('ol[class="vdworp"] li')) || [];

@@ -31,7 +31,7 @@
         times: [],
         lsLabelTime: [],
         sum: 0,
-        hasClose:false,
+        hasClose: false,
         interval: undefined
       };
     },
@@ -61,6 +61,7 @@
         let date = labelTime.getDate();
         let hours = labelTime.getHours();
         let lt = {
+          year: labelTime.getFullYear(),
           date: (month > 9 ? month : ('0' + month)) + '-' + (date > 9 ? date : ('0' + date)),
           time: (hours > 9 ? hours : ('0' + hours)) + ':00'
         };
@@ -74,6 +75,8 @@
     methods: {
       ready(){
       },
+
+      //获取时间轴时间集合
       getWeek(d){
         let week = '周一';
         switch (d) {
@@ -101,6 +104,8 @@
         }
         return week;
       },
+
+      //开始和暂停点击事件
       liStateClick(e){
         let t = this;
         let element = e.currentTarget;
@@ -110,12 +115,17 @@
           t.setProcess(type, value);
         });
         this.hasClose = true;
-        bus.$emit('setLayerHide',false);
-        bus.$emit('resetLayerLi',false);
-      },closeClick(){
-          this.hasClose = false;
-          this.resetProcess();
+        bus.$emit('setLayerHide', false);
+        bus.$emit('resetLayerLi', false);
       },
+
+      //关闭进度条事件
+      closeClick(){
+        this.hasClose = false;
+        this.resetProcess();
+      },
+
+      //设置进度条
       setProcess(type, el){
         let t = this;
         if (!t.interval) {
@@ -134,15 +144,20 @@
               t.resetProcess();
             } else {
               let tm = t.lsLabelTime[++t.sum];
+              let ht = tm.year + '-' + tm.date + ' ' + tm.time;
+              bus.$emit('historySenseMarker', ht);
+
               t.labelTime = tm.date + ' ' + tm.time;
               labelProcess.style.left = process + 5 + 'px';
               hcProcess.style.width = process + 5 + 'px';
             }
-          }, 1000);
+          }, 2000);
         }
 
         type.toUpperCase() !== 'START' && (window.clearInterval(this.interval), this.interval = undefined);
       },
+
+      //重置进度条
       resetProcess(){
         window.clearInterval(this.interval);
         let labelProcess = document.getElementsByClassName('label-process')[0];
@@ -154,6 +169,8 @@
         this.sum = 0;
         let tm = this.lsLabelTime[0];
         this.labelTime = tm.date + ' ' + tm.time;
+
+        bus.$emit('historySenseMarker', undefined, true);
       }
     }
   };
@@ -181,10 +198,10 @@
     width: 120px;
     color: #fff;
     text-align: center;
-    position:absolute;
-    margin-top:-60%;
-    margin-left:calc(50% + 60px);
-    line-height:32px;
+    position: absolute;
+    margin-top: -60%;
+    margin-left: calc(50% + 60px);
+    line-height: 32px;
   }
 
   .history-content li {
