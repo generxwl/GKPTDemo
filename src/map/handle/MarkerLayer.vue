@@ -16,6 +16,8 @@
         checkedName: 'AQI',
         mouseLabel: new BMap.Label(''),
         data: [],
+        historyData:[],
+        hasHistory:false,
         infoWindowConfig: {
           width: 250,     // 信息窗口宽度
           height: 240,     // 信息窗口高度
@@ -122,9 +124,9 @@
       //指标切换响应事件
       pollutionTarget(type){
         this.checkedName = type;
-        let dt = this.getPollutionByType(type);
+        let dt = this.hasHistory ? this.historyData : this.data;//this.getPollutionByType(type,this.hasHistory ? this.historyData : this.data);
         if (dt.length) {
-          this.refreshMarker(dt);
+          this.refreshMarker(dt,!this.hasHistory);
         }
       },
 
@@ -141,11 +143,13 @@
       historyMarker(time = undefined, hasReset){
         let t = this;
         if (time) {
+          t.hasHistory = true;
           let urlHistoryLCS = RequestHandle.getRequestUrl('SENSEPOLLUTIONHISTORY');
           let url = urlHistoryLCS + '?RecordTime=' + time;
           RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
             if (result.status === 1) {
               let data = result.obj;
+              t.historyData = data;
               t.refreshMarker(data, false);
             }
           }, function (ex) {
@@ -153,6 +157,7 @@
           })
         }
         else {
+          t.hasHistory = false;
           (hasReset && t.data.length) && (t.refreshMarker(t.data));
         }
       },
