@@ -80,7 +80,6 @@
         }
         let t = this;
         let lsMarkers = this.getPollutionByType(this.checkedName, data);
-        console.table(lsMarkers);
         for (let i = 0, length = lsMarkers.length; i < length; i++) {
           let value = lsMarkers[i];
           let pt = new BMap.Point(value.lng || value.longitude, value.lat || value.latitude);
