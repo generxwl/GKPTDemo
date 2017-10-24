@@ -20,27 +20,23 @@
         charUrl:'http://lftdkplat.zhiscity.com/api/Monitoring/GetMonitoringPointChart',
         targets: [
           {
-            name: 'TVOC',
+            name: 'VOCs',
             value: 'TVOC',
             src: 'static/imgs/map/AQI.png',
             checked: 'static/imgs/map/AQI1.png'
-          }, {
-            name: '工地',
-            value: 'GD',
-            src: 'static/imgs/map/PM-2.5.png',
-            checked: 'static/imgs/map/PM-2.51.png',
-          }, {
+          },
+//            {
+//            name: '工地',
+//            value: 'GD',
+//            src: 'static/imgs/map/PM-2.5.png',
+//            checked: 'static/imgs/map/PM-2.51.png',
+//          },
+            {
             name: '高空五公里',
             value: 'GKWGL',
             src: 'static/imgs/map/PM-10.png',
             checked: 'static/imgs/map/PM-101.png'
           }
-//          , {
-//            name: '小散乱污',
-//            value: 'XSLW',
-//            src: 'static/imgs/map/so2.png',
-//            checked: 'static/imgs/map/so21.png'
-//          }
         ]
       }
     },
