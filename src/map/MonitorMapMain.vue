@@ -36,13 +36,8 @@
         map.enableScrollWheelZoom();
         mapStyle && map.setMapStyle(mapStyle);
         this.map = map;
-//        let trafficControl = new BMapLib.TrafficControl({
-//          showPanel: false //是否显示路况提示面板
-//        })
-//        this.map.addControl(trafficControl)
-//        trafficControl.showTraffic()
 
-        bus.$emit('getMap', map);
+        //初始化地图
         map.addEventListener('tilesloaded', function () {
           bus.$emit('tilesLoaded', map);
         });
