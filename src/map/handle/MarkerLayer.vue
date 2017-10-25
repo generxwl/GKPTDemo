@@ -13,6 +13,7 @@
         markers: [],
         lsLabels: [],
         hasVisible: true,
+        hasAnalysis:false,
         checkedName: 'AQI',
         maxZoom:13,
         mouseLabel: new BMap.Label(''),
@@ -147,7 +148,7 @@
         if (time) {
           t.hasHistory = true;
           let urlHistoryLCS = RequestHandle.getRequestUrl('SENSEPOLLUTIONHISTORY');
-          let url = urlHistoryLCS + '?RecordTime=' + time;
+          let url = urlHistoryLCS + '?RecordTime=' + time + '&Analysis=' + t.hasAnalysis;
           RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
             if (result.status === 1) {
               let data = result.obj;

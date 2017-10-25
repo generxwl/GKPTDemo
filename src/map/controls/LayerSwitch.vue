@@ -62,7 +62,7 @@
     },
     mounted() {
       this.ready();
-      bus.$on('resetLayerLi',this.resetLi);
+      bus.$on('resetLayerLi', this.resetLi);
     },
     methods: {
       ready() {
@@ -77,8 +77,8 @@
         this.setSliderDisable(ckLayerId);
         this.checkedId = ckLayerId;
         let hasChecked = false;
-        qel.hasClass('layer-checked') ? (qel.removeClass('layer-checked')) : (qel.addClass('layer-checked').siblings().removeClass('layer-checked'),hasChecked=true);
-        bus.$emit('setVisible', ckLayerId,hasChecked);
+        qel.hasClass('layer-checked') ? (qel.removeClass('layer-checked')) : (qel.addClass('layer-checked').siblings().removeClass('layer-checked'), hasChecked = true);
+        bus.$emit('setVisible', ckLayerId, hasChecked);
         bus.$emit('setLabelVisible', ckLayerId);
         //$(e.target).addClass('layer-checked').siblings().removeClass('layer-checked');
       },
@@ -97,9 +97,10 @@
       sliderChangeEvent(e){
         bus.$emit('setOpacity', this.checkedId, e === 100 ? 0.001 : 1.0 - e / 100)
       },
-      resetLi(hasReset){
+      resetLi(hasReset = true){
         jQuery.find('.layerSwitch li').forEach(function (value, index) {
-          index !== 0 && (value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)',value.className='');
+          index !== 0 && (value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)');
+          !hasReset && (value.className = '');
         });
       }
     },
