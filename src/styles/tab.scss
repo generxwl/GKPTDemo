@@ -51,5 +51,44 @@ html,body{
       }
     }
   }
+  //进度条
+  .el-carousel__item{
+    background:-moz-linear-gradient(top, #00ccff, rgba(0, 0, 255, 0.5))!important;
+    background:-webkit-gradient(linear, 0 0, 0 bottom, from(#00ccff), to(rgba(0, 0, 255, 0.5)))!important;
+  }
 
+  .Progress{
+    .el-progress__text{
+      width: 40px!important;
+      color: #fff!important;
+      margin-top: 3px!important;
+    }
+    .el-progress-bar__outer{
+      margin-top: 3px!important;
+      height: 16px!important;
+      border-radius: 0!important;
+    }
+    .el-progress-bar__inner{
+      border-radius: 0!important;
+      background:-moz-linear-gradient(top, #1ce405, #fdc52a)!important;
+      background:-webkit-gradient(linear, 0 0, 0 bottom, from(#1ce405), to(#fdc52a))!important;
+    }
+  }
+  .prog_box{
+    .el-progress__text{
+      width: 40px!important;
+      color: #fff!important;
+      margin-top: 3px!important;
+    }
+    .el-progress-bar__outer{
+      margin-top: 3px!important;
+      height: 14px!important;
+      border-radius: 0!important;
+    }
+    .el-progress-bar__inner{
+      border-radius: 0!important;
+      background:-moz-linear-gradient(top, #015eea, #01c4fa)!important;
+      background:-webkit-gradient(linear, 0 0, 0 bottom, from(#015eea), to(#01c4fa))!important;
+    }
+  }
 }

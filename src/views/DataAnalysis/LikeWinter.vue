@@ -25,9 +25,9 @@
                 </div>
                 <div class="item_text4">
                     <el-carousel indicator-position="outside">
-                        <el-carousel-item v-for="item in 4" :key="item">
+                        <el-carousel-item>
                             <div class="pm">
-                                <h2>PM2.5
+                                <h2>O3
                                     <span style="font-size: 14px">控制值：35</span>
                                 </h2>
                             </div>
@@ -35,10 +35,48 @@
                                 <p>预警站点：北华航天工业学院↑</p>
                             </div>
                             <div class="Progress">
-                                <p style="float:left;width: 100%">
+                                <p style="float:left;width: 26%;margin-left: 15%">
                                     控制进度：
-                                    <el-progress :percentage="70"></el-progress>
                                 </p>
+                                <div class="el-jindu" style="float:left;width: 64%">
+                                    <el-progress :percentage="70"></el-progress>
+                                </div>
+                            </div>
+                        </el-carousel-item>
+                        <el-carousel-item>
+                            <div class="pm">
+                                <h2>SO2
+                                    <span style="font-size: 14px">控制值：35</span>
+                                </h2>
+                            </div>
+                            <div class="yujing">
+                                <p>预警站点：廊坊市政府↑</p>
+                            </div>
+                            <div class="Progress">
+                                <p style="float:left;width: 26%;margin-left: 15%">
+                                    控制进度：
+                                </p>
+                                <div class="el-jindu" style="float:left;width: 64%">
+                                    <el-progress :percentage="70"></el-progress>
+                                </div>
+                            </div>
+                        </el-carousel-item>
+                        <el-carousel-item>
+                            <div class="pm">
+                                <h2>PM2.5
+                                    <span style="font-size: 14px">控制值：35</span>
+                                </h2>
+                            </div>
+                            <div class="yujing">
+                                <p>预警站点：廊坊技术学院↑</p>
+                            </div>
+                            <div class="Progress">
+                                <p style="float:left;width: 26%;margin-left: 15%">
+                                    控制进度：
+                                </p>
+                                <div class="el-jindu" style="float:left;width: 64%">
+                                    <el-progress :percentage="70"></el-progress>
+                                </div>
                             </div>
                         </el-carousel-item>
                     </el-carousel>
@@ -52,13 +90,25 @@
                     <el-tab-pane label="廊坊市秋冬季采暖期考核" name="first_s">
                         <el-tabs v-model="activeName_a" @tab-click="">
                             <el-tab-pane label="全期" name="first_a">
-                                全期内容图表
+                                <div class="item_banyuan"></div>
+                                <div class="item_banyuan"></div>
+                                <div class="item_banyuan">
+                                    全期部分
+                                </div>
                             </el-tab-pane>
                             <el-tab-pane label="月度" name="second_a">
-                                月度内容图表
+                                <div class="item_banyuan"></div>
+                                <div class="item_banyuan"></div>
+                                <div class="item_banyuan">
+                                    月度部分
+                                </div>
                             </el-tab-pane>
                             <el-tab-pane label="季度" name="third_a">
-                                季度内容图表
+                                <div class="item_banyuan"></div>
+                                <div class="item_banyuan"></div>
+                                <div class="item_banyuan">
+                                    季度部分
+                                </div>
                             </el-tab-pane>
                         </el-tabs>
                     </el-tab-pane>
@@ -102,7 +152,51 @@
                     </el-tab-pane>
                     <el-tab-pane label="数据接入进度" name="fourth_t">
                         <div class="">区县9月14日数据接入进度</div>
-                        <div id="dian_3" style="width: 366px;height: 200px;color: #fff!important;"></div>
+                        <div class="prog_box">
+                            <ul class="item_progrs_left">
+                                <li>市建设局</li>
+                                <li>市建设局</li>
+                                <li>市建设局</li>
+                                <li>市建设局</li>
+                                <li>市建设局</li>
+                                <li>市建设局</li>
+                                <li>市建设局</li>
+                                <li>市建设局</li>
+                                <li>市建设局</li>
+                                <li>市建设局</li>
+                            </ul>
+                            <div class="item_progrs">
+                                <el-progress :percentage="10"></el-progress>
+                            </div>
+                            <div class="item_progrs">
+                                <el-progress :percentage="20"></el-progress>
+                            </div>
+                            <div class="item_progrs">
+                                <el-progress :percentage="30"></el-progress>
+                            </div>
+                            <div class="item_progrs">
+                                <el-progress :percentage="40"></el-progress>
+                            </div>
+                            <div class="item_progrs">
+                                <el-progress :percentage="50"></el-progress>
+                            </div>
+                            <div class="item_progrs">
+                                <el-progress :percentage="60"></el-progress>
+                            </div>
+                            <div class="item_progrs">
+                                <el-progress :percentage="70"></el-progress>
+                            </div>
+                            <div class="item_progrs">
+                                <el-progress :percentage="80"></el-progress>
+                            </div>
+                            <div class="item_progrs">
+                                <el-progress :percentage="90"></el-progress>
+                            </div>
+                            <div class="item_progrs">
+                                <el-progress :percentage="100"></el-progress>
+                            </div>
+                        </div>
+
                     </el-tab-pane>
                 </el-tabs>
             </div>
@@ -255,7 +349,7 @@
             setTimeout(()=>{
                 this.ElectricityConsumption();
                 this.EconomicsConsumption();
-                this.DataConsumption();
+                //this.DataConsumption();
             },500)
         },
         methods: {
@@ -345,7 +439,29 @@
                         {
                             name:'用电量',
                             type:'bar',
-                            data:[200.6, 500.9, 239.0, 296.4, 699.7, 470.7, 175.6, 182.2, 648.7, 718.8, 360.0]
+                            data:[200.6, 500.9, 239.0, 296.4, 699.7, 470.7, 175.6, 182.2, 648.7, 718.8, 360.0],
+                            itemStyle: {
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(
+                                        0, 0, 0, 1,
+                                        [
+                                            {offset: 0, color: '#83bff6'},
+                                            {offset: 0.5, color: '#188df0'},
+                                            {offset: 1, color: '#188df0'}
+                                        ]
+                                    )
+                                },
+                                emphasis: {
+                                    color: new echarts.graphic.LinearGradient(
+                                        0, 0, 0, 1,
+                                        [
+                                            {offset: 0, color: '#2378f7'},
+                                            {offset: 0.7, color: '#2378f7'},
+                                            {offset: 1, color: '#83bff6'}
+                                        ]
+                                    )
+                                }
+                            },
                         },
                         {
                             name:'增长率',
@@ -455,7 +571,29 @@
                         {
                             name:'产值',
                             type:'bar',
-                            data:[200.6, 500.9, 239.0]
+                            data:[200.6, 500.9, 239.0],
+                            itemStyle: {
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(
+                                        0, 0, 0, 1,
+                                        [
+                                            {offset: 0, color: '#83bff6'},
+                                            {offset: 0.5, color: '#188df0'},
+                                            {offset: 1, color: '#188df0'}
+                                        ]
+                                    )
+                                },
+                                emphasis: {
+                                    color: new echarts.graphic.LinearGradient(
+                                        0, 0, 0, 1,
+                                        [
+                                            {offset: 0, color: '#2378f7'},
+                                            {offset: 0.7, color: '#2378f7'},
+                                            {offset: 1, color: '#83bff6'}
+                                        ]
+                                    )
+                                }
+                            },
                         },
                         {
                             name:'增长率',
@@ -579,7 +717,29 @@
                 text-align: left;
                 padding-left: 20px;
             }
-            .item_text4{}
+            .item_text4{
+
+                .pm{
+                    h2{
+                        font-size: 18px;
+                        padding: 6px 4px 0 0;
+                        text-align: left;
+                        margin: 0 0 0 26px;
+                    }
+                }
+                .yujing{
+                    text-align: left;
+                    margin-left: 24px;
+                    font-size: 16px;
+                    padding: 6px 0;
+                }
+                .Progress{
+                    width: 100%;
+                    height: 40px;
+                    margin-left: 22px;
+                    padding: 0 10px 0 0;
+                }
+            }
         }
         .Window_Two{
             width: 428px;
@@ -596,6 +756,14 @@
             background: #1d2339;
             float: left;
             overflow: hidden;
+            //采暖考核模块
+            .item_banyuan{
+                width: 460px;
+                height: 88px;
+                margin-top: 9px;
+                border:solid 1px #7c7056;
+                margin-left: 9px;
+            }
         }
         .Window_Four{
             width: 370px;
@@ -604,6 +772,22 @@
             background: #1d2339;
             float: left;
             overflow: hidden;
+            .prog_box{
+                .item_progrs_left{
+                    width: 20%;
+                    float: left;
+                    padding-left: 4%;
+                    margin-right: 5%;
+                    li{
+                        list-style: none;
+                    }
+                }
+                .item_progrs{
+                    margin-top: 2.5px;
+                    width: 70%;
+                    float: left;
+                }
+            }
         }
         .Window_Five{
             width: 428px;

@@ -2,7 +2,7 @@
   <div class="main-layer">
     <div class="main-layer-handle">筛选监测点</div>
     <ul class="warp-box">
-      <li v-for="(item,index) in targets" :data-index="index" :data-type="item.name" @click="liClick">
+      <li v-for="(item,index) in targets" :id="('item_'+index)" :data-index="index" :data-type="item.name" @click="liClick">
         <img :src="item.src" title=""/>
         <span>{{item.value}}</span>
       </li>
@@ -44,8 +44,9 @@
           {
             name: 'layer_cg',
             value: '空气传感器监测',
-            src: 'static/imgs/main/right.png',
-            checkedSrc: 'static/imgs/main/left.png'
+            src: 'static/imgs/main/left.png',
+            checkedSrc: 'static/imgs/main/left.png',
+            tsrc:'static/imgs/main/right.png'
           }, {
             name: 'layer_gs',
             value: '国省控监测',
@@ -67,8 +68,9 @@
           {
             name: 'layer_sp',
             value: '视频',
-            src: 'static/imgs/main/right.png',
-            checkedSrc: 'static/imgs/main/left.png'
+            src: 'static/imgs/main/left.png',
+            checkedSrc: 'static/imgs/main/left.png',
+            tsrc:'static/imgs/main/right.png'
           }
           ,
           {
@@ -180,11 +182,13 @@
         let targets = this.$data.targets;
         let item = targets[index];
         let hasChecked = false;
-        if (parseInt(index) === 0) {
+       if (parseInt(index) === 0) {
           t.kongqi = !t.kongqi;
-        }
+           //document.getElementById("item_0").getElementsByTagName("img")[0].src = ((document.getElementById("item_0").getElementsByTagName("img")[0].src == item.src) ? item.src : item.tsrc);
+       }
         else if (parseInt(index) === 4) {
           t.shiping = !t.shiping;
+          // document.getElementById("item_4").getElementsByTagName("img")[0].src = ((document.getElementById("item_4").getElementsByTagName("img")[0].src == item.src) ? item.src : item.tsrc);
         }
         else {
           imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
@@ -299,7 +303,6 @@
       left: calc(50% - 100px);
       bottom:20px;
       /*margin-left: auto;*/
-
   }
   .vdworp {
     position: absolute;
