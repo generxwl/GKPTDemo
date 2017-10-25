@@ -91,4 +91,34 @@ html,body{
       background:-webkit-gradient(linear, 0 0, 0 bottom, from(#015eea), to(#01c4fa))!important;
     }
   }
+  .Window_Five{
+    .el-table{
+      border: none!important;
+    }
+    table{
+      border: none!important;
+      th{
+        background: #0b253e!important;
+        border: none!important;
+        div{
+          background: none!important;
+          color: #fff;
+        }
+      }
+      tr:nth-child(odd){
+        background: #051427!important;
+        color: #fff;
+        td{
+          background: none!important;
+        }
+      }
+      tr:nth-child(even){
+        background: #22293c!important;
+        color: #fff;
+        td{
+          background: none!important;
+        }
+      }
+    }
+  }
 }

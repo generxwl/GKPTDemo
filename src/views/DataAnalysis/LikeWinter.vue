@@ -259,7 +259,14 @@
                         </div>
                     </el-tab-pane>
                     <el-tab-pane label="工地扬尘监测" name="second_f">
-                            表格22222
+                        <el-tabs v-model="activeName_w" @tab-click="">
+                            <el-tab-pane label="PM2.5" name="first_w">
+                                pm2.5内容
+                            </el-tab-pane>
+                            <el-tab-pane label="PM10" name="second_w">
+                                pm10内容
+                            </el-tab-pane>
+                        </el-tabs>
                     </el-tab-pane>
                     <el-tab-pane label="企业在线监测" name="third_f">
                         表格33333
@@ -308,7 +315,8 @@
                 activeName_t:'first_t',//默认选项
                 activeName_f:'first_f',//默认选项
                 activeName_z:'first_z',//
-                activeName_a:'first_a',
+                activeName_a:'first_a',//
+                activeName_w:'first_w',//
                 currentRow: null,
                 pagesize: 5,
                 currentPage: 1,
