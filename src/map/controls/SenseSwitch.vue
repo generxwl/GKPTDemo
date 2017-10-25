@@ -41,7 +41,7 @@
     },
     methods: {
       ready(){
-        bus.$on('tilesSenseLoaded', this.requestHandle);
+        bus.$once('tilesSenseLoaded', this.requestHandle);
       },
       requestHandle(map){
 //        let url = this.pollutionUrl;

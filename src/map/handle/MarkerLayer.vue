@@ -14,10 +14,11 @@
         lsLabels: [],
         hasVisible: true,
         checkedName: 'AQI',
+        maxZoom:13,
         mouseLabel: new BMap.Label(''),
         data: [],
-        historyData:[],
-        hasHistory:false,
+        historyData: [],
+        hasHistory: false,
         infoWindowConfig: {
           width: 250,     // 信息窗口宽度
           height: 240,     // 信息窗口高度
@@ -41,6 +42,7 @@
         bus.$on('loadChart', this.refreshLoadChart);
         bus.$on('refreshMarker', this.refreshLayer);
         bus.$on('historySenseMarker', this.historyMarker);
+        bus.$on('setLabelVisible',this.labelVisibleTarget);
       },
 
       //加载marker数据
@@ -126,7 +128,7 @@
         this.checkedName = type;
         let dt = this.hasHistory ? this.historyData : this.data;//this.getPollutionByType(type,this.hasHistory ? this.historyData : this.data);
         if (dt.length) {
-          this.refreshMarker(dt,!this.hasHistory);
+          this.refreshMarker(dt, !this.hasHistory);
         }
       },
 
@@ -260,7 +262,14 @@
           label.setPosition(transPoint);
           this.map.addOverlay(label);
           this.lsLabels.push(label);
+
+          this.map.getZoom() >= this.maxZoom ? label.show() : label.hide();
         }
+      },
+
+      //设置Label显隐性
+      labelVisibleTarget(hasVisible){
+        this.lsLabels.forEach(v => (hasVisible ? v.show() : v.hide()));
       },
 
       //获取图标对象
@@ -457,7 +466,6 @@
           }
         }
       }
-      ,
     }
   }
   ;
