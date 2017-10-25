@@ -14,7 +14,9 @@
         type: 'POINT',
         ptType: '国控点',
         hasLoaded: false,
+        maxZoom: 13,
         lsRenderOverlay: [],
+        lsLabelOverlay: [],
         lsSearchInfoWindow: [],
         lsRenderMarker: [],
         data: [],
@@ -35,6 +37,7 @@
         bus.$once('tilesDustLoaded', this.resetData);
         bus.$on('refreshDustLayer', this.refreshLayer);
         bus.$on('showDustInfoWindow', this.showDustInfoWindow);
+        bus.$on('setLabelVisible', this.labelVisibleTarget);
       },
 
       //重置Map对象
@@ -334,25 +337,26 @@
               lineHeight: '18px'
             });
             if (this.item !== 'WINDDIRECTION' || maplevel !== 9) {
-              this.lsRenderOverlay.push(label_tip);
+              this.lsLabelOverlay.push(label_tip);
               this.map.addOverlay(label_tip);
+              this.map.getZoom() >= this.maxZoom ? label_tip.show() : label_tip.hide();
             }
           }
         }
         label.addEventListener('click', function () {
           t.showCityPointChart(citycode, point);
         });
-        if (value > 80) {
-//0811
-//          let myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
-//          let marker2 = new BMap.Marker(point,{icon:myIcon,size:{width:0,height:0}});  // 创建标注
-//          this.map.addOverlay(marker2);
-//          this.lsRenderMarker.push(marker2)
-        }
+      },
+
+      //监测点名称实现随比例尺放大显示
+      labelVisibleTarget(hasVisible){
+        console.log(this.lsLabelOverlay.length);
+        this.lsLabelOverlay.forEach(v => (hasVisible ? v.show() : v.hide()));
       },
 
       //清空地图覆盖物
       clearRenderOverlay () {
+        let t = this;
         this.lsSearchInfoWindow.length = 0;
         for (let i = 0, length = this.lsRenderOverlay.length; i < length; i++) {
           this.map.removeOverlay(this.lsRenderOverlay[i]);
@@ -360,8 +364,11 @@
         for (let i = 0, length = this.lsRenderMarker.length; i < length; i++) {
           this.map.removeOverlay(this.lsRenderMarker[i]);
         }
+        this.lsLabelOverlay.forEach(v => (t.map.removeOverlay(v)));
+
         this.lsRenderOverlay = [];
         this.lsRenderMarker = [];
+        this.lsLabelOverlay = [];
       },
 
       //获取弹出框显示位置
@@ -603,14 +610,6 @@
             break;
         }
         return index;
-      },
-
-      //设置Label显隐性，根据地图级别
-      setLabelVisible(hasVisible){
-        for (let i = 0, length = this.lsRenderOverlay.length; i < length; i++) {
-          let item = this.lsRenderOverlay[i];
-          hasVisible ? item.show() : item.hide();
-        }
       },
 
       //获取地图展示图片
