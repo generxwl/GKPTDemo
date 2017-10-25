@@ -14,8 +14,11 @@
         lsLabels: [],
         hasVisible: true,
         checkedName: 'AQI',
+        maxZoom:13,
         mouseLabel: new BMap.Label(''),
         data: [],
+        historyData: [],
+        hasHistory: false,
         infoWindowConfig: {
           width: 250,     // 信息窗口宽度
           height: 240,     // 信息窗口高度
@@ -38,6 +41,8 @@
         bus.$once('loadMarker', this.loadMarkerLayer);
         bus.$on('loadChart', this.refreshLoadChart);
         bus.$on('refreshMarker', this.refreshLayer);
+        bus.$on('historySenseMarker', this.historyMarker);
+        bus.$on('setLabelVisible',this.labelVisibleTarget);
       },
 
       //加载marker数据
@@ -78,10 +83,10 @@
           bus.$emit('loadMarkerData', this.data, this.checkedName);
         }
         let t = this;
-        let lsMarkers = this.getPollutionByType(this.checkedName);
+        let lsMarkers = this.getPollutionByType(this.checkedName, data);
         for (let i = 0, length = lsMarkers.length; i < length; i++) {
           let value = lsMarkers[i];
-          let pt = new BMap.Point(value.lng, value.lat);
+          let pt = new BMap.Point(value.lng || value.longitude, value.lat || value.latitude);
           let v = value.count;
           let marker = t.getMarker(pt, v);
 
@@ -97,7 +102,7 @@
           let offsetLength = ('' + value.count).length >= 4 ? (('' + value.count).length === 5 ? -2 : 2) : (('' + value.count).length > 1 ? 8 : 12);
           label.setOffset(new BMap.Size(offsetLength, -2));
 
-          t.setLabels(pt,value,'stationname');
+          t.setLabels(pt, value, 'stationname');
 
           marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = value, t.map.addOverlay(marker), t.markers.push(marker), marker.addEventListener('click', function (e) {
             let tg = e.target;
@@ -121,17 +126,41 @@
       //指标切换响应事件
       pollutionTarget(type){
         this.checkedName = type;
-        let dt = this.getPollutionByType(type);
+        let dt = this.hasHistory ? this.historyData : this.data;//this.getPollutionByType(type,this.hasHistory ? this.historyData : this.data);
         if (dt.length) {
-          this.refreshMarker(dt);
+          this.refreshMarker(dt, !this.hasHistory);
         }
       },
 
       //刷新数据
-      refreshMarker(data){
+      refreshMarker(data, hasHistory = true){
         if (this.markers.length) {
+          hasHistory && (this.data = data);
           this.clearMarker();
           this.loadMarkerLayer(this.map, data);
+        }
+      },
+
+      //历史数据
+      historyMarker(time = undefined, hasReset){
+        let t = this;
+        if (time) {
+          t.hasHistory = true;
+          let urlHistoryLCS = RequestHandle.getRequestUrl('SENSEPOLLUTIONHISTORY');
+          let url = urlHistoryLCS + '?RecordTime=' + time;
+          RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+            if (result.status === 1) {
+              let data = result.obj;
+              t.historyData = data;
+              t.refreshMarker(data, false);
+            }
+          }, function (ex) {
+            console.log(ex);
+          })
+        }
+        else {
+          t.hasHistory = false;
+          (hasReset && t.data.length) && (t.refreshMarker(t.data));
         }
       },
 
@@ -171,11 +200,11 @@
       },
 
       //根据类型获取指标数据
-      getPollutionByType(type){
+      getPollutionByType(type, data){
         let rtValue = [];
         if (this.data) {
-          for (let i = 0, length = this.data.length; i < length; i++) {
-            let item = this.data[i];
+          for (let i = 0, length = data.length; i < length; i++) {
+            let item = data[i];
             let obj = {'dataType': (item.hasOwnProperty('dataType') ? item['dataType'] : undefined), 'stationid': item.stationid, 'stationname': item.stationname, 'lng': item.longitude, 'lat': item.latitude, 'count': item[type.toLowerCase()]};
             rtValue.push(obj);
           }
@@ -233,7 +262,14 @@
           label.setPosition(transPoint);
           this.map.addOverlay(label);
           this.lsLabels.push(label);
+
+          this.map.getZoom() >= this.maxZoom ? label.show() : label.hide();
         }
+      },
+
+      //设置Label显隐性
+      labelVisibleTarget(hasVisible){
+        this.lsLabels.forEach(v => (hasVisible ? v.show() : v.hide()));
       },
 
       //获取图标对象
@@ -430,7 +466,6 @@
           }
         }
       }
-      ,
     }
   }
   ;

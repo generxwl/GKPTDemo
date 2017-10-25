@@ -23,7 +23,8 @@
       return {
         pollutionUrl: 'http://lftdkfc.zhiscity.com/api/FcStation/GetFcStationList',
         charUrl: 'http://lftdkfc.zhiscity.com/api/FcStation/GetSingleStationInfo',
-        hasLoaded: false
+        hasLoaded: false,
+        maxZoom: 13
       }
     },
     mounted(){
@@ -31,19 +32,16 @@
     },
     methods: {
       ready(){
-          let t= this;
+        let t = this;
         let map = new BMap.Map('sense_map');
         map.centerAndZoom('廊坊', 13);
         map.enableScrollWheelZoom();
         mapStyle && map.setMapStyle(mapStyle);
         this.map = map;
 
-        bus.$emit('getSenseMap', map);
         map.addEventListener('tilesloaded', function () {
-            if(!t.hasLoaded) {
-              bus.$emit('tilesSenseLoaded', map);
-              t.hasLoaded = true;
-            }
+          bus.$emit('tilesSenseLoaded', map);
+          bus.$emit('setLabelVisible', map.getZoom() >= t.maxZoom);
         });
       }
     },

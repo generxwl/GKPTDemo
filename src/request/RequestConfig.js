@@ -37,6 +37,10 @@ export default {
         cf = this.release[0];
         url = cf.site + cf.port + cf.path + '/FcStation/GetFcStationList';
         break;
+      case 'SENSEPOLLUTIONHISTORY':
+        cf = this.release[0];
+        url = cf.site + cf.port + cf.path + '/FcStation/GetHourPollution';
+        break;
       case 'XHPOLLUTION':
         cf = this.release[1];
         // url = 'http://117.119.97.150:8063/api/XhHb/GetXhHbPoint';

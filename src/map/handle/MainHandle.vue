@@ -11,6 +11,7 @@
       return {
         lsMarkers: [],
         lsLabels: [],
+        defaultType: 'LAYER_GS',
         maxZoom: 13,
         trafficLayer: undefined,
         searchInfoWindow: undefined
@@ -24,9 +25,16 @@
     mounted(){
     },
     methods: {
+
+      //设置Map对象
       setMap(map){
         this.map = map;
+        if (this.map) {
+          this.targetClick(this.defaultType, true);
+        }
       },
+
+      //切换响应事件
       targetClick(type, hasVisible, from){
         switch (type.toUpperCase()) {
           case 'LAYER_SP':
@@ -50,6 +58,8 @@
             break;
         }
       },
+
+      //发送请求获取相应数据
       requestData(type, from){
         this.lsMarkers.length && this.removeMarkerByList(this.getMarkerByType(type), type);
         this.lsLabels.length && this.removeMarkerLabel(this.getMarkerLabelByType(type), type);
@@ -151,6 +161,8 @@
           });
         }
       },
+
+      //路况显隐性切换
       targetTrafficLayer(hasVisible){
         if (hasVisible) {
           this.trafficLayer = new BMap.TrafficLayer();
@@ -161,6 +173,8 @@
           this.trafficLayer = undefined;
         }
       },
+
+      //加载Marker
       loadMarker(data, type, fieldName, displayName){
         let t = this;
         for (let i = 0, length = data.length; i < length; i++) {
@@ -168,7 +182,7 @@
           value['ptType'] = type;
           let labelName = ((displayName && value) && (value[displayName]));//value.CamName || '';
           let pt = new BMap.Point(value.lng || value.Longitude || value.longitude, value.lat || value.Latitude || value.latitude);
-          let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName), type,value[fieldName] || undefined);
+          let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName), type, value[fieldName] || undefined);
           let label = t.setMarkerLabel(labelName, t.getMarkerLabelState(value, type, fieldName), pt, type);//, marker.setLabel(label)
           label && (t.lsLabels.push({label: label, type: type}), t.map.addOverlay(label));
           marker && (t.map.addOverlay(marker), marker.attributes = value, t.lsMarkers.push({
@@ -181,6 +195,8 @@
           }));
         }
       },
+
+      //获取Label状态
       getMarkerLabelState(data, ptType, fieldName){
         let value = data[fieldName];
         let level = 0;
@@ -190,14 +206,16 @@
         } else if (ptType.toUpperCase() === 'LAYER_QY') {
           level = data['isOnline'] ? (value ? 4 : -1) : -1;//getNO2LevelIndex(value) || 1;
           value = data['smoke'] || '--';
-        }else if(ptType.toUpperCase() === 'LAYER_SP_SLW' || ptType.toUpperCase() === 'LAYER_SP_VOC' || ptType.toUpperCase() === 'LAYER_SP_GKW'){
+        } else if (ptType.toUpperCase() === 'LAYER_SP_SLW' || ptType.toUpperCase() === 'LAYER_SP_VOC' || ptType.toUpperCase() === 'LAYER_SP_GKW') {
           value = data[fieldName];
-        }else {
+        } else {
           level = getAQILevelIndex(value) || -1;
           value = data[fieldName] || '--';
         }
         return {level: level, value: value};
       },
+
+      //获取Marker状态
       getMarkerState(data, ptType, fieldName){
         //console.log(data)
         let value = data[fieldName] || 0;
@@ -206,7 +224,7 @@
           level = getVOCLeveColorIndex(data.TVOC_V) || 1;
         } else if (ptType.toUpperCase() === 'LAYER_QY') {
           level = data['isOnline'] ? (value ? 4 : 1) : 0;//getNO2LevelIndex(value) || 1;
-        }else if(ptType.toUpperCase() === 'LAYER_GD'){
+        } else if (ptType.toUpperCase() === 'LAYER_GD') {
           level = getPM10LevelIndex(value) || 1;
         } else {
           level = getAQILevelIndex(value) || 1;
@@ -215,6 +233,8 @@
         let iconName = this.getIconName(ptType, level - 1);
         return iconName.toUpperCase();
       },
+
+      //获取Icon名称
       getIconName(ptType, level){
         //console.log(level)
         let iconName = undefined;
@@ -296,6 +316,7 @@
         }
         return iconName;
       },
+
       //图标点击事件
       markerClick(attributes, point){
         let t = this;
@@ -336,7 +357,7 @@
             case 'LAYER_GS':
               res = t.setGSInfoWindow(attributes);
               charUrl = RequestHandle.getRequestUrl('MONCHART');
-              pms = {id: attributes.citygid};
+              pms = {id: attributes.citygid, type: 'AQI'};
               displayName = 'pointname';
               break;
             case 'LAYER_GD':
@@ -349,7 +370,7 @@
             case 'LAYER_QY':
               displayName = 'psname';
               charUrl = RequestHandle.getRequestUrl('ENTERPRISECHAR');
-              pms = {pscode: attributes.pscode,type:'nox'};
+              pms = {pscode: attributes.pscode, type: 'nox'};
               infoWidth = 410;
               break;
           }
@@ -381,7 +402,9 @@
                   t.setCGChart(attributes.stationid, data.hourdatas);
                   break;
                 case 'LAYER_GS':
-                  t.setGSChart(attributes.citygid, data);
+                  let gsContent = t.setGSInfoWindow(data);
+                  t.searchInfoWindow.setContent(gsContent);
+                  t.setGSChart(data.citygid, result.history || []);
                   break;
                 case 'LAYER_GD':
                   t.setGDChart(attributes.deviceid, data.valuelist || data[0].valuelist || []);
@@ -390,8 +413,8 @@
                   t.setVOCChart(attributes.StationID, data);
                   break;
                 case 'LAYER_QY':
-                  let content = t.setQYInfoWindow(data);
-                  t.searchInfoWindow.setContent(content);
+                  let qyContent = t.setQYInfoWindow(data);
+                  t.searchInfoWindow.setContent(qyContent);
                   t.setQYChart(attributes.pscode, result.history);
                   break;
               }
@@ -401,6 +424,7 @@
           });
         }
       },
+
       //国省控点
       setGSInfoWindow(data){
         let aqi = data.aqi;
@@ -430,7 +454,7 @@
         let rtValue = [];
         for (let i = 0, length = data.length; i < length; i++) {
           let item = data[i];
-          let value = item.aqi;
+          let value = item.value;
           let obj = {
             x: converTimeFormat(item.time.replace('T', ' ')).getTime(),
             y: parseInt(value),
@@ -441,6 +465,7 @@
         let title = '最近24小时AQI变化趋势';
         this.loadChar(code, 'AQI', rtValue, title);
       },
+
       //VOC监控
       setVOCInfoWindow(data){
         return '<table width=\'100%\' ><tr><td style=\'font-size:14px\' valign=\'top\'>'
@@ -487,6 +512,7 @@
         let title = '最近24小时AQI变化趋势';
         this.loadChar(code, 'AQI', rtValue, title);
       },
+
       //VOC图表
       setVOCChart(code, data){
         let rtValue = [];
@@ -503,6 +529,7 @@
         let title = '最近24小时VOC变化趋势';
         this.loadChar(code, 'VOC', rtValue, title);
       },
+
       //工地信息
       setGDInfoWindow(data){
         return '<table width=\'100%\' class="fitem"><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + (data.pm25 ? parseInt(data.pm25) : '--')
@@ -541,11 +568,11 @@
         let els = '';
         for (let i = 0, length = dts.length; i < length; i++) {
           let item = dts[i];
-          els += '<tr><td>' + item.outputname + '</td><td style="color:'+(item.noxStatus ? '#ff0000' : '')+'">' +
+          els += '<tr><td>' + item.outputname + '</td><td style="color:' + (item.noxStatus ? '#ff0000' : '') + '">' +
             (item.nox || '--') + '</td><td>' +
-            (item.nox_convert || '--') + '</td><td style="color:'+(item.so2Status ? '#ff0000' : '')+'">' +
+            (item.nox_convert || '--') + '</td><td style="color:' + (item.so2Status ? '#ff0000' : '') + '">' +
             (item.so2 || '--') + '</td><td>' +
-            (item.so2_convert || '--') + '</td><td style="color:'+(item.smokeStatus ? '#ff0000' : '')+'">' +
+            (item.so2_convert || '--') + '</td><td style="color:' + (item.smokeStatus ? '#ff0000' : '') + '">' +
             (item.smoke || '--') + '</td><td>' +
             (item.smoke_convert || '--') + '</td><td>' +
             (item.gasoutputflow || '--') + '</td></tr>';
@@ -557,6 +584,7 @@
 
         return '<table style="min-width:390px;" class="fitem" cellpadding="0" cellspacing="0">' + headerElements + els + '</table><div id=\'citychart_' + (data.length && data[0].pscode) + '\' style=\'width:100%;height:110px;\'>';
       },
+
       //企业24小时
       setQYChart(code, data){
         let rtValue = [];
@@ -638,15 +666,17 @@
             name: name,
             data: data
           }]
-        })
+        });
         Highcharts.setOptions({global: {useUTC: false}});
       },
 
+      //设置摄像头IFrame
       setCameraWindow(data){
         return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode=' + data['CamIndexCode'] + '&devIndexCode=' + data['DevIndexCode'] + '&area=' + data['Area'] + '&name=' + data['CamName'] + '"></iframe>';
       },
+
       //获取图标对象
-      getMarker(pt, type, lyType,value){
+      getMarker(pt, type, lyType, value){
         let marker = undefined;
         if (pt && type) {
           let conPoint = this.wgsPointToBd(pt);
@@ -657,7 +687,7 @@
             icon: icon,
             offset: new BMap.Size(0, 0)
           });
-          if(lyType.toUpperCase() === 'LAYER_GS'){
+          if (lyType.toUpperCase() === 'LAYER_GS') {
             let label = new BMap.Label(value || '');
             label.setStyle({
               border: 'none',
@@ -671,6 +701,8 @@
         }
         return marker;
       },
+
+      //设置MarkerLabel
       setMarkerLabel(displayValue, state, point, lyType){
         let conPoint = this.wgsPointToBd(point);
         let label = new BMap.Label(((!state.value) ? displayValue : this.getLabelContent(displayValue, state, lyType)) || '');
@@ -686,6 +718,8 @@
         this.map.getZoom() >= this.maxZoom ? label.show() : label.hide();
         return undefined;
       },
+
+      //获取Label显示内容
       getLabelContent(displayValue, state, lyType){
         let col = '#00ff00';
         if (lyType.toUpperCase() === 'LAYER_QY') {
@@ -693,27 +727,37 @@
         } else {
           col = getColorByIndex(state.level);
         }
-        return '<div><span>' + displayValue + '</span><span>|</span><span style="color:'+col+'">' + state.value + '</span></div>';
+        return '<div><span>' + displayValue + '</span><span>|</span><span style="color:' + col + '">' + state.value + '</span></div>';
       },
+
+      //设置Label显隐性
       setMarkerLabelVisible(hasVisible){
         for (let i = 0, length = this.lsLabels.length; i < length; i++) {
           let v = this.lsLabels[i];
           hasVisible ? v.label.show() : v.label.hide();
         }
       },
+
+      //获取Label根据类型
       getMarkerLabelByType(type){
         return this.lsLabels.filter(v => v.type.toUpperCase() === type.toUpperCase());
       },
+
+      //WGS坐标转百度坐标
       wgsPointToBd: function (pt) {
         let transPoint = this.transformFun([pt.lng, pt.lat]);
         let bdPoint = new BMap.Point(transPoint[0], transPoint[1]);
 
         return bdPoint;
       },
+
+      //WGS坐标转百度坐标
       transformFun: function (path) {
         let gcPoint = Coordtransform.wgs84togcj02(path[0], path[1]);
         return Coordtransform.gcj02tobd09(gcPoint[0], gcPoint[1]);
       },
+
+      //获取地图显示图标根据类型
       getMarkerIcon(type){
         let path = undefined;
         switch (type.toUpperCase()) {
@@ -924,6 +968,8 @@
         }
         return path;
       },
+
+      //根据类型获取Marker
       getMarkerByType(type){
         let rtValue = [];
         for (let i = 0, length = this.lsMarkers.length; i < length; i++) {
@@ -932,6 +978,8 @@
         }
         return rtValue;
       },
+
+      //移除Marker根据类型及Marker集合
       removeMarkerByList(ls, type){
         for (let i = 0, length = ls.length; i < length; i++) {
           let overlayItem = ls[i];
@@ -945,6 +993,8 @@
         this.lsMarkers = lsAllMarkers;
         this.searchInfoWindow && (this.searchInfoWindow.close(), this.searchInfoWindow = undefined);
       },
+
+      //移除Label
       removeMarkerLabel(ls = [], type){
         let t = this;
         ls.forEach(v => t.map.removeOverlay(v.label));
@@ -954,6 +1004,8 @@
         });
         this.lsLabels = lsAllLabels;
       },
+
+      //清除Marker
       clearMarkers(){
         for (let i = 0, length = this.lsMarkers.length; i < length; i++) {
           this.map.removeOverlay(this.lsMarker[i]);

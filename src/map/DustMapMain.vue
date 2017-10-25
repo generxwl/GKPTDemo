@@ -16,26 +16,30 @@
   export default {
     name: 'DustMapMain',
     data () {
-      return {};
+      return {
+        maxZoom: 13
+      };
     },
     mounted(){
-        this.ready();
+      this.ready();
     },
-    methods:{
-        ready(){
-          let map = new BMap.Map('sense_map');
-          map.centerAndZoom('廊坊', 13);
-          mapStyle && map.setMapStyle(mapStyle);
-          map.enableScrollWheelZoom();
-          this.map = map;
+    methods: {
+      ready(){
+        let t = this;
+        let map = new BMap.Map('sense_map');
+        map.centerAndZoom('廊坊', 13);
+        mapStyle && map.setMapStyle(mapStyle);
+        map.enableScrollWheelZoom();
+        this.map = map;
 
-          bus.$emit('getDustMap', map);
-          map.addEventListener('tilesloaded', function () {
-            bus.$emit('tilesDustLoaded', map);
-          });
-        }
+        bus.$emit('getDustMap', map);
+        map.addEventListener('tilesloaded', function () {
+          bus.$emit('tilesDustLoaded', map);
+          bus.$emit('setLabelVisible',map.getZoom() >= t.maxZoom)
+        });
+      }
     },
-    components:{LayerSwitch,DustPollution,MapHandle}
+    components: {LayerSwitch, DustPollution, MapHandle}
   };
 </script>
 <style scoped>

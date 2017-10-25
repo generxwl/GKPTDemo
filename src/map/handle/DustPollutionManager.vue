@@ -14,11 +14,13 @@
         type: 'POINT',
         ptType: '国控点',
         hasLoaded: false,
+        maxZoom: 13,
         lsRenderOverlay: [],
+        lsLabelOverlay: [],
         lsSearchInfoWindow: [],
         lsRenderMarker: [],
         data: [],
-        item:'PM2.5'
+        item: 'PM2.5'
       }
     },
     props: ['pollutionUrl', 'charUrl'],
@@ -35,7 +37,10 @@
         bus.$once('tilesDustLoaded', this.resetData);
         bus.$on('refreshDustLayer', this.refreshLayer);
         bus.$on('showDustInfoWindow', this.showDustInfoWindow);
+        bus.$on('setLabelVisible', this.labelVisibleTarget);
       },
+
+      //重置Map对象
       resetData (map) {
         if (!this.hasLoaded) {
           this.hasLoaded = true;
@@ -43,9 +48,13 @@
           this.setPollutionByType(this.item);
         }
       },
+
+      //初始化Map对象
       setMap (map) {
         this.map = map;
       },
+
+      //发送请求
       setPollutionByType (type) {
         if (!this.map.getBounds()) {
           return false;
@@ -67,6 +76,8 @@
           console.error(ex);
         });
       },
+
+      //获取点信息根据类型
       getPointByType(type){
         let rtValue = [];
         let dt = this.data;
@@ -80,23 +91,31 @@
         }
         return rtValue;
       },
+
+      //指标切换
       switchRender (type) {
         if (this.data) {
           this.item = type;
           this.render(this.data, this.item);
         }
       },
+
+      //累计和实时切换刷新地图数据
       refreshLayer(data){
         if (data) {
           this.data = data;
           this.render(this.data, this.item);
         }
       },
+
+      //右侧面板监测点列表点击事件
       showDustInfoWindow(lng, lat, code){
         let point = new BMap.Point(lng, lat);
         let transPoint = this.wgsPointToBd(point);
         this.showCityPointChart(code, transPoint);
       },
+
+      //根据数据和指标类型加载地图及覆盖物
       render (data, type) {
 //        console.log(data);
 //        console.log(type);
@@ -224,16 +243,22 @@
           }
         }
       },
+
+      //WGS坐标转百度坐标
       wgsPointToBd: function (pt) {
         let transPoint = this.transformFun([pt.lng, pt.lat]);
         let bdPoint = new BMap.Point(transPoint[0], transPoint[1]);
 
         return bdPoint;
       },
+
+      //WGS坐标转百度坐标
       transformFun: function (path) {
         let gcPoint = Coordtransform.wgs84togcj02(path[0], path[1]);
         return Coordtransform.gcj02tobd09(gcPoint[0], gcPoint[1]);
       },
+
+      //加载地图覆盖物
       showMapByPoint (value, bgcolor, point, city, region, pointname, index, citycode) {
         let t = this;
         let arr, wl, wd, icon, offseth, color, isone;
@@ -312,23 +337,26 @@
               lineHeight: '18px'
             });
             if (this.item !== 'WINDDIRECTION' || maplevel !== 9) {
-              this.lsRenderOverlay.push(label_tip);
+              this.lsLabelOverlay.push(label_tip);
               this.map.addOverlay(label_tip);
+              this.map.getZoom() >= this.maxZoom ? label_tip.show() : label_tip.hide();
             }
           }
         }
         label.addEventListener('click', function () {
           t.showCityPointChart(citycode, point);
         });
-        if (value > 80) {
-//0811
-//          let myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
-//          let marker2 = new BMap.Marker(point,{icon:myIcon,size:{width:0,height:0}});  // 创建标注
-//          this.map.addOverlay(marker2);
-//          this.lsRenderMarker.push(marker2)
-        }
       },
+
+      //监测点名称实现随比例尺放大显示
+      labelVisibleTarget(hasVisible){
+        console.log(this.lsLabelOverlay.length);
+        this.lsLabelOverlay.forEach(v => (hasVisible ? v.show() : v.hide()));
+      },
+
+      //清空地图覆盖物
       clearRenderOverlay () {
+        let t = this;
         this.lsSearchInfoWindow.length = 0;
         for (let i = 0, length = this.lsRenderOverlay.length; i < length; i++) {
           this.map.removeOverlay(this.lsRenderOverlay[i]);
@@ -336,9 +364,14 @@
         for (let i = 0, length = this.lsRenderMarker.length; i < length; i++) {
           this.map.removeOverlay(this.lsRenderMarker[i]);
         }
+        this.lsLabelOverlay.forEach(v => (t.map.removeOverlay(v)));
+
         this.lsRenderOverlay = [];
         this.lsRenderMarker = [];
+        this.lsLabelOverlay = [];
       },
+
+      //获取弹出框显示位置
       showSearchInfoWindow (lng, lat, name) {
         let t = this;
         let ckWindow = this.getSearchInfoWindow(name);
@@ -351,6 +384,8 @@
           }, 100)
         }
       },
+
+      //获取弹出框详细表HTML
       getSearchInfoWindow (name) {
         if (this.lsSearchInfoWindow.length) {
           for (let i = 0, length = this.lsSearchInfoWindow.length; i < length; i++) {
@@ -361,6 +396,8 @@
           }
         }
       },
+
+      //获取污染级别
       getLevel (aqival) {
         let _color = null;
         let _quality = null;
@@ -392,6 +429,7 @@
         }
       },
 
+      //图标点击显示图表信息
       showCityPointChart (code, point) {
         let t = this;
         let charUrl = RequestHandle.getRequestUrl('DUSTCHART');
@@ -420,42 +458,46 @@
           console.error(ex);
         });
       },
-        getPollutionTarget(type){
-          console.log('你懂了')
-            let rtValue = type;
-            switch(type.toUpperCase()){
-                case 'INDEX':
-                    rtValue = '综指';
-                    break;
-                case 'TEMP':
-                    rtValue = '温度';
-                    break;
-                case 'HUMI':
-                    rtValue = '湿度';
-                    break;
-                case 'WINDSPEED':
-                    rtValue = '风级';
-                    break;
-                case 'WINDDIRECTION':
-                    rtValue = '风向';
-                    break;
-            }
-            return rtValue;
-        },
+
+      //根据污染指标获取相应值集合
+      getPollutionTarget(type){
+        console.log('你懂了')
+        let rtValue = type;
+        switch (type.toUpperCase()) {
+          case 'INDEX':
+            rtValue = '综指';
+            break;
+          case 'TEMP':
+            rtValue = '温度';
+            break;
+          case 'HUMI':
+            rtValue = '湿度';
+            break;
+          case 'WINDSPEED':
+            rtValue = '风级';
+            break;
+          case 'WINDDIRECTION':
+            rtValue = '风向';
+            break;
+        }
+        return rtValue;
+      },
+
       //设置弹出框信息
       setInfoWindow(data){
-            //console.log(data)
+        //console.log(data)
         return '<table width=\'100%\' class="fitem"><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
           + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
           + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.temp) + '℃'
           + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.humi) + '%'
           + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data.wdirection
           + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + (data.windspeed || 0) + '级'
-          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + (data.time.replace(/T/g,' ') || '') + '</td></tr></table>'
+          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + (data.time.replace(/T/g, ' ') || '') + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
           + '</tr></table><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;height:110px\'>';
       },
+
       //加载Chart数据
       loadChar(container, name, data, title){
 //        console.log(data);
@@ -524,6 +566,7 @@
         });
         Highcharts.setOptions({global: {useUTC: false}});
       },
+
       //设置Chart展示数据
       getHourData(data){
         let rtValue = [];
@@ -539,6 +582,8 @@
         }
         return rtValue;
       },
+
+      //获取污染等级
       getPollutionLeave(value){
         let index = 0;
         switch (this.item) {
@@ -566,6 +611,8 @@
         }
         return index;
       },
+
+      //获取地图展示图片
       getIconByIndex(value) {
         let icon = null;
         if (value == 0) {

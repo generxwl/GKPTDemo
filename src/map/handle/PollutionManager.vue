@@ -57,34 +57,8 @@
         let qs = require('qs');
         let mapLevel = this.map.getZoom();
         let bs = this.map.getBounds();
-//        let bssw = bs.getSouthWest();
-//        let bsne = bs.getNorthEast();
-//        let method = 'GETCITYLISTMOBILE';
-//        let lat1 = (bssw.lat).toString();
-//        let lng1 = (bssw.lng).toString();
-//        let lat2 = (bsne.lat).toString();
-//        let lng2 = (bsne.lng).toString();
-//        let level = mapLevel.toString();
-//        let appId = 'f2371c6069d914f1cb8bf7ea812d217e';
-//        let params = {
-//          'url': 'https://m.zq12369.com/v2/api/zhenqimobileapi.php',
-//          'appId': appId,
-//          'method': encode_param(method),
-//          'lat1': encode_param(lat1),
-//          'lng1': encode_param(lng1),
-//          'lat2': encode_param(lat2),
-//          'lng2': encode_param(lng2),
-//          'level': encode_param(level),
-//          'secret': encode_secret(method, lat1, lng1, lat2, lng2, level)
-//        };
-//        let params = {
-//          pointlevel: '国控点'
-//        };
-//        let url = 'http://localhost:6005/Handler.ashx';
-//                let url = this.pollutionUrl;
         let url = RequestHandle.getRequestUrl('MONPOLLUTION');
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-//                    console.log(result);
           if (result.status === 0) {
             t.data = result.obj;
             t.render(t.getPointByType(t.ptType), type);
@@ -93,27 +67,6 @@
         }, function (ex) {
           console.error(ex);
         });
-//        axios({
-//          url: 'http://localhost:6005/Handler.ashx',
-//          method: 'POST',
-//          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-//          data: qs.stringify(params)
-//        }).then(function (result) {
-//          if (result.status === 200) {
-//            if (typeof result.data === 'string') {
-//              let data = JSON.parse(decode_result(result.data));
-//              if (data.total > 0) {
-//                t.data = data.rows;
-//                t.render(data.rows, type);
-//              }
-//              console.log(data);
-//            } else {
-//              console.log(result.data);
-//            }
-//          }
-//        }).catch(function () {
-//          console.error('Request Error!');
-//        })
       },
       getPointByType(type){
         let rtValue = [];
@@ -122,9 +75,6 @@
           for (let i = 0, length = dt.length; i < length; i++) {
             let item = dt[i];
             rtValue.push(dt[i]);
-//                        if (item.type === type) {
-//                            rtValue.push(dt[i]);
-//                        }
           }
         }
         return rtValue;
@@ -292,31 +242,7 @@
             if (!pointtype) {
               pointtype = '城市';
             }
-            let desp =
-              '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
-              + '<table width=\'100%\' class=\'fitem\'>'
-              + '</td></tr><tr><th>类型</th><td style=\'width:70px;text-align:center;\'>' + pointtype
-              + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
-              + '</td><th></th><td  style=\'width:70px;text-align:center;\'>' + ''
-              + '</td></tr></tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(aqi)) + ';color:#fff\'>' + aqi
-              + '</td><th>等级</th><td style=\'text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(aqi)) + ';color:#fff\'>' + this.getLevel(aqi).quality
-              + '</td><th>综指</th><td  style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getComplexIndex(data[i].complexindex)) + ';color:#fff\'>' + parseFloat(data[i].complexindex).toFixed(3)
-              + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data[i].pm25)) + ';color:#fff\'>' + parseInt(data[i].pm25)
-              + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data[i].pm10)) + ';color:#fff\'>' + parseInt(data[i].pm10)
-              + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data[i].co)) + ';color:#fff\'>' + parseFloat(data[i].co).toFixed(1)
-              + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data[i].no2)) + ';color:#fff\'>' + parseInt(data[i].no2)
-              + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data[i].so2)) + ';color:#fff\'>' + parseInt(data[i].so2)
-              + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data[i].o3)) + ';color:#fff\'>' + parseInt(data[i].o3)
-              + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data[i].temp) + '℃'
-              + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data[i].humi) + '%'
-              + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
-              + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data[i].winddirection
-              + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + (parseInt(data[i].windspeed) || 0) + '级'
-              + '</td><th></th><td style=\'width:70px;text-align:center;\'>' + ''
-              + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data[i].time.replace(/T/g, ' ') + '</td></tr></table>'
-              + '</td>'
-              + '<td valign=\'top\' align=\'right\'><td>'
-              + '</tr></table><div id=\'citychart_' + data[i].citygid + '\' style=\'width:100%;height:110px\'>';
+
             bgcolor = getColorByIndex(index);
             if (this.type !== 'REGION') {
               let city_2_26 = '{"citylist":[{"cityname":"安阳"},{"cityname":"保定"},{"cityname":"北京"},{"cityname":"滨州"},{"cityname":"沧州"},{"cityname":"长治"},{"cityname":"德州"},{"cityname":"邯郸"},{"cityname":"菏泽"},{"cityname":"鹤壁"},{"cityname":"衡水"},{"cityname":"济南"},{"cityname":"济宁"},{"cityname":"焦作"},{"cityname":"晋城"},{"cityname":"开封"},{"cityname":"廊坊"},{"cityname":"聊城"},{"cityname":"濮阳"},{"cityname":"石家庄"},{"cityname":"太原"},{"cityname":"唐山"},{"cityname":"天津"},{"cityname":"新乡"},{"cityname":"邢台"},{"cityname":"阳泉"},{"cityname":"郑州"},{"cityname":"淄博"}]}';
@@ -330,7 +256,7 @@
                   }
                 }
               }
-              this.showMapByPoint(title, value, bgcolor, point, desp, i, city, region, pointname, index, isfd, data[i].citygid);
+              this.showMapByPoint(title, value, bgcolor, point, '', i, city, region, pointname, index, isfd, data[i].citygid);
             }
           }
         }
@@ -344,20 +270,12 @@
         };
 
         let label = new BMap.Label(value + '<div class="arrow" style="width: 0;  height: 0; border-left: 8px solid transparent; border-top: 8px solid; border-right: 8px solid transparent; color:' + bgcolor + '; position: absolute;  margin-top:-2px;margin-left:8px  " ></div>', opts)  // 创建文本标注对象
-        label.attributes = {ptId:citycode};
+        label.attributes = {ptId: citycode};
         let maplevel = this.map.getZoom();
         let link = '';
         if (pointname === null) {
           link = '<a href=\'w.php?tab=city&city=' + city + '#envtab\' style=\'font-size:12px\' target=\'_blank\'> 详情</a>';
         }
-        let searchInfoWindow = new BMapLib.SearchInfoWindow(this.map, desp, {
-          name: citycode,
-          title: '<sapn style="font-size:16px"><b>' + name + '</b>' + link + '<a href=""></a></span>',             //标题
-          width: 320,
-          height: 260,
-          enableAutoPan: true,
-          searchTypes: []
-        });
 
         if (this.checkedName === 'WD') {
           if (value === 0) {
@@ -384,7 +302,7 @@
           this.lsRenderOverlay.push(marker);
           this.map.addOverlay(marker);
           marker.addEventListener('click', function () {
-            searchInfoWindow.open(point);
+            //searchInfoWindow.open(point);
             ///t.showCityPointChart(i, city, pointname)
           })
         } else {
@@ -471,10 +389,10 @@
           }
         }
         label.addEventListener('click', function (e) {
-          searchInfoWindow.open(point);
-          t.showCityPointChart(citycode);
+          //searchInfoWindow.open(point);
+          t.showCityPointChart(citycode, point);
         });
-        this.lsSearchInfoWindow.push(searchInfoWindow);
+        //this.lsSearchInfoWindow.push(searchInfoWindow);
         if (value > 80) {
 //0811
 //          let myIcon = new BMap.Icon("http://lbsyun.baidu.com/jsdemo/img/fox.gif", new BMap.Size(300,157));
@@ -496,15 +414,14 @@
       },
       showSearchInfoWindow (lng, lat, name) {
         let t = this;
-        let ckWindow = this.getSearchInfoWindow(name);
+        //let ckWindow = this.getSearchInfoWindow(name);
         let pt = new BMap.Point(lng, lat);
-        if (ckWindow && pt) {
-          ckWindow.open(pt);
-          setTimeout(function () {
-            bus.$emit('setCenter', pt);
-            t.showCityPointChart(name);
-          }, 100)
-        }
+//        if (ckWindow && pt) {
+//          ckWindow.open(pt);
+        setTimeout(function () {
+          bus.$emit('setCenter', pt);
+          t.showCityPointChart(name, pt);
+        }, 100);
       },
       getSearchInfoWindow (name) {
         if (this.lsSearchInfoWindow.length) {
@@ -546,142 +463,157 @@
           quality: _quality
         }
       },
-      showCityPointChart (citycode) {
+      showCityPointChart (citycode, point) {
 //                console.log(citycode);
         let t = this;
         let chartUrl = RequestHandle.getRequestUrl('MONCHART');
-        let url = chartUrl + '?id=' + citycode;
+        let pmsValue = undefined;
+        switch (t.checkedName) {
+          case 'INDEX':
+            pmsValue = 'ZZ';
+            break;
+          case 'TEMP':
+            pmsValue = 'WD';
+            break;
+          case 'HUMI':
+            pmsValue = 'SD';
+            break;
+          case 'WD':
+            pmsValue = 'FX';
+            break;
+          case 'WS':
+            pmsValue = 'FL';
+            break;
+          default:
+            pmsValue = t.checkedName;
+            break;
+        }
+        let url = chartUrl + '?id=' + citycode + '&type=' + pmsValue;
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-//                    console.log(result);
           if (result.status === 0) {
-            let dt = result.obj;
-            t.loadChartData(citycode, {total: dt.length, rows: dt});
+            let obj = result.obj;
+            let infoContent = t.setGSInfoWindow(obj);
+            let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, infoContent, {
+              title: '<sapn style="font-size:16px"><b>' + (obj.pointname || '') + '</b>' + '</span>',             //标题
+              width: 320,
+              height: 'auto',
+              enableAutoPan: true,
+              searchTypes: []
+            });
+            searchInfoWindow.open(point);
+
+            setTimeout(function () {
+              let dt = result.history;
+              t.loadChartData(citycode, {total: dt.length, rows: dt});
+            }, 150);
           } else {
-//                        console.log(request);
           }
         }, function (ex) {
           console.error(ex);
         });
-//        let qs = require('qs');
-//        let t = this;
-//        let point_param = null;
-//        let startTime = new Date();
-//        startTime.setHours(startTime.getHours() - 27);
-//        startTime.setMinutes(0);
-//        let endTime = new Date();
-//        startTime = startTime.pattern('yyyy-MM-dd HH:mm:ss');
-//        endTime = endTime.pattern('yyyy-MM-dd HH:mm:ss');
-//        let city_param = encode_param(city);
-//        let method, secret;
-//        let type = 'HOUR';
-//        if (pointname !== null) {
-//          point_param = encode_param(pointname);
-//          method = 'GETCITYPOINTPERIOD';
-//          secret = encode_secret(method, city_param, point_param, type, startTime, endTime);
-//        } else {
-//          method = 'CETCITYPERIODAUTO';
-//          secret = encode_secret(method, city_param, type, startTime, endTime);
-//        }
-//        let params = {
-//          'url': 'https://m.zq12369.com/v2/api/zhenqimobileapi.php',
-//          'appId': 'f2371c6069d914f1cb8bf7ea812d217e',
-//          'method': encode_param(method),
-//          'city': city_param,
-//          'pointname': point_param,
-//          'type': encode_param(type),
-//          'startTime': encode_param(startTime),
-//          'endTime': encode_param(endTime),
-//          'secret': secret
-//        };
-//        RequestHandle.request({url: 'http://localhost:6005/Handler.ashx', type: 'POST', pms: params},
-//          function (request) {
-//            if (request && request.total) {
-//              t.loadChartData(i, request);
-//            } else {
-//              console.log(request);
-//            }
-//          }, function (ex) {
-//            console.error(ex);
-//          });
       },
+      //国省控点
+      setGSInfoWindow(data){
+        let aqi = data.aqi;
+        return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
+          + '<table width=\'100%\' class=\'fitem\'>'
+          + '</td></tr><tr><th>类型</th><td style=\'width:70px;text-align:center;\'>' + data.type
+          + '</td></tr></tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(aqi)) + ';color:#fff\'>' + aqi
+          + '</td><th>综指</th><td  style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getComplexIndex(data.complexindex)) + ';color:#fff\'>' + parseFloat(data.complexindex).toFixed(3)
+          + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
+          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
+          + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + parseFloat(data.co).toFixed(1)
+          + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + parseInt(data.no2)
+          + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + parseInt(data.so2)
+          + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + parseInt(data.o3)
+          + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.temp) + '℃'
+          + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.humi) + '%'
+          + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data.winddirection
+          + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + (parseInt(data.windspeed) || 0) + '级'
+          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data.time.replace(/T/g, ' ') + '</td></tr></table>'
+          + '</td>'
+          + '<td valign=\'top\' align=\'right\'><td>'
+          + '</tr></table><div id=\'citychart_' + data.citygid + '\' style=\'width:100%;height:110px\'>';
+      },
+
       loadChartData (code, data) {
         let t = this;
         let dataCityPoint = [];
         let value, unit, index, title;
         let labelstr = t.checkedName;
         for (let j = 0; j < data.total; j++) {
-          let aqi = parseInt(data.rows[j].aqi);
+          let item = data.rows[j];
           switch (t.checkedName.toUpperCase()) {
             case 'AQI':
-              value = aqi;
               unit = '';
+              value = item.value;
               index = getAQILevelIndex(value);
               break;
             case 'PM2.5':
-              value = parseInt(data.rows[j].pm25);
+              value = parseInt(item.value);
               unit = 'ug/m3';
               index = getPM25LevelIndex(value);
               break;
             case 'PM10':
-              value = parseInt(data.rows[j].pm10);
+              value = parseInt(item.value);
               unit = 'ug/m3';
               index = getPM10LevelIndex(value);
               break;
             case 'SO2':
-              value = parseInt(data.rows[j].so2);
+              value = parseInt(item.value);
               unit = 'ug/m3';
               index = getSO2LevelIndex(value);
               break;
             case 'NO2':
-              value = parseInt(data.rows[j].no2);
+              value = parseInt(item.value);
               unit = 'ug/m3';
               index = getNO2LevelIndex(value);
               break;
             case 'O3':
-              value = parseInt(data.rows[j].o3);
+              value = parseInt(item.value);
               unit = 'ug/m3';
               index = getO3LevelIndex(value);
               break;
             case 'CO':
-              value = parseFloat(data.rows[j].co);
+              value = parseFloat(item.value);
               unit = 'mg/m3';
               index = getCOLevelIndex(value);
               break;
             case 'INDEX':
-              value = parseFloat(data.rows[j].complexindex);
+              value = parseFloat(item.value);
               unit = '';
               index = getComplexIndex(value);
               break;
             case 'TEMP':
-              value = parseInt(data.rows[j].temp);
+              value = parseInt(item.value);
               unit = '℃';
               index = getTempLevelIndex(value);
               break;
             case 'HUMI':
-              value = parseInt(data.rows[j].humi);
+              value = parseInt(item.value);
               unit = '%';
               index = getHumiLevelIndex(value);
               break;
             case 'WD':
-              value = parseInt(data.rows[j].windangle);
+              value = parseInt(item.value);
               unit = '°';
               index = 0;
               break;
             case 'WS':
-              value = parseInt(data.rows[j].windspeed);
+              value = parseInt(item.value);
               unit = '级';
               index = getWindLevelIndex(value);
               break;
           }
           dataCityPoint.push({
-            x: converTimeFormat(data.rows[j].time.replace('T', ' ')).getTime(),
-            y: value,
+            x: converTimeFormat(item.time.replace('T', ' ')).getTime(),
+            y: parseInt(value),
             color: getColorByIndex(index)
           })
         }
         switch (t.checkedName) {
           case 'INDEX':
-              labelstr = '综合指数';
+            labelstr = '综合指数';
             break;
           case 'TEMP':
             labelstr = '温度';
@@ -700,8 +632,6 @@
         t.showChart('citychart_' + code, labelstr, dataCityPoint, unit, title);
       },
       showChart (container, name, data, unit, title) {
-//              console.log('dddd');
-//                console.log(data);
         let dateTypeFormat = '%Y-%m-%d %H:%M';
         let markerShowFlag = false;
         let chart = new Highcharts.Chart(container, {
@@ -768,7 +698,8 @@
             name: name,
             data: data
           }]
-        })
+        });
+        Highcharts.setOptions({global: {useUTC: false}});
       },
       getIconByIndex(value) {
         var icon = null;
@@ -796,7 +727,8 @@
         //icon = "resource/img/map/aqi"+value + ".png";
         return icon;
       }
-    },
+    }
+    ,
     components: {}
   }
 </script>
