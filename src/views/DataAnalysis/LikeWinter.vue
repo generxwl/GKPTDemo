@@ -127,7 +127,24 @@
             <div class="Window_Four" style="margin-top: -54px">
                 <el-tabs v-model="activeName_t" @tab-click="">
                     <el-tab-pane label="市政数据" name="first_t">
-
+                        <div class="renwu-box">
+                            <div class="e_users" style="border-right: solid 1px #ccc">
+                                <p>211,<span>342</span></p>
+                                <a>煤改电任务用户</a>
+                            </div>
+                            <div class="e_users">
+                                <h5>94% </h5>
+                                <a>煤改电进度</a>
+                            </div>
+                            <div class="e_users" style="border-right: solid 1px #ccc">
+                                <p>187,<span>674</span></p>
+                                <a>煤改气任务用户</a>
+                            </div>
+                            <div class="e_users">
+                                <h5>94% </h5>
+                                <a>煤改气进度</a>
+                            </div>
+                        </div>
                     </el-tab-pane>
                     <el-tab-pane label="用电量数据" name="second_t">
                         <div class="" style="padding: 10px 0">区县9月14日用电量</div>
@@ -701,11 +718,18 @@
                     height: 18px;
                     text-align: left;
                     margin-top: 12px;
+
                     p{
                         width: 180px;
                         height: 18px;
                         padding-left: 20px;
                         float: left;
+                    }
+                    span{
+                        margin-left: 2px;
+                        font-weight: bold;
+                        font-size: 18px;
+                        color: magenta;
                     }
                 }
 
@@ -713,12 +737,13 @@
             .item_text3{
                 width: 100%;
                 height: 24px;
-                padding-top: 15px;
+                margin-top: 20px;
+                line-height: 34px;
                 text-align: left;
                 padding-left: 20px;
+                border-top: solid 1px #ccc;
             }
             .item_text4{
-
                 .pm{
                     h2{
                         font-size: 18px;
@@ -788,6 +813,33 @@
                     float: left;
                 }
             }
+            .renwu-box{
+                width: 300px;
+                height: auto;
+                margin: 0 auto;
+                .e_users{
+                    width: 150px;
+                    height: 60px;
+                    margin-top: 35px;
+                    float: left;
+                    p{
+                        margin: 0;
+                        color: #8079eb;
+                        font-size: 22px;
+                        font-weight:bold;
+                        padding: 3px;
+                        span{
+                            font-size: 14px;
+                        }
+                    }
+                    h5{
+                        margin: 6px;
+                        color: #45edf8;
+                        font-size: 22px;
+                    }
+                }
+            }
+
         }
         .Window_Five{
             width: 428px;
