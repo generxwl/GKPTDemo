@@ -213,7 +213,6 @@
                                 <el-progress :percentage="100"></el-progress>
                             </div>
                         </div>
-
                     </el-tab-pane>
                 </el-tabs>
             </div>
@@ -261,18 +260,102 @@
                     <el-tab-pane label="工地扬尘监测" name="second_f">
                         <el-tabs v-model="activeName_w" @tab-click="">
                             <el-tab-pane label="PM2.5" name="first_w">
-                                pm2.5内容
+                                <div class="table_container">
+                                    <el-table
+                                            :data="PM25Data"
+                                            border
+                                            stripe
+                                            highlight-current-row
+                                            style="width: 400px">
+                                        <el-table-column
+                                                property="ranking"
+                                                label="排名"
+                                                width="58">
+                                        </el-table-column>
+                                        <el-table-column
+                                                property="wlname"
+                                                label="网格名称"
+                                                width="130">
+                                        </el-table-column>
+                                        <el-table-column
+                                                property="ConstructionSite"
+                                                label="工地"
+                                                width="110">
+                                        </el-table-column>
+                                        <el-table-column
+                                                property="PM25"
+                                                label="PM2.5"
+                                        >
+                                        </el-table-column>
+                                    </el-table>
+                                </div>
                             </el-tab-pane>
                             <el-tab-pane label="PM10" name="second_w">
-                                pm10内容
+                                <div class="table_container">
+                                    <el-table
+                                            :data="PM10Data"
+                                            border
+                                            stripe
+                                            highlight-current-row
+                                            style="width: 400px">
+                                        <el-table-column
+                                                property="ranking"
+                                                label="排名"
+                                                width="58">
+                                        </el-table-column>
+                                        <el-table-column
+                                                property="wlname"
+                                                label="网格名称"
+                                                width="130">
+                                        </el-table-column>
+                                        <el-table-column
+                                                property="ConstructionSite"
+                                                label="工地"
+                                                width="110">
+                                        </el-table-column>
+                                        <el-table-column
+                                                property="PM10"
+                                                label="PM10"
+                                        >
+                                        </el-table-column>
+                                    </el-table>
+                                </div>
                             </el-tab-pane>
                         </el-tabs>
                     </el-tab-pane>
                     <el-tab-pane label="企业在线监测" name="third_f">
-                        表格33333
+                        <div class="table_container">
+                            <el-table
+                                    :data="EnterpriseData"
+                                    border
+                                    stripe
+                                    highlight-current-row
+                                    style="width: 400px">
+                                <el-table-column
+                                        property="SerialNumber"
+                                        label="序号"
+                                        width="58">
+                                </el-table-column>
+                                <el-table-column
+                                        property="wlname"
+                                        label="网格名称"
+                                        width="130">
+                                </el-table-column>
+                                <el-table-column
+                                        property="Enterprise"
+                                        label="企业"
+                                        width="110">
+                                </el-table-column>
+                                <el-table-column
+                                        property="OverQuota"
+                                        label="超标指标"
+                                >
+                                </el-table-column>
+                            </el-table>
+                        </div>
                     </el-tab-pane>
                     <el-tab-pane label="散乱污视频" name="fourth_f">
-                        表格44444
+                        散乱污视频正在开发中！
                     </el-tab-pane>
                 </el-tabs>
             </div>
@@ -353,6 +436,90 @@
                         wlname:'开发区梨园村一区',
                         jiancedian:'特价商城',
                         chaowrw:'SO2'
+                    }
+                ],
+                PM25Data:[
+                    {
+                        ranking:'1',
+                        wlname:'开发区梨园村一区',
+                        ConstructionSite:'特价商城',
+                        PM25:'22'
+                    },
+                    {
+                        ranking:'2',
+                        wlname:'开发区梨园村一区',
+                        ConstructionSite:'特价商城',
+                        PM25:'22'
+                    },
+                    {
+                        ranking:'3',
+                        wlname:'开发区梨园村一区',
+                        ConstructionSite:'特价商城',
+                        PM25:'22'
+                    },
+                    {
+                        ranking:'4',
+                        wlname:'开发区梨园村一区',
+                        ConstructionSite:'特价商城',
+                        PM25:'22'
+                    }
+                ],
+                PM10Data:[
+                    {
+                        ranking:'1',
+                        wlname:'开发区梨园村一区',
+                        ConstructionSite:'特价商城',
+                        PM10:'22'
+                    },
+                    {
+                        ranking:'2',
+                        wlname:'开发区梨园村一区',
+                        ConstructionSite:'特价商城',
+                        PM10:'22'
+                    },
+                    {
+                        ranking:'3',
+                        wlname:'开发区梨园村一区',
+                        ConstructionSite:'特价商城',
+                        PM10:'22'
+                    },
+                    {
+                        ranking:'4',
+                        wlname:'开发区梨园村一区',
+                        ConstructionSite:'特价商城',
+                        PM10:'22'
+                    }
+                ],
+                EnterpriseData:[
+                    {
+                        SerialNumber:'1',
+                        wlname:'广阳区达美商业区',
+                        Enterprise:'特价商城',
+                        OverQuota:'烟尘'
+                    },
+                    {
+                        SerialNumber:'2',
+                        wlname:'广阳区达美商业区',
+                        Enterprise:'特价商城',
+                        OverQuota:'烟尘'
+                    },
+                    {
+                        SerialNumber:'3',
+                        wlname:'广阳区达美商业区',
+                        Enterprise:'特价商城',
+                        OverQuota:'烟尘'
+                    },
+                    {
+                        SerialNumber:'4',
+                        wlname:'广阳区达美商业区',
+                        Enterprise:'特价商城',
+                        OverQuota:'二氧化硫'
+                    },
+                    {
+                        SerialNumber:'5',
+                        wlname:'广阳区达美商业区',
+                        Enterprise:'特价商城',
+                        OverQuota:'烟尘'
                     }
                 ]
             };

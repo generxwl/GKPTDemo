@@ -94,6 +94,9 @@ html,body{
   .Window_Five{
     .el-table{
       border: none!important;
+      th,td{
+        border: none!important;
+      }
     }
     table{
       border: none!important;
@@ -103,12 +106,15 @@ html,body{
         div{
           background: none!important;
           color: #fff;
+          border: none!important;
         }
       }
       tr:nth-child(odd){
         background: #051427!important;
+        border: none!important;
         color: #fff;
         td{
+          border: none!important;
           background: none!important;
         }
       }
