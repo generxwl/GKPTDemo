@@ -14,7 +14,8 @@ const apilangfangTDK= {
   GetMonitoringPointAccu:apiconfig.devt+'/api/Monitoring/GetMonitoringPointAccu?pointLevel=',//国控点，这是累计接口
   GetMonitoringPointHour:apiconfig.devt+'/api/Monitoring/GetMonitoringPointHour?time=',//这是小时查询部分，默认pointlevel不传，返回所有国控点和省控点
   GetMonitoringPointReal:apiconfig.devt+'/api/Monitoring/GetMonitoringPointReal?pointLevel=',//实时监测点信息
-  GetDustStatistics:apiconfig.devt+'/api/Dust/GetDustStatistics',//扬尘统计
+  GetDustStatistics:apiconfig.devt+'/api/Dust/GetDustStatistics',//在线扬尘统计
+  GetycXhHbPointsRaise:apiconfig.devt+'/api/XhHb/GetXhHbPointsRaise',//在线扬尘先河统计
   GetFcStationList:apiconfig.devc+'/api/FcStation/GetFcStationList',//传感网数据实时
   GetAnalysisData:apiconfig.devc+'/api/FcStation/GetAnalysisData',//传感网数据累计
   GetXhHbPointsMicroAccu:apiconfig.devt+'/api/XhHb/GetXhHbPointsMicroAccu',//传感网数据累计先河
@@ -44,4 +45,5 @@ export const GetGridPieResource = API_ROOT.concat(apilangfangTDK.GetGridPie);
 export const GetGridMemberPieResource = API_ROOT.concat(apilangfangTDK.GetGridMemberPie);
 export const GetCompanyPointListResource = API_ROOT.concat(apilangfangTDK.GetCompanyPointList);
 export const GetOfficeProgessResource = API_ROOT.concat(apilangfangTDK.GetOfficeProgess);
+export const GetycXhHbPointsRaiseResource = API_ROOT.concat(apilangfangTDK.GetycXhHbPointsRaise);
 export const GetDustHourRankingResource = API_ROOT.concat(apilangfangTDK.GetDustHourRanking);

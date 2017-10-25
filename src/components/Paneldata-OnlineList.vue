@@ -157,12 +157,29 @@
         }
       },
       initlistData(data, type){
-        this.type = type;
-        let sudata = data;
-        this.SetDataList(sudata, type)
-        this.totalCount = this.ALLdata.length;
-        this.allData = this.ALLdata;
-        this.setPageTable(10, 1);
+          let cumudata = [];
+          let sudata1 =data;
+          let sudata2 =[];
+          //先河数据
+          api.GetycXhHbPointsRaise().then(res => {
+              let data = res.data;
+              data = typeof data === 'string' ? JSON.parse(data) : data;
+              data = {
+                  status: data.hasOwnProperty('status') ? data.status : data.Status,
+                  obj: data.obj || data.ExtraData
+              };
+              let shoulist = data;
+              sudata2 = shoulist.obj;
+          })
+          setTimeout(()=>{
+              cumudata = sudata1.concat(sudata2);
+              this.type = type;
+              this.SetDataList(cumudata, this.type);
+              this.totalCount = this.ALLdata.length;
+              this.allData = this.ALLdata;
+              this.setPageTable(10, 1);
+          },700)
+
       },
       getPollution(type){
         let rtValue = type;

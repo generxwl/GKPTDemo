@@ -20,6 +20,7 @@ import {
     GetGridMemberPieResource,//网格员占比统计
     GetCompanyPointListResource,//企业在线右侧
     GetOfficeProgessResource,//企业在线右侧二
+    GetycXhHbPointsRaiseResource,//扬尘在线先河
     GetXhHbPointsRaiseResource,//首页接入数据统计
 } from './resource'
 export default {
@@ -30,6 +31,13 @@ export default {
       }
     )
   },
+    //在线扬尘先河
+    GetycXhHbPointsRaise() {
+        return axios.get(GetycXhHbPointsRaiseResource,{
+
+            }
+        )
+    },
     //企业在线右侧
     GetCompanyPointList() {
         return axios.get(GetCompanyPointListResource,{
