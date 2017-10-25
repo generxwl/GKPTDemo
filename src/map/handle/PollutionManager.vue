@@ -22,7 +22,6 @@
     },
     props: ['pollutionUrl', 'charUrl', 'item'],
     created () {
-//            console.log(RequestHandle)
     },
     mounted () {
       this.ready();
@@ -30,25 +29,20 @@
     },
     methods: {
       ready () {
-        bus.$on('switchRender', this.switchRender);
-        bus.$on('getMap', this.setMap);
-        bus.$on('tilesLoaded', this.resetData);
-        bus.$once('tilesDustLoaded', this.resetData);
-        bus.$on('showWindowInfo', this.showSearchInfoWindow);
-        bus.$on('tabClick', this.tabClickEvent);
-        bus.$on('refreshLayer', this.refreshLayer);
-      },
-      resetData (map) {
-        if (!this.hasLoaded) {
-          this.hasLoaded = true;
-          this.map = map;
-          this.setPollutionByType(this.checkedName);
-        }
+        bus.$on('switchRender', this.switchRender);//污染指标切换
+        bus.$once('tilesLoaded', this.resetData);//初始化Map
+        bus.$on('showWindowInfo', this.showSearchInfoWindow);//列表点击事件
+        bus.$on('tabClick', this.tabClickEvent);//面板实时累计切换响应事件
+        bus.$on('refreshLayer', this.refreshLayer);//刷新图层
       },
 
-      setMap (map) {
+      //设置初始化
+      resetData (map) {
         this.map = map;
+        this.setPollutionByType(this.checkedName);
       },
+
+      //初始化加载数据
       setPollutionByType (type) {
         if (!this.map.getBounds()) {
           return false;
@@ -68,6 +62,8 @@
           console.error(ex);
         });
       },
+
+      //根据类型获取点集合
       getPointByType(type){
         let rtValue = [];
         let dt = this.data;
@@ -79,27 +75,33 @@
         }
         return rtValue;
       },
+
+      //指标切换响应事件
       switchRender (type) {
         if (this.data) {
           this.checkedName = type;
           this.render(this.getPointByType(this.ptType), type);
         }
       },
+
+      //面板切换响应事件
       tabClickEvent(type){
         if (this.data) {
           this.ptType = type;
           this.render(this.getPointByType(type), this.checkedName);
         }
       },
+
+      //刷新覆盖物
       refreshLayer(data){
         if (data) {
           this.data = data;
           this.render(this.getPointByType(this.ptType), this.checkedName);
         }
       },
+
+      //渲染地图
       render (data, type) {
-//                console.log(data);
-//                console.log(type);
         if (data) {
           this.clearRenderOverlay();
           let aqi, lat, lng, city, pointname, level, region, province, title, value, unit, index, hourdiff,
@@ -117,10 +119,6 @@
             let time1 = new Date(data[i].time);
             let time2 = new Date();
             hourdiff = 0;
-//            (time2.getTime() - time1.getTime()) / 3600000;
-//            if (hourdiff > 3) {
-//              aqi = 0;
-//            }
             switch (type) {
               case 'AQI':
                 value = aqi;
@@ -261,6 +259,8 @@
           }
         }
       },
+
+      //加载覆盖物
       showMapByPoint (name, value, bgcolor, point, desp, i, city, region, pointname, index, isfd, citycode) {
         let t = this;
         let arr, wl, wd, icon, offseth, color, isone;
@@ -401,6 +401,8 @@
 //          this.lsRenderMarker.push(marker2)
         }
       },
+
+      //清除覆盖物
       clearRenderOverlay () {
         this.lsSearchInfoWindow.length = 0;
         for (let i = 0, length = this.lsRenderOverlay.length; i < length; i++) {
@@ -412,6 +414,8 @@
         this.lsRenderOverlay = [];
         this.lsRenderMarker = [];
       },
+
+      //显示监测点详细信息框
       showSearchInfoWindow (lng, lat, name) {
         let t = this;
         //let ckWindow = this.getSearchInfoWindow(name);
@@ -423,16 +427,8 @@
           t.showCityPointChart(name, pt);
         }, 100);
       },
-      getSearchInfoWindow (name) {
-        if (this.lsSearchInfoWindow.length) {
-          for (let i = 0, length = this.lsSearchInfoWindow.length; i < length; i++) {
-            let item = this.lsSearchInfoWindow[i];
-            if (item._opts.name === name) {
-              return item;
-            }
-          }
-        }
-      },
+
+      //获取污染等级
       getLevel (aqival) {
         let _color = null;
         let _quality = null;
@@ -463,6 +459,8 @@
           quality: _quality
         }
       },
+
+      //显示监测点24小时数据图表
       showCityPointChart (citycode, point) {
 //                console.log(citycode);
         let t = this;
@@ -512,7 +510,8 @@
           console.error(ex);
         });
       },
-      //国省控点
+
+      //设置国省控点详细信息框Element
       setGSInfoWindow(data){
         let aqi = data.aqi;
         return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
@@ -536,6 +535,7 @@
           + '</tr></table><div id=\'citychart_' + data.citygid + '\' style=\'width:100%;height:110px\'>';
       },
 
+      //加载24小时数据
       loadChartData (code, data) {
         let t = this;
         let dataCityPoint = [];
@@ -631,6 +631,8 @@
         title = '最近24小时' + labelstr + '变化趋势';
         t.showChart('citychart_' + code, labelstr, dataCityPoint, unit, title);
       },
+
+      //显示图标数据
       showChart (container, name, data, unit, title) {
         let dateTypeFormat = '%Y-%m-%d %H:%M';
         let markerShowFlag = false;
@@ -701,6 +703,8 @@
         });
         Highcharts.setOptions({global: {useUTC: false}});
       },
+
+      //获取污染指标Icon
       getIconByIndex(value) {
         var icon = null;
         if (value == 0) {
