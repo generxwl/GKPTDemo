@@ -42,6 +42,7 @@
 
       //重置Map对象
       resetData (map) {
+        bus.$emit('setLayerType','DUST');//设置时间轴图层类型
         if (!this.hasLoaded) {
           this.hasLoaded = true;
           this.map = map;

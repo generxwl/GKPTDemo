@@ -44,6 +44,7 @@
         bus.$once('tilesSenseLoaded', this.requestHandle);
       },
       requestHandle(map){
+        bus.$emit('setLayerType','SENSE');//设置时间轴图层类型
 //        let url = this.pollutionUrl;
 //        console.log(url);
         //let url = RequestHandle.getRequestUrl('SENSEPOLLUTION');

@@ -32,7 +32,8 @@
         lsLabelTime: [],
         sum: 0,
         hasClose: false,
-        interval: undefined
+        interval: undefined,
+        layerType: undefined
       };
     },
     created(){
@@ -71,9 +72,21 @@
       }
     },
     mounted(){
+        this.initEvent();
     },
     methods: {
       ready(){
+      },
+
+      //事件注册
+      initEvent(){
+        bus.$on('setLayerType', this.setLayerType);
+      },
+
+      //设置图层类型
+      setLayerType(type){
+        console.log(type);
+        this.layerType = type.toUpperCase();
       },
 
       //获取时间轴时间集合
@@ -127,6 +140,7 @@
 
       //设置进度条
       setProcess(type, el){
+          console.log(this.layerType);
         let t = this;
         if (!t.interval) {
           let historyContent = document.getElementsByClassName('history-content')[0];
@@ -145,7 +159,7 @@
             } else {
               let tm = t.lsLabelTime[++t.sum];
               let ht = tm.year + '-' + tm.date + ' ' + tm.time;
-              bus.$emit('historySenseMarker', ht);
+              t.triggerEvent(ht);
 
               t.labelTime = tm.date + ' ' + tm.time;
               labelProcess.style.left = process + 5 + 'px';
@@ -155,6 +169,32 @@
         }
 
         type.toUpperCase() !== 'START' && (window.clearInterval(this.interval), this.interval = undefined);
+      },
+
+      //触发地图事件
+      triggerEvent(ht){
+        switch (this.layerType.toUpperCase()) {
+          case 'MONITOR':
+            break;
+          case 'SENSE':
+            bus.$emit('historySenseMarker', ht);
+            break;
+          case 'DUST':
+            break;
+        }
+      },
+
+      //触发关闭事件
+      triggerCloseEvent(){
+        switch (this.layerType.toUpperCase()) {
+          case 'MONITOR':
+            break;
+          case 'SENSE':
+            bus.$emit('historySenseMarker', undefined, true);
+            break;
+          case 'DUST':
+            break;
+        }
       },
 
       //重置进度条
@@ -169,8 +209,7 @@
         this.sum = 0;
         let tm = this.lsLabelTime[0];
         this.labelTime = tm.date + ' ' + tm.time;
-
-        bus.$emit('historySenseMarker', undefined, true);
+        this.triggerCloseEvent();
       }
     }
   };

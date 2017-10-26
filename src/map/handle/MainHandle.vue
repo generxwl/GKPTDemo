@@ -716,7 +716,7 @@
         label.setPosition((lyType.toUpperCase() === 'LAYER_SP' || lyType.toUpperCase() === 'LAYER_SP_VOC' || lyType.toUpperCase() === 'LAYER_CGQ_LCS' || lyType.toUpperCase() === 'LAYER_CGQ_VOC' || lyType.toUpperCase() === 'LAYER_GD') ? conPoint : point);
         displayValue && label.setOffset(new BMap.Size(-(displayValue.length * 14 / 2), 14));
         this.map.getZoom() >= this.maxZoom ? label.show() : label.hide();
-        return undefined;
+        return label;
       },
 
       //获取Label显示内容

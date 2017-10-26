@@ -3,6 +3,7 @@
     <div id="sense_map"></div>
     <layer-switch></layer-switch>
     <dust-pollution></dust-pollution>
+    <history-handle></history-handle>
     <!--<map-handle></map-handle>-->
   </div>
 </template>
@@ -11,6 +12,7 @@
   import LayerSwitch from '@/map/controls/LayerSwitch'
   import DustPollution from '@/map/controls/DustPollutionTarget'
   import MapHandle from '@/map/controls/MapHandle'
+  import HistoryHandle from '@/map/controls/HistoryHandle'
   import {bus} from '@/js/bus.js'
 
   export default {
@@ -39,7 +41,7 @@
         });
       }
     },
-    components: {LayerSwitch, DustPollution, MapHandle}
+    components: {LayerSwitch, DustPollution, MapHandle,HistoryHandle}
   };
 </script>
 <style scoped>

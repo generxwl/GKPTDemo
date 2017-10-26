@@ -3,6 +3,7 @@
     <div id="monitor_map"></div>
     <layer-switch></layer-switch>
     <pollution-target></pollution-target>
+    <history-handle></history-handle>
     <!--<main-layer-handle></main-layer-handle>-->
     <!--<map-handle></map-handle>-->
   </div>
@@ -13,6 +14,7 @@
   import PollutionTarget from '@/map/controls/PollutionTarget'
   import MainLayerHandle from '@/map/controls/MainLayerHandle'
   import MapHandle from '@/map/controls/MapHandle'
+  import HistoryHandle from '@/map/controls/HistoryHandle'
   import {bus} from '@/js/bus.js'
 
   export default {
@@ -53,7 +55,7 @@
         }
       }
     },
-    components: {LayerSwitch, PollutionTarget, MapHandle,MainLayerHandle}//GridMap
+    components: {LayerSwitch, PollutionTarget, MapHandle,MainLayerHandle,HistoryHandle}//GridMap
   }
 
 </script>

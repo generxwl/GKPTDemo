@@ -44,6 +44,7 @@
         bus.$on('refreshMarker', this.refreshLayer);
         bus.$on('historySenseMarker', this.historyMarker);
         bus.$on('setLabelVisible',this.labelVisibleTarget);
+        bus.$emit('setLayerType','SENSE');//设置时间轴图层类型
       },
 
       //加载marker数据

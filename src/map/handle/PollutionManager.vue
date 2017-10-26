@@ -38,6 +38,7 @@
 
       //设置初始化
       resetData (map) {
+        bus.$emit('setLayerType','MONITOR');//设置时间轴图层类型
         this.map = map;
         this.setPollutionByType(this.checkedName);
       },
