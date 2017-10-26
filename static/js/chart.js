@@ -1441,6 +1441,9 @@ function getColorByIndex(index) {
     case 6:
       color = '#9c0a4e'
       break
+    default:
+      color = '#43ce17';
+      break;
   }
   return color
 }

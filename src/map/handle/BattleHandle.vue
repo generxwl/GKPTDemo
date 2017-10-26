@@ -10,10 +10,31 @@
     },
     data () {
       return {
-        type: '',
+        type: 'MONITOR',
         valueField: 'AQI',
         displayField: 'pointname',
         keyField: 'citygid',
+        datas: [{
+          type: 'MONITOR',
+          valueField: 'AQI',
+          displayField: 'pointname',
+          keyField: 'citygid'
+        },{
+          type: 'DUST',
+          valueField: 'PM25',
+          displayField: 'name',
+          keyField: 'deviceid'
+        },{
+          type: 'ENTERPRISE',
+          valueField: 'smoke',
+          displayField: 'psname',
+          keyField: 'pscode'
+        },{
+          type: 'VIDEO',
+          valueField: 'AQI',
+          displayField: 'pointname',
+          keyField: 'citygid'
+        }],
         lsLabelOverlay: [],
         lsMarkerOverlay: []
       };
@@ -27,22 +48,44 @@
       },
       initEvent(){
         bus.$once('setButtleMap', this.setMap);
+        bus.$on('targetPollution', this.refreshMap);
       },
       setMap(map){
         console.log(map);
         map && (this.map = map, this.request());
       },
-      request(urlType){
+      refreshMap(type){
+        this.type = type;
+        (this.valueField && this.displayField && this.keyField) && this.request();
+      },
+      request(){
         let t = this;
-        let url = RequestHandle.getRequestUrl('MONPOLLUTION');
-        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-          if (result.status === 0) {
-            t.data = result.obj;
-            t.render(t.data);
-          }
-        }, function (ex) {
-          console.error(ex);
-        });
+        this.setAttributeKey();
+        let url = undefined;
+        switch (t.type.toUpperCase()) {
+          case 'MONITOR':
+            url = RequestHandle.getRequestUrl('MONPOLLUTION');
+            break;
+          case 'DUST':
+            url = RequestHandle.getRequestUrl('DUSTPOLLUTION');
+            break;
+          case 'ENTERPRISE':
+            url = RequestHandle.getRequestUrl('ENTERPRISE');
+            break;
+          case 'VIDEO':
+            url = RequestHandle.getRequestUrl('VOCPOLLUTION');
+            break;
+        }
+        if (url) {
+          RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+//            if (result.status === 0) {
+              t.data = result.obj;
+              t.render(t.data);
+//            }
+          }, function (ex) {
+            console.error(ex);
+          });
+        }
       },
       render(data){
         if (data) {
@@ -50,8 +93,7 @@
           this.clearRenderOverlay();
 
           data.forEach(function (v, i) {
-            let name = v[t.displayField] || undefined;
-            let value = v[t.valueField.toLowerCase()] || -1;
+            let value = v[t.valueField.toLowerCase()] || 0;
             let unit = undefined;
             let index = -1;
 
@@ -60,7 +102,7 @@
                 unit = '';
                 index = getAQILevelIndex(value);
                 break;
-              case 'PM2.5':
+              case 'PM25':
                 unit = 'ug/m3';
                 index = getPM25LevelIndex(value);
                 break;
@@ -102,11 +144,14 @@
                 break;
               case 'WD':
                 unit = '°';
-                break
+                break;
+              case 'SMOKE':
+                  value = value ? '--' : value;
+                  break;
             }
 
-            let lat = v.latitude;
-            let lng = v.longitude;
+            let lat = v.latitude || v.lat;
+            let lng = v.longitude || v.lng;
 
             let point = new BMap.Point(lng, lat);
             let opts = {
@@ -114,7 +159,7 @@
               offset: new BMap.Size(-15, -15)
             };
             //创建标注
-            let bgcolor = getColorByIndex(index);
+            let bgcolor = getColorByIndex(index) || '#333';
             let code = v[t.keyField];
             let label = new BMap.Label(value + '<div class="arrow" style="width: 0;  height: 0; border-left: 8px solid transparent; border-top: 8px solid; border-right: 8px solid transparent; color:' + bgcolor + '; position: absolute;  margin-top:-2px;margin-left:8px  " ></div>', opts)  // 创建文本标注对象
             label.attributes = {ptId: code};
@@ -157,6 +202,19 @@
           lineHeight: '18px'
         });
         return label_tip;
+      },
+
+      //根据类型获取属性字段
+      setAttributeKey(){
+          let t = this;
+          this.datas.forEach(function(v){
+              if(v.type.toUpperCase() === t.type.toUpperCase()){
+                  t.valueField = v.valueField;
+                  t.displayField = v.displayField;
+                  t.keyField = v.keyField;
+                  return '';
+              }
+          })
       },
 
       //清除Overlay
