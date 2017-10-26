@@ -3,7 +3,6 @@
     <!--静态原清单测面板-->
     <div id="list">
       <div class="qianren">
-        <!--<img style="margin-top: -180px;margin-left: 15px" src="../assets/img/fulu.png" alt="">-->
         <map-handle></map-handle>
       </div>
       <div class="panel">
@@ -14,15 +13,15 @@
           <div class="tables">
             <!--选项-->
             <a id="shishi" >污染源分类</a>
-            <font>收起</font>
+            <font @click="chengeteget()">{{wall}}</font>
           </div>
-          <div class="symume">
-            <a>工业企业源</a>
-            <a>移动源</a>
+          <div class="symume" v-show="symume">
+            <a><strong>■</strong>工业企业源</a>
+            <a><strong>▲</strong>移动源</a>
             <a>加油站</a>
-            <a>餐饮油烟</a>
-            <a>扬尘源</a>
-            <a>其他溶剂使用源</a>
+            <a><strong>●</strong>餐饮油烟</a>
+            <a>扬尘源 <strong>∨</strong></a>
+            <a>其他溶剂使用源 <strong>∨</strong></a>
           </div>
           <div class="fenbutu">
             <div class="bing_text">总排放量：{{1998}} <span>污染总数：{{122}}</span></div>
@@ -116,7 +115,7 @@
         type: 'PM2.5',
         labelType: 'PM2.5',
         ALLdata: [],
-          filters: {
+        filters: {
               name: ''
           },
         tableData: [
@@ -156,6 +155,8 @@
                 EmissionAmount:'42'
             }
         ],
+        symume:true,
+        wall:'收起∧',
         allData: [],
         currentRow: null,
         pagesize: 10,
@@ -166,7 +167,6 @@
       }
     },
     created(){
-
     },
     mounted(){
       //右侧收放
@@ -294,7 +294,7 @@
       //页码变更
       handleCurrentChange(val) {
         this.setPageTable(10, val);
-        console.log(val)
+        //console.log(val)
       },
         //行业排放量分布图
         yuantuset1(){
@@ -393,24 +393,14 @@
         }
         return rtValue;
       },
-      //
-      btnClickEvent(){
-//        let t = this;
-//        let time = this.dateFtt('yyyy-MM-dd hh:00:00', this.value2);
-//        console.log(time)
-//        api.GetDustHourRanking(time).then(res => {
-//          let data = res.data;
-//          data = typeof data === 'string' ? JSON.parse(data) : data;
-//          data = {
-//            status: data.hasOwnProperty('status') ? data.status : data.Status,
-//            obj: data.obj || data.ExtraData
-//          };
-//          this.SetDataList(data.obj, this.type)
-//          this.totalCount = this.ALLdata.length;
-//          this.allData = this.ALLdata;
-//          this.setPageTable(10, 1);
-//          bus.$emit('refreshDustLayer', sudata);
-//        })
+      //改变收起状态
+      chengeteget(){
+          this.symume = !this.symume;
+          if(this.symume == false ){
+              this.wall = '展开∨'
+          }else {
+              this.wall = '收起∧'
+          }
       },
       //type更改
       refreshTable(type){
@@ -426,8 +416,6 @@
         this.labelType = this.getPollutionTarget(type);
         this.setdata(this.data, this.type)
       },
-
-
     },
    components: {MapHandle}
   }
@@ -463,12 +451,19 @@
         width: 100%;
         padding-left: 20px;
         padding-bottom: 15px;
+        strong{
+          font-size: 18px;
+          font-weight: bold;
+        }
         a{
           display:inline-block;
           color: #666;
           width: 120px;
           text-align: left;
           margin-top: 10px;
+        }
+        :hover{
+          color: #1080cc;
         }
         border-bottom:solid 1px #ccc ;
       }

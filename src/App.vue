@@ -43,6 +43,9 @@
         margin: 0;
         padding: 0;
     }
+    a:hover{
+        text-decoration: none;
+    }
     p {
         margin: 0 !important;
     }
