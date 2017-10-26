@@ -3,7 +3,7 @@
     <div id="monitor_map"></div>
     <layer-switch></layer-switch>
     <pollution-target></pollution-target>
-    <history-handle></history-handle>
+    <history-handle style="display: none;"></history-handle>
     <!--<main-layer-handle></main-layer-handle>-->
     <!--<map-handle></map-handle>-->
   </div>
