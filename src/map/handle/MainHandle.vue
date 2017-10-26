@@ -549,7 +549,7 @@
         let rtValue = [];
         for (let i = 0, length = data.length; i < length; i++) {
           let item = data[i];
-          let value = item.values || 0;
+          let value = (item.hasOwnProperty('value') ? item.value : item.values) || 0;
           let obj = {
             x: converTimeFormat(item.time && item.time.replace('T', ' ')).getTime(),
             y: parseInt(value),

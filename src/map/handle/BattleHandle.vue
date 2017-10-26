@@ -10,12 +10,17 @@
     },
     data () {
       return {
+        type: '',
         valueField: 'AQI',
-        displayField: 'stationname',
-        keyField: '',
+        displayField: 'pointname',
+        keyField: 'citygid',
         lsLabelOverlay: [],
         lsMarkerOverlay: []
       };
+    },
+    created(){
+    }, mounted(){
+      this.initEvent();
     },
     methods: {
       init(){
@@ -24,6 +29,7 @@
         bus.$once('setButtleMap', this.setMap);
       },
       setMap(map){
+        console.log(map);
         map && (this.map = map, this.request());
       },
       request(urlType){
@@ -32,7 +38,7 @@
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
           if (result.status === 0) {
             t.data = result.obj;
-            t.render(t.getPointByType(t.ptType), type);
+            t.render(t.data);
           }
         }, function (ex) {
           console.error(ex);
@@ -45,10 +51,11 @@
 
           data.forEach(function (v, i) {
             let name = v[t.displayField] || undefined;
-            let value = v[t.displayValue] || -1;
+            let value = v[t.valueField.toLowerCase()] || -1;
+            let unit = undefined;
             let index = -1;
 
-            switch (t.displayField.toUpperCase()) {
+            switch (t.valueField.toUpperCase()) {
               case 'AQI':
                 unit = '';
                 index = getAQILevelIndex(value);
@@ -108,9 +115,20 @@
             };
             //创建标注
             let bgcolor = getColorByIndex(index);
-            let code = v[keyField];
+            let code = v[t.keyField];
             let label = new BMap.Label(value + '<div class="arrow" style="width: 0;  height: 0; border-left: 8px solid transparent; border-top: 8px solid; border-right: 8px solid transparent; color:' + bgcolor + '; position: absolute;  margin-top:-2px;margin-left:8px  " ></div>', opts)  // 创建文本标注对象
             label.attributes = {ptId: code};
+            label.setStyle({
+              color: '#fff',
+              background: bgcolor,
+              fontSize: '14px',
+              border: '',
+              width: '35px',
+              textAlign: 'center',
+              height: '22px',
+              lineHeight: '22px',
+              borderRadius: '4px'
+            });
 
             label && (t.lsMarkerOverlay.push(label), t.map.addOverlay(label));
 
@@ -120,6 +138,7 @@
         }
       },
 
+      //创建标注
       createLabelName(v, p){
         let nametip = v[this.displayField] || '';
         let opts_tip = {

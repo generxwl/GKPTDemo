@@ -1,12 +1,13 @@
 <template>
   <div class="batter-map-content">
     <div id="batter_map" style="width:426px;height:303px"></div>
+    <battle-handle></battle-handle>
   </div>
 </template>
 <script>
   import BMap from 'BMap'
   import LayerSwitch from '@/map/controls/LayerSwitch'
-  import MainLayerHandle from '@/map/controls/MainLayerHandle'
+  import BattleHandle from '@/map/Handle/BattleHandle'
   import MapHandle from '@/map/controls/MapHandle'
   import {bus} from '@/js/bus.js'
 
@@ -25,7 +26,7 @@
           let map = new BMap.Map('batter_map');
           map.centerAndZoom('廊坊', 10);
           map.enableScrollWheelZoom();
-          mapStyle && map.setMapStyle(mapStyle);
+          mapStyle && map.setMapStyle({style:'midnight'});
           this.map = map;
           let t = this;
 
@@ -34,7 +35,7 @@
           });
         }
     },
-    components:{LayerSwitch,MainLayerHandle,MapHandle}
+    components:{LayerSwitch,BattleHandle,MapHandle}
   };
 </script>
 <style scoped>
