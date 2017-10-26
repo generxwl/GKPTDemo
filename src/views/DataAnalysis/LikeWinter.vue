@@ -886,7 +886,7 @@
                 })
             },
         },
-        components: {BattleMap}//0809
+        components: {BattleMap}
 
     };
 </script>

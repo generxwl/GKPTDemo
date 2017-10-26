@@ -1,6 +1,6 @@
 <template>
   <div class="batter-map-content">
-    <div id="batter_map"></div>
+    <div id="batter_map" style="width:426px;height:303px"></div>
   </div>
 </template>
 <script>
