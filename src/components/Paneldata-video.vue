@@ -104,6 +104,7 @@
                 filters: {
                     name: ''
                 },
+                styresdata:[]
             }
         },
         created(){
@@ -150,6 +151,7 @@
         methods: {
             initlistData(data){
                 let sudata = data;
+                this.styresdata = sudata;
                 this.SetDataList(sudata)
                 this.totalCount = this.ALLdata.length;
                 this.allData = this.ALLdata;
@@ -464,7 +466,7 @@
             },
             //设置分页所需要数据
             SetDataList(data){
-                this.data = this.getPointByType(this.type,data);
+                this.data = this.filterdateFtt(this.getPointByType(this.type,data));
                 this.ALLdata = [];
                 let i = 1;
                 this.data.forEach(item => {
@@ -478,52 +480,28 @@
                     this.ALLdata.push(tableData);
                 })
             },
-            //时间转换
-            dateFtt(fmt, date){
-                var o = {
-                    "M+": date.getMonth() + 1,                 //月份
-                    "d+": date.getDate(),                    //日
-                    "h+": date.getHours(),                   //小时
-                    "m+": date.getMinutes(),                 //分
-                    "s+": date.getSeconds(),                 //秒
-                    "q+": Math.floor((date.getMonth() + 3) / 3), //季度
-                    "S": date.getMilliseconds()             //毫秒
-                };
-                if (/(y+)/.test(fmt))
-                    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
-                for (var k in o)
-                    if (new RegExp("(" + k + ")").test(fmt))
-                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-                return fmt;
+            //搜索过滤数据
+            filterdateFtt(data){
+                let t = this;
+                this.ALLdata = [];
+                let rtValue = [];
+                let dt = data;
+                if (dt) {
+                    for (let i = 0, length = dt.length; i < length; i++) {
+                        let item = dt[i];
+                        if (item.CamName.indexOf(t.filters.name) >= 0) {
+                            rtValue.push(dt[i]);
+                        }
+                    }
+                }
+                return rtValue;
             },
             searchData() {
               // 声明变量
-              let filter, table, tr, td, i;
-              filter = this.filters.name;
-              table = document.getElementsByClassName("el-table__body")[0];
-              tr = table.getElementsByTagName("tr");
-              // 循环表格每一行，查找匹配项
-              for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
-                if (td) {
-                  if (td.innerHTML.indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                  } else {
-                    tr[i].style.display = "none";
-                  }
-                }
-              }
+                this.initlistData(this.data);
             },
 
         },
-//        filters: {
-//            two (value){
-//                if (!value) {
-//                    return ''
-//                };
-//                return value.toFixed(2);
-//            }
-//        },
         components: {MapHandle}
     }
 </script>
