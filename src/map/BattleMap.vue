@@ -1,0 +1,58 @@
+<template>
+  <div class="batter-map-content">
+    <div id="batter_map"></div>
+  </div>
+</template>
+<script>
+  import BMap from 'BMap'
+  import LayerSwitch from '@/map/controls/LayerSwitch'
+  import MainLayerHandle from '@/map/controls/MainLayerHandle'
+  import MapHandle from '@/map/controls/MapHandle'
+  import {bus} from '@/js/bus.js'
+
+  export default {
+    name: 'BattleMap',
+    data () {
+      return {
+        zoom:13
+      };
+    },
+    mounted(){
+        this.ready();
+    },
+    methods:{
+        ready(){
+          let map = new BMap.Map('batter_map');
+          map.centerAndZoom('廊坊', 10);
+          map.enableScrollWheelZoom();
+          mapStyle && map.setMapStyle(mapStyle);
+          this.map = map;
+          let t = this;
+
+          map.addEventListener('tilesloaded', function () {
+              bus.$emit('setButtleMap',map);
+          });
+        }
+    },
+    components:{LayerSwitch,MainLayerHandle,MapHandle}
+  };
+</script>
+<style scoped>
+  .main-map-content {
+    height: calc(100% - 50px);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+  }
+
+  #main_map {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: absolute;
+  }
+</style>
