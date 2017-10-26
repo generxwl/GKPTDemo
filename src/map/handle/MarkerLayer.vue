@@ -154,7 +154,7 @@
             if (result.status === 1) {
               let data = result.obj;
               t.historyData = data;
-              if(dada.length) {
+              if(data.length) {
                 t.refreshMarker(data, false);
               }
             }
