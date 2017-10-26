@@ -2,7 +2,7 @@
   <div class="main-layer">
     <div class="main-layer-handle">筛选监测点</div>
     <ul class="warp-box">
-      <li v-for="(item,index) in targets" :style="'background:'+(item.checked ? '#1080cc' : 'rgba(0, 79, 137, 0.6)')" :data-index="index" :data-type="item.name" @click="liClick">
+      <li v-for="(item,index) in targets" :id="('Litem_'+ index)" :style="'background:'+(item.checked ? '#1080cc' : 'rgba(0, 79, 137, 0.6)')" :data-index="index" :data-type="item.name" @click="liClick">
         <img :src="item.checked ? item.checkedSrc : item.src" title=""/>
         <span>{{item.value}}</span>
       </li>
@@ -41,12 +41,14 @@
         shiping: false,
         aclink:false,
         defaultType:'LAYER_GS',
+        clicksrc:'static/imgs/main/left.png',
+        clickchesrc:'static/imgs/main/right.png',
         targets: [
           {
             name: 'layer_cg',
             value: '空气传感器监测',
-            src: 'static/imgs/main/right.png',
-            checkedSrc: 'static/imgs/main/left.png',
+            src: 'static/imgs/main/left.png',
+            checkedSrc: 'static/imgs/main/right.png',
             checked:false
           }, {
             name: 'layer_gs',
@@ -72,8 +74,8 @@
           {
             name: 'layer_sp',
             value: '视频',
-            src: 'static/imgs/main/right.png',
-            checkedSrc: 'static/imgs/main/left.png',
+            src: 'static/imgs/main/left.png',
+            checkedSrc: 'static/imgs/main/right.png',
             checked:false
           }
           ,
@@ -194,9 +196,11 @@
         let hasChecked = false;
         if (parseInt(index) === 0) {
           t.kongqi = !t.kongqi;
+          t.getParentStyle(index)
         }
         else if (parseInt(index) === 4) {
           t.shiping = !t.shiping;
+          t.getParentStyle(index)
         }
         else {
           imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
@@ -253,10 +257,21 @@
         if (element && element.length) {
           let el = element[0];
           let imgElement = el.querySelector('img');
-          !hasChecked ? (imgElement.src = item.src, el.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, el.style.backgroundColor = '#1080cc');
+          !hasChecked ? el.style.backgroundColor = 'rgba(0, 79, 137, 0.6)' : el.style.backgroundColor = '#1080cc';
         }
       },
-
+      //二级菜单栏父级背景切换
+      getParentStyle(index){
+          let t = this;
+          let id = ('Litem_'+index);
+          let backgroundimg = document.getElementById(id).getElementsByTagName("img")[0];
+          if (backgroundimg.src.indexOf(t.clicksrc) != -1) {
+              backgroundimg.src = t.clickchesrc;
+          }
+          else {
+              backgroundimg.src = t.clicksrc;
+          }
+      },
       //判断父节点是否选中
       hasCheckedChildElement(type){
         let childTarget = (type.toUpperCase() === 'KQ' ? this.$data.KQtargets : this.$data.VDtargets) || [];
