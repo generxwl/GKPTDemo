@@ -41,7 +41,7 @@
               }, 2000);
           }
       },
- components: {DustMap}//0809
+      components: {DustMap}
   }
 </script>
 

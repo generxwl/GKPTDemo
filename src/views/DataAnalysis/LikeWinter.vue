@@ -8,16 +8,16 @@
         <div class="warp_box">
             <div class="Window_one">
                 <div class="item_text1">
-                    <font>距下次跟新时间：15分钟</font>
+                    <font>距下次跟新时间：{{LfAirWinterPre.nextDataTime}}分钟</font>
                 </div>
                 <div class="item_text2">
                     <div class="item_box1">
-                        <p style="border-right: solid 1px #ccc">廊坊市实时AQI<span>333</span></p>
-                        <p>74城市AQI倒数排名<span>74</span></p>
+                        <p style="border-right: solid 1px #ccc">廊坊市实时AQI<span>{{LfAirWinterPre.aqi}}</span></p>
+                        <p>74城市AQI倒数排名<span>{{LfAirWinterPre.dayrank_74}}</span></p>
                     </div>
                     <div class="item_box1">
-                        <p style="border-right: solid 1px #ccc">74城市年倒排<span>22</span></p>
-                        <p>74城市月倒排<span>22</span></p>
+                        <p style="border-right: solid 1px #ccc">74城市年倒排<span>{{LfAirWinterPre.yearrank_74}}</span></p>
+                        <p>74城市月倒排<span>{{LfAirWinterPre.monthrank_74}}</span></p>
                     </div>
                 </div>
                 <div class="item_text3">
@@ -25,7 +25,7 @@
                 </div>
                 <div class="item_text4">
                     <el-carousel indicator-position="outside">
-                        <el-carousel-item>
+                        <el-carousel-item v-if="SouData.coPro">
                             <div class="pm">
                                 <h2>{{SouData.coPro.ItemName}}
                                     <span style="font-size: 14px">控制值：{{SouData.coPro.AlertVaue}}</span>
@@ -39,11 +39,11 @@
                                     控制进度：
                                 </p>
                                 <div class="el-jindu" style="float:left;width: 64%">
-                                    <el-progress :percentage="SouData.coPro.ControlProgess.replace('%','')"></el-progress>
+                                    <el-progress :percentage="parseInt(SouData.coPro.ControlProgess.replace('%',''))"></el-progress>
                                 </div>
                             </div>
                         </el-carousel-item>
-                        <el-carousel-item>
+                        <el-carousel-item v-if="SouData.no2Pro">
                             <div class="pm">
                                 <h2>{{SouData.no2Pro.ItemName}}
                                     <span style="font-size: 14px">控制值：{{SouData.no2Pro.AlertVaue}}</span>
@@ -57,11 +57,11 @@
                                     控制进度：
                                 </p>
                                 <div class="el-jindu" style="float:left;width: 64%">
-                                    <el-progress :percentage="SouData.no2Pro.ControlProgess.replace('%','')"></el-progress>
+                                    <el-progress :percentage="parseInt(SouData.no2Pro.ControlProgess.replace('%',''))"></el-progress>
                                 </div>
                             </div>
                         </el-carousel-item>
-                        <el-carousel-item>
+                        <el-carousel-item v-if="SouData.o3Pro">
                             <div class="pm">
                                 <h2>{{SouData.o3Pro.ItemName}}
                                     <span style="font-size: 14px">控制值：{{SouData.o3Pro.AlertVaue}}</span>
@@ -75,11 +75,11 @@
                                     控制进度：
                                 </p>
                                 <div class="el-jindu" style="float:left;width: 64%">
-                                    <el-progress :percentage="SouData.o3Pro.ControlProgess.replace('%','')"></el-progress>
+                                    <el-progress :percentage="parseInt(SouData.o3Pro.ControlProgess.replace('%',''))"></el-progress>
                                 </div>
                             </div>
                         </el-carousel-item>
-                        <el-carousel-item>
+                        <el-carousel-item v-if="SouData.pm10Pro">
                             <div class="pm">
                                 <h2>{{SouData.pm10Pro.ItemName}}
                                     <span style="font-size: 14px">控制值：{{SouData.pm10Pro.AlertVaue}}</span>
@@ -93,11 +93,11 @@
                                     控制进度：
                                 </p>
                                 <div class="el-jindu" style="float:left;width: 64%">
-                                    <el-progress :percentage="SouData.pm10Pro.ControlProgess.replace('%','')"></el-progress>
+                                    <el-progress :percentage="parseInt(SouData.pm10Pro.ControlProgess.replace('%',''))"></el-progress>
                                 </div>
                             </div>
                         </el-carousel-item>
-                        <el-carousel-item>
+                        <el-carousel-item v-if="SouData.pm25Pro">
                             <div class="pm">
                                 <h2>{{SouData.pm25Pro.ItemName}}
                                     <span style="font-size: 14px">控制值：{{SouData.pm25Pro.AlertVaue}}</span>
@@ -111,11 +111,11 @@
                                     控制进度：
                                 </p>
                                 <div class="el-jindu" style="float:left;width: 64%">
-                                    <el-progress :percentage="SouData.pm25Pro.ControlProgess.replace('%','')"></el-progress>
+                                    <el-progress :percentage="parseInt(SouData.pm25Pro.ControlProgess.replace('%',''))"></el-progress>
                                 </div>
                             </div>
                         </el-carousel-item>
-                        <el-carousel-item>
+                        <el-carousel-item v-if="SouData.so2Pro">
                             <div class="pm">
                                 <h2>{{SouData.so2Pro.ItemName}}
                                     <span style="font-size: 14px">控制值：{{SouData.so2Pro.AlertVaue}}</span>
@@ -129,7 +129,7 @@
                                     控制进度：
                                 </p>
                                 <div class="el-jindu" style="float:left;width: 64%">
-                                    <el-progress :percentage="SouData.so2Pro.ControlProgess.replace('%','')"></el-progress>
+                                    <el-progress :percentage="parseInt(SouData.so2Pro.ControlProgess.replace('%',''))"></el-progress>
                                 </div>
                             </div>
                         </el-carousel-item>
@@ -401,29 +401,30 @@
                 </el-tabs>
             </div>
             <div class="Window_six" style="margin-left: 20px;margin-top: 20px">
+                <!--aqiColor-->
                 <div class="data_water1">
-                    <p>今天（09月04日）</p>
-                    <a>AQI日报范围<span>{{20-100}}</span></a><br/>
-                    <a>级别<span>{{wather}}</span></a><br/>
-                    <a>首要污染物<span>{{wuranwu}}</span></a>
-                    <p>晴</p>
-                    <a>18-28度，微风，西南风</a>
+                    <p v-if="WeatherWinterPre[0].date">{{WeatherWinterPre[0].date}}</p>
+                    <a>AQI日报范围<span>{{WeatherWinterPre[0].minaqi}}-{{WeatherWinterPre[0].maxaqi}}</span></a><br/>
+                    <a>级别<span>{{WeatherWinterPre[0].minQuality}}~{{WeatherWinterPre[0].maxQuality}}</span></a><br/>
+                    <a>首要污染物<span>{{WeatherWinterPre[0].mainpoll}}</span></a>
+                    <p>{{WeatherWinterPre[0].tq}}</p>
+                    <a>{{WeatherWinterPre[0].temp_low}}-{{WeatherWinterPre[0].temp_high}}℃，{{WeatherWinterPre[0].ws}}，{{WeatherWinterPre[0].wd}}</a>
                 </div>
                 <div class="data_water2">
-                    <p>明天（09月05日）</p>
-                    <a>AQI日报范围<span>{{20-100}}</span></a><br/>
-                    <a>级别<span>{{wather}}</span></a><br/>
-                    <a>首要污染物<span>{{wuranwu}}</span></a>
-                    <p>晴</p>
-                    <a>18-28度，微风，西南风</a>
+                    <p v-if="WeatherWinterPre[1].date">{{WeatherWinterPre[1].date}}</p>
+                    <a>AQI日报范围<span>{{WeatherWinterPre[1].minaqi}}-{{WeatherWinterPre[1].maxaqi}}</span></a><br/>
+                    <a>级别<span>{{WeatherWinterPre[1].minQuality}}~{{WeatherWinterPre[1].maxQuality}}</span></a><br/>
+                    <a>首要污染物<span>{{WeatherWinterPre[1].mainpoll}}</span></a>
+                    <p>{{WeatherWinterPre[1].tq}}</p>
+                    <a>{{WeatherWinterPre[1].temp_low}}-{{WeatherWinterPre[1].temp_high}}℃，{{WeatherWinterPre[1].ws}}，{{WeatherWinterPre[1].wd}}</a>
                 </div>
                 <div class="data_water3">
-                    <p>后天（09月06日）</p>
-                    <a>AQI日报范围<span>{{20-100}}</span></a><br/>
-                    <a>级别<span>{{wather}}</span></a><br/>
-                    <a>首要污染物<span>{{wuranwu}}</span></a>
-                    <p>晴</p>
-                    <a>18-28度，微风，西南风</a>
+                    <p v-if="WeatherWinterPre[2].date">{{WeatherWinterPre[2].date}}</p>
+                    <a>AQI日报范围<span>{{WeatherWinterPre[2].minaqi}}-{{WeatherWinterPre[2].maxaqi}}</span></a><br/>
+                    <a>级别<span>{{WeatherWinterPre[2].minQuality}}~{{WeatherWinterPre[2].maxQuality}}</span></a><br/>
+                    <a>首要污染物<span>{{WeatherWinterPre[2].mainpoll}}</span></a>
+                    <p>{{WeatherWinterPre[2].tq}}</p>
+                    <a>{{WeatherWinterPre[2].temp_low}}-{{WeatherWinterPre[2].temp_high}}℃，{{WeatherWinterPre[2].ws}}，{{WeatherWinterPre[2].wd}}</a>
                 </div>
             </div>
         </div>
@@ -565,7 +566,9 @@
                         OverQuota:'烟尘'
                     }
                 ],
-                SouData:{}
+                SouData:{},
+                LfAirWinterPre:{},
+                WeatherWinterPre:[]
             };
         },
         beforeCreate() {
@@ -878,12 +881,25 @@
             },
             //战报模块02数据
             GETDataList(){
-                //02模块
+                //01警报值
                 api.GetLfAirAlert().then(res => {
                     let data = res.data;
                     this.SouData = data;
                     //console.log(this.SouData)
                 })
+                //01空气排名
+                api.GetLfAirWinterPre().then(res => {
+                    let data = res.data;
+                    this.LfAirWinterPre = data;
+                    //console.log(this.LfAirWinterPre)
+                })
+                //未来三天天气
+                api.GetWeatherWinterPre().then(res => {
+                    let data = res.data;
+                    this.WeatherWinterPre = data.obj;
+                    //console.log(this.WeatherWinterPre)
+                })
+
             },
         },
         components: {BattleMap}
@@ -1161,6 +1177,7 @@
                 }
                 span{
                     color: #fff;
+                   display: inline-block;
                 }
             }
         }

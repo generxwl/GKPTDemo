@@ -23,6 +23,9 @@ import {
     GetycXhHbPointsRaiseResource,//扬尘在线先河
     GetXhHbPointsRaiseResource,//首页接入数据统计
     GetLfAirAlertResource,//冬防战报02轮播
+    GetLfAirWinterPreResource,//空气排名预报
+    GetWeatherWinterPreResource,//天气预报3天
+    GetsourcetypeAllInfoResource,//静态原清单右侧
 } from './resource'
 export default {
   //首页天气面板数据
@@ -32,6 +35,27 @@ export default {
       }
     )
   },
+    //空气排名预报
+    GetLfAirWinterPre() {
+        return axios.get(GetLfAirWinterPreResource,{
+
+            }
+        )
+    },
+    //天气预报3天
+    GetWeatherWinterPre() {
+        return axios.get(GetWeatherWinterPreResource,{
+
+            }
+        )
+    },
+    //静态原清单右侧
+    GetsourcetypeAllInfo() {
+        return axios.get(GetsourcetypeAllInfoResource,{
+
+            }
+        )
+    },
     //冬防战报02模块轮播
     GetLfAirAlert() {
         return axios.get(GetLfAirAlertResource,{

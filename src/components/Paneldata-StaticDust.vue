@@ -167,6 +167,12 @@
       }
     },
     created(){
+        //原清单
+        api.GetsourcetypeAllInfo().then(res => {
+            let data = res.data.sourcetype;
+            //this.SouData = data;
+            console.log(data)
+        })
     },
     mounted(){
       //右侧收放

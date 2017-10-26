@@ -27,7 +27,10 @@ const apilangfangTDK= {
   GetCompanyPointList:apiconfig.devt+'/api/Company/GetCompanyPointList',//企业在线右侧
   GetOfficeProgess:apiconfig.devt+'/api/IndexStatistics/GetOfficeProgess',//企业在线右侧二
   GetDustHourRanking:apiconfig.devt+'/api/Dust/GetDustHourRanking?',//在线源清单查询
-  GetLfAirAlert:apiconfig.devt+'/api/LfAir/GetLfAirAlert',//冬防战报模块一02轮播
+  GetLfAirAlert:apiconfig.devt+'/api/LfAir/GetLfAirAlert',//冬防战报模块一02轮播预警
+  GetLfAirWinterPre:apiconfig.devt+'/api/LfAir/GetLfAirWinterPre',//冬防战报模块一01空气预报
+  GetWeatherWinterPre:apiconfig.devt+'/api/Weather/GetWeatherWinterPre',//冬防战报模块六天气排名
+  GetsourcetypeAllInfo:'http://10.6.80.93:8080/dataPlatform-mobileWeb/sourcetype/allInfo',//冬防战报模块一02轮播
 }
 
 export const GetLfAirResource = API_ROOT.concat(apilangfangTDK.GetLfAir);
@@ -49,3 +52,6 @@ export const GetOfficeProgessResource = API_ROOT.concat(apilangfangTDK.GetOffice
 export const GetycXhHbPointsRaiseResource = API_ROOT.concat(apilangfangTDK.GetycXhHbPointsRaise);
 export const GetDustHourRankingResource = API_ROOT.concat(apilangfangTDK.GetDustHourRanking);
 export const GetLfAirAlertResource = API_ROOT.concat(apilangfangTDK.GetLfAirAlert);
+export const GetLfAirWinterPreResource = API_ROOT.concat(apilangfangTDK.GetLfAirWinterPre);
+export const GetWeatherWinterPreResource = API_ROOT.concat(apilangfangTDK.GetWeatherWinterPre);
+export const GetsourcetypeAllInfoResource = API_ROOT.concat(apilangfangTDK.GetsourcetypeAllInfo);
