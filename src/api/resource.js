@@ -27,6 +27,7 @@ const apilangfangTDK= {
   GetCompanyPointList:apiconfig.devt+'/api/Company/GetCompanyPointList',//企业在线右侧
   GetOfficeProgess:apiconfig.devt+'/api/IndexStatistics/GetOfficeProgess',//企业在线右侧二
   GetDustHourRanking:apiconfig.devt+'/api/Dust/GetDustHourRanking?',//在线源清单查询
+  GetLfAirAlert:apiconfig.devt+'/api/LfAir/GetLfAirAlert',//冬防战报模块一02轮播
 }
 
 export const GetLfAirResource = API_ROOT.concat(apilangfangTDK.GetLfAir);
@@ -47,3 +48,4 @@ export const GetCompanyPointListResource = API_ROOT.concat(apilangfangTDK.GetCom
 export const GetOfficeProgessResource = API_ROOT.concat(apilangfangTDK.GetOfficeProgess);
 export const GetycXhHbPointsRaiseResource = API_ROOT.concat(apilangfangTDK.GetycXhHbPointsRaise);
 export const GetDustHourRankingResource = API_ROOT.concat(apilangfangTDK.GetDustHourRanking);
+export const GetLfAirAlertResource = API_ROOT.concat(apilangfangTDK.GetLfAirAlert);

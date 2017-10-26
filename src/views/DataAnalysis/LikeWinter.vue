@@ -21,61 +21,115 @@
                     </div>
                 </div>
                 <div class="item_text3">
-                    今日控制目标：PM2.5 PM10 SO2 NO2 O3
+                    今日控制目标：<a v-for="(data,index) in SouData.alertItem">{{data}}</a>
                 </div>
                 <div class="item_text4">
                     <el-carousel indicator-position="outside">
                         <el-carousel-item>
                             <div class="pm">
-                                <h2>O3
-                                    <span style="font-size: 14px">控制值：35</span>
+                                <h2>{{SouData.coPro.ItemName}}
+                                    <span style="font-size: 14px">控制值：{{SouData.coPro.AlertVaue}}</span>
                                 </h2>
                             </div>
                             <div class="yujing">
-                                <p>预警站点：北华航天工业学院↑</p>
+                                <p>预警站点：{{SouData.coPro.PointName}}↑</p>
                             </div>
                             <div class="Progress">
                                 <p style="float:left;width: 26%;margin-left: 15%">
                                     控制进度：
                                 </p>
                                 <div class="el-jindu" style="float:left;width: 64%">
-                                    <el-progress :percentage="70"></el-progress>
+                                    <el-progress :percentage="SouData.coPro.ControlProgess.replace('%','')"></el-progress>
                                 </div>
                             </div>
                         </el-carousel-item>
                         <el-carousel-item>
                             <div class="pm">
-                                <h2>SO2
-                                    <span style="font-size: 14px">控制值：35</span>
+                                <h2>{{SouData.no2Pro.ItemName}}
+                                    <span style="font-size: 14px">控制值：{{SouData.no2Pro.AlertVaue}}</span>
                                 </h2>
                             </div>
                             <div class="yujing">
-                                <p>预警站点：廊坊市政府↑</p>
+                                <p>预警站点：{{SouData.no2Pro.PointName}}↑</p>
                             </div>
                             <div class="Progress">
                                 <p style="float:left;width: 26%;margin-left: 15%">
                                     控制进度：
                                 </p>
                                 <div class="el-jindu" style="float:left;width: 64%">
-                                    <el-progress :percentage="70"></el-progress>
+                                    <el-progress :percentage="SouData.no2Pro.ControlProgess.replace('%','')"></el-progress>
                                 </div>
                             </div>
                         </el-carousel-item>
                         <el-carousel-item>
                             <div class="pm">
-                                <h2>PM2.5
-                                    <span style="font-size: 14px">控制值：35</span>
+                                <h2>{{SouData.o3Pro.ItemName}}
+                                    <span style="font-size: 14px">控制值：{{SouData.o3Pro.AlertVaue}}</span>
                                 </h2>
                             </div>
                             <div class="yujing">
-                                <p>预警站点：廊坊技术学院↑</p>
+                                <p>预警站点：{{SouData.o3Pro.PointName}}↑</p>
                             </div>
                             <div class="Progress">
                                 <p style="float:left;width: 26%;margin-left: 15%">
                                     控制进度：
                                 </p>
                                 <div class="el-jindu" style="float:left;width: 64%">
-                                    <el-progress :percentage="70"></el-progress>
+                                    <el-progress :percentage="SouData.o3Pro.ControlProgess.replace('%','')"></el-progress>
+                                </div>
+                            </div>
+                        </el-carousel-item>
+                        <el-carousel-item>
+                            <div class="pm">
+                                <h2>{{SouData.pm10Pro.ItemName}}
+                                    <span style="font-size: 14px">控制值：{{SouData.pm10Pro.AlertVaue}}</span>
+                                </h2>
+                            </div>
+                            <div class="yujing">
+                                <p>预警站点：{{SouData.pm10Pro.PointName}}↑</p>
+                            </div>
+                            <div class="Progress">
+                                <p style="float:left;width: 26%;margin-left: 15%">
+                                    控制进度：
+                                </p>
+                                <div class="el-jindu" style="float:left;width: 64%">
+                                    <el-progress :percentage="SouData.pm10Pro.ControlProgess.replace('%','')"></el-progress>
+                                </div>
+                            </div>
+                        </el-carousel-item>
+                        <el-carousel-item>
+                            <div class="pm">
+                                <h2>{{SouData.pm25Pro.ItemName}}
+                                    <span style="font-size: 14px">控制值：{{SouData.pm25Pro.AlertVaue}}</span>
+                                </h2>
+                            </div>
+                            <div class="yujing">
+                                <p>预警站点：{{SouData.pm25Pro.PointName}}↑</p>
+                            </div>
+                            <div class="Progress">
+                                <p style="float:left;width: 26%;margin-left: 15%">
+                                    控制进度：
+                                </p>
+                                <div class="el-jindu" style="float:left;width: 64%">
+                                    <el-progress :percentage="SouData.pm25Pro.ControlProgess.replace('%','')"></el-progress>
+                                </div>
+                            </div>
+                        </el-carousel-item>
+                        <el-carousel-item>
+                            <div class="pm">
+                                <h2>{{SouData.so2Pro.ItemName}}
+                                    <span style="font-size: 14px">控制值：{{SouData.so2Pro.AlertVaue}}</span>
+                                </h2>
+                            </div>
+                            <div class="yujing">
+                                <p>预警站点：{{SouData.so2Pro.PointName}}↑</p>
+                            </div>
+                            <div class="Progress">
+                                <p style="float:left;width: 26%;margin-left: 15%">
+                                    控制进度：
+                                </p>
+                                <div class="el-jindu" style="float:left;width: 64%">
+                                    <el-progress :percentage="SouData.so2Pro.ControlProgess.replace('%','')"></el-progress>
                                 </div>
                             </div>
                         </el-carousel-item>
@@ -83,7 +137,7 @@
                 </div>
             </div>
             <div class="Window_Two" style="margin-left: 20px">
-                地图部分
+                <battle-map style="width: 100%;height: 100%"></battle-map>
             </div>
             <div class="Window_Three" style="margin-left: 20px">
                 <el-tabs v-model="activeName_s" @tab-click="">
@@ -149,19 +203,6 @@
                     <el-tab-pane label="用电量数据" name="second_t">
                         <div class="" style="padding: 10px 0">区县9月14日用电量</div>
                         <div id="dian_1" style="width: 366px;height: 200px;color: #fff!important;"></div>
-                        <!--<div class="">-->
-                            <!--<a>广阳区</a>-->
-                            <!--<a>安次区</a>-->
-                            <!--<a>开发区</a>-->
-                            <!--<a>香河县</a>-->
-                            <!--<a>大厂县</a>-->
-                            <!--<a>三河市</a>-->
-                            <!--<a>固安县</a>-->
-                            <!--<a>永清县</a>-->
-                            <!--<a>霸州市</a>-->
-                            <!--<a>文安县</a>-->
-                            <!--<a>大城县</a>-->
-                        <!--</div>-->
                     </el-tab-pane>
                     <el-tab-pane label="经济数据" name="third_t">
                         <div class=""  style="padding: 10px 0">区县9月14日经济数据</div>
@@ -389,6 +430,8 @@
     </div>
 </template>
 <script>
+    import api from '../../api/index'
+    import BattleMap from '@/map/BattleMap'
     export default {
         name: 'likewinter',
         data(){
@@ -521,7 +564,8 @@
                         Enterprise:'特价商城',
                         OverQuota:'烟尘'
                     }
-                ]
+                ],
+                SouData:{}
             };
         },
         beforeCreate() {
@@ -530,7 +574,7 @@
         },
         created() {
             //created 创建完毕状态====
-
+           this.GETDataList()
         },
         beforeMount() {
             //beforeMount 挂载前状态===
@@ -832,7 +876,17 @@
 //                    }]
                 })
             },
-        }
+            //战报模块02数据
+            GETDataList(){
+                //02模块
+                api.GetLfAirAlert().then(res => {
+                    let data = res.data;
+                    this.SouData = data;
+                    //console.log(this.SouData)
+                })
+            },
+        },
+        components: {BattleMap}//0809
 
     };
 </script>
@@ -917,6 +971,10 @@
                 text-align: left;
                 padding-left: 20px;
                 border-top: solid 1px #ccc;
+                a{
+                    padding: 0 4px;
+                    color: #ccc;
+                }
             }
             .item_text4{
                 .pm{

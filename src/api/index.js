@@ -22,6 +22,7 @@ import {
     GetOfficeProgessResource,//企业在线右侧二
     GetycXhHbPointsRaiseResource,//扬尘在线先河
     GetXhHbPointsRaiseResource,//首页接入数据统计
+    GetLfAirAlertResource,//冬防战报02轮播
 } from './resource'
 export default {
   //首页天气面板数据
@@ -31,6 +32,13 @@ export default {
       }
     )
   },
+    //冬防战报02模块轮播
+    GetLfAirAlert() {
+        return axios.get(GetLfAirAlertResource,{
+
+            }
+        )
+    },
     //在线扬尘先河
     GetycXhHbPointsRaise() {
         return axios.get(GetycXhHbPointsRaiseResource,{
