@@ -33,6 +33,10 @@ export default {
         cf = this.release[1];
         url = cf.site + cf.port + cf.path + '/Monitoring/GetMonitoringPointChart';
         break;
+      case 'MONCHARTHISTORY':
+        cf = this.release[1];
+        url = cf.site + '/Monitoring_7_24/';
+        break;
       case 'SENSEPOLLUTION':
         cf = this.release[0];
         url = cf.site + cf.port + cf.path + '/FcStation/GetFcStationList';

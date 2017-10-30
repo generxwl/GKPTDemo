@@ -63,6 +63,9 @@
         let hours = labelTime.getHours();
         let lt = {
           year: labelTime.getFullYear(),
+          month: month > 9 ? month : ('0' + month),
+          day: date > 9 ? date : ('0' + date),
+          hours: hours > 9 ? hours : ('0' + hours),
           date: (month > 9 ? month : ('0' + month)) + '-' + (date > 9 ? date : ('0' + date)),
           time: (hours > 9 ? hours : ('0' + hours)) + ':00'
         };
@@ -72,7 +75,7 @@
       }
     },
     mounted(){
-        this.initEvent();
+      this.initEvent();
     },
     methods: {
       ready(){
@@ -140,7 +143,7 @@
 
       //设置进度条
       setProcess(type, el){
-          console.log(this.layerType);
+        console.log(this.layerType);
         let t = this;
         if (!t.interval) {
           let historyContent = document.getElementsByClassName('history-content')[0];
@@ -158,8 +161,7 @@
               t.resetProcess();
             } else {
               let tm = t.lsLabelTime[++t.sum];
-              let ht = tm.year + '-' + tm.date + ' ' + tm.time;
-              t.triggerEvent(ht);
+              t.triggerEvent(tm);
 
               t.labelTime = tm.date + ' ' + tm.time;
               labelProcess.style.left = process + 5 + 'px';
@@ -172,11 +174,13 @@
       },
 
       //触发地图事件
-      triggerEvent(ht){
+      triggerEvent(tm){
         switch (this.layerType.toUpperCase()) {
           case 'MONITOR':
+            bus.$emit('historyMonitorLayer', '' + tm.year + tm.month + tm.day + tm.hours);
             break;
           case 'SENSE':
+            let ht = tm.year + '-' + tm.date + ' ' + tm.time;
             bus.$emit('historySenseMarker', ht);
             break;
           case 'DUST':
@@ -188,6 +192,7 @@
       triggerCloseEvent(){
         switch (this.layerType.toUpperCase()) {
           case 'MONITOR':
+            bus.$emit('historyMonitorLayer', undefined, true);
             break;
           case 'SENSE':
             bus.$emit('historySenseMarker', undefined, true);

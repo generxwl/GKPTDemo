@@ -16,6 +16,8 @@
         lsRenderOverlay: [],
         lsSearchInfoWindow: [],
         lsRenderMarker: [],
+        historyData:[],
+        hasHistory:false,
         data: [],
         checkedName: 'AQI'
       }
@@ -34,11 +36,12 @@
         bus.$on('showWindowInfo', this.showSearchInfoWindow);//列表点击事件
         bus.$on('tabClick', this.tabClickEvent);//面板实时累计切换响应事件
         bus.$on('refreshLayer', this.refreshLayer);//刷新图层
+        bus.$on('historyMonitorLayer', this.historyRefreshMarker);//历史7*24
       },
 
       //设置初始化
       resetData (map) {
-        bus.$emit('setLayerType','MONITOR');//设置时间轴图层类型
+        bus.$emit('setLayerType', 'MONITOR');//设置时间轴图层类型
         this.map = map;
         this.setPollutionByType(this.checkedName);
       },
@@ -94,10 +97,36 @@
       },
 
       //刷新覆盖物
-      refreshLayer(data){
+      refreshLayer(data,hasHistory = true){
         if (data) {
-          this.data = data;
+          //this.data = data;
+          hasHistory && (this.data = data);
           this.render(this.getPointByType(this.ptType), this.checkedName);
+        }
+      },
+
+      //刷新历史数据
+      historyRefreshMarker(tm = undefined, hasReset){
+        let t = this;
+        if (tm) {
+          t.hasHistory = true;
+          let urlHistoryLCS = RequestHandle.getRequestUrl('MONCHARTHISTORY');
+          let url = urlHistoryLCS + '2017103014.json';//+ tm.replace(/-/g,'').replace(/' '/g,'').replace(/:/g,'') + '.json';
+          RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+//            if (result.status === 1) {
+              let data = result || [];
+              t.historyData = data;
+              if (data.length) {
+                t.refreshLayer(data, false);
+              }
+//            }
+          }, function (ex) {
+            console.log(ex);
+          })
+        }
+        else {
+          t.hasHistory = false;
+          (hasReset && t.data.length) && (t.refreshLayer(t.data));
         }
       },
 
