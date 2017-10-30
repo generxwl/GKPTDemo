@@ -8,7 +8,7 @@
         <div class="warp_box">
             <div class="Window_one">
                 <div class="item_text1">
-                    <font>距下次跟新时间：{{LfAirWinterPre.nextDataTime}}分钟</font>
+                    <font>距下次更新时间：{{LfAirWinterPre.nextDataTime}}分钟</font>
                 </div>
                 <div class="item_text2">
                     <div class="item_box1">
@@ -144,10 +144,51 @@
                     <el-tab-pane label="廊坊市秋冬季采暖期考核" name="first_s">
                         <el-tabs v-model="activeName_a" @tab-click="">
                             <el-tab-pane label="全期" name="first_a">
-                                <div class="item_banyuan"></div>
-                                <div class="item_banyuan"></div>
                                 <div class="item_banyuan">
-                                    全期部分
+                                    <div class="obay_1">
+                                        <p class="title_baay">225</p>
+                                        <p>秋冬季</p>
+                                        <p>采暖期PM2.5累计值</p>
+                                    </div>
+                                    <div class="obay_2">
+                                        <p class="title_baay">15</p>
+                                        <p>2+26城市倒排</p>
+                                        <img src="../../../static/imgs/mues/cainuan/dp1-3.png" alt="">
+                                    </div>
+                                    <div class="obay_3">
+                                        <p class="title_baay">4</p>
+                                        <p>下降率</p>
+                                    </div>
+                                </div>
+                                <div class="item_banyuan">
+                                    <div class="obay_1">
+                                        <p class="title_baay">225</p>
+                                        <p>秋冬季</p>
+                                        <p>采暖期PM2.5累计值</p>
+                                    </div>
+                                    <div class="obay_2">
+                                        <p class="title_baay">15</p>
+                                        <p>2+26城市倒排</p>
+                                        <img src="../../../static/imgs/mues/cainuan/dp4-8.png" alt="">
+                                    </div>
+                                    <div class="obay_3">
+                                        <p class="title_baay">4</p>
+                                        <p>下降率</p>
+                                    </div>
+                                </div>
+                                <div class="item_banyuan">
+                                   <div class="line_top">
+                                       <p>10月1日至10月30日，PM2.5秋季任务未完成：</p>
+                                       <div>
+                                           <b>广阳区</b><b>广阳区</b><b>广阳区</b><b>广阳区</b><b>广阳区</b><b>广阳区</b><b>广阳区</b>
+                                       </div>
+                                   </div>
+                                    <div class="line_bottom">
+                                        <p>10月1日至10月30日，PM2.5秋季任务未完成：</p>
+                                        <div>
+                                            <b>广阳区</b><b>广阳区</b><b>广阳区</b>
+                                        </div>
+                                    </div>
                                 </div>
                             </el-tab-pane>
                             <el-tab-pane label="月度" name="second_a">
@@ -169,10 +210,98 @@
                     <el-tab-pane label="县市区考核" name="second_s">
                         <el-tabs v-model="activeName_z" @tab-click="">
                             <el-tab-pane label="周考核" name="first_z">
-                                周内容
+                                <div class="table_kaohe_sanqu">
+                                    <div class="lable_title">
+                                        <a>市三区周考核</a> <a style="margin-left: 20px">本周预处罚名单：<span>开发区</span></a>
+                                    </div>
+                                    <div class="tubiao_warp">
+                                        <div class="warp_left">
+                                            <div id="kaohe_1" style="width: 209px;height: 80px"></div>
+                                        </div>
+                                        <div class="warp_chenter">
+                                            <ul>
+                                                <li style="color: green">1.开发区</li>
+                                                <li style="color: yellow">2.广阳区</li>
+                                                <li style="color: red">3.安次区</li>
+                                            </ul>
+                                        </div>
+                                        <div class="warp_right">
+                                            <div id="kaohe_2" style="width: 182px;height: 80px"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table_kaohe_baxian">
+                                    <div class="lable_title">
+                                        <a>市三区周考核</a> <a style="margin-left: 20px">本周预处罚名单：<span>霸州市 永清县 香河县</span></a>
+                                    </div>
+                                    <div class="tubiao_warp">
+                                        <div class="warp_left">
+                                            <div id="kaohe_3" style="width: 209px;height: 165px"></div>
+                                        </div>
+                                        <div class="warp_chenter">
+                                            <ul>
+                                                <li style="color: green">1.霸州市</li>
+                                                <li style="color: green">2.永清县</li>
+                                                <li style="color: green">3.香河县</li>
+                                                <li style="color: yellow">4.固安县</li>
+                                                <li style="color: yellow">5.文安县</li>
+                                                <li style="color: red">6.大厂县</li>
+                                                <li style="color: red">7.三河县</li>
+                                                <li style="color: red">8.大城县</li>
+                                            </ul>
+                                        </div>
+                                        <div class="warp_right">
+                                            <div id="kaohe_4" style="width: 198px;height: 165px"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </el-tab-pane>
                             <el-tab-pane label="月考核" name="second_z">
-                                月内容
+                                <div class="table_kaohe_sanqu">
+                                    <div class="lable_title">
+                                        <a>市八县周考核</a> <a style="margin-left: 20px">本周预处罚名单：{{000}}</a>
+                                    </div>
+                                    <div class="tubiao_warp">
+                                        <div class="warp_left">
+                                            <div id="kaohe_5"></div>
+                                        </div>
+                                        <div class="warp_chenter">
+                                            <ul>
+                                                <li style="color: green">1.开发区</li>
+                                                <li style="color: yellow">2.广阳区</li>
+                                                <li style="color: red">3.安次区</li>
+                                            </ul>
+                                        </div>
+                                        <div class="warp_right">
+                                            <div id="kaohe_6"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="table_kaohe_baxian">
+                                    <div class="lable_title">
+                                        <a>市三区周考核</a> <a style="margin-left: 20px">本周预处罚名单：{{000}}</a>
+                                    </div>
+                                    <div class="tubiao_warp">
+                                        <div class="warp_left">
+                                            <div id="kaohe_7"></div>
+                                        </div>
+                                        <div class="warp_chenter">
+                                            <ul>
+                                                <li style="color: green">1.霸州市</li>
+                                                <li style="color: green">2.永清县</li>
+                                                <li style="color: green">3.香河县</li>
+                                                <li style="color: yellow">4.固安县</li>
+                                                <li style="color: yellow">5.文安县</li>
+                                                <li style="color: red">6.大厂县</li>
+                                                <li style="color: red">7.三河县</li>
+                                                <li style="color: red">8.大城县</li>
+                                            </ul>
+                                        </div>
+                                        <div class="warp_right">
+                                            <div id="kaohe_8"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </el-tab-pane>
                         </el-tabs>
                     </el-tab-pane>
@@ -448,8 +577,6 @@
                 pagesize: 5,
                 currentPage: 1,
                 totalCount:0,
-                wather:'优~良',
-                wuranwu:'PM2.5',
                 kongqiData:[
                     {
                         xuhao:'1',
@@ -573,7 +700,6 @@
         },
         beforeCreate() {
             //beforeCreate 创建前状态====
-
         },
         created() {
             //created 创建完毕状态====
@@ -581,14 +707,16 @@
         },
         beforeMount() {
             //beforeMount 挂载前状态===
-
         },
         mounted() {
             //mounted 挂载结束状态=====
             setTimeout(()=>{
                 this.ElectricityConsumption();
                 this.EconomicsConsumption();
-                //this.DataConsumption();
+                this.DataConsumption();
+                this.DataZongConsumption();
+                this.DataBXConsumption();
+                this.DataBXZongConsumption();
             },500)
         },
         methods: {
@@ -726,9 +854,7 @@
             },
             // 经济数据
             EconomicsConsumption(){
-//                let data = this.VideoPie.map(function (v) {
-//                        return {value: v.count, name: v.name}
-//                    }) || [];
+//
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = echarts.init(document.getElementById('dian_2'));
                 // 指定图表的配置项和数据
@@ -856,15 +982,281 @@
 //                    }]
                 })
             },
-            // 数据接入
+            // 横向表格数据接入01
             DataConsumption(){
-//                let data = this.VideoPie.map(function (v) {
-//                        return {value: v.count, name: v.name}
-//                    }) || [];
                 // 基于准备好的dom，初始化echarts实例
-                let myChart = echarts.init(document.getElementById('dian_3'));
+                let myChart = echarts.init(document.getElementById('kaohe_2'));
                 // 指定图表的配置项和数据
+                let option = {
+                    tooltip: {
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    xAxis: {
+                        type: 'value',
+                        min: 0,
+                        max: 500,
+                        interval: 100,
+                        axisLabel: {
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: ['开发区','广阳区','安次区'],
+                        axisLabel: {
+                            formatter: '{value}',
+                            textStyle: {
+                                color: '#20243d'
+                            }
+                        },
+                    },
+                    series: [
+                        {
+                            type: 'bar',
+                            data: [112, 212, 316],
+                            itemStyle: {
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(
+                                        0, 0, 0, 1,
+                                        [
+                                            {offset: 0, color: '#83bff6'},
+                                            {offset: 0.5, color: '#188df0'},
+                                            {offset: 1, color: '#188df0'}
+                                        ]
+                                    )
+                                },
+                                emphasis: {
+                                    color: new echarts.graphic.LinearGradient(
+                                        0, 0, 0, 1,
+                                        [
+                                            {offset: 0, color: '#2378f7'},
+                                            {offset: 0.7, color: '#2378f7'},
+                                            {offset: 1, color: '#83bff6'}
+                                        ]
+                                    )
+                                }
+                            },
+                        }
 
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+                myChart.setOption({
+//                    legend: {
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
+//                    series: [{
+//                        data: data
+//                    }]
+                })
+            },
+            // 变化率表格数据接入02
+            DataZongConsumption(){
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById('kaohe_1'));
+                // 指定图表的配置项和数据
+                let option = {
+                    title: {
+                        text: '',
+                        subtext: ''
+                    },
+                    grid:{
+                        left:40
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['变化率']
+                    },
+                    toolbox: {
+                        show: true,
+                    },
+                    xAxis:  {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['开发区','广阳区','安次区'],
+                        axisLabel: {
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                    },
+                    yAxis: {
+                        type: 'value',
+                        min: -20,
+                        max: 20,
+                        interval: 10,
+                        axisLabel: {
+                            formatter: '{value} %',
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                    },
+                    series: [
+                        {
+                            type:'line',
+                            data:[-10, 10, 18]
+                        },
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+                myChart.setOption({
+//                    legend: {
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
+//                    series: [{
+//                        data: data
+//                    }]
+                })
+            },
+            // 横向表格数据接入03
+            DataBXConsumption(){
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById('kaohe_4'));
+                // 指定图表的配置项和数据
+                let option = {
+                    grid:{
+                        bottom:22,
+                        y:16,
+                    },
+                    tooltip: {
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    xAxis: {
+                        type: 'value',
+                        min: 0,
+                        max: 500,
+                        interval: 100,
+                        axisLabel: {
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                    },
+                    yAxis: {
+                        type: 'category',
+                        data: ['霸州市','永清县','香河县','固安县','文安县','大厂县','三河县','大城县'],
+                        axisLabel: {
+                            formatter: '{value}',
+                            textStyle: {
+                                color: '#20243d'
+                            }
+                        },
+                    },
+                    series: [
+                        {
+                            type: 'bar',
+                            data: [111, 122, 216,311, 412, 316,211, 212, 316,411, 312],
+                            itemStyle: {
+                                normal: {
+                                    color: new echarts.graphic.LinearGradient(
+                                        0, 0, 0, 1,
+                                        [
+                                            {offset: 0, color: '#83bff6'},
+                                            {offset: 0.5, color: '#188df0'},
+                                            {offset: 1, color: '#188df0'}
+                                        ]
+                                    )
+                                },
+                                emphasis: {
+                                    color: new echarts.graphic.LinearGradient(
+                                        0, 0, 0, 1,
+                                        [
+                                            {offset: 0, color: '#2378f7'},
+                                            {offset: 0.7, color: '#2378f7'},
+                                            {offset: 1, color: '#83bff6'}
+                                        ]
+                                    )
+                                }
+                            },
+                        }
+
+                    ]
+                };
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+                //动态设置参数
+                myChart.setOption({
+//                    legend: {
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
+//                    series: [{
+//                        data: data
+//                    }]
+                })
+            },
+            // 变化率表格数据接入04
+            DataBXZongConsumption(){
+                // 基于准备好的dom，初始化echarts实例
+                let myChart = echarts.init(document.getElementById('kaohe_3'));
+                // 指定图表的配置项和数据
+                let option = {
+                    title: {
+                        text: '',
+                        subtext: ''
+                    },
+                    grid:{
+                        bottom:28,
+                        y:16,
+                        left:40
+                    },
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['变化率']
+                    },
+                    toolbox: {
+                        show: true,
+
+                    },
+                    xAxis:  {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: ['霸州市','永清县','香河县','固安县','文安县','大厂县','三河县','大城县'],
+                        axisLabel: {
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                    },
+                    yAxis: {
+                        type: 'value',
+                        min: -20,
+                        max: 20,
+                        interval: 10,
+                        axisLabel: {
+                            formatter: '{value} %',
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        },
+                    },
+                    series: [
+                        {
+                            type:'line',
+                            data:[20, 18, 15, 13, 10, 6,-10, -15]
+                        },
+                    ]
+                };
                 // 使用刚指定的配置项和数据显示图表。
                 myChart.setOption(option);
                 //动态设置参数
@@ -1037,6 +1429,130 @@
                 margin-top: 9px;
                 border:solid 1px #7c7056;
                 margin-left: 9px;
+                .obay_1{
+                    float: left;
+                    width: 186px;
+                    height: 88px;
+                    overflow: hidden;
+                    background: url("../../../static/imgs/mues/cainuan/l-bg2.png")no-repeat;
+                    .title_baay{
+                        font-size: 24px;
+                        font-weight: bold;
+                    }
+                    p{
+                        padding-right: 37px;
+                    }
+                }
+                .obay_2{
+                    float: left;
+                    width: 88px;
+                    height: 88px;
+                    overflow: hidden;
+                    p{
+                        font-size: 12px;
+                    }
+                    .title_baay{
+                        font-size: 26px;
+                        font-weight: bold;
+                    }
+                }
+                .obay_3{
+                    float: left;
+                    width: 184px;
+                    height: 88px;
+                    overflow: hidden;
+                    background: url("../../../static/imgs/mues/cainuan/r-bg2.png")no-repeat;
+                    .title_baay{
+                        font-size: 24px;
+                        font-weight: bold;
+                    }
+                    p{
+                        padding-left: 35px;
+                    }
+                }
+            }
+            .table_kaohe_sanqu{
+                width: 450px;
+                height:110px;
+                margin: 0 auto;
+                .lable_title{
+                    text-align: left;
+                    height: 28px;
+                    width: 100%;
+                    color: #fff;
+                    //background: #777;
+                    a{
+                        color: #fff;
+                        display: inline-block;
+                    }
+                }
+                .tubiao_warp{
+                    .warp_left{
+                        float: left;
+                        height: 80px;
+                        width: 209px;
+                       // border: solid 1px #1080cc;
+                    }
+                    .warp_chenter{
+                        float: left;
+                        height: 80px;
+                        width: 59px;
+                       // border: solid 1px #1080cc;
+                        ul{
+                            li{
+                                list-style: none;
+                            }
+                        }
+                    }
+                    .warp_right{
+                        float: right;
+                        height: 80px;
+                        width: 182px;
+                       // border: solid 1px #1080cc;
+                    }
+                }
+            }
+            .table_kaohe_baxian{
+                width: 100%;
+                height:190px;
+                margin: 0 auto;
+                .lable_title{
+                    text-align: left;
+                    height: 28px;
+                    width: 100%;
+                    color: #fff;
+                    padding-left: 16px;
+                    //background: #777;
+                    a{
+                        color: #fff;
+                        display: inline-block;
+                    }
+                }
+                .tubiao_warp{
+                    .warp_left{
+                        float: left;
+                        height: 165px;
+                        width: 219px;
+                       // border: solid 1px #1080cc;
+                    }
+                    .warp_chenter{
+                        float: left;
+                        height: 165px;
+                        width: 59px;
+                       // border: solid 1px #1080cc;
+                        ul{
+                            li{
+                                list-style: none;
+                            }
+                        }
+                    }
+                    .warp_right{
+                        float: right;
+                        height: 165px;
+                        width: 200px;
+                        //border: solid 1px #1080cc;
+                    }
+                }
             }
         }
         .Window_Four{

@@ -30,7 +30,8 @@ const apilangfangTDK= {
   GetLfAirAlert:apiconfig.devt+'/api/LfAir/GetLfAirAlert',//冬防战报模块一02轮播预警
   GetLfAirWinterPre:apiconfig.devt+'/api/LfAir/GetLfAirWinterPre',//冬防战报模块一01空气预报
   GetWeatherWinterPre:apiconfig.devt+'/api/Weather/GetWeatherWinterPre',//冬防战报模块六天气排名
-  GetsourcetypeAllInfo:'http://10.6.80.93:8080/dataPlatform-mobileWeb/sourcetype/allInfo',//冬防战报模块一02轮播
+  GetsourcetypeAllInfo:'http://117.119.97.150:8061/servicePlatform/sourcetype/allInfo',//静态原清单1
+  GetallInfoBySourceType:'http://117.119.97.150:8061/servicePlatform/enterprise/allInfoBySourceType?',//静态原清单2
 }
 
 export const GetLfAirResource = API_ROOT.concat(apilangfangTDK.GetLfAir);
@@ -55,3 +56,4 @@ export const GetLfAirAlertResource = API_ROOT.concat(apilangfangTDK.GetLfAirAler
 export const GetLfAirWinterPreResource = API_ROOT.concat(apilangfangTDK.GetLfAirWinterPre);
 export const GetWeatherWinterPreResource = API_ROOT.concat(apilangfangTDK.GetWeatherWinterPre);
 export const GetsourcetypeAllInfoResource = API_ROOT.concat(apilangfangTDK.GetsourcetypeAllInfo);
+export const GetallInfoBySourceTypeResource = API_ROOT.concat(apilangfangTDK.GetallInfoBySourceType);

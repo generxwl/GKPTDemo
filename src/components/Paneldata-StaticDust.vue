@@ -422,6 +422,12 @@
         this.labelType = this.getPollutionTarget(type);
         this.setdata(this.data, this.type)
       },
+      ChenageGetDataList(typeid){
+          api.GetallInfoBySourceType(typeid).then(res => {
+              let data = res;
+              console.log(data)
+          })
+      }
     },
    components: {MapHandle}
   }

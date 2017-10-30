@@ -26,6 +26,7 @@ import {
     GetLfAirWinterPreResource,//空气排名预报
     GetWeatherWinterPreResource,//天气预报3天
     GetsourcetypeAllInfoResource,//静态原清单右侧
+    GetallInfoBySourceTypeResource,//静态原清单类型
 } from './resource'
 export default {
   //首页天气面板数据
@@ -45,6 +46,13 @@ export default {
     //天气预报3天
     GetWeatherWinterPre() {
         return axios.get(GetWeatherWinterPreResource,{
+
+            }
+        )
+    },
+    //静态原清单类型
+    GetallInfoBySourceType(typeid){
+        return axios.get(GetallInfoBySourceTypeResource+"&pointLevel="+typeid,{
 
             }
         )

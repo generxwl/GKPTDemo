@@ -2,7 +2,7 @@
   <div class="video-map-content">
     <div id="video_map"></div>
     <layer-switch></layer-switch>
-    <video-handle></video-handle>
+    <video-handle style="display: none"></video-handle>
     <!--<map-handle></map-handle>-->
   </div>
 </template>

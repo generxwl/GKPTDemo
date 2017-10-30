@@ -59,7 +59,7 @@
 			login() {
 				var _this = this;
 				$.ajax({
-					url: "http://lftdkplat.zhiscity.com/api/login/UserLogin",
+					url: "http://devgkptplat.zhiscity.com/api/login/UserLogin",
 					data: {
 						username: this.userName,
 						password: this.passWord

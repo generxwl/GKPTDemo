@@ -35,7 +35,7 @@
 </script>
 
 <style lang="scss">
-    @import "styles/tab";//tab切换全局布局
+    @import "styles/tabandprogres";//tab切换全局布局
     @import "styles/scrollbar";//滚动条全局布局
     @import "styles/baidumap";//百度地图全局部分
     @import "styles/elementui";//elementui部分全局修改

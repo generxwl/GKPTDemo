@@ -20,17 +20,11 @@
         charUrl:'http://lftdkplat.zhiscity.com/api/Monitoring/GetMonitoringPointChart',
         targets: [
           {
-            name: 'VOCs',
+            name: 'VOCs企业',
             value: 'TVOC',
             src: 'static/imgs/map/AQI.png',
             checked: 'static/imgs/map/AQI1.png'
           },
-//            {
-//            name: '工地',
-//            value: 'GD',
-//            src: 'static/imgs/map/PM-2.5.png',
-//            checked: 'static/imgs/map/PM-2.51.png',
-//          },
             {
             name: '高空五公里',
             value: 'GKWGL',

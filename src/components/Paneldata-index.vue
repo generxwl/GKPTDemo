@@ -363,7 +363,14 @@
                         })
                     },
                     series: [{
-                        data: data
+                        data: data,
+                        color:[
+                            '#0392e0',
+                            '#a0cb3e',
+                            '#f7cc5c',
+                            '#91dfcf',
+                            '#d190e2'
+                        ]
                     }]
                 })
             },
@@ -429,7 +436,14 @@
                         })
                     },
                     series: [{
-                        data: data
+                        data: data,
+                        color:[
+                            '#0392e0',
+                            '#a0cb3e',
+                            '#f7cc5c',
+                            '#91dfcf',
+                            '#d190e2'
+                        ]
                     }]
                 })
             },
@@ -491,7 +505,14 @@
                         })
                     },
                     series: [{
-                        data: data
+                        data: data,
+                        color:[
+                            '#0392e0',
+                            '#a0cb3e',
+                            '#f7cc5c',
+                            '#91dfcf',
+                            '#d190e2'
+                        ]
                     }],
                 })
             }
@@ -506,7 +527,7 @@
                 // 指定图表的配置项和数据
                 let option = {
                     title: {
-                        text: '网络员占比',
+                        text: '网格员占比',
                         textStyle: {
                             fontSize: '14',
                             fontWeight: 'bold'
@@ -554,7 +575,14 @@
                         })
                     },
                     series: [{
-                        data: data
+                        data: data,
+                        color:[
+                            '#0392e0',
+                            '#a0cb3e',
+                            '#f7cc5c',
+                            '#91dfcf',
+                            '#d190e2'
+                        ]
                     }],
                 })
             },

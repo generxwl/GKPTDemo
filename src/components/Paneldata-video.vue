@@ -100,7 +100,7 @@
                 currentPage: 1,
                 totalCount:0,
                 value2: '',
-                type:'VOC企业',
+                type:'VOCs企业',
                 filters: {
                     name: ''
                 },
@@ -443,6 +443,7 @@
             getPointByType(type,data){
                 let rtValue = [];
                 let dt = data;
+                //console.log(dt)
                 if (dt) {
                     for (let i = 0, length = dt.length; i < length; i++) {
                         let item = dt[i];

@@ -14,6 +14,11 @@ html,body{
   }
 
   .Like-winter{
+    .BMap_cpyCtrl{
+      //display: none!important;
+      width: 74px!important;
+      overflow: hidden!important;
+    }
     //轮播样式
     .el-carousel{
       margin-left: 30px!important;
@@ -30,6 +35,9 @@ html,body{
     //表格样式
     .el-table{
       width: 426px!important;
+    }
+    .el-table .cell{
+      padding: 0!important;
     }
     //切换tab样式
     .el-tabs__item.is-active {
@@ -65,13 +73,16 @@ html,body{
     }
     .el-progress-bar__outer{
       margin-top: 3px!important;
+      border: solid 1px #ccc!important;
       height: 16px!important;
-      border-radius: 0!important;
+      border-radius: 3px!important;
+      background:-moz-linear-gradient(left,#1ce405,#c9302c,#3a1028)!important;/*Mozilla*/
+      background: -webkit-linear-gradient(left,#1ce405,#c9302c,#3a1028)!important;
     }
     .el-progress-bar__inner{
-      border-radius: 0!important;
-      background:-moz-linear-gradient(top, #1ce405, #fdc52a)!important;
-      background:-webkit-gradient(linear, 0 0, 0 bottom, from(#1ce405), to(#fdc52a))!important;
+      border-radius: 2px!important;
+      background:-moz-linear-gradient(left,#1ce405,#fdc52a)!important;/*Mozilla*/
+      background: -webkit-linear-gradient(left,#1ce405,#fdc52a)!important;
     }
   }
   .prog_box{

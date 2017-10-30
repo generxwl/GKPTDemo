@@ -21,8 +21,9 @@
                         </div>
                         <div>
                             <p>散乱污监控</p>
-                            <a href="#/ScatteredDirtVideos">散乱污监控</a>
-                            <a href="#/Videos">企业在线监控</a>
+                            <a href="#/ScatteredDirtVideos">散乱污企业监控</a>
+                            <a href="#/Videos">VOCs企业监控</a>
+                            <a>高点监控</a>
                         </div>
                         <div>
                             <p>GPS监控</p>

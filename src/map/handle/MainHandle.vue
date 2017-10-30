@@ -577,7 +577,7 @@
             (item.smoke_convert || '--') + '</td><td>' +
             (item.gasoutputflow || '--') + '</td></tr>';
           if (i === (dts.length - 1)) {
-            els += '<tr><td>排放限量</td><td colspan="2">' + (item.NoxLimit || ' --') + '</td><td colspan="2">' + (item.So2Limit || ' --') + '</td><td colspan="2">' + (item.SmokeLimit || ' --') + '</td><td>--</td></tr>'
+            els += '<tr><td>排放限值(mg/m3)</td><td colspan="2">' + (item.NoxLimit || ' --') + '</td><td colspan="2">' + (item.So2Limit || ' --') + '</td><td colspan="2">' + (item.SmokeLimit || ' --') + '</td><td>--</td></tr>'
           }
         }
         els += '<tr><td>时间</td><td colspan="7">' + ((data.length ? data[0].time : '--') || '--') + '</td></tr>';
