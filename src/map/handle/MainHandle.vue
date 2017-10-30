@@ -598,8 +598,8 @@
           };
           rtValue.push(obj);
         }
-        let title = '最近24小时氮氧化物变化趋势';
-        this.loadChar(code, '氮氧化物', rtValue, title);
+        let title = '最近24小时烟尘变化趋势';
+        this.loadChar(code, '烟尘', rtValue, title);
       },
 
       //加载Chart数据
