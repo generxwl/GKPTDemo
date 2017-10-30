@@ -17,6 +17,7 @@
         mouseLabel: new BMap.Label(''),
         data: [],
         mkm: undefined,
+        markUrl:'/static/imgs/duststatic/',
         infoWindowConfig: {
           width: 250,     // 信息窗口宽度
           height: 240,     // 信息窗口高度
@@ -89,7 +90,7 @@
             textShadow: '0 0 2px #fff'
           });
           let offsetLength = value.entname.length*14/2 || 0;//('' + value.count).length >= 4 ? (('' + value.count).length === 5 ? -2 : 2) : (('' + value.count).length > 1 ? 8 : 12);
-          label.setOffset(new BMap.Size(-offsetLength, 2));
+          label.setOffset(new BMap.Size(-offsetLength, 18));
 
           //t.map.addOverlay(marker),
           marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = {stationName: value.stationname}, t.markers.push(marker), marker.addEventListener('click', function (e) {
@@ -109,6 +110,30 @@
           }));
         }
         t.markers.length && (t.mkm.addMarkers(t.markers));
+        t.setMarkerCluster();
+      },
+
+      setMarkerCluster(){
+        let myStyles = [{
+          url: this.markUrl + '0.png',
+          size: new BMap.Size(30, 26),
+          opt_anchor: [16, 0],
+          textColor: '#ffffff',
+          opt_textSize: 10
+        }, {
+          url: this.markUrl + '1.png',
+          size: new BMap.Size(40, 35),
+          opt_anchor: [40, 35],
+          textColor: '#ffffff',
+          opt_textSize: 12
+        }, {
+          url: this.markUrl + '2.png',
+          size: new BMap.Size(50, 44),
+          opt_anchor: [32, 0],
+          textColor: '#ffffff',
+          opt_textSize: 14
+        }];
+        this.mkm.setStyles(myStyles);
       },
 
       wgsPointToBd: function (pt) {
