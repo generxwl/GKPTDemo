@@ -577,7 +577,7 @@
             (item.smoke_convert || '--') + '</td><td>' +
             (item.gasoutputflow || '--') + '</td></tr>';
           if (i === (dts.length - 1)) {
-            els += '<tr><td>排放限量</td><td colspan="2">' + (item.NoxLimit || ' --') + '</td><td colspan="2">' + (item.So2Limit || ' --') + '</td><td colspan="2">' + (item.SmokeLimit || ' --') + '</td><td>--</td></tr>'
+            els += '<tr><td>排放限值（mg/m3）</td><td colspan="2">' + (item.NoxLimit || ' --') + '</td><td colspan="2">' + (item.So2Limit || ' --') + '</td><td colspan="2">' + (item.SmokeLimit || ' --') + '</td><td>--</td></tr>'
           }
         }
         els += '<tr><td>时间</td><td colspan="7">' + ((data.length ? data[0].time : '--') || '--') + '</td></tr>';
@@ -598,8 +598,8 @@
           };
           rtValue.push(obj);
         }
-        let title = '最近24小时氮氧化物变化趋势';
-        this.loadChar(code, '氮氧化物', rtValue, title);
+        let title = '最近24小时烟尘变化趋势';
+        this.loadChar(code, '烟尘', rtValue, title);
       },
 
       //加载Chart数据
