@@ -206,7 +206,6 @@
                 RightStatistics:{},//右侧栏统计2
             }
         },
-
         created(){
             api.GetXhHbPoints().then(res => {
                 let data = res.data;
@@ -333,7 +332,7 @@
                     },
                     series: [
                         {
-                            name: '访问来源',
+                            name: '空气传感器占比',
                             type: 'pie',
                             radius: '60%',
                             center: ['30%', '60%'],
@@ -406,7 +405,7 @@
                     },
                     series: [
                         {
-                            name: '访问来源',
+                            name: '视频类型占比',
                             type: 'pie',
                             radius: '60%',
                             center: ['30%', '60%'],
@@ -475,7 +474,7 @@
                     },
                     series: [
                         {
-                            name: '访问来源',
+                            name: '网络类型占比',
                             type: 'pie',
                             radius: '60%',
                             center: ['30%', '50%'],
@@ -515,8 +514,7 @@
                         ]
                     }],
                 })
-            }
-            ,
+            },
             //网格员占比
             yuantuset4(){
                 let data = this.GridMemberPie.map(function (v) {
@@ -545,7 +543,7 @@
                     },
                     series: [
                         {
-                            name: '访问来源',
+                            name: '网格员占比',
                             type: 'pie',
                             radius: '60%',
                             center: ['30%', '50%'],
@@ -634,11 +632,9 @@
                     //console.log(t.GridMemberPie)
                     t.yuantuset4();
                 })
-            }
-            ,
+            },
             //时间转换
-            dateFtt(fmt, date)
-            {
+            dateFtt(fmt, date){
                 var o = {
                     "M+": date.getMonth() + 1,               //月份
                     "d+": date.getDate(),                    //日
@@ -654,10 +650,7 @@
                     if (new RegExp("(" + k + ")").test(fmt))
                         fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
                 return fmt;
-            }
-            ,
-            //fangfa
-
+            },
         },
         components: {MapHandle}
     }

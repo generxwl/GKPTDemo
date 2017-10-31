@@ -169,10 +169,20 @@
     created(){
         //原清单
         api.GetsourcetypeAllInfo().then(res => {
+            // [
+            //  {
+            //    "code": "ps001",
+            //    "id": 1,
+            //    "name": "工业企业源",
+            //    "timetamp": 1509004260000
+            //  }
+            // ]
             let data = res.data.sourcetype;
             //this.SouData = data;
             console.log(data)
         })
+        //
+        this.ChenageGetDataList()
     },
     mounted(){
       //右侧收放
@@ -302,8 +312,8 @@
         this.setPageTable(10, val);
         //console.log(val)
       },
-        //行业排放量分布图
-        yuantuset1(){
+      //行业排放量分布图
+      yuantuset1(){
 
             // 基于准备好的dom，初始化echarts实例
             let myChart = echarts.init(document.getElementById('bing_item1'));
@@ -424,8 +434,8 @@
       },
       ChenageGetDataList(typeid){
           api.GetallInfoBySourceType(typeid).then(res => {
-              let data = res;
-              console.log(data)
+              let data = res.data.ExtraData;
+              this.initlistData(data, type)
           })
       }
     },

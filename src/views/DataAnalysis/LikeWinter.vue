@@ -149,6 +149,7 @@
                                         <p class="title_baay">225</p>
                                         <p>秋冬季</p>
                                         <p>采暖期PM2.5累计值</p>
+                                        <cprogressl class="pro_l" :height="100"></cprogressl>
                                     </div>
                                     <div class="obay_2">
                                         <p class="title_baay">15</p>
@@ -158,6 +159,7 @@
                                     <div class="obay_3">
                                         <p class="title_baay">4</p>
                                         <p>下降率</p>
+                                        <cprogressr class="pro_r" :height="60"></cprogressr>
                                     </div>
                                 </div>
                                 <div class="item_banyuan">
@@ -562,6 +564,8 @@
 <script>
     import api from '../../api/index'
     import BattleMap from '@/map/BattleMap'
+    import Cprogressl from '@/components/Cainprogress-l'
+    import Cprogressr from '@/components/Cainprogress-r'
     export default {
         name: 'likewinter',
         data(){
@@ -1294,7 +1298,7 @@
 
             },
         },
-        components: {BattleMap}
+        components: {BattleMap,Cprogressl,Cprogressr}
 
     };
 </script>
@@ -1340,6 +1344,7 @@
             background: #1d2339;
             float: left;
             overflow: hidden;
+            //border-image:url(../../../static/imgs/mues/cainuan/l-top.png);
             .item_text1{
                 width: 100%;
                 height: 24px;
@@ -1435,12 +1440,20 @@
                     height: 88px;
                     overflow: hidden;
                     background: url("../../../static/imgs/mues/cainuan/l-bg2.png")no-repeat;
+                    position: relative;
                     .title_baay{
                         font-size: 24px;
                         font-weight: bold;
                     }
                     p{
                         padding-right: 37px;
+                    }
+                    .pro_l{
+                        height:88px;
+                        width:70px;
+                        position: absolute;
+                        bottom: -5px;
+                        right: -8px;
                     }
                 }
                 .obay_2{
@@ -1462,12 +1475,20 @@
                     height: 88px;
                     overflow: hidden;
                     background: url("../../../static/imgs/mues/cainuan/r-bg2.png")no-repeat;
+                    position: relative;
                     .title_baay{
                         font-size: 24px;
                         font-weight: bold;
                     }
                     p{
                         padding-left: 35px;
+                    }
+                    .pro_r{
+                        height:88px;
+                        width:70px;
+                        position: absolute;
+                        bottom: -5px;
+                        left: 0;
                     }
                 }
             }
