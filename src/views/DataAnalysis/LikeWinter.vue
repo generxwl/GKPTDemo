@@ -149,7 +149,7 @@
                                         <p class="title_baay">225</p>
                                         <p>秋冬季</p>
                                         <p>采暖期PM2.5累计值</p>
-                                        <cprogressl class="pro_l" :height="100"></cprogressl>
+                                        <cprogressl class="pro_l" :height="50"></cprogressl>
                                     </div>
                                     <div class="obay_2">
                                         <p class="title_baay">15</p>
@@ -159,7 +159,7 @@
                                     <div class="obay_3">
                                         <p class="title_baay">4</p>
                                         <p>下降率</p>
-                                        <cprogressr class="pro_r" :height="60"></cprogressr>
+                                        <cprogressr class="pro_r" :height="50"></cprogressr>
                                     </div>
                                 </div>
                                 <div class="item_banyuan">
@@ -194,17 +194,103 @@
                                 </div>
                             </el-tab-pane>
                             <el-tab-pane label="月度" name="second_a">
-                                <div class="item_banyuan"></div>
-                                <div class="item_banyuan"></div>
                                 <div class="item_banyuan">
-                                    月度部分
+                                    <div class="obay_1">
+                                        <p class="title_baay">115</p>
+                                        <p>秋冬季</p>
+                                        <p>采暖期PM2.5累计值</p>
+                                        <cprogressl class="pro_l" :height="50"></cprogressl>
+                                    </div>
+                                    <div class="obay_2">
+                                        <p class="title_baay">15</p>
+                                        <p>2+26城市倒排</p>
+                                        <img src="../../../static/imgs/mues/cainuan/dp1-3.png" alt="">
+                                    </div>
+                                    <div class="obay_3">
+                                        <p class="title_baay">4</p>
+                                        <p>下降率</p>
+                                        <cprogressr class="pro_r" :height="50"></cprogressr>
+                                    </div>
+                                </div>
+                                <div class="item_banyuan">
+                                    <div class="obay_1">
+                                        <p class="title_baay">225</p>
+                                        <p>秋冬季</p>
+                                        <p>采暖期PM2.5累计值</p>
+                                    </div>
+                                    <div class="obay_2">
+                                        <p class="title_baay">15</p>
+                                        <p>2+26城市倒排</p>
+                                        <img src="../../../static/imgs/mues/cainuan/dp4-8.png" alt="">
+                                    </div>
+                                    <div class="obay_3">
+                                        <p class="title_baay">4</p>
+                                        <p>下降率</p>
+                                    </div>
+                                </div>
+                                <div class="item_banyuan">
+                                    <div class="line_top">
+                                        <p>10月1日至10月30日，PM2.5秋季任务未完成：</p>
+                                        <div>
+                                            <b>广阳区</b><b>广阳区</b><b>广阳区</b><b>广阳区</b><b>广阳区</b><b>广阳区</b><b>广阳区</b>
+                                        </div>
+                                    </div>
+                                    <div class="line_bottom">
+                                        <p>10月1日至10月30日，PM2.5秋季任务未完成：</p>
+                                        <div>
+                                            <b>广阳区</b><b>广阳区</b><b>广阳区</b>
+                                        </div>
+                                    </div>
                                 </div>
                             </el-tab-pane>
                             <el-tab-pane label="季度" name="third_a">
-                                <div class="item_banyuan"></div>
-                                <div class="item_banyuan"></div>
                                 <div class="item_banyuan">
-                                    季度部分
+                                    <div class="obay_1">
+                                        <p class="title_baay">85</p>
+                                        <p>秋冬季</p>
+                                        <p>采暖期PM2.5累计值</p>
+                                        <cprogressl class="pro_l" :height="50"></cprogressl>
+                                    </div>
+                                    <div class="obay_2">
+                                        <p class="title_baay">15</p>
+                                        <p>2+26城市倒排</p>
+                                        <img src="../../../static/imgs/mues/cainuan/dp1-3.png" alt="">
+                                    </div>
+                                    <div class="obay_3">
+                                        <p class="title_baay">4</p>
+                                        <p>下降率</p>
+                                        <cprogressr class="pro_r" :height="50"></cprogressr>
+                                    </div>
+                                </div>
+                                <div class="item_banyuan">
+                                    <div class="obay_1">
+                                        <p class="title_baay">225</p>
+                                        <p>秋冬季</p>
+                                        <p>采暖期PM2.5累计值</p>
+                                    </div>
+                                    <div class="obay_2">
+                                        <p class="title_baay">15</p>
+                                        <p>2+26城市倒排</p>
+                                        <img src="../../../static/imgs/mues/cainuan/dp4-8.png" alt="">
+                                    </div>
+                                    <div class="obay_3">
+                                        <p class="title_baay">4</p>
+                                        <p>下降率</p>
+                                    </div>
+                                </div>
+                                <div class="item_banyuan">
+                                    <div class="line_top">
+                                        <p>10月1日至10月30日，PM2.5秋季任务未完成：</p>
+                                        <div>
+                                            <b>广阳区</b><b>广阳区</b><b>广阳区</b><b>广阳区</b><b>广阳区</b><b>广阳区</b><b>广阳区</b>
+                                        </div>
+                                    </div>
+                                    <div class="line_bottom">
+                                        <p>10月1日至10月30日，PM2.5秋季任务未完成：</p>
+                                        <div>
+                                            <b>广阳区</b><b>广阳区</b><b>广阳区</b>
+                                        </div>
+                                    </div>
                                 </div>
                             </el-tab-pane>
                         </el-tabs>
@@ -261,11 +347,11 @@
                             <el-tab-pane label="月考核" name="second_z">
                                 <div class="table_kaohe_sanqu">
                                     <div class="lable_title">
-                                        <a>市八县周考核</a> <a style="margin-left: 20px">本周预处罚名单：{{000}}</a>
+                                        <a>市三区月考核</a> <a style="margin-left: 20px">本月预处罚名单：<span>开发区</span></a>
                                     </div>
                                     <div class="tubiao_warp">
                                         <div class="warp_left">
-                                            <div id="kaohe_5"></div>
+                                            <div id="kaohe_5" style="width: 209px;height: 80px"></div>
                                         </div>
                                         <div class="warp_chenter">
                                             <ul>
@@ -275,17 +361,17 @@
                                             </ul>
                                         </div>
                                         <div class="warp_right">
-                                            <div id="kaohe_6"></div>
+                                            <div id="kaohe_6" style="width: 182px;height: 80px"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="table_kaohe_baxian">
                                     <div class="lable_title">
-                                        <a>市三区周考核</a> <a style="margin-left: 20px">本周预处罚名单：{{000}}</a>
+                                        <a>市三区月考核</a> <a style="margin-left: 20px">本周预处罚名单：<span>霸州市 永清县 香河县</span></a>
                                     </div>
                                     <div class="tubiao_warp">
                                         <div class="warp_left">
-                                            <div id="kaohe_7"></div>
+                                            <div id="kaohe_7" style="width: 209px;height: 165px"></div>
                                         </div>
                                         <div class="warp_chenter">
                                             <ul>
@@ -300,7 +386,7 @@
                                             </ul>
                                         </div>
                                         <div class="warp_right">
-                                            <div id="kaohe_8"></div>
+                                            <div id="kaohe_8" style="width: 198px;height: 165px"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1344,7 +1430,6 @@
             background: #1d2339;
             float: left;
             overflow: hidden;
-            //border-image:url(../../../static/imgs/mues/cainuan/l-top.png);
             .item_text1{
                 width: 100%;
                 height: 24px;

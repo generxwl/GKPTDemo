@@ -243,7 +243,7 @@
 				let ndt7 = new Date(ndt);
 				ndt7.setDate(ndt.getDate() - 7);
 				this.$axios({
-					url: 'http://lftdkplat.zhiscity.com/api/Dust/GetWindDirectionPie',
+					url: 'http://gkpt.zq12369.com:8016/api/Dust/GetWindDirectionPie',
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/x-www-form-urlencoded'
@@ -370,7 +370,7 @@
 			},
 			initlistData(params) {
 				this.$axios({
-					url: 'http://lftdkplat.zhiscity.com/api/Dust/GetDustStatistics',
+					url: 'http://gkpt.zq12369.com:8016/api/Dust/GetDustStatistics',
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/x-www-form-urlencoded'
