@@ -118,43 +118,7 @@
         filters: {
               name: ''
           },
-        tableData: [
-            {
-                NetworkName:'梨园村',
-                Name:'廊坊天昊',
-                Industry:'餐饮',
-                Emission:'SO2',
-                EmissionAmount:'42'
-            },
-            {
-                NetworkName:'梨园村',
-                Name:'廊坊天昊',
-                Industry:'餐饮',
-                Emission:'SO2',
-                EmissionAmount:'42'
-            },
-            {
-                NetworkName:'梨园村',
-                Name:'廊坊天昊',
-                Industry:'餐饮',
-                Emission:'SO2',
-                EmissionAmount:'42'
-            },
-            {
-                NetworkName:'梨园村',
-                Name:'廊坊天昊',
-                Industry:'餐饮',
-                Emission:'SO2',
-                EmissionAmount:'42'
-            },
-            {
-                NetworkName:'梨园村',
-                Name:'廊坊天昊',
-                Industry:'餐饮',
-                Emission:'SO2',
-                EmissionAmount:'42'
-            }
-        ],
+        tableData: [],
         symume:true,
         wall:'收起∧',
         allData: [],
@@ -169,10 +133,20 @@
     created(){
         //原清单
         api.GetsourcetypeAllInfo().then(res => {
+            // [
+            //  {
+            //    "code": "ps001",
+            //    "id": 1,
+            //    "name": "工业企业源",
+            //    "timetamp": 1509004260000
+            //  }
+            // ]
             let data = res.data.sourcetype;
             //this.SouData = data;
             console.log(data)
         })
+        //
+        this.ChenageGetDataList()
     },
     mounted(){
       //右侧收放
@@ -280,16 +254,17 @@
         this.data = data;
         this.ALLdata = [];
         let i = 1;
-        let dt1 = this.getPointByType(this.ptType);
-        let dt2 = dt1.sort(this.compare(this.getPollution(type)));
-        dt2.forEach(item => {
+ //       let dt2 = this.getPointByType(this.type);
+//        let dt2 = dt1.sort(this.compare(this.getPollution(type)));
+        data.forEach(item => {
           const tableData = {};
           tableData.ranking = i++;//排名
-          tableData.InControl = item.name;//类型
-          tableData.citygid = item.deviceid;//城市id
-          tableData.latitude = item.latitude;//纬度
-          tableData.longitude = item.longitude;//经度
-          tableData.aqi = item[this.getPollution(type)];//数值
+          tableData.NetworkName = '---';//网格名称
+          tableData.Name = item.entname;//名称
+          tableData.Industry = '---';//行业
+          tableData.Emission = '---';//排放物
+          tableData.EmissionAmount = '---';//排放量
+          tableData.citygid = item.id;//城市id
           this.ALLdata.push(tableData);
         })
       },
@@ -302,8 +277,8 @@
         this.setPageTable(10, val);
         //console.log(val)
       },
-        //行业排放量分布图
-        yuantuset1(){
+      //行业排放量分布图
+      yuantuset1(){
 
             // 基于准备好的dom，初始化echarts实例
             let myChart = echarts.init(document.getElementById('bing_item1'));
@@ -424,8 +399,8 @@
       },
       ChenageGetDataList(typeid){
           api.GetallInfoBySourceType(typeid).then(res => {
-              let data = res;
-              console.log(data)
+              let data = res.data.ExtraData;
+              this.initlistData(data)
           })
       }
     },
