@@ -9,16 +9,16 @@ export default {
     path: '/api'
   }],
   release: [{
-    site: 'http://devgkptfc.zhiscity.com',
+    site: 'http://gkpt.zq12369.com:8015',
     port: '',
     path: '/api'
   }, {
-    site: 'http://devgkptplat.zhiscity.com',
+    site: 'http://gkpt.zq12369.com:8016',
     port: '',
     path: '/api'
   }, {
-    site: 'http://10.6.80.93',
-    port: '8080',
+    site: 'http://117.119.97.150',
+    port: '8061',
     path: '/servicePlatform'
   }],
   getRequestUrlByType(type){
