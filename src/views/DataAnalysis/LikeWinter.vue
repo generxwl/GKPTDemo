@@ -1,26 +1,26 @@
 <template>
     <!--冬防战报页面-->
-    <div class="Like-winter">
-        <div class="title">
+    <div class="Like-winter htt-winter">
+        <div class="title htt-title">
             <h1>廊坊市空气质量智能管控平台冬防战报</h1>
             <el-button class="goback" @click="$router.go(-1)">返回上级</el-button>
         </div>
-        <div class="warp_box">
-            <div class="Window_one">
+        <div class="warp_box htt-all">
+            <div class="Window_one htt-one">
                 <div class="item_text1">
                     <font>距下次更新时间：{{LfAirWinterPre.nextDataTime}}分钟</font>
                 </div>
                 <div class="item_text2">
-                    <div class="item_box1">
+                    <div class="item_box1 htt-one-up">
                         <p style="border-right: solid 1px #ccc">廊坊市实时AQI<span>{{LfAirWinterPre.aqi}}</span></p>
                         <p>74城市AQI倒数排名<span>{{LfAirWinterPre.dayrank_74}}</span></p>
                     </div>
-                    <div class="item_box1">
+                    <div class="item_box1 htt-one-up">
                         <p style="border-right: solid 1px #ccc">74城市年倒排<span>{{LfAirWinterPre.yearrank_74}}</span></p>
                         <p>74城市月倒排<span>{{LfAirWinterPre.monthrank_74}}</span></p>
                     </div>
                 </div>
-                <div class="item_text3">
+                <div class="item_text3 htt-one-middle">
                     今日控制目标：<a v-for="(data,index) in SouData.alertItem">{{data}}</a>
                 </div>
                 <div class="item_text4">
@@ -136,10 +136,10 @@
                     </el-carousel>
                 </div>
             </div>
-            <div class="Window_Two" style="margin-left: 20px">
+            <div class="Window_Two htt-two" style="margin-left: 20px">
                 <battle-map style="width: 100%;height: 100%"></battle-map>
             </div>
-            <div class="Window_Three" style="margin-left: 20px">
+            <div class="Window_Three htt-three" style="margin-left: 20px">
                 <el-tabs v-model="activeName_s" @tab-click="">
                     <el-tab-pane label="廊坊市秋冬季采暖期考核" name="first_s">
                         <el-tabs v-model="activeName_a" @tab-click="">
@@ -215,7 +215,7 @@
                                         <a>市三区周考核</a> <a style="margin-left: 20px">本周预处罚名单：<span>开发区</span></a>
                                     </div>
                                     <div class="tubiao_warp">
-                                        <div class="warp_left">
+                                        <div class="warp_left htt-left">
                                             <div id="kaohe_1" style="width: 209px;height: 80px"></div>
                                         </div>
                                         <div class="warp_chenter">
@@ -225,7 +225,7 @@
                                                 <li style="color: red">3.安次区</li>
                                             </ul>
                                         </div>
-                                        <div class="warp_right">
+                                        <div class="warp_right htt-right">
                                             <div id="kaohe_2" style="width: 182px;height: 80px"></div>
                                         </div>
                                     </div>
@@ -307,7 +307,7 @@
                     </el-tab-pane>
                 </el-tabs>
             </div>
-            <div class="Window_Four" style="margin-top: -54px">
+            <div class="Window_Four htt-four" style="margin-top: -54px">
                 <el-tabs v-model="activeName_t" @tab-click="">
                     <el-tab-pane label="市政数据" name="first_t">
                         <div class="renwu-box">
@@ -386,7 +386,7 @@
                     </el-tab-pane>
                 </el-tabs>
             </div>
-            <div class="Window_Five" style="margin-left: 20px;margin-top: -54px">
+            <div class="Window_Five htt-five" style="margin-left: 20px;margin-top: -54px">
                 <el-tabs v-model="activeName_f" @tab-click="">
                     <el-tab-pane label="空气质量检测" name="first_f">
                         <div class="table_container">
@@ -529,7 +529,7 @@
                     </el-tab-pane>
                 </el-tabs>
             </div>
-            <div class="Window_six" style="margin-left: 20px;margin-top: 20px">
+            <div class="Window_six htt-six" style="margin-left: 20px;margin-top: 20px">
                 <!--aqiColor-->
                 <div class="data_water1">
                     <p v-if="WeatherWinterPre[0].date">{{WeatherWinterPre[0].date}}</p>
@@ -1302,8 +1302,8 @@
     @import "../../styles/carousel";//轮播图样式
     .Like-winter{
         width: 100%;
-        min-height: 800px;
-        height: 100%;
+        /*min-height: 800px;*/
+        height: auto;
         color: #fff;
         background: #242953;
         .title{
