@@ -36,7 +36,6 @@
     .htt-six{
         width: 35%!important;
     }
-    
 }
 .item_text1 font{
     padding-top: 10px!important;
@@ -67,7 +66,6 @@
 .item_banyuan{
     width: 100%!important;
     padding: 0px 60px!important;
-    
 }
 .obay_1{
     width: 35%!important;
@@ -111,30 +109,27 @@
         text-align: center!important;
     }
 }
-#dian_1{
-    div:nth-child(1){
+#dian_1>div:nth-child(1){
+        margin-left: 60px!important;
+        overflow: visible!important;
+}
+#dian_1>div:nth-child(3){
+        left: 60px!important;
+        right: -50px!important;
+}
+    #dian_2{
+        textarea{
+                 padding: 0px 10px!important;
+                }
+}
+#dian_2>div:nth-child(1){
 margin-left: 60px!important;
 overflow: visible!important;
-    }
-     div:nth-child(3){
+}
+#dian_2>div:nth-child(3){
         left: 60px!important;
         right: -50px!important;
     }
-}
-#dian_2{
-    div:nth-child(1){
-margin-left: 60px!important;
-overflow: visible!important;
-    }
-    div:nth-child(3){
-        left: 60px!important;
-        right: -50px!important;
-        
-    }
-    textarea{
-        padding: 0px 10px!important;
-    }
-}
 #kaohe_1{
     div{
     overflow: visible!important;
@@ -151,11 +146,8 @@ overflow: visible!important;
     }
     }
 }
-//.htt-right{
-//  div:nth-child(2){
-//      overflow: visible!important;
-//      canvas{
-//          left: 40px!important;
-//      }
-//  }
-//}
+#dian_1{
+    div:nth-child(4){
+        margin-right: 70px!important;
+    }
+}

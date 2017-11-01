@@ -96,21 +96,24 @@
   .data_water3 a {
     text-align: center !important; }
 
-#dian_1 div:nth-child(1) {
+#dian_1 > div:nth-child(1) {
   margin-left: 60px !important;
   overflow: visible !important; }
-#dian_1 div:nth-child(3) {
+
+#dian_1 > div:nth-child(3) {
   left: 60px !important;
   right: -50px !important; }
 
-#dian_2 div:nth-child(1) {
-  margin-left: 60px !important;
-  overflow: visible !important; }
-#dian_2 div:nth-child(3) {
-  left: 60px !important;
-  right: -50px !important; }
 #dian_2 textarea {
   padding: 0px 10px !important; }
+
+#dian_2 > div:nth-child(1) {
+  margin-left: 60px !important;
+  overflow: visible !important; }
+
+#dian_2 > div:nth-child(3) {
+  left: 60px !important;
+  right: -50px !important; }
 
 #kaohe_1 div {
   overflow: visible !important; }
@@ -121,5 +124,8 @@
   overflow: visible !important; }
   #kaohe_2 div canvas {
     left: 40px !important; }
+
+#dian_1 div:nth-child(4) {
+  margin-right: 70px !important; }
 
 /*# sourceMappingURL=likeWinter.css.map */
