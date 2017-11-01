@@ -483,7 +483,7 @@
                                     border
                                     stripe
                                     highlight-current-row
-                                    style="width: 400px">
+                                 >
                                 <el-table-column
                                         property="xuhao"
                                         label="序号"
@@ -524,7 +524,7 @@
                                             border
                                             stripe
                                             highlight-current-row
-                                            style="width: 400px">
+                                           >
                                         <el-table-column
                                                 property="ranking"
                                                 label="排名"
@@ -555,7 +555,7 @@
                                             border
                                             stripe
                                             highlight-current-row
-                                            style="width: 400px">
+                                            >
                                         <el-table-column
                                                 property="ranking"
                                                 label="排名"
@@ -588,7 +588,7 @@
                                     border
                                     stripe
                                     highlight-current-row
-                                    style="width: 400px">
+                                    >
                                 <el-table-column
                                         property="SerialNumber"
                                         label="序号"
