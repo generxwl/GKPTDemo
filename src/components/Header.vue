@@ -15,19 +15,19 @@
                     <a>监测调度 <i></i></a>
                     <div class="Twoitem">
                         <div>
-                            <p>监测网</p>
+                            <h3>监测网</h3>
                             <a href="#/Monitor">国省控点监测</a>
                             <a href="#/superstation">超级站</a>
                             <a href="#/SensorNetwork">传感网</a>
                         </div>
                         <div>
-                            <p>散乱污监控</p>
+                            <h3>散乱污监控</h3>
                             <a href="#/ScatteredDirtVideos">散乱污企业监控</a>
                             <a href="#/Videos">VOCs企业监控</a>
                             <a>高点监控</a>
                         </div>
                         <div>
-                            <p>GPS监控</p>
+                            <h3>GPS监控</h3>
                             <a>渣土车</a>
                             <a>环卫车</a>
                         </div>
@@ -271,13 +271,15 @@
                         font-family: "Microsoft YaHei";
                         cursor: pointer;
                     }
-                    :hover:not(p){
-                        color: #1080cc;
-                    }
-                    p{
+                    h3{
                       text-align: left;
                       font-weight: bold;
+                      font-size: 14px;
+                        margin: 4px;
                       padding: 0;
+                    }
+                    :hover:not(h3){
+                        color: #1080cc;
                     }
                 }
                 .Threeitem {

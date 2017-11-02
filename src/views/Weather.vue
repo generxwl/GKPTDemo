@@ -34,6 +34,6 @@
 <style lang="scss" scoped>
     .YBweather {
         width: 100%;
-        height: calc(100% - 50px);
+        height: calc(100% - 56px);
     }
 </style>
