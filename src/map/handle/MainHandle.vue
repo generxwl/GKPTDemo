@@ -11,6 +11,7 @@
       return {
         lsMarkers: [],
         lsLabels: [],
+        lsRedLabels: [],
         defaultType: 'LAYER_GS',
         maxZoom: 13,
         trafficLayer: undefined,
@@ -51,7 +52,7 @@
           case 'LAYER_GD':
           case 'LAYER_QY':
             //请求接口触发
-            hasVisible ? this.requestData(type, from) : (this.removeMarkerByList(this.getMarkerByType(type), type), this.removeMarkerLabel(this.getMarkerLabelByType(type), type));
+            hasVisible ? this.requestData(type, from) : (this.removeMarkerByList(this.getMarkerByType(type), type), this.removeMarkerLabel(this.getMarkerLabelByType(type), type), this.removeLabelRed(this.getLabelRedByType(type), type));
             break;
           case 'LAYER_LK':
             this.targetTrafficLayer(hasVisible);
@@ -63,6 +64,7 @@
       requestData(type, from){
         this.lsMarkers.length && this.removeMarkerByList(this.getMarkerByType(type), type);
         this.lsLabels.length && this.removeMarkerLabel(this.getMarkerLabelByType(type), type);
+        this.lsRedLabels.length && this.removeLabelRed(this.getLabelRedByType(type), type);
         let t = this;
         let lsUrl = [];
         let fieldName = undefined;
@@ -185,6 +187,11 @@
           let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName), type, value[fieldName] || undefined);
           let label = t.setMarkerLabel(labelName, t.getMarkerLabelState(value, type, fieldName), pt, type);//, marker.setLabel(label)
           label && (t.lsLabels.push({label: label, type: type}), t.map.addOverlay(label));
+
+          //获取警报Label
+          let labelRed = t.getLabelRed(value, type, fieldName, pt);
+          labelRed && (t.lsRedLabels.push({label: labelRed, type: type}), t.map.addOverlay(labelRed));
+
           marker && (t.map.addOverlay(marker), marker.attributes = value, t.lsMarkers.push({
             marker: marker,
             type: type
@@ -213,6 +220,40 @@
           value = data[fieldName] || '--';
         }
         return {level: level, value: value};
+      },
+
+      //获取警报Label
+      getLabelRed(data, ptType, fieldName, pt){
+        let labelRed = undefined;
+        //if(!(ptType.toUpperCase() === 'LAYER_SP_SLW' || ptType.toUpperCase() === 'LAYER_SP_VOC' || ptType.toUpperCase() === 'LAYER_SP_GKW')) {
+        if (ptType.toUpperCase() === 'LAYER_GS') {
+          let value = data[fieldName];
+          let hasRed = false;
+          if (ptType.toUpperCase() === 'LAYER_VOC' || ptType.toUpperCase() === 'LAYER_CGQ_VOC') {
+            hasRed = getVOCLeveColorIndex(data.TVOC_V) > 3;
+          } else if (ptType.toUpperCase() === 'LAYER_QY') {
+            hasRed = data['isOnline'] ? value : false;
+          } else {
+            hasRed = getAQILevelIndex(value) > 3;
+          }
+          //警报
+          if (hasRed) {
+            let elContext = '<div class="pulse"></div><div class="pulse1"></div>';
+            let conPoint = this.wgsPointToBd(pt);
+            let opts = {
+              position: (ptType.toUpperCase() === 'LAYER_SP' || ptType.toUpperCase() === 'LAYER_SP_VOC' || ptType.toUpperCase() === 'LAYER_CGQ_LCS' || ptType.toUpperCase() === 'LAYER_CGQ_VOC' || ptType.toUpperCase() === 'LAYER_GD') ? conPoint : pt,
+              offset: (ptType.toUpperCase() === 'LAYER_SP' || ptType.toUpperCase() === 'LAYER_SP_VOC' || ptType.toUpperCase() === 'LAYER_CGQ_LCS' || ptType.toUpperCase() === 'LAYER_CGQ_VOC' || ptType.toUpperCase() === 'LAYER_GD') ? new BMap.Size(-33, -33) : new BMap.Size(-32, -32)
+            };
+            labelRed = new BMap.Label(elContext, opts);
+            labelRed.setStyle({
+              border: 'none',
+              background: 'none',
+              height: '60px',
+              width: '60px',
+            });
+          }
+        }
+        return labelRed;
       },
 
       //获取Marker状态
@@ -704,6 +745,7 @@
 
       //设置MarkerLabel
       setMarkerLabel(displayValue, state, point, lyType){
+//        displayValue = displayValue === '药材公司' ? '第十中学' : displayValue;
         let conPoint = this.wgsPointToBd(point);
         let label = new BMap.Label(((!state.value) ? displayValue : this.getLabelContent(displayValue, state, lyType)) || '');
         label.setStyle({
@@ -979,6 +1021,15 @@
         return rtValue;
       },
 
+      getLabelRedByType(type){
+        let rtValue = [];
+        for (let i = 0, length = this.lsRedLabels.length; i < length; i++) {
+          let item = this.lsRedLabels[i];
+          item.type.toUpperCase() === type.toUpperCase() && rtValue.push(item);
+        }
+        return rtValue;
+      },
+
       //移除Marker根据类型及Marker集合
       removeMarkerByList(ls, type){
         for (let i = 0, length = ls.length; i < length; i++) {
@@ -1003,6 +1054,17 @@
           v.type.toUpperCase() !== type.toUpperCase() && lsAllLabels.push(v);
         });
         this.lsLabels = lsAllLabels;
+      },
+
+      //移除LabelRed
+      removeLabelRed(ls = [], type){
+        let t = this;
+        ls.forEach(v => t.map.removeOverlay(v.label));
+        let lsAllLabels = [];
+        this.lsRedLabels.forEach(function (v) {
+          v.type.toUpperCase() !== type.toUpperCase() && lsAllLabels.push(v);
+        });
+        this.lsRedLabels = lsAllLabels;
       },
 
       //清除Marker
@@ -1035,5 +1097,117 @@
     text-align: center;
     border: 1px solid #ddd;
     /*padding: 4px 2px;*/
+  }
+
+  /*警报CSS*/
+  @keyframes warn {
+    0% {
+      transform: scale(0.3);
+      -webkit-transform: scale(0.3);
+      opacity: 0.0;
+    }
+
+    25% {
+      transform: scale(0.3);
+      -webkit-transform: scale(0.3);
+      opacity: 0.5;
+    }
+
+    50% {
+      transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+      opacity: 0.7;
+    }
+
+    75% {
+      transform: scale(0.8);
+      -webkit-transform: scale(0.8);
+      opacity: 0.9;
+    }
+
+    100% {
+      transform: scale(1);
+      -webkit-transform: scale(1);
+      opacity: 0.0;
+    }
+  }
+
+  @keyframes warn1 {
+    0% {
+      transform: scale(0.3);
+      -webkit-transform: scale(0.3);
+      opacity: 0.0;
+    }
+
+    25% {
+      transform: scale(0.3);
+      -webkit-transform: scale(0.3);
+      opacity: 0.5;
+    }
+
+    50% {
+      transform: scale(0.3);
+      -webkit-transform: scale(0.3);
+      opacity: 0.7;
+    }
+
+    75% {
+      transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+      opacity: 0.9;
+    }
+
+    100% {
+      transform: scale(0.8);
+      -webkit-transform: scale(0.8);
+      opacity: 0.0;
+    }
+  }
+
+  .container {
+    position: relative;
+    border: none;
+    width: 60px;
+    height: 60px;
+  }
+
+  /* 产生动画（向外扩散变大）的圆圈 第一个圆 */
+  .pulse {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ff0000;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    -webkit-animation: warn 2s ease-out;
+    -moz-animation: warn 2s ease-out;
+    animation: warn 2s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    box-shadow: 1px 1px 30px #ff0000; /* 阴影效果 */
+  }
+
+  /* 产生动画（向外扩散变大）的圆圈 第二个圆 */
+  .pulse1 {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ff0000;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    -webkit-animation: warn1 2s ease-out;
+    -moz-animation: warn1 2s ease-out;
+    animation: warn1 2s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    box-shadow: 1px 1px 30px #ff0000; /* 阴影效果 */
   }
 </style>

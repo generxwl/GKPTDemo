@@ -36,7 +36,8 @@
           keyField: 'citygid'
         }],
         lsLabelOverlay: [],
-        lsMarkerOverlay: []
+        lsMarkerOverlay: [],
+        lsRedLabels:[]
       };
     },
     created(){
@@ -58,6 +59,8 @@
         this.type = type;
         (this.valueField && this.displayField && this.keyField) && this.request();
       },
+
+      //发送数据请求
       request(){
         let t = this;
         this.setAttributeKey();
@@ -87,6 +90,8 @@
           });
         }
       },
+
+      //渲染覆盖物
       render(data){
         if (data) {
           let t = this;
@@ -96,39 +101,48 @@
             let value = v[t.valueField.toLowerCase()] || 0;
             let unit = undefined;
             let index = -1;
+            let hasRed = false;
 
             switch (t.valueField.toUpperCase()) {
               case 'AQI':
                 unit = '';
                 index = getAQILevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'PM25':
                 unit = 'ug/m3';
                 index = getPM25LevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'PM10':
                 unit = 'ug/m3';
                 index = getPM10LevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'SO2':
                 unit = 'ug/m3';
                 index = getSO2LevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'NO2':
                 unit = 'ug/m3';
                 index = getNO2LevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'O3':
                 unit = 'ug/m3';
                 index = getO3LevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'CO':
                 unit = 'mg/m3';
                 index = getCOLevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'INDEX':
                 unit = '';
                 index = getComplexIndex(value);
+                hasRed = index > 3;
                 break;
               case 'TEMP':
                 unit = '℃';
@@ -179,6 +193,8 @@
 
             let labelName = t.createLabelName(v, point);
             labelName && (t.lsLabelOverlay.push(labelName), t.map.addOverlay(labelName));
+
+            hasRed && t.showRedLabels(point);
           });
         }
       },
@@ -204,6 +220,24 @@
         return label_tip;
       },
 
+      //加载预警覆盖物
+      showRedLabels(point){
+        let elContext = '<div class="pulse"></div><div class="pulse1"></div>';
+        let opts = {
+          position: point,
+          offset: new BMap.Size(-30, -20)
+        };
+        let labelRed = new BMap.Label(elContext, opts);
+        labelRed.setStyle({
+          border: 'none',
+          background: 'none',
+          height: '60px',
+          width: '60px',
+        });
+        this.lsRedLabels.push(labelRed);
+        this.map.addOverlay(labelRed);
+      },
+
       //根据类型获取属性字段
       setAttributeKey(){
           let t = this;
@@ -222,6 +256,7 @@
         let t = this;
         this.lsMarkerOverlay.forEach(v => (t.map.removeOverlay(v)));
         this.lsLabelOverlay.forEach(v => (t.map.removeOverlay(v)));
+        this.lsRedLabels.forEach(v => (t.map.removeOverlay(v)));
       }
     }
   };

@@ -16,6 +16,7 @@
         lsRenderOverlay: [],
         lsSearchInfoWindow: [],
         lsRenderMarker: [],
+        lsRedLabels:[],
         historyData:[],
         hasHistory:false,
         data: [],
@@ -135,7 +136,8 @@
         if (data) {
           this.clearRenderOverlay();
           let aqi, lat, lng, city, pointname, level, region, province, title, value, unit, index, hourdiff,
-            time, pointtype, bgcolor
+            time, pointtype, bgcolor;
+          let hasRed = false;
           for (let i = 0; i < data.length && (this.type !== 'REGION' || this.checkedName !== 'AQI'); i++) {
             city = data[i].cityname;
             pointname = data[i].pointname;
@@ -146,14 +148,13 @@
               level = '城市';
             }
             aqi = parseInt(data[i].aqi);
-            let time1 = new Date(data[i].time);
-            let time2 = new Date();
             hourdiff = 0;
             switch (type) {
               case 'AQI':
                 value = aqi;
                 unit = '';
                 index = getAQILevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'PM2.5':
                 if (hourdiff < 2) {
@@ -163,6 +164,7 @@
                 }
                 unit = 'ug/m3';
                 index = getPM25LevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'PM10':
                 if (hourdiff < 2) {
@@ -172,6 +174,7 @@
                 }
                 unit = 'ug/m3';
                 index = getPM10LevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'SO2':
                 if (hourdiff < 2) {
@@ -181,6 +184,7 @@
                 }
                 unit = 'ug/m3';
                 index = getSO2LevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'NO2':
                 if (hourdiff < 2) {
@@ -190,6 +194,7 @@
                 }
                 unit = 'ug/m3';
                 index = getNO2LevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'O3':
                 if (hourdiff < 2) {
@@ -199,6 +204,7 @@
                 }
                 unit = 'ug/m3';
                 index = getO3LevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'CO':
                 if (hourdiff < 2) {
@@ -208,11 +214,13 @@
                 }
                 unit = 'mg/m3';
                 index = getCOLevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'INDEX':
                 value = parseFloat(data[i].complexindex).toFixed(2);
                 unit = '';
                 index = getComplexIndex(value);
+                hasRed = index > 3;
                 break;
               case 'TEMP':
                 if (hourdiff < 2) {
@@ -231,6 +239,7 @@
                 }
                 unit = '%';
                 index = getHumiLevelIndex(value);
+                hasRed = index > 3;
                 break;
               case 'WS':
                 if (hourdiff < 2) {
@@ -285,6 +294,7 @@
                 }
               }
               this.showMapByPoint(title, value, bgcolor, point, '', i, city, region, pointname, index, isfd, data[i].citygid);
+              hasRed && this.showRedLabels(point);
             }
           }
         }
@@ -432,6 +442,24 @@
         }
       },
 
+      //加载预警覆盖物
+      showRedLabels(point){
+        let elContext = '<div class="pulse"></div><div class="pulse1"></div>';
+        let opts = {
+          position: point,
+          offset: new BMap.Size(-30, -20)
+        };
+        let labelRed = new BMap.Label(elContext, opts);
+        labelRed.setStyle({
+          border: 'none',
+          background: 'none',
+          height: '60px',
+          width: '60px',
+        });
+        this.lsRedLabels.push(labelRed);
+        this.map.addOverlay(labelRed);
+      },
+
       //清除覆盖物
       clearRenderOverlay () {
         this.lsSearchInfoWindow.length = 0;
@@ -441,8 +469,12 @@
         for (let i = 0, length = this.lsRenderMarker.length; i < length; i++) {
           this.map.removeOverlay(this.lsRenderMarker[i]);
         }
+        for (let i = 0, length = this.lsRedLabels.length; i < length; i++) {
+          this.map.removeOverlay(this.lsRedLabels[i]);
+        }
         this.lsRenderOverlay = [];
         this.lsRenderMarker = [];
+        this.lsRedLabels = [];
       },
 
       //显示监测点详细信息框
@@ -798,5 +830,117 @@
 
   .BMapLib_SearchInfoWindow .BMapLib_sendToPhone {
     background: none;
+  }
+
+  /*警报CSS*/
+  @keyframes warn {
+    0% {
+      transform: scale(0.3);
+      -webkit-transform: scale(0.3);
+      opacity: 0.0;
+    }
+
+    25% {
+      transform: scale(0.3);
+      -webkit-transform: scale(0.3);
+      opacity: 0.5;
+    }
+
+    50% {
+      transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+      opacity: 0.7;
+    }
+
+    75% {
+      transform: scale(0.8);
+      -webkit-transform: scale(0.8);
+      opacity: 0.9;
+    }
+
+    100% {
+      transform: scale(1);
+      -webkit-transform: scale(1);
+      opacity: 0.0;
+    }
+  }
+
+  @keyframes warn1 {
+    0% {
+      transform: scale(0.3);
+      -webkit-transform: scale(0.3);
+      opacity: 0.0;
+    }
+
+    25% {
+      transform: scale(0.3);
+      -webkit-transform: scale(0.3);
+      opacity: 0.5;
+    }
+
+    50% {
+      transform: scale(0.3);
+      -webkit-transform: scale(0.3);
+      opacity: 0.7;
+    }
+
+    75% {
+      transform: scale(0.5);
+      -webkit-transform: scale(0.5);
+      opacity: 0.9;
+    }
+
+    100% {
+      transform: scale(0.8);
+      -webkit-transform: scale(0.8);
+      opacity: 0.0;
+    }
+  }
+
+  .container {
+    position: relative;
+    border: none;
+    width: 60px;
+    height: 60px;
+  }
+
+  /* 产生动画（向外扩散变大）的圆圈 第一个圆 */
+  .pulse {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ff0000;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    -webkit-animation: warn 2s ease-out;
+    -moz-animation: warn 2s ease-out;
+    animation: warn 2s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    box-shadow: 1px 1px 30px #ff0000; /* 阴影效果 */
+  }
+
+  /* 产生动画（向外扩散变大）的圆圈 第二个圆 */
+  .pulse1 {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ff0000;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    -webkit-animation: warn1 2s ease-out;
+    -moz-animation: warn1 2s ease-out;
+    animation: warn1 2s ease-out;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    box-shadow: 1px 1px 30px #ff0000; /* 阴影效果 */
   }
 </style>

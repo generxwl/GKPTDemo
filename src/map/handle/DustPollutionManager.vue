@@ -15,6 +15,7 @@
         ptType: '国控点',
         hasLoaded: false,
         maxZoom: 13,
+        count: 0,
         lsRenderOverlay: [],
         lsLabelOverlay: [],
         lsSearchInfoWindow: [],
@@ -42,10 +43,11 @@
 
       //重置Map对象
       resetData (map) {
-        bus.$emit('setLayerType','DUST');//设置时间轴图层类型
+        bus.$emit('setLayerType', 'DUST');//设置时间轴图层类型
         if (!this.hasLoaded) {
           this.hasLoaded = true;
           this.map = map;
+          this.data = [];
           this.setPollutionByType(this.item);
         }
       },
@@ -65,17 +67,37 @@
         let mapLevel = this.map.getZoom();
         let bs = this.map.getBounds();
         //let url = this.pollutionUrl;
-        let url = RequestHandle.getRequestUrl('DUSTPOLLUTION');
-        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-//          console.log(result);
-          if (result.status === 1) {
-            t.data = result.obj;
-            t.render(result.obj, type);
-            bus.$emit('refreshDustRanking', result.obj, type);
-          }
-        }, function (ex) {
-          console.error(ex);
-        });
+        let urlDU = RequestHandle.getRequestUrl('DUSTPOLLUTION');
+        let urlXH = RequestHandle.getRequestUrl('XHDUST');
+        let lsResult = [];
+        let lsUrl = [];
+        lsUrl.push(urlDU);
+        lsUrl.push(urlXH);
+        for (let i = 0, length = lsUrl.length; i < length; i++) {
+          let url = lsUrl[i];
+          console.log(i);
+          RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+            if (result.status === 1) {
+              lsResult = lsResult.concat(result.obj);
+              if (t.count === (lsUrl.length - 1) && lsResult.length) {
+                t.count = 0;
+                t.data = lsResult;
+                t.render(lsResult, type);
+                bus.$emit('refreshDustRanking', lsResult, type);
+              } else {
+                t.count++;
+              }
+            }
+          }, function (ex) {
+            if (i + 1 === lsUrl.length && lsResult.length) {
+              t.count = 0;
+              t.render(lsResult, type);
+              bus.$emit('refreshDustRanking', lsResult, type);
+            } else {
+              t.count++;
+            }
+          });
+        }
       },
 
       //获取点信息根据类型
@@ -110,15 +132,15 @@
       },
 
       //右侧面板监测点列表点击事件
-      showDustInfoWindow(lng, lat, code){
+      showDustInfoWindow(lng, lat, attr){
         let point = new BMap.Point(lng, lat);
         let transPoint = this.wgsPointToBd(point);
-        this.showCityPointChart(code, transPoint);
+        this.showCityPointChart(attr, transPoint);
       },
 
       //根据数据和指标类型加载地图及覆盖物
       render (data, type) {
-//        console.log(data);
+        console.log(data);
 //        console.log(type);
         if (data) {
           this.clearRenderOverlay();
@@ -240,7 +262,7 @@
             let transPoint = this.wgsPointToBd(point);
             bgcolor = getColorByIndex(index);
 
-            this.showMapByPoint(value, bgcolor, transPoint, city, region, pointname, index, data[i].deviceid);
+            this.showMapByPoint(value, bgcolor, transPoint, city, region, pointname, index, data[i]);
           }
         }
       },
@@ -260,7 +282,7 @@
       },
 
       //加载地图覆盖物
-      showMapByPoint (value, bgcolor, point, city, region, pointname, index, citycode) {
+      showMapByPoint (value, bgcolor, point, city, region, pointname, index, attr) {
         let t = this;
         let arr, wl, wd, icon, offseth, color, isone;
         let opts = {
@@ -268,7 +290,7 @@
           offset: new BMap.Size(-15, -15)
         };
 
-        let label = new BMap.Label(value + '<div class="arrow" style="width: 0;  height: 0; border-left: 8px solid transparent; border-top: 8px solid; border-right: 8px solid transparent; color:' + bgcolor + '; position: absolute;  margin-top:-2px;margin-left:8px  " ></div>', opts)  // 创建文本标注对象
+        let label = new BMap.Label((value || '--') + '<div class="arrow" style="width: 0;  height: 0; border-left: 8px solid transparent; border-top: 8px solid; border-right: 8px solid transparent; color:' + bgcolor + '; position: absolute;  margin-top:-2px;margin-left:8px  " ></div>', opts)  // 创建文本标注对象
         let maplevel = this.map.getZoom();
 
         if (this.item === 'WINDDIRECTION') {
@@ -344,8 +366,8 @@
             }
           }
         }
-        label.addEventListener('click', function () {
-          t.showCityPointChart(citycode, point);
+        label.addEventListener('click', function (e) {
+          t.showCityPointChart(attr, point);
         });
       },
 
@@ -431,15 +453,16 @@
       },
 
       //图标点击显示图表信息
-      showCityPointChart (code, point) {
+      showCityPointChart (attr, point) {
         let t = this;
-        let charUrl = RequestHandle.getRequestUrl('DUSTCHART');
+        let charUrl = attr.hasOwnProperty('dataType') ? RequestHandle.getRequestUrl('XHDUSTCHAR') :  RequestHandle.getRequestUrl('DUSTCHART');
+        let code = attr['deviceid'];
         let url = charUrl + '?deviceid=' + code + '&ptype=' + this.item.replace('.', '').toLowerCase();
 //        console.log(code + this.item);
         RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
 //          console.log(result);
           if (result.status === 1) {
-            let data = result.obj[0];
+            let data = result.obj[0] || result.obj;
             let res = t.setInfoWindow(data);
 //            console.log(res);
             let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
