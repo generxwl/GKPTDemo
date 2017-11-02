@@ -13,7 +13,7 @@
                 </li>
                 <li>
                     <a>监测调度 <i></i></a>
-                    <div class="Twoitem">
+                    <div class="Twoitem submenu">
                         <div>
                             <h3>监测网</h3>
                             <a href="#/Monitor">国省控点监测</a>
@@ -35,7 +35,7 @@
                 </li>
                 <li>
                     <a>源清单<i></i></a>
-                    <div class="Threeitem">
+                    <div class="Threeitem submenu">
                         <div>
                             <p>动态源清单</p>
                             <a href="#/EnterpriseEonitoring">企业在线监测</a>
@@ -51,7 +51,7 @@
                 </li>
                 <li>
                     <a>气象监测与预报<i></i></a>
-                    <div class="Fouritem">
+                    <div class="Fouritem submenu">
                         <a href="#/weatherstation">气象站</a><br/>
                         <a href="#/GridPrediction">网格预测</a><br/>
                         <a href="#/DTweather">动态风场</a><br/>
@@ -63,7 +63,7 @@
                 </li>
                 <li>
                     <a>大数据资源<i></i></a>
-                    <div class="Fiveitem">
+                    <div class="Fiveitem submenu">
                         <div>
                             <h3>城市排名</h3>
                             <a>城市排名</a>
@@ -101,7 +101,7 @@
                 </li>
                 <li>
                     <img style="padding: 0 20px" src="../assets/img/btn_intercalate.png" alt="">
-                    <div class="Sixitem">
+                    <div class="Sixitem submenu">
                         <a><img src="../assets/img/btn_Backstage1.png" alt="">进入后台</a><br/>
                         <a v-on:click="exit"><img src="../assets/img/btn_quit1.png" alt="">退出系统</a>
                     </div>
@@ -121,34 +121,35 @@
         },
         mounted(){
             //导航部分
-            $('.bnav li').on('click', function () {
-                $(this).addClass('active').siblings().attr("class", "");
-                $(this).addClass('active').siblings().children('div').css('display', 'none')
-                $(this).children('div').css('display', 'block')
-            });
-            $('.bnav li').on('mouseleave', function () {
-                $(this).children('div').css('display', 'none')
-            });
+//            $('.bnav li').on('click', function () {
+//                $(this).addClass('active').siblings().attr("class", "");
+//                $(this).addClass('active').siblings().children('div').css('display', 'none')
+//                $(this).children('div').css('display', 'block')
+//            });
+//            $('.bnav li').on('mouseleave', function () {
+//                $(this).children('div').css('display', 'none')
+//            });
             //
-            $('.Oneitem').on('mouseleave',function () {
-                $('.Oneitem').css('display', 'none')
-            });
-            $('.Twoitem').on('mouseleave',function () {
-                $('.Twoitem').css('display', 'none')
-            });
-            $('.Threeitem').on('mouseleave',function () {
-                $('.Threeitem').css('display', 'none')
-            });
-            $('.Fouritem').on('mouseleave',function () {
-                $('.Fouritem').css('display', 'none')
-            });
-            $('.Fiveitem').on('mouseleave',function () {
-                $('.Fiveitem').css('display', 'none')
-            });
-            $('.Sixitem').on('mouseleave',function () {
-                $('.Sixitem').css('display', 'none')
-            });
+//            $('.Oneitem').on('mouseleave',function () {
+//                $('.Oneitem').css('display', 'none')
+//            });
+//            $('.Twoitem').on('mouseleave',function () {
+//                $('.Twoitem').css('display', 'none')
+//            });
+//            $('.Threeitem').on('mouseleave',function () {
+//                $('.Threeitem').css('display', 'none')
+//            });
+//            $('.Fouritem').on('mouseleave',function () {
+//                $('.Fouritem').css('display', 'none')
+//            });
+//            $('.Fiveitem').on('mouseleave',function () {
+//                $('.Fiveitem').css('display', 'none')
+//            });
+//            $('.Sixitem').on('mouseleave',function () {
+//                $('.Sixitem').css('display', 'none')
+//            });
             //
+            this.lanrenzhijia('li');
         },
         methods: {
         		exit(){
@@ -160,6 +161,26 @@
 //                        });
         				this.$router.push('/login')
         			})
+        		},
+                lanrenzhijia(_this){
+                    $(_this).each(function(){
+                        var $this = $(this);
+                        var theMenu = $this.find(".submenu");
+                        var tarHeight = theMenu.height()+20;
+                        theMenu.css({height:0});
+                        $this.hover(
+                            function(){
+                               // $(this).addClass("mj_hover_menu");
+                                theMenu.stop().show().animate({height:tarHeight},400);
+                            },
+                            function(){
+                               // $(this).removeClass("mj_hover_menu");
+                                theMenu.stop().animate({height:0},400,function(){
+                                    $(this).css({display:"none"});
+                                });
+                            }
+                        );
+                    });
         		}
         }
     }
