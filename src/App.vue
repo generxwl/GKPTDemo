@@ -180,7 +180,7 @@
       -webkit-animation-iteration-count: infinite;
       -moz-animation-iteration-count: infinite;
       animation-iteration-count: infinite;
-      box-shadow: 1px 1px 30px #ff0000; /* 阴影效果 */
+      box-shadow: 1px 1px 10px #ff0000; /* 阴影效果 */
     }
 
 
