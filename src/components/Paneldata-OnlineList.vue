@@ -357,7 +357,7 @@
     height: auto;
     background-color: #666;
     position: absolute;
-    top: 50px;
+    top: 56px;
     right: 0;
 
   #list {
@@ -365,10 +365,10 @@
     position: fixed;
     width: 437px;
     height: 100%;
-    top: 51px;
+    top: 56px;
     right: 0;
     z-index: 9;
-    box-shadow: 0 0 15px #333333;
+    box-shadow: 0px 5px 15px #333333;
 
   .qianren {
     position: absolute;
