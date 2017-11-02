@@ -4,14 +4,15 @@
             <!--环境监测-->
             <div class="logo">
                 <img src="../assets/img/logo.png" alt="logo">
+                <a style="color: #fff;font-size:21px;font-weight: 500;line-height: 56px;font-family: 'Microsoft YaHei' ">廊坊市空气质量智能管控平台</a>
             </div>
-            <div style="color: #fff;float: left;height: 50px;line-height: 72px">2017版</div>
+            <div style="color: #fff;float: left;height: 56px;line-height: 72px">2017版</div>
             <ul class="bnav">
                 <li>
                     <a href="#/">首页</a>
                 </li>
                 <li>
-                    <a>监测调度</a>
+                    <a>监测调度 <i></i></a>
                     <div class="Twoitem">
                         <div>
                             <p>监测网</p>
@@ -33,7 +34,7 @@
                     </div>
                 </li>
                 <li>
-                    <a>源清单</a>
+                    <a>源清单<i></i></a>
                     <div class="Threeitem">
                         <div>
                             <p>动态源清单</p>
@@ -49,7 +50,7 @@
                     </div>
                 </li>
                 <li>
-                    <a>气象监测与预报</a>
+                    <a>气象监测与预报<i></i></a>
                     <div class="Fouritem">
                         <a href="#/weatherstation">气象站</a><br/>
                         <a href="#/GridPrediction">网格预测</a><br/>
@@ -61,7 +62,7 @@
                     <a>全民举报</a>
                 </li>
                 <li>
-                    <a>大数据资源</a>
+                    <a>大数据资源<i></i></a>
                     <div class="Fiveitem">
                         <div>
                             <h3>城市排名</h3>
@@ -99,10 +100,10 @@
                     </div>
                 </li>
                 <li>
-                    <i class="iconfont icon-shezhi"></i>
+                    <img style="padding: 0 20px" src="../assets/img/btn_intercalate.png" alt="">
                     <div class="Sixitem">
-                        <a><i class="iconfont icon-fangzi-copy" style="color: #999"></i>进入后台</a><br/>
-                        <a v-on:click="exit"><i class="iconfont icon-kaiguan" style="color: #999"></i>退出系统</a>
+                        <a><img src="../assets/img/btn_Backstage1.png" alt="">进入后台</a><br/>
+                        <a v-on:click="exit"><img src="../assets/img/btn_quit1.png" alt="">退出系统</a>
                     </div>
                 </li>
             </ul>
@@ -168,29 +169,37 @@
 <style lang="scss" scoped>
     .header {
         width: 100%;
-        height: 50px;
-        background: #1080cc;
-        border-bottom: solid 2px #0b598e;
+        height: 56px;
+        background: #2494F2;
+        //border-bottom: solid 2px #0b598e;
         .logo {
             float: left;
             width: auto;
-            height: 50px;
             img {
-                margin-top: 6px;
+                width: 40px;
+                height: 40px;
+                margin-top: -9px;
                 margin-left: 20px;
+                margin-right: 10px;
             }
         }
         .bnav {
             float: right;
-            height: 50px;
+            height: 56px;
             margin-right: 0px;
             li {
                 float: left;
-                width: 120px;
-                height: 50px;
+                width: auto;
+                height: 56px;
                 list-style: none;
-                line-height: 50px;
+                line-height: 56px;
                 position: relative;
+                img{
+                    transition: all 2s;
+                }
+                :hover{
+                    transform:rotate(3600deg);
+                }
                 p {
                     margin: 0;
                 }
@@ -203,25 +212,27 @@
                 }
                 a {
                     color: #dee9f5 ;
-                    padding: 0 10px;
+                    padding: 0 20px;
                     font-size: 16px;
                     font-family: '微软雅黑';
                     cursor: pointer;
+                    i{
+                        display:inline-block;
+                        width: 9px;
+                        height: 6px;
+                        margin-left: 2px;
+                       background: url("../assets/img/icon_sanjiao.png") no-repeat;
+                    }
                 }
                 :hover {
                     text-decoration: none;
                 }
-                &:nth-child(4){
-                    width: 140px;
-
-                }
-
                 .Oneitem {
                     display: none;
                     z-index: 100;
                     width: 120px;
                     position: absolute;
-                    top: 50px;
+                    top: 56px;
                     left: 0;
                     background: #fff;
                     line-height: 25px;
@@ -230,6 +241,7 @@
                     a {
                         text-align: center;
                         color: #666;
+                        padding: 0 10px;
                         font-size: 14px;
                         font-family: "Microsoft YaHei";
                         cursor: pointer;
@@ -245,7 +257,7 @@
                     padding: 10px 0;
                     padding-left: 22px;
                     position: absolute;
-                    top: 50px;
+                    top: 56px;
                     left: 0;
                     background: #fff;
                     line-height: 22px;
@@ -255,6 +267,7 @@
                         display: inline-block;
                         color: #666;
                         font-size: 12px;
+                        padding: 0 10px;
                         font-family: "Microsoft YaHei";
                         cursor: pointer;
                     }
@@ -271,9 +284,9 @@
                     display: none;
                     text-align: left;
                     z-index: 100;
-                    width: 250px;
+                    width: 256px;
                     position: absolute;
-                    top: 50px;
+                    top: 56px;
                     left: 0;
                     background: #fff;
                     line-height: 25px;
@@ -286,6 +299,7 @@
                             text-align: center;
                             color: #666;
                             font-size: 12px;
+                            padding: 0 10px;
                             font-family: "Microsoft YaHei";
                             cursor: pointer;
                         }
@@ -304,19 +318,19 @@
                     text-align: left;
                     display: none;
                     z-index: 100;
-                    width: 120px;
+                    width: 184px;
                     position: absolute;
-                    top: 50px;
-                    left: 10px;
+                    top: 56px;
+                    left: 0px;
                     background: #fff;
                     line-height: 25px;
                     padding: 10px 0;
                     box-shadow: 0 0 5px #1080cc;
                     a {
                         text-align: left;
-                        padding-left: 25px;
                         color: #666;
                         font-size: 12px;
+                        padding: 0 52px;
                         font-family: "Microsoft YaHei";
                         cursor: pointer;
                     }
@@ -330,7 +344,7 @@
                     z-index: 100;
                     width: 460px;
                     position: absolute;
-                    top: 50px;
+                    top: 56px;
                     right: 0px;
                     background: #fff;
                     line-height: 20px;
@@ -343,6 +357,7 @@
                             display: inline-block;
                             width: 80px;
                             color: #666;
+                            padding: 0 10px;
                             font-size: 12px;
                             font-family: "Microsoft YaHei";
                             cursor: pointer;
@@ -361,10 +376,10 @@
                 .Sixitem {
                     display: none;
                     z-index: 100;
-                    width: 120px;
+                    width: 100px;
                     position: absolute;
-                    top: 50px;
-                    left: 0;
+                    top: 56px;
+                    right: 0;
                     background: #fff;
                     line-height: 25px;
                     padding: 10px 0;
@@ -372,9 +387,16 @@
                     a {
                         color: #666;
                         font-size: 12px;
+                        padding: 0 10px;
                         font-family: "Microsoft YaHei";
                         margin-left: -17px;
                         cursor: pointer;
+                        img{
+                            vertical-align: middle;
+                            padding-right: 6px;
+                            padding-left: 18px;
+                            margin-top: -2px;
+                        }
                     }
                     :hover {
                         cursor:pointer;
@@ -385,7 +407,7 @@
                     display: none;
                 }
             }
-            :hover{
+            >:hover{
                 a{
                     color: #fff;
                     font-weight: bold;
@@ -395,6 +417,7 @@
                     font-weight: bold;
                 }
                 cursor:pointer;
+                background:#0070CE;
             }
             .active {
 

@@ -43,7 +43,7 @@
 </script>
 <style scoped>
   .main-map-content {
-    height: calc(100% - 50px);
+    height: calc(100% - 56px);
     width: 100%;
     margin: 0;
     padding: 0;
