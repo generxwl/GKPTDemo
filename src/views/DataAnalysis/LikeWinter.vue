@@ -622,7 +622,7 @@
                 <div class="data_water1">
                     <p v-if="WeatherWinterPre[0].date">{{WeatherWinterPre[0].date}}</p>
                     <a>AQI日报范围<span>{{WeatherWinterPre[0].minaqi}}-{{WeatherWinterPre[0].maxaqi}}</span></a><br/>
-                    <a>级别<span>{{WeatherWinterPre[0].minQuality}}~{{WeatherWinterPre[0].maxQuality}}</span></a><br/>
+                    <a>级别<span><img :src="'../../../static/imgs/mues/cainuan/'+this.getImagesTarget(WeatherWinterPre[0].minQuality)+'.png'" alt="">~<img :src="'../../../static/imgs/mues/cainuan/'+this.getImagesTarget(WeatherWinterPre[0].maxQuality)+'.png'" alt=""></span></a><br/>
                     <a>首要污染物<span>{{WeatherWinterPre[0].mainpoll}}</span></a>
                     <p>{{WeatherWinterPre[0].tq}}</p>
                     <a>{{WeatherWinterPre[0].temp_low}}-{{WeatherWinterPre[0].temp_high}}℃，{{WeatherWinterPre[0].ws}}，{{WeatherWinterPre[0].wd}}</a>
@@ -630,7 +630,7 @@
                 <div class="data_water2">
                     <p v-if="WeatherWinterPre[1].date">{{WeatherWinterPre[1].date}}</p>
                     <a>AQI日报范围<span>{{WeatherWinterPre[1].minaqi}}-{{WeatherWinterPre[1].maxaqi}}</span></a><br/>
-                    <a>级别<span>{{WeatherWinterPre[1].minQuality}}~{{WeatherWinterPre[1].maxQuality}}</span></a><br/>
+                    <a>级别<span><img :src="'../../../static/imgs/mues/cainuan/'+this.getImagesTarget(WeatherWinterPre[1].minQuality)+'.png'" alt="">~<img :src="'../../../static/imgs/mues/cainuan/'+this.getImagesTarget(WeatherWinterPre[1].maxQuality)+'.png'" alt=""></span></a><br/>
                     <a>首要污染物<span>{{WeatherWinterPre[1].mainpoll}}</span></a>
                     <p>{{WeatherWinterPre[1].tq}}</p>
                     <a>{{WeatherWinterPre[1].temp_low}}-{{WeatherWinterPre[1].temp_high}}℃，{{WeatherWinterPre[1].ws}}，{{WeatherWinterPre[1].wd}}</a>
@@ -638,7 +638,7 @@
                 <div class="data_water3">
                     <p v-if="WeatherWinterPre[2].date">{{WeatherWinterPre[2].date}}</p>
                     <a>AQI日报范围<span>{{WeatherWinterPre[2].minaqi}}-{{WeatherWinterPre[2].maxaqi}}</span></a><br/>
-                    <a>级别<span>{{WeatherWinterPre[2].minQuality}}~{{WeatherWinterPre[2].maxQuality}}</span></a><br/>
+                    <a>级别<span><img :src="'../../../static/imgs/mues/cainuan/'+this.getImagesTarget(WeatherWinterPre[2].minQuality)+'.png'" alt="">~<img :src="'../../../static/imgs/mues/cainuan/'+this.getImagesTarget(WeatherWinterPre[2].maxQuality)+'.png'" alt=""></span></a><br/>
                     <a>首要污染物<span>{{WeatherWinterPre[2].mainpoll}}</span></a>
                     <p>{{WeatherWinterPre[2].tq}}</p>
                     <a>{{WeatherWinterPre[2].temp_low}}-{{WeatherWinterPre[2].temp_high}}℃，{{WeatherWinterPre[2].ws}}，{{WeatherWinterPre[2].wd}}</a>
