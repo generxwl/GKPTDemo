@@ -9,12 +9,15 @@
 		<!--登录页面-->
 		<div class="form">
 			<div class="input">
-				<img src="../assets/img/login-logo.png" alt="">
+				<img src="../assets/img/logo_login.png" alt="">
 				<div class="user">
-					<img src="../assets/img/用户名.png" alt=""><input v-model="userName" type="text" placeholder="请输入用户名">
+					<strong>用户名</strong><input class="us" v-model="userName" type="text" placeholder="请输入用户名">
 				</div>
 				<div class="pass">
-					<img src="../assets/img/密码.png" alt=""><input v-model="passWord" type="password" placeholder="请输入密码">
+					<strong>密码</strong><input class="pa" v-model="passWord" type="password" placeholder="请输入密码">
+				</div>
+				<div class="tishi">
+					用户名或密码不正确
 				</div>
 				<div class="butn">
 					<button @click="login" @keyup.enter="login">登录{{userData}}</button>
@@ -49,6 +52,18 @@
                     that.login();
                 }
             });
+            $(".us").focus(function(){
+                $('.user').css('border-bottom','1px solid #2494F2');
+            });
+            $(".pa").focus(function(){
+                $('.pass').css('border-bottom','1px solid #2494F2');
+            });
+            $(".us").blur(function(){
+                $('.user').css('border-bottom','1px solid #fff');
+            });
+            $(".pa").blur(function(){
+                $('.pass').css('border-bottom','1px solid #fff');
+            });
         },
 		computed: {
 			userData() {
@@ -81,7 +96,15 @@
 
 						} else {
 							let text = data.ExtraData.Message;
-                            _this.$message.error(text);
+                            //_this.$message.error(text);
+                            $('.tishi').css('display','block');
+                            $('.user').css('border-bottom','1px solid red');
+                            $('.pass').css('border-bottom','1px solid red');
+							setTimeout(()=>{
+                                $('.tishi').css('display','none')
+                                $('.user').css('border-bottom','1px solid #fff');
+                                $('.pass').css('border-bottom','1px solid #fff');
+							},2000)
 						}
 					}
 				});
@@ -96,30 +119,35 @@
 		min-width: 1060px;
 		width: 100%;
 		height: 100%;
-		background: url("../assets/img/beijing.jpg") no-repeat center;
+		background: url("../assets/img/bj_denglu.jpg") no-repeat center;
 		background-size: cover;
 		position: relative;
-    .bottom_title{
-      position: absolute;
-      width: 620px;
-      left: 50%;
-      margin-left: -310px;
-      bottom:40px ;
-      color: #888;
-      .title_banquan{
-        float: left;
-        span{
-          padding-left: 20px;
-        }
-      }
-      .img-qianren{
-        float: left;
-        img{
-          margin-top: -15px;
-          padding-left: 30px;
-          width: 120px;
-        }
-      }
+    	.bottom_title{
+		  position: absolute;
+		  width: 100%;
+			height: 50px;
+		  left: 0;
+		  bottom:0;
+		 background: rgba(0,0,0,0.2);
+		  .title_banquan{
+			  padding-left: 34%;
+			float: left;
+			  color: #fff;
+			  line-height: 50px;
+			  font-size: 14px;
+			  opacity: 0.8;
+			span{
+			  padding-left: 50px;
+			}
+		  }
+		  .img-qianren{
+			float: left;
+			img{
+			  margin-top: 5px;
+			  padding-left: 24px;
+			  width: 100px;
+			}
+		  }
     }
 		.sky{
 			position: absolute;
@@ -128,299 +156,90 @@
 		}
 		.form {
 			position: absolute;
-			width: 816px;
-			height: 442px;
+			width: 497px;
+			height: 410px;
 			left: 50%;
-			top: 50%;
-			margin-left: -408px;
-			margin-top: -286px;
-			background: url("../assets/img/登录框bg.png") no-repeat center;
-			background-size: cover;
+			top: 17%;
+			background: rgba(0,0,0,0.5);
 			.input {
 				color: #fff;
 				input {
+					width: 240px;
 					height: 28px;
 					color: #fff;
 					border: none;
-					background: #006bbe;
-					margin-left: -40px;
+					background: rgba(0,0,0,0);
+					line-height: 28px;
 				}
 				img {
 					display: block;
 					margin: 0 auto;
 					width: 400px;
-					margin-top: 146px;
+					margin-top: 42px;
 				}
 				.user {
-					color: #fff;
-					line-height: 38px;
-					width: 300px;
-					height: 38px;
-					margin: 0 auto;
-					border-radius: 3px;
-					margin-top: 15px;
-					background: #006bbe;
-					img {
-						display: block;
-						margin-top: 8px;
-						margin-left: 15px;
-						width: 20px;
-						float: left;
-						vertical-align: middle;
+					text-align: left;
+					line-height: 60px;
+					width: 340px;
+					height: 60px;
+					margin: 20px auto;
+					border-bottom: solid 1px #fff;
+					strong{
+						display: inline-block;
+						width: 60px;
+						color: #fff;
+						font-size: 16px;
+						font-weight: bold;
 					}
+
 				}
 				.pass {
-					color: #fff;
-					line-height: 38px;
-					width: 300px;
-					height: 38px;
+					text-align: left;
+					line-height: 60px;
+					width: 340px;
+					height: 60px;
 					margin: 0 auto;
-					border-radius: 3px;
-					margin-top: 15px;
-					background: #006bbe;
-					img {
-						display: block;
-						margin-top: 8px;
-						margin-left: 15px;
-						width: 20px;
-						float: left;
-						vertical-align: middle;
+					border-bottom: solid 1px #fff;
+					strong{
+						display: inline-block;
+						width: 60px;
+						color: #fff;
+						font-size: 16px;
+						font-weight: bold;
 					}
 				}
+				.tishi{
+					display: none;
+					position: absolute;
+					right: 76px;
+					width: 340px;
+					height: 30px;
+					margin: 0px auto;
+					line-height: 30px;
+					color: red;
+					text-align: right;
+				}
 				.butn {
-					width: 300px;
+
+					width: 340px;
 					height: 38px;
-					margin: 0 auto;
+					margin: 0px auto;
 					border-radius: 3px;
-					margin-top: 15px;
+					margin-top: 54px;
 					button {
 						color: #fff;
 						width: 100%;
 						height: 100%;
 						border: none;
-						background: #006bbe;
+						background: #2494F2;
+					}
+					:hover{
+						background: #0070CE;
 					}
 					overflow: hidden;
 				}
 			}
 		}
-		/*//云彩*/
-		/*.sky {*/
-			/*width: 100%;*/
-			/*height:500px;*/
-			/*top:0;*/
-			/*left:0;*/
-			/*position: absolute;*/
-			/*overflow: hidden;*/
-			/*-webkit-animation: sky_background 50s ease-out infinite;*/
-			/*-moz-animation: sky_background 50s ease-out infinite;*/
-			/*-o-animation: sky_background 50s ease-out infinite;*/
-			/*animation: sky_background 50s ease-out infinite;*/
-			/*-webkit-transform: translate3d(0, 0, 0);*/
-			/*-ms-transform: translate3d(0, 0, 0);*/
-			/*-o-transform: translate3d(0, 0, 0);*/
-			/*transform: translate3d(0, 0, 0);*/
-			/*.clouds_one {*/
-				/*background: url("../assets/img/cloud_one.png");*/
-				/*position: absolute;*/
-				/*left: 0;*/
-				/*top: 0;*/
-				/*height: 100%;*/
-				/*width: 300%;*/
-				/*-webkit-animation: cloud_one 50s linear infinite;*/
-				/*-moz-animation: cloud_one 50s linear infinite;*/
-				/*-o-animation: cloud_one 50s linear infinite;*/
-				/*animation: cloud_one 50s linear infinite;*/
-				/*-webkit-transform: translate3d(0, 0, 0);*/
-				/*-ms-transform: translate3d(0, 0, 0);*/
-				/*-o-transform: translate3d(0, 0, 0);*/
-				/*transform: translate3d(0, 0, 0);*/
-			/*}*/
-			/*.clouds_two {*/
-				/*background: url("../assets/img/cloud_two.png");*/
-				/*position: absolute;*/
-				/*left: 0;*/
-				/*top: 0;*/
-				/*height: 100%;*/
-				/*width: 300%;*/
-				/*-webkit-animation: cloud_two 75s linear infinite;*/
-				/*-moz-animation: cloud_two 75s linear infinite;*/
-				/*-o-animation: cloud_two 75s linear infinite;*/
-				/*animation: cloud_two 75s linear infinite;*/
-				/*-webkit-transform: translate3d(0, 0, 0);*/
-				/*-ms-transform: translate3d(0, 0, 0);*/
-				/*-o-transform: translate3d(0, 0, 0);*/
-				/*transform: translate3d(0, 0, 0);*/
-			/*}*/
-			/*.clouds_three {*/
-				/*background: url("../assets/img/cloud_three.png");*/
-				/*position: absolute;*/
-				/*left: 0;*/
-				/*top: 0;*/
-				/*height: 100%;*/
-				/*width: 300%;*/
-				/*-webkit-animation: cloud_three 100s linear infinite;*/
-				/*-moz-animation: cloud_three 100s linear infinite;*/
-				/*-o-animation: cloud_three 100s linear infinite;*/
-				/*animation: cloud_three 100s linear infinite;*/
-				/*-webkit-transform: translate3d(0, 0, 0);*/
-				/*-ms-transform: translate3d(0, 0, 0);*/
-				/*-o-transform: translate3d(0, 0, 0);*/
-				/*transform: translate3d(0, 0, 0);*/
-			/*}*/
-		/*}*/
-
-		/*@-webkit-keyframes sky_background {*/
-			/*0% {*/
-
-				/*color: #007fd5;*/
-			/*}*/
-
-			/*50% {*/
-
-				/*color: #a3d9ff;*/
-			/*}*/
-
-			/*100% {*/
-
-				/*color: #007fd5;*/
-			/*}*/
-		/*}*/
-
-
-		/*@-moz-keyframes sky_background {*/
-			/*0% {*/
-
-				/*color: #007fd5;*/
-			/*}*/
-
-			/*50% {*/
-
-				/*color: #a3d9ff;*/
-			/*}*/
-
-			/*100% {*/
-
-				/*color: #007fd5;*/
-			/*}*/
-		/*}*/
-
-
-		/*@keyframes sky_background {*/
-			/*0% {*/
-
-				/*color: #007fd5;*/
-			/*}*/
-
-			/*50% {*/
-
-				/*color: #a3d9ff;*/
-			/*}*/
-
-			/*100% {*/
-
-				/*color: #007fd5;*/
-			/*}*/
-		/*}*/
-
-
-		/*@-webkit-keyframes cloud_one {*/
-			/*0% {*/
-				/*left: 0;*/
-			/*}*/
-
-			/*100% {*/
-				/*left: -200%;*/
-			/*}*/
-		/*}*/
-
-
-		/*@-moz-keyframes cloud_one {*/
-			/*0% {*/
-				/*left: 0;*/
-			/*}*/
-
-			/*100% {*/
-				/*left: -200%;*/
-			/*}*/
-		/*}*/
-
-
-		/*@keyframes cloud_one {*/
-			/*0% {*/
-				/*left: 0;*/
-			/*}*/
-
-			/*100% {*/
-				/*left: -200%;*/
-			/*}*/
-		/*}*/
-
-
-		/*@-webkit-keyframes cloud_two {*/
-			/*0% {*/
-				/*left: 0;*/
-			/*}*/
-
-			/*100% {*/
-				/*left: -200%;*/
-			/*}*/
-		/*}*/
-
-
-		/*@-moz-keyframes cloud_two {*/
-			/*0% {*/
-				/*left: 0;*/
-			/*}*/
-
-			/*100% {*/
-				/*left: -200%;*/
-			/*}*/
-		/*}*/
-
-
-		/*@keyframes cloud_two {*/
-			/*0% {*/
-				/*left: 0;*/
-			/*}*/
-
-			/*100% {*/
-				/*left: -200%;*/
-			/*}*/
-		/*}*/
-
-
-		/*@-webkit-keyframes cloud_three {*/
-			/*0% {*/
-				/*left: 0;*/
-			/*}*/
-
-			/*100% {*/
-				/*left: -200%;*/
-			/*}*/
-		/*}*/
-
-
-		/*@-moz-keyframes cloud_three {*/
-			/*0% {*/
-				/*left: 0;*/
-			/*}*/
-
-			/*100% {*/
-				/*left: -200%;*/
-			/*}*/
-		/*}*/
-
-
-		/*@keyframes cloud_three {*/
-			/*0% {*/
-				/*left: 0;*/
-			/*}*/
-
-			/*100% {*/
-				/*left: -200%;*/
-			/*}*/
-		/*}*/
 
 	}
 </style>
