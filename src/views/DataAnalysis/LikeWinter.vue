@@ -1383,6 +1383,31 @@
                 })
 
             },
+            //图片背景跟换
+            getImagesTarget(type){
+                let rtValue = type;
+                switch(type){
+                    case '严重':
+                        rtValue = 'du-yz';
+                        break;
+                    case '中度':
+                        rtValue = 'du-zd';
+                        break;
+                    case '优':
+                        rtValue = 'zd-y';
+                        break;
+                    case '良':
+                        rtValue = 'du-l';
+                        break;
+                    case '轻度':
+                        rtValue = 'du-qd';
+                        break;
+                    case '重度':
+                        rtValue = 'du-zd';
+                        break;
+                }
+                return rtValue;
+            },
         },
         components: {BattleMap,Cprogressl,Cprogressr}
 
@@ -1524,7 +1549,7 @@
                     width: 186px;
                     height: 88px;
                     overflow: hidden;
-                    background: url("../../../static/imgs/mues/cainuan/l-bg2.png")no-repeat;
+                    background: url("../../../static/imgs/mues/cainuan/l-bg2.png") no-repeat;
                     position: relative;
                     .title_baay{
                         font-size: 24px;
@@ -1559,7 +1584,7 @@
                     width: 184px;
                     height: 88px;
                     overflow: hidden;
-                    background: url("../../../static/imgs/mues/cainuan/r-bg2.png")no-repeat;
+                    background: url("../../../static/imgs/mues/cainuan/r-bg2.png") no-repeat;
                     position: relative;
                     .title_baay{
                         font-size: 24px;
