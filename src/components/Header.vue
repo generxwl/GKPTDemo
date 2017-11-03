@@ -13,7 +13,7 @@
                 </li>
                 <li>
                     <a>监测调度<i></i></a>
-                    <div class="Twoitem submenu">
+                    <div class="Twoitem submenu same">
                         <div>
                             <h3>监测网</h3>
                             <a href="#/Monitor">国省控点监测</a>
@@ -35,15 +35,15 @@
                 </li>
                 <li>
                     <a>源清单<i></i></a>
-                    <div class="Threeitem submenu">
+                    <div class="Threeitem submenu same">
                         <div>
-                            <p>动态源清单</p>
+                            <h3>动态源清单</h3>
                             <a href="#/EnterpriseEonitoring">企业在线监测</a>
                             <a href="#/DustOnline">扬尘在线监测</a>
                             <a>机动车路况</a>
                         </div>
                         <div>
-                            <p>静态源清单</p>
+                            <h3>静态源清单</h3>
                             <a href="#/StaticOriginalList" style="font-family:宋体">污染源清单</a>
                             <a style="font-family:宋体;margin-left: 16px">应急清单</a>
                         </div>
@@ -51,7 +51,7 @@
                 </li>
                 <li>
                     <a>气象监测与预报<i></i></a>
-                    <div class="Fouritem submenu">
+                    <div class="Fouritem submenu same">
                         <a href="#/weatherstation">气象站</a><br/>
                         <a href="#/GridPrediction">网格预测</a><br/>
                         <a href="#/DTweather">动态风场</a><br/>
@@ -271,62 +271,75 @@
                         color: #1080cc;
                     }
                 }*/
-                .Twoitem {
-                    display: none;
-                    z-index: 100;
-                    width: 265px;
-                    padding: 10px 0;
-                    padding-left: 22px;
-                    position: absolute;
-                    top: 56px;
-                    left: 0;
-                    background: #fff;
-                    line-height: 22px;
-                    text-align: left;
-                    box-shadow: 0 0 5px #1080cc;
+                .same{
+                  z-index: 100;
+                  position: absolute;
+                  top: 56px;
+                  left: 0;
+                  display:none;
+                  background: #fff;
+                  width: 264px;
+                  box-shadow:#ccc;
+                  border:1px solid #ccc;
+                  border-radius: 0 0 4px 4px;
+                  padding:0 0 20px 20px;
+                  text-align:left;
+                  line-height:14px;
+                  div{
+                    text-align:left;
+                  }
                     a {
-                        display: inline-block;
-                        color: #666;
-                        font-size: 12px;
-                        padding: 0 10px;
-                        font-family: "Microsoft YaHei";
-                        cursor: pointer;
+                      color: #666;
+                      font-size: 14px;
+                      padding: 0;
+                      font-family: "Microsoft YaHei";
+                      cursor: pointer;
+                      font-weight:normal;
+                      margin-right:20px;
+                      line-height:20px;
                     }
                     h3{
-                      text-align: left;
+                      /*text-align: left;
                       font-weight: bold;
                       font-size: 14px;
-                        margin: 4px;
-                      padding: 0;
+                      margin:0;
+                      padding: 0;*/
+                      margin:20px 0 12px 0;
+                      /*margin-bottom:12px;
+                      margin-top:20px;*/
+                      color:#333333;
+                      font-size:14px;
+                      font-weight:bold;
                     }
                     :hover:not(h3){
                         color: #1080cc;
                     }
                 }
-                .Threeitem {
+                /*.Threeitem {
                     display: none;
                     text-align: left;
                     z-index: 100;
-                    width: 256px;
+                    width: 264px;
                     position: absolute;
                     top: 56px;
                     left: 0;
                     background: #fff;
-                    line-height: 25px;
-                    padding: 10px 20px;
+                    line-height: 14px;
+                   !* padding: 10px 20px;*!
+                  padding:20px 0;
                     box-shadow: 0 0 5px #1080cc;
-                    div {
-                        float: left;
-                        margin-left: 10px;
+                    h3{
+                        margin:0;
+                       !* margin-left: 10px;*!
                         a {
-                            text-align: center;
                             color: #666;
                             font-size: 12px;
-                            padding: 0 10px;
+                            padding:0;
+                           !* padding: 0 10px;*!
                             font-family: "Microsoft YaHei";
                             cursor: pointer;
                         }
-                        :hover:not(p){
+                        :hover:not(h3){
                             color: #1080cc;
                         }
                         p{
@@ -336,7 +349,7 @@
                             color: #a94442;
                         }
                     }
-                }
+                }*/
                 .Fouritem {
                     text-align: left;
                     display: none;
@@ -344,18 +357,19 @@
                     width: 184px;
                     position: absolute;
                     top: 56px;
-                    left: 0px;
+                    left: 0;
                     background: #fff;
-                    line-height: 25px;
-                    padding: 10px 0;
+                    line-height: 30px;
                     box-shadow: 0 0 5px #1080cc;
+                  padding:10px 20px 30px;
                     a {
-                        text-align: left;
+                       /* text-align: left;*/
+                      padding-left:10px;
                         color: #666;
-                        font-size: 12px;
-                        padding: 0 52px;
+                        font-size: 14px;
                         font-family: "Microsoft YaHei";
                         cursor: pointer;
+
                     }
                     :hover {
                         color: #1080cc;
@@ -370,29 +384,36 @@
                     top: 56px;
                     right: 0px;
                     background: #fff;
-                    line-height: 20px;
+                   /* line-height: 14px;
                     padding: 10px 0;
-                    box-shadow: 0 0 5px #1080cc;
+                    box-shadow: 0 0 5px #1080cc;*/
+                  box-shadow:#ccc;
+                  border:1px solid #ccc;
+                  border-radius: 0 0 4px 4px;
+                  padding:0 0 20px 20px;
+                  line-height:14px;
                     div {
-                        margin-left: 19px;
+                      text-align:left;
                         a {
-                            text-align: left;
-                            display: inline-block;
-                            width: 80px;
-                            color: #666;
-                            padding: 0 10px;
-                            font-size: 12px;
-                            font-family: "Microsoft YaHei";
-                            cursor: pointer;
+                          color: #666;
+                          font-size: 14px;
+                          padding: 0;
+                          font-family: "Microsoft YaHei";
+                          cursor: pointer;
+                          font-weight:normal;
+                          margin-right:20px;
+                          line-height:20px;
                         }
                         :hover:not(h3) {
                             color: #1080cc;
                         }
                         h3 {
-                            color: #000;
-                            margin: 4px!important;
-                            font-size: 14px;
-                            font-weight: bold;
+                          margin:20px 0 12px 0;
+                          /*margin-bottom:12px;
+                          margin-top:20px;*/
+                          color:#333333;
+                          font-size:14px;
+                          font-weight:bold;
                         }
                     }
                 }
