@@ -248,7 +248,7 @@
                 :hover {
                     text-decoration: none;
                 }
-                .Oneitem {
+               /* .Oneitem {
                     display: none;
                     z-index: 100;
                     width: 120px;
@@ -270,7 +270,7 @@
                     :hover{
                         color: #1080cc;
                     }
-                }
+                }*/
                 .Twoitem {
                     display: none;
                     z-index: 100;
