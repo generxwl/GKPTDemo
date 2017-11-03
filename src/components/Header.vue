@@ -12,7 +12,7 @@
                     <a href="#/">首页</a>
                 </li>
                 <li>
-                    <a>监测调度 <i></i></a>
+                    <a>监测调度<i></i></a>
                     <div class="Twoitem submenu">
                         <div>
                             <h3>监测网</h3>

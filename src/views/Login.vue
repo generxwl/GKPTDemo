@@ -222,7 +222,7 @@
 				.butn {
 
 					width: 340px;
-					height: 38px;
+					height: 48px;
 					margin: 0px auto;
 					border-radius: 3px;
 					margin-top: 54px;
@@ -230,6 +230,7 @@
 						color: #fff;
 						width: 100%;
 						height: 100%;
+						font-size: 18px;
 						border: none;
 						background: #2494F2;
 					}
