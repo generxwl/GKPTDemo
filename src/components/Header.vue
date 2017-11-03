@@ -102,8 +102,8 @@
                 <li>
                     <img style="padding: 0 20px" src="../assets/img/btn_intercalate.png" alt="">
                     <div class="Sixitem submenu">
-                        <a><img src="../assets/img/btn_Backstage1.png" alt="">进入后台</a><br/>
-                        <a v-on:click="exit"><img src="../assets/img/btn_quit1.png" alt="">退出系统</a>
+                        <a class="houtai"><img src="../assets/img/btn_Backstage1.png" alt="">进入后台</a><br/>
+                        <a class="tuichu" v-on:click="exit"><img src="../assets/img/btn_quit1.png" alt="">退出系统</a>
                     </div>
                 </li>
             </ul>
@@ -116,39 +116,26 @@
         name: 'header',
         data () {
             return {
-                msg: 'App'
+                msg: 'App',
+                houtaiSrc:'../../static/imgs/mues/header/btn_Backstage2.png',
+                houtaiChesSrc:'../../static/imgs/mues/header/btn_Backstage1.png',
+                tuichuSrc:'../../static/imgs/mues/header/btn_quit2.png',
+                tuichuChesSrc:'../../static/imgs/mues/header/btn_quit1.png'
             }
         },
         mounted(){
-            //导航部分
-//            $('.bnav li').on('click', function () {
-//                $(this).addClass('active').siblings().attr("class", "");
-//                $(this).addClass('active').siblings().children('div').css('display', 'none')
-//                $(this).children('div').css('display', 'block')
-//            });
-//            $('.bnav li').on('mouseleave', function () {
-//                $(this).children('div').css('display', 'none')
-//            });
+            let t = this;
+            $(".houtai").hover(function(){
+                $(".houtai img").attr('src', t.houtaiSrc);
+            },function(){
+                $(".houtai img").attr('src', t.houtaiChesSrc);
+            });
             //
-//            $('.Oneitem').on('mouseleave',function () {
-//                $('.Oneitem').css('display', 'none')
-//            });
-//            $('.Twoitem').on('mouseleave',function () {
-//                $('.Twoitem').css('display', 'none')
-//            });
-//            $('.Threeitem').on('mouseleave',function () {
-//                $('.Threeitem').css('display', 'none')
-//            });
-//            $('.Fouritem').on('mouseleave',function () {
-//                $('.Fouritem').css('display', 'none')
-//            });
-//            $('.Fiveitem').on('mouseleave',function () {
-//                $('.Fiveitem').css('display', 'none')
-//            });
-//            $('.Sixitem').on('mouseleave',function () {
-//                $('.Sixitem').css('display', 'none')
-//            });
-            //
+            $(".tuichu").hover(function(){
+                $(".tuichu img").attr('src', t.tuichuSrc);
+            },function(){
+                $(".tuichu img").attr('src', t.tuichuChesSrc);
+            });
             this.lanrenzhijia('li');
         },
         methods: {
