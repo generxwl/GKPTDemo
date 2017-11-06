@@ -24,9 +24,13 @@ import {
     GetXhHbPointsRaiseResource,//首页接入数据统计
     GetLfAirAlertResource,//冬防战报02轮播
     GetLfAirWinterPreResource,//空气排名预报
+    GetWinterPreCompanyControlResource,//冬防战报表1
+    GetWinterPreAirControlResource,//冬防战报表2
+    GetWinterPreDustControlResource,//冬防战报表3
     GetWeatherWinterPreResource,//天气预报3天
     GetsourcetypeAllInfoResource,//静态原清单右侧
     GetallInfoBySourceTypeResource,//静态原清单类型
+    GetEnterpriseDataResource,//静态原清单222
 } from './resource'
 export default {
   //首页天气面板数据
@@ -36,6 +40,34 @@ export default {
       }
     )
   },
+    //冬防战报表1
+    GetWinterPreCompanyControl() {
+        return axios.get(GetWinterPreCompanyControlResource,{
+
+            }
+        )
+    },
+    //冬防战报表2
+    GetWinterPreAirControl() {
+        return axios.get(GetWinterPreAirControlResource,{
+
+            }
+        )
+    },
+    //冬防战报表3
+    GetWinterPreDustControl() {
+        return axios.get(GetWinterPreDustControlResource,{
+
+            }
+        )
+    },
+    //静态原清单呃呃呃
+    GetEnterpriseData() {
+        return axios.get(GetEnterpriseDataResource,{
+
+            }
+        )
+    },
     //空气排名预报
     GetLfAirWinterPre() {
         return axios.get(GetLfAirWinterPreResource,{

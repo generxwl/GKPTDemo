@@ -16,12 +16,31 @@
             <font @click="chengeteget()">{{wall}}</font>
           </div>
           <div class="symume" v-show="symume">
-            <a><strong>■</strong>工业企业源</a>
-            <a><strong>▲</strong>移动源</a>
-            <a>加油站</a>
-            <a><strong>●</strong>餐饮油烟</a>
-            <a>扬尘源 <strong>∨</strong></a>
-            <a>其他溶剂使用源 <strong>∨</strong></a>
+            <div class="YuanType">
+              <input type="checkbox" name="sourceType" value="ps001" id="male" />
+              <label for="male">工业企业源</label>
+            </div>
+            <div class="YuanType">
+              <input type="checkbox" name="sourceType" value="ps002" id="male1" />
+              <label for="male1">干洗</label>
+            </div>
+            <div class="YuanType">
+              <input type="checkbox" name="sourceType" value="ps003" id="male2" />
+              <label for="male2">汽修</label>
+            </div>
+            <div class="YuanType">
+              <input type="checkbox" name="sourceType" value="ps004" id="male4" />
+              <label for="male4">施工扬尘源</label>
+            </div>
+            <div class="YuanType">
+              <input type="checkbox" name="sourceType" value="ps005" id="male5" />
+              <label for="male5">餐饮油烟</label>
+            </div>
+            <div class="YuanType">
+              <input type="checkbox" name="sourceType" value="ps006" id="male6" />
+              <label for="male6">加油站</label>
+            </div>
+
           </div>
           <div class="fenbutu">
             <div class="bing_text">总排放量：{{1998}} <span>污染总数：{{122}}</span></div>
@@ -112,8 +131,8 @@
       return {
         zuo: false,
         you: true,
-        type: 'PM2.5',
-        labelType: 'PM2.5',
+        type: 'SO2',
+        labelType: 'SO2',
         ALLdata: [],
         filters: {
               name: ''
@@ -131,21 +150,8 @@
       }
     },
     created(){
-        //原清单
-        api.GetsourcetypeAllInfo().then(res => {
-            // [
-            //  {
-            //    "code": "ps001",
-            //    "id": 1,
-            //    "name": "工业企业源",
-            //    "timetamp": 1509004260000
-            //  }
-            // ]
-            let data = res.data.sourcetype;
-            //this.SouData = data;
-            console.log(data)
-        })
-        //
+        bus.$on('setStaticTarget',this.switchRender);
+        bus.$on('setStaticData',this.initlistData);
         this.ChenageGetDataList()
     },
     mounted(){
@@ -169,12 +175,25 @@
           flag = true;
         }
       })
-      //
+      //饼图
         setTimeout(function () {
             that.yuantuset1();
-        }, 500)
+        }, 500);
     },
     methods: {
+      //多选请求
+        GetcheckboxData(){
+            let Newdata = [];
+            let student = $(".YuanType input[name='sourceType']:checked").serialize();
+            let Ayydata = student.split('sourceType=');
+            for(var i = 0; i < Ayydata.length; i++){
+              let a =  Ayydata[i].replace('&','')
+               // console.log(a)
+                Newdata.push(a)
+            }
+           // console.log(Newdata)
+            return Newdata
+        },
       //排序
       compare (propertyName) {
         return function (object1, object2) {
@@ -193,49 +212,36 @@
       },
       getPollution(type){
         let rtValue = type;
-        switch (type.toUpperCase()) {
+        switch (type) {
           case 'PM2.5':
             rtValue = 'pm25';
             break;
           case 'PM10':
             rtValue = 'pm10';
             break;
-          case 'TEMP':
-            rtValue = 'temp';
+          case 'NH3':
+            rtValue = 'nh3';
             break;
-          case 'HUMI':
-            rtValue = 'humi';
+            case 'SO2':
+                rtValue = 'so2';
+                break;
+            case 'NO2':
+                rtValue = 'no2';
+                break;
+          case 'BC':
+            rtValue = 'bc';
             break;
-          case 'WINDSPEED':
-            rtValue = 'windspeed';
+            case 'CO':
+                rtValue = 'co';
+                break;
+          case 'OC':
+            rtValue = 'oc';
             break;
-          case 'WINDDIRECTION':
-            rtValue = 'winddirection';
+          case 'VOC':
+            rtValue = 'vocoutval';
             break;
         }
         //console.log(rtValue);
-        return rtValue;
-      },
-      getPollutionTarget(type){
-        let rtValue = type;
-        switch (type.toUpperCase()) {
-          case 'INDEX':
-            rtValue = '综指';
-            break;
-          case 'TEMP':
-            rtValue = '温度';
-            break;
-          case 'HUMI':
-            rtValue = '湿度';
-            break;
-          case 'WINDSPEED':
-            rtValue = '风级';
-            break;
-          case 'WINDDIRECTION':
-            rtValue = '风向';
-            break;
-        }
-        console.log(rtValue);
         return rtValue;
       },
       //table点击事件
@@ -249,21 +255,22 @@
       },
       //
       SetDataList(data, type){
-        //console.log(data)
+        console.log(data)
+        let t = this;
         data = typeof data === 'string' ? JSON.parse(data) : data;
         this.data = data;
         this.ALLdata = [];
         let i = 1;
- //       let dt2 = this.getPointByType(this.type);
-//        let dt2 = dt1.sort(this.compare(this.getPollution(type)));
-        data.forEach(item => {
+          let dt1 = this.getPointByType(type);
+          let dt2 = dt1.sort(this.getPollution(type));
+        dt2.forEach(item => {
           const tableData = {};
           tableData.ranking = i++;//排名
           tableData.NetworkName = '---';//网格名称
           tableData.Name = item.entname;//名称
-          tableData.Industry = '---';//行业
-          tableData.Emission = '---';//排放物
-          tableData.EmissionAmount = '---';//排放量
+          tableData.Industry = item.polsorcode;//行业
+          tableData.Emission = t.labelType;//排放物
+          tableData.EmissionAmount = item.jdjcBasGyqySn[(t.getPollution(type))];//排放量
           tableData.citygid = item.id;//城市id
           this.ALLdata.push(tableData);
         })
@@ -349,7 +356,6 @@
 //                    }]
 //                })
         },
-      //
       setPageTable(pageSize, pageNum){
         let rtValue = [];
         let startNum = pageSize * (pageNum - 1);
@@ -362,14 +368,15 @@
       },
       //分页部分功能
       getPointByType(type){
+        let t = this;
         let rtValue = [];
         let dt = this.data;
         if (dt) {
           for (let i = 0, length = dt.length; i < length; i++) {
             let item = dt[i];
-            if (item.type === type) {
+            //if (item.jdjcBasGyqySn.co === type) {
               rtValue.push(dt[i]);
-            }
+            //}
           }
         }
         return rtValue;
@@ -393,14 +400,15 @@
         this.setPageTable(10, 1);
       },
       switchRender(type){
-        this.type = type;
-        this.labelType = this.getPollutionTarget(type);
-        this.setdata(this.data, this.type)
+          console.log(type)
+          this.type = type;
+          this.labelType = type;
+          this.SetDataList(this.data, this.type)
       },
       ChenageGetDataList(typeid){
           api.GetallInfoBySourceType(typeid).then(res => {
               let data = res.data.ExtraData;
-              this.initlistData(data)
+              //this.initlistData(data)
           })
       }
     },
@@ -436,21 +444,15 @@
       }
       .symume{
         width: 100%;
+        height: 68px;
         padding-left: 20px;
         padding-bottom: 15px;
-        strong{
-          font-size: 18px;
-          font-weight: bold;
-        }
-        a{
-          display:inline-block;
-          color: #666;
-          width: 120px;
+        .YuanType{
+          width: 30%;
+          height: 28px;
+          float: left;
           text-align: left;
-          margin-top: 10px;
-        }
-        :hover{
-          color: #1080cc;
+          padding-left: 8%;
         }
         border-bottom:solid 1px #ccc ;
       }
