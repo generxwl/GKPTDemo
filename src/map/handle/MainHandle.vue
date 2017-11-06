@@ -728,16 +728,17 @@
             icon: icon,
             offset: new BMap.Size(0, 0)
           });
+          let typeUpper = type.toUpperCase();
           if (lyType.toUpperCase() === 'LAYER_GS') {
             let label = new BMap.Label(value || '');
             label.setStyle({
               border: 'none',
-              color: '#333',
+              color: (typeUpper === 'GS-G' || typeUpper === 'GS-O' || typeUpper === 'GS-Y') ? '#333' : '#fff',
               background: 'none',
-              fontSize: '14px',
+              fontSize: '12px',
               fontFamily: 'Microsoft YaHei'
             });
-            //marker.setLabel(label);
+            marker.setLabel(label);
           }
         }
         return marker;
@@ -756,7 +757,7 @@
           fontFamily: 'Microsoft YaHei'
         });
         label.setPosition((lyType.toUpperCase() === 'LAYER_SP' || lyType.toUpperCase() === 'LAYER_SP_VOC' || lyType.toUpperCase() === 'LAYER_CGQ_LCS' || lyType.toUpperCase() === 'LAYER_CGQ_VOC' || lyType.toUpperCase() === 'LAYER_GD') ? conPoint : point);
-        displayValue && label.setOffset(new BMap.Size(-(displayValue.length * 14 / 2), 14));
+        displayValue && label.setOffset(new BMap.Size(-(displayValue.length * 14 / 2 + 16), 14));
         this.map.getZoom() >= this.maxZoom ? label.show() : label.hide();
         return label;
       },

@@ -74,6 +74,7 @@
     },
     methods: {
       ready(){
+
       },
       liClickEvent(e){
         this.resetImg();
@@ -84,6 +85,7 @@
         let targets = this.$data.targets;
         let item = targets[index];
         childElement.style.backgroundColor = '#1080cc';
+        bus.$emit('setStaticTarget',type.toUpperCase());
         //imgElement.src = item.checked;
       },
       resetImg(){

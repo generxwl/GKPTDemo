@@ -36,10 +36,18 @@
       //页面初始化
       ready(){
         bus.$once('setStaticMap', this.getMap);
+        bus.$on('refreshStaticMap',this.refreshData);
+        bus.$on('setStaticTarget',this.setStaticTarget)
       },
       getMap(map){
         this.map = map;
         this.loadStaticMarker();
+      },
+      setStaticTarget(type){
+          type && (this.checkedName = type);
+      },
+      refreshData(data){
+          data && (this.loadMarkerLayer(data),this.data = data);
       },
       loadStaticMarker(){
         let t = this;
@@ -48,7 +56,6 @@
           if (parseInt(result.status) === 1) {
             let data = result.obj;
             t.loadMarkerLayer(data);
-            console.log(JSON.stringify(data[0]));
           }
         }, function (ex) {
           console.error(ex);
@@ -68,6 +75,7 @@
         });
         if (!this.data.length) {
           this.data = data;
+          bus.$emit('setStaticData',this.data);
         }
         let t = this;
         let lsMarkers = this.data;//this.getPollutionByType(this.checkedName);
