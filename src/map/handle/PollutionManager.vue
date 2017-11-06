@@ -293,8 +293,8 @@
                   }
                 }
               }
-              this.showMapByPoint(title, value, bgcolor, point, '', i, city, region, pointname, index, isfd, data[i].citygid);
               hasRed && this.showRedLabels(point);
+              this.showMapByPoint(title, value, bgcolor, point, '', i, city, region, pointname, index, isfd, data[i].citygid);
             }
           }
         }
