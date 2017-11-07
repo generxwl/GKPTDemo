@@ -48,7 +48,7 @@
       ready() {
         let t = this;
         for (let j = 0, count = this.layers.length; j < count; j++) {
-          let bgColor = this.getLeaveColor(j);
+          let sle = this.getLeaveColor(j);
           let layer = t.layers[j];
           let url = layer.url;
           let visible = layer.hasVisible;
@@ -60,7 +60,7 @@
             data: {}
           }).then(function (result) {
             if (result.status === 200) {
-              t.createPolygon(result.data, layer.geometry, displayFieldName, bgColor);
+              t.createPolygon(result.data, layer.geometry, displayFieldName, sle);
               for (let i = 0, length = layer.geometry.length; i < length; i++) {
                 let ply = layer.geometry[i];
                 t.map.addOverlay(ply);
@@ -96,7 +96,7 @@
           }
         }
       },
-      createPolygon(data, layer, displayFieldName, fillColor) {
+      createPolygon(data, layer, displayFieldName, polygonStyle) {
         let transformRing = this.getBdPolygon(data);
         let t = this;
         for (let i = 0, length = transformRing.length; i < length; i++) {
@@ -106,7 +106,7 @@
           //let fillColor = color || this.getRandomColor();
           for (let j = 0, count = geometry.length; j < count; j++) {
             let polygon = this.getStringPolygon(geometry[j]);
-            let ply = new BMap.Polygon(polygon, {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#2929D2', fillColor: fillColor});
+            let ply = new BMap.Polygon(polygon, polygonStyle);
             ply.attributes = attributes;
             ply.displayFieldName = displayFieldName;
 
@@ -196,19 +196,19 @@
         return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).substr(-6);
       },
       getLeaveColor: function (type) {
-        let bgColor = undefined;
+        let sle = {};
         switch (type) {
           case 0:
-            bgColor = '#89B8FE';
+            sle = {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#0070CE', fillColor: '#2D96EF',fillOpacity:0.2};
             break;
           case 1:
-            bgColor = '#b6e2a7';
+            sle = {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#1C7B2A', fillColor: '#6FB779',fillOpacity:0.2};
             break;
           case 2:
-            bgColor = '#f8d0d0';
+            sle = {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#BB2C00', fillColor: '#F48670',fillOpacity:0.2};
             break;
         }
-        return bgColor;
+        return sle;
       }
     }
   }
