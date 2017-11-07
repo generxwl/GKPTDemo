@@ -12,6 +12,7 @@
         lsMarkers: [],
         lsLabels: [],
         lsRedLabels: [],
+        lsValueLabels: [],
         defaultType: 'LAYER_GS',
         maxZoom: 13,
         trafficLayer: undefined,
@@ -184,13 +185,17 @@
           value['ptType'] = type;
           let labelName = ((displayName && value) && (value[displayName]));//value.CamName || '';
           let pt = new BMap.Point(value.lng || value.Longitude || value.longitude, value.lat || value.Latitude || value.latitude);
-          let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName), type, value[fieldName] || undefined);
+          let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName), type, value[displayName] || undefined);
           let label = t.setMarkerLabel(labelName, t.getMarkerLabelState(value, type, fieldName), pt, type);//, marker.setLabel(label)
           label && (t.lsLabels.push({label: label, type: type}), t.map.addOverlay(label));
 
           //获取警报Label
           let labelRed = t.getLabelRed(value, type, fieldName, pt);
           labelRed && (t.lsRedLabels.push({label: labelRed, type: type}), t.map.addOverlay(labelRed));
+
+          //加载数值Label
+          let labelValue = t.setValueLabel(value, fieldName, type, pt);
+          labelValue && (t.lsValueLabels.push({label: labelValue, type: type}), t.map.addOverlay(labelValue));
 
           marker && (t.map.addOverlay(marker), marker.attributes = value, t.lsMarkers.push({
             marker: marker,
@@ -242,7 +247,7 @@
             let conPoint = this.wgsPointToBd(pt);
             let opts = {
               position: (ptType.toUpperCase() === 'LAYER_SP' || ptType.toUpperCase() === 'LAYER_SP_VOC' || ptType.toUpperCase() === 'LAYER_CGQ_LCS' || ptType.toUpperCase() === 'LAYER_CGQ_VOC' || ptType.toUpperCase() === 'LAYER_GD') ? conPoint : pt,
-              offset: (ptType.toUpperCase() === 'LAYER_SP' || ptType.toUpperCase() === 'LAYER_SP_VOC' || ptType.toUpperCase() === 'LAYER_CGQ_LCS' || ptType.toUpperCase() === 'LAYER_CGQ_VOC' || ptType.toUpperCase() === 'LAYER_GD') ? new BMap.Size(-33, -33) : new BMap.Size(-32, -32)
+              offset: (ptType.toUpperCase() === 'LAYER_SP' || ptType.toUpperCase() === 'LAYER_SP_VOC' || ptType.toUpperCase() === 'LAYER_CGQ_LCS' || ptType.toUpperCase() === 'LAYER_CGQ_VOC' || ptType.toUpperCase() === 'LAYER_GD') ? new BMap.Size(-35, -35) : new BMap.Size(-35, -35)
             };
             labelRed = new BMap.Label(elContext, opts);
             labelRed.setStyle({
@@ -728,20 +733,73 @@
             icon: icon,
             offset: new BMap.Size(0, 0)
           });
-          let typeUpper = type.toUpperCase();
+          //let typeUpper = type.toUpperCase();
           if (lyType.toUpperCase() === 'LAYER_GS') {
-            let label = new BMap.Label(value || '');
+            let label = new BMap.Label((value || '') + '<div class="arrow" style="width: 0;  height: 0; border-left: 8px solid transparent; border-bottom: 8px solid #fff; border-right: 8px solid transparent; color:#333; position: absolute;  margin-top:-24px;margin-left:' + (value.length * 6 - 8) + 'px  " ></div>');
             label.setStyle({
               border: 'none',
-              color: (typeUpper === 'GS-G' || typeUpper === 'GS-O' || typeUpper === 'GS-Y') ? '#333' : '#fff',
-              background: 'none',
+              //color: (typeUpper === 'GS-G' || typeUpper === 'GS-O' || typeUpper === 'GS-Y') ? '#333' : '#fff',
+              color: '#000000',
+              background: '#fff',
               fontSize: '12px',
               fontFamily: 'Microsoft YaHei'
             });
+            label.setOffset(new BMap.Size(-6 * value.length + 8, 24));
             marker.setLabel(label);
           }
         }
         return marker;
+      },
+
+      //设置显示值覆盖物
+      setValueLabel(value, displayField, ptType, pt){
+        let index = 0;
+        let hasLabel = false;
+        let label = undefined;
+        let vl = value[displayField];
+        switch (ptType.toUpperCase()) {
+          case 'LAYER_GS':
+          case 'LAYER_CGQ_LCS':
+            index = getAQILevelIndex(parseInt(vl));
+            hasLabel = true;
+            break;
+          case 'LAYER_GD':
+            index = getPM10LevelIndex(parseInt(vl));
+            hasLabel = true;
+            break;
+          case 'LAYER_CGQ_VOC':
+            index = getVOCLeveColorIndex(parseInt(vl));
+            hasLabel = true;
+            break;
+          case 'LAYER_QY':
+            index = value['isOnline'] ? (value ? 4 : 1) : 0;
+            vl = value['smoke'] || '--';
+            hasLabel = true;
+            break
+        }
+        if (hasLabel) {
+          let bgcolor = getColorByIndex(index) || '#333';
+          let conPoint = this.wgsPointToBd(pt);
+          let opts = {
+            position: (ptType.toUpperCase() === 'LAYER_SP' || ptType.toUpperCase() === 'LAYER_SP_VOC' || ptType.toUpperCase() === 'LAYER_CGQ_LCS' || ptType.toUpperCase() === 'LAYER_CGQ_VOC' || ptType.toUpperCase() === 'LAYER_GD') ? conPoint : pt,
+            offset: new BMap.Size(-20, -40)
+          };
+          label = new BMap.Label(vl + '<div class="arrow" style="width: 0;  height: 0; border-left: 8px solid transparent; border-top: 8px solid; border-right: 8px solid transparent; color:' + bgcolor + '; position: absolute;  margin-top:-2px;margin-left:8px  " ></div>', opts)  // 创建文本标注对象
+//          label.attributes = {ptId: code};
+          label.setStyle({
+            color: '#fff',
+            background: bgcolor,
+            fontSize: '14px',
+            border: '',
+            width: '35px',
+            textAlign: 'center',
+            height: '22px',
+            lineHeight: '22px',
+            borderRadius: '4px'
+          });
+          label && (this.map.getZoom() >= this.maxZoom ? label.show() : label.hide());
+        }
+        return undefined;
       },
 
       //设置MarkerLabel
@@ -946,13 +1004,13 @@
             path = '/static/imgs/main/jyz-r.png';
             break;
           case 'QY-G':
-            path = '/static/imgs/main/e_g.png';
+            path = '/static/imgs/main/qy-g.png';
             break;
           case 'QY-NG':
-            path = '/static/imgs/main/e_ng.png';
+            path = '/static/imgs/main/qy-ng.png';
             break;
           case 'QY-R':
-            path = '/static/imgs/main/e_r.png';
+            path = '/static/imgs/main/qy-r.png';
             break;
           case 'SP-G':
             path = '/static/imgs/main/sp-g.png';
@@ -1022,6 +1080,7 @@
         return rtValue;
       },
 
+      //获取警报Label根据类型
       getLabelRedByType(type){
         let rtValue = [];
         for (let i = 0, length = this.lsRedLabels.length; i < length; i++) {
@@ -1029,6 +1088,21 @@
           item.type.toUpperCase() === type.toUpperCase() && rtValue.push(item);
         }
         return rtValue;
+      },
+
+      //获取值Label根据类型
+      getLabelValueByType(type){
+        let rtValue = [];
+        for (let i = 0, length = this.lsValueLabels.length; i < length; i++) {
+          let item = this.lsValueLabels[i];
+          item.type.toUpperCase() === type.toUpperCase() && rtValue.push(item);
+        }
+        return rtValue;
+      },
+
+      //设置数值Value显隐性
+      setLabelValueVisible(hasVisible){
+        this.lsValueLabels.forEach(v => (hasVisible ? v.show() : v.hide()));
       },
 
       //移除Marker根据类型及Marker集合
@@ -1066,6 +1140,17 @@
           v.type.toUpperCase() !== type.toUpperCase() && lsAllLabels.push(v);
         });
         this.lsRedLabels = lsAllLabels;
+      },
+
+      //移除LabelValue
+      removeLabelValue(ls = [], type){
+        let t = this;
+        ls.forEach(v => t.map.removeOverlay(v.label));
+        let lsAllLabels = [];
+        this.lsValueLabels.forEach(function (v) {
+          v.type.toUpperCase() !== type.toUpperCase() && lsAllLabels.push(v);
+        });
+        this.lsValueLabels = lsAllLabels;
       },
 
       //清除Marker
