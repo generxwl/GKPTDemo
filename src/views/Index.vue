@@ -12,7 +12,6 @@
 
 <script>
   import MainMap from '@/map/MainMap' //0809
-  import VideoCtrl from '@/components/VideoCtrl'
   import indexpanel from '@/components/Paneldata-index'
   import MapHandle from '@/map/controls/MapHandle'
   export default {
@@ -35,7 +34,7 @@
         }, 2000);
       }
     },
-    components: {MainMap,VideoCtrl,indexpanel,MapHandle}//0809
+    components: {MainMap,indexpanel,MapHandle}//0809
   }
 </script>
 

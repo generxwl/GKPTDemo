@@ -23,13 +23,12 @@
     },
     methods:{
         ready(){
-          let map = new BMap.Map('main_map');
+          let t = this;
+          let map = new BMap.Map('emergency_map');
           map.centerAndZoom('廊坊', 10);
           map.enableScrollWheelZoom();
           mapStyle && map.setMapStyle(mapStyle);
-          this.map = map;
-          let t = this;
-
+          t.map = map;
           map.addEventListener('tilesloaded', function () {
             bus.$emit('setEmergencyMap', map);
             //bus.$emit('setMainMarkerLabel',map.getZoom() >= t.zoom);

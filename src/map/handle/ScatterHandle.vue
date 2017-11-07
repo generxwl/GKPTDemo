@@ -110,7 +110,7 @@
         let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
           title: '<sapn style="font-size:16px"><b>' + attributes['CamName'] + '</b>' + '</span>',             //标题
           width: 520,
-          height: 350,
+          height: 400,
           enableAutoPan: true,
           searchTypes: []
         });
