@@ -186,8 +186,8 @@
           let labelName = ((displayName && value) && (value[displayName]));//value.CamName || '';
           let pt = new BMap.Point(value.lng || value.Longitude || value.longitude, value.lat || value.Latitude || value.latitude);
           let marker = t.getMarker(pt, t.getMarkerState(value, type, fieldName), type, value[displayName] || undefined);
-          let label = t.setMarkerLabel(labelName, t.getMarkerLabelState(value, type, fieldName), pt, type);//, marker.setLabel(label)
-          label && (t.lsLabels.push({label: label, type: type}), t.map.addOverlay(label));
+//          let label = t.setMarkerLabel(labelName, t.getMarkerLabelState(value, type, fieldName), pt, type);//, marker.setLabel(label)
+//          label && (t.lsLabels.push({label: label, type: type}), t.map.addOverlay(label));
 
           //获取警报Label
           let labelRed = t.getLabelRed(value, type, fieldName, pt);
