@@ -17,18 +17,23 @@
                         <div>
                             <h3>监测网</h3>
                             <a href="#/Monitor">国省控点监测</a>
+                          <div class="line"></div>
                             <a href="#/superstation">超级站</a>
+                          <div class="line"></div>
                             <a href="#/SensorNetwork">传感网</a>
                         </div>
                         <div>
                             <h3>散乱污监控</h3>
                             <a href="#/ScatteredDirtVideos">散乱污企业监控</a>
+                          <div class="line"></div>
                             <a href="#/Videos">VOCs企业监控</a>
+                          <div class="line"></div>
                             <a>高点监控</a>
                         </div>
                         <div>
                             <h3>GPS监控</h3>
                             <a>渣土车</a>
+                          <div class="line"></div>
                             <a>环卫车</a>
                         </div>
                     </div>
@@ -39,13 +44,16 @@
                         <div>
                             <h3>动态源清单</h3>
                             <a href="#/EnterpriseEonitoring">企业在线监测</a>
+                          <div class="line"></div>
                             <a href="#/DustOnline">扬尘在线监测</a>
+                          <div class="line"></div>
                             <a>机动车路况</a>
                         </div>
                         <div>
                             <h3>静态源清单</h3>
-                            <a href="#/StaticOriginalList" style="font-family:宋体">污染源清单</a>
-                            <a style="font-family:宋体;margin-left: 16px">应急清单</a>
+                            <a href="#/StaticOriginalList" >污染源清单</a>
+                          <div class="line"></div>
+                            <a >应急清单</a>
                         </div>
                     </div>
                 </li>
@@ -63,33 +71,45 @@
                 </li>
                 <li>
                     <a>大数据资源<i></i></a>
-                    <div class="Fiveitem submenu">
+                    <div class="Fiveitem submenu same">
                         <div>
                             <h3>城市排名</h3>
                             <a>城市排名</a>
+                          <div class="line"></div>
                             <a>同期变化率</a>
+                          <div class="line"></div>
                             <a>百分比对比</a>
                         </div>
                         <div>
                             <h3>数据对比</h3>
                             <a>小时均值比</a>
+                          <div class="line"></div>
                             <a>日均值比</a>
+                          <div class="line"></div>
                             <a>污染物对比</a>
+                          <div class="line"></div>
                             <a>固定源统计</a>
-                            <a href="#/DustEmissionStatistics">扬尘源统计</a><br/>
+                          <div class="line"></div>
+                            <a href="#/DustEmissionStatistics">扬尘源统计</a>
+                          <div class="line"></div>
                             <a href="#/DistrictsCounties">区县打分</a>
                         </div>
                         <div>
                             <h3>传感网统计</h3>
                             <a>曲线对比</a>
+                          <div class="line"></div>
                             <a>均值比</a>
+                          <div class="line"></div>
                             <a>环比分析</a>
                         </div>
                         <div>
                             <h3>市政及经济数据</h3>
                             <a>煤改电</a>
+                          <div class="line"></div>
                             <a>煤改气</a>
+                          <div class="line"></div>
                             <a>用电量</a>
+                          <div class="line"></div>
                             <a>经济运行</a>
                         </div>
                         <div>
@@ -229,7 +249,7 @@
                     padding: 0 15px;
                 }
                 :active {
-                    color: #1080cc;
+                    color: #0070CE;
                 }
                 a {
                     color: #dee9f5 ;
@@ -271,22 +291,26 @@
                         color: #1080cc;
                     }
                 }*/
+              .line{
+                height:10px;
+                width:1px;
+               background:#DDDDDD;
+                margin:0 13px;
+                display:inline-block;
+              }
                 .same{
                   z-index: 100;
-                  position: absolute;
-                  top: 56px;
-                  left: 0;
                   display:none;
                   background: #fff;
-                  width: 264px;
                   box-shadow:#ccc;
                   border:1px solid #ccc;
                   border-radius: 0 0 4px 4px;
-                  padding:0 0 20px 20px;
+                  padding:4px 20px 20px 20px;
                   text-align:left;
-                  line-height:14px;
+                  line-height:20px;
                   div{
                     text-align:left;
+                    padding:0;
                   }
                     a {
                       color: #666;
@@ -295,61 +319,29 @@
                       font-family: "Microsoft YaHei";
                       cursor: pointer;
                       font-weight:normal;
-                      margin-right:20px;
-                      line-height:20px;
                     }
                     h3{
-                      /*text-align: left;
-                      font-weight: bold;
-                      font-size: 14px;
-                      margin:0;
-                      padding: 0;*/
-                      margin:20px 0 12px 0;
-                      /*margin-bottom:12px;
-                      margin-top:20px;*/
+                      margin:16px 0 8px 0;
                       color:#333333;
                       font-size:14px;
                       font-weight:bold;
                     }
                     :hover:not(h3){
-                        color: #1080cc;
+                        color: #0070CE;
                     }
                 }
-                /*.Threeitem {
-                    display: none;
-                    text-align: left;
-                    z-index: 100;
-                    width: 264px;
-                    position: absolute;
-                    top: 56px;
-                    left: 0;
-                    background: #fff;
-                    line-height: 14px;
-                   !* padding: 10px 20px;*!
-                  padding:20px 0;
-                    box-shadow: 0 0 5px #1080cc;
-                    h3{
-                        margin:0;
-                       !* margin-left: 10px;*!
-                        a {
-                            color: #666;
-                            font-size: 12px;
-                            padding:0;
-                           !* padding: 0 10px;*!
-                            font-family: "Microsoft YaHei";
-                            cursor: pointer;
-                        }
-                        :hover:not(h3){
-                            color: #1080cc;
-                        }
-                        p{
-                            font-weight: bold;
-                        }
-                        font {
-                            color: #a94442;
-                        }
-                    }
-                }*/
+              .Twoitem {
+                position: absolute;
+                top: 56px;
+                left: 0;
+                width:264px;
+              }
+              .Threeitem{
+                position: absolute;
+                top: 56px;
+                left: 0;
+                width:264px;
+              }
                 .Fouritem {
                     text-align: left;
                     display: none;
@@ -360,10 +352,9 @@
                     left: 0;
                     background: #fff;
                     line-height: 30px;
-                    box-shadow: 0 0 5px #1080cc;
+                    box-shadow: 0 0 5px #ccc;
                   padding:10px 20px 30px;
                     a {
-                       /* text-align: left;*/
                       padding-left:10px;
                         color: #666;
                         font-size: 14px;
@@ -372,10 +363,10 @@
 
                     }
                     :hover {
-                        color: #1080cc;
+                        color: #0070CE;
                     }
                 }
-                .Fiveitem {
+                /*.Fiveitem {
                     text-align: left;
                     display: none;
                     z-index: 100;
@@ -384,13 +375,10 @@
                     top: 56px;
                     right: 0px;
                     background: #fff;
-                   /* line-height: 14px;
-                    padding: 10px 0;
-                    box-shadow: 0 0 5px #1080cc;*/
                   box-shadow:#ccc;
                   border:1px solid #ccc;
                   border-radius: 0 0 4px 4px;
-                  padding:0 0 20px 20px;
+                  padding:4px 20px 20px 20px;
                   line-height:14px;
                     div {
                       text-align:left;
@@ -401,22 +389,28 @@
                           font-family: "Microsoft YaHei";
                           cursor: pointer;
                           font-weight:normal;
-                          margin-right:20px;
+                          margin-right:28px;
                           line-height:20px;
                         }
                         :hover:not(h3) {
                             color: #1080cc;
                         }
                         h3 {
-                          margin:20px 0 12px 0;
-                          /*margin-bottom:12px;
-                          margin-top:20px;*/
+                          margin:16px 0 8px 0;
+                          !*margin-bottom:12px;
+                          margin-top:20px;*!
                           color:#333333;
                           font-size:14px;
                           font-weight:bold;
                         }
                     }
-                }
+                }*/
+              .Fiveitem{
+                width: 460px;
+                position: absolute;
+                top: 56px;
+                right: 0px;
+              }
                 .Sixitem {
                     display: none;
                     z-index: 100;
