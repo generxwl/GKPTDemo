@@ -7,13 +7,13 @@ import SensorNetwork from '@/views/SensorNetwork'//传感网
 import DustOnline from '@/views/DustOnline'//在线扬尘清单
 import Dynamicwindfield from '@/views/Dynamic-wind-field'//动态风场
 import SuperStation from '@/views/Super-station'//超级站
-import Pollutionmap from '@/views/Pollution-map'//污染地图
 import WeatherStation from '@/views/weather-station'//气象站
 import Weather from '@/views/Weather'//天气预报
 import Videos from '@/views/Videos'//企业工地视频监测
 import ScatteredDirtVideos from '@/views/ScatteredDirtVideos'//散乱污视频监测
 import EnterpriseEonitoring from '@/views/Enterprise-monitoring'//企业监测
 import StaticOriginalList from '@/views/StaticOriginalList'//静态原清单
+import Emergencylist from '@/views/Emergencylist'//应急清单
 import GridPrediction from '@/views/GridPrediction'//网格预报
 import DustEmissionStatistics from '@/views/DataAnalysis/DustEmissionStatistics'//扬尘源统计
 import DistrictsCounties from '@/views/DataAnalysis/DistrictsCounties'//区县打分
@@ -36,6 +36,11 @@ export default new Router({
             path: '/Monitor',
             name: 'Monitor',
             component: Monitor
+        },
+        {
+            path: '/Emergencylist',
+            name: 'Emergencylist',
+            component: Emergencylist
         },
         {
             path: '/ScatteredDirtVideos',
@@ -76,11 +81,6 @@ export default new Router({
             path: '/weatherstation',
             name: 'weatherstation',
             component: WeatherStation
-        },
-        {
-            path: '/pollutionmap',
-            name: 'pollutionmap',
-            component: Pollutionmap
         },
         {
             path: '/superstation',

@@ -2,19 +2,19 @@
   <div class="main-layer">
     <div class="main-layer-handle">筛选监测点</div>
     <ul class="warp-box">
-      <li v-for="(item,index) in targets" :id="('Litem_'+ index)" :style="'background:'+(item.checked ? '#1080cc' : 'rgba(0, 79, 137, 0.6)')" :data-index="index" :data-type="item.name" @click="liClick">
+      <li v-for="(item,index) in targets" :id="('Litem_'+ index)" :style="'background:'+(item.checked ? '#2494F2' : 'rgba(0, 0, 0, 0.6)')" :data-index="index" :data-type="item.name" @click="liClick">
         <img :src="item.checked ? item.checkedSrc : item.src" title=""/>
         <span>{{item.value}}</span>
       </li>
     </ul>
     <ol class="kqworp" v-show="kongqi">
-      <li style="width: 100px;" v-for="(item,index) in KQtargets" :data-parent-index="item.parentIndex" :data-parent="item.parentName" :data-index="index" :data-type="item.name" @click="OKQClick">
+      <li style="width: 106px;" v-for="(item,index) in KQtargets" :data-parent-index="item.parentIndex" :data-parent="item.parentName" :data-index="index" :data-type="item.name" @click="OKQClick">
         <img :src="item.src" title=""/>
         <span>{{item.value}}</span>
       </li>
     </ol>
     <ol class="vdworp" v-show="shiping">
-      <li style="width: 100px;" v-for="(item,index) in VDtargets" :data-parent-index="item.parentIndex" :data-parent="item.parentName" :data-index="index" :data-type="item.name" @click="OVDClick">
+      <li style="width: 106px;" v-for="(item,index) in VDtargets" :data-parent-index="item.parentIndex" :data-parent="item.parentName" :data-index="index" :data-type="item.name" @click="OVDClick">
         <img :src="item.src" title=""/>
         <span>{{item.value}}</span>
       </li>
@@ -120,17 +120,7 @@
             parentIndex: '0',
             src: 'static/imgs/main/cg.png',
             checkedSrc: 'static/imgs/main/cg_c.png'
-//            src: 'static/imgs/mues/sixzb/gdycw.png',
-//            checkedSrc: 'static/imgs/mues/sixzb/gdycw_c.png'
           },
-//          {
-//            name: 'layer_cgq_gsx',
-//            parentName: 'layer_cg',
-//            parentIndex: '0',
-//            value: 'β射线扬尘',
-//            src: 'static/imgs/mues/sixzb/btw.png',
-//            checkedSrc: 'static/imgs/mues/sixzb/btw_c.png'
-//          },
           {
             name: 'layer_cgq_voc',
             value: 'TVOC监测',
@@ -179,8 +169,10 @@
       }
     },
     created(){
+
     },
     mounted(){
+
     },
     methods: {
 
@@ -203,7 +195,7 @@
           t.getParentStyle(index)
         }
         else {
-          imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
+          imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 0, 0, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#2494F2', hasChecked = true);
           bus.$emit('targetMainLayer', type, hasChecked);
         }
       },
@@ -220,7 +212,7 @@
         let item = targets[index];
         let hasChecked = false;
 
-        imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
+        imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 0, 0, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#2494F2', hasChecked = true);
 
         let hasParentChecked = this.hasCheckedChildElement('KQ') || false;
         this.setParentStates(parentIndex, hasParentChecked, parentName);
@@ -244,7 +236,7 @@
         if (parseInt(index) === 0 || parseInt(index) === 1) {
               t.aclink = !t.aclink;
         }
-        imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#1080cc', hasChecked = true);
+        imgElement.getAttribute('src') !== item.src ? (imgElement.src = item.src, childElement.style.backgroundColor = 'rgba(0, 0, 0, 0.6)') : (imgElement.src = item.checkedSrc, childElement.style.backgroundColor = '#2494F2', hasChecked = true);
         let hasParentChecked = this.hasCheckedChildElement('SP') || false;
         this.setParentStates(parentIndex, hasParentChecked, parentName);
         bus.$emit('targetMainLayer', type, hasChecked,from);
@@ -257,7 +249,7 @@
         if (element && element.length) {
           let el = element[0];
           let imgElement = el.querySelector('img');
-          !hasChecked ? el.style.backgroundColor = 'rgba(0, 79, 137, 0.6)' : el.style.backgroundColor = '#1080cc';
+          !hasChecked ? el.style.backgroundColor = 'rgba(0, 0, 0, 0.6)' : el.style.backgroundColor = '#2494F2';
         }
       },
       //二级菜单栏父级背景切换
@@ -294,23 +286,22 @@
   .main-layer {
     position: absolute;
     left: 0;
-    border: solid 1px #fff;
+    border-right: solid 1px #fff;
     border-radius: 4px;
     top: 50px;
     z-index: 1;
-    box-shadow: 0 0 5px #666;
     .warp-box{
       li:nth-child(1){
-        padding: 2px;
         img{
+          margin: 14px 0;
           float: right;
           padding-right: 6px;
         }
       }
       li:nth-child(5){
-        padding: 2px;
         img{
           float: right;
+          margin: 14px 0;
           padding-right: 6px;
         }
       }
@@ -319,51 +310,39 @@
 
   .kqworp {
     position: absolute;
-    top: 28px;
-    left: 129px;
+    top: 38px;
+    left: 150px;
     color: #fff;
-    border: solid 1px #fff;
-    box-shadow: 0 0 5px #666;
   }
   .ACvideo{
       position: fixed;
       display: inline-block;
       padding: 5px 15px;
       color: #fff;
-      background:rgba(0, 79, 137, 0.6) ;
+      background:rgba(0, 0, 0, 0.6) ;
       left: calc(50% - 100px);
       bottom:20px;
-      /*margin-left: auto;*/
-
   }
   .vdworp {
     position: absolute;
-    top: 167px;
-    left: 129px;
+    top: 191px;
+    left: 150px;
     color: #fff;
-    border: solid 1px #fff;
-    box-shadow: 0 0 5px #666;
-    img {
-      width: 15px !important;
-      height: 15px !important;
-    }
-
   }
   .main-layer-handle {
-    width: 128px;
+    width: 148px;
     background: #fff;
-    color: #1080cc;
-    border: solid 1px #fff;
-    line-height: 25px;
+    color: #2494F2;
+   font-weight: bold;
+    line-height: 38px;
+    opacity: 0.8;
   }
 
   .main-layer ul {
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
-
     border-radius: 1px;
-    border: solid 1px #fff;
-    width: 128px;
+    width: 148px;
     color: #fff;
   }
 
@@ -371,21 +350,19 @@
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
     border-radius: 1px;
-    background-color: rgba(0, 79, 137, 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     list-style: none;
-    line-height: 30px;
-    width: 127px;
+    line-height: 38px;
+    width: 148px;
     padding: 0;
     cursor: pointer;
   }
-
   .main-layer li img {
-    margin: 10px 0;
+    margin: 8px 0;
   }
-
   .main-layer li span {
     display: inline-block;
-    width: calc(100% - 20px);
+    width: calc(100% - 40px);
     vertical-align: baseline;
     text-align: left;
     font-size: 12px;

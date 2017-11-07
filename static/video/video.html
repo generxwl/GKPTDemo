@@ -14,17 +14,135 @@
             font-size: 12px;
             color: #ac2925;
         }
+        #setTab .tab_nav{
+            width: 500px;
+            height: 32px;
+            border-bottom: solid 1px #ccc;
+            margin-left: 0;
+            padding-left:0 ;
+            margin-top: 0;
+            padding-top: 0;
+        }
+        #setTab .tab_nav li{
+            padding-left: 0;
+            list-style: none;
+            width: 130px;
+            height: 32px;
+            line-height: 32px;
+            float: left;
+            text-align: center;
+            margin-left: 1px;
+        }
+        .cur{
+            border-bottom: solid 2px #1080cc;
+        }
+        .qiye .uleft{
+            float: left;
+            height: auto;
+            width: 110px;
+            margin: 0;
+            padding:0 ;
+            border-top: solid 1px #ccc;
+        }
+        .qiye .uleft li{
+            list-style: none;
+            text-align: center;
+            background: #f6f6f6;
+            color: #333;
+            width: 108px;
+            border: solid 1px #ccc;
+            border-top: none;
+            height: 34px;
+            line-height: 34px;
+            font-size: 14px;
+        }
+        .qiye .uright{
+            float: left;
+            height: auto;
+            width: 390px;
+            margin: 0;
+            padding:0 ;
+            border-top: solid 1px #ccc;
+        }
+        .qiye .uright li{
+            list-style: none;
+            text-align: left;
+            padding-left: 5px;
+            background: #fff;
+            color: #000;
+            font-size: 14px;
+            width: 384px;
+            border: solid 1px #ccc;
+            border-left: none;
+            border-top: none;
+            height: 34px;
+            line-height: 34px;
+        }
     </style>
 </head>
 <body>
-    <div class="video">
-        <div id="ocxContainer" style="width:500px;height:300px" dblclick="changeSize()"></div>
-        <div class="line"><font>首次运行请安装视频插件后再试！</font><a href="../Download/文件描述">插件下载</a></div>
+    <div id="setTab">
+        <ul class="tab_nav">
+            <li class="cur">视频</li>
+            <li>企业信息</li>
+        </ul>
+        <div class="tab_div">
+            <div class="video"  style="display: block">
+                <div id="ocxContainer" style="width:500px;height:300px" dblclick="changeSize()"></div>
+                <div class="line"><font>首次运行请安装视频插件后再试！</font><a href="../Download/文件描述">插件下载</a></div>
+            </div>
+            <div class="qiye"   style="display: none">
+                <ul class="uleft">
+                    <li>企业名称</li>
+                    <li>行业类别</li>
+                    <li>产品</li>
+                    <li>所属区县</li>
+                    <li>企业地址</li>
+                    <li>所属网格</li>
+                    <li>网格员</li>
+                    <li>网格员联系方式</li>
+                    <li>监控类型</li>
+                </ul>
+                <ul class="uright">
+                    <li>-------</li>
+                    <li>-------</li>
+                    <li>-------</li>
+                    <li>-------</li>
+                    <li>-------</li>
+                    <li>-------</li>
+                    <li>-------</li>
+                    <li>-------</li>
+                    <li>-------</li>
+                </ul>
+            </div>
+        </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#setTab").setTab();
+        });
+        (function ($) {
+            $.fn.setTab = function () {
+                var getTab=$(this),//this指向调用函数的ID
+                    panels = getTab.children("div.tab_div").children("div"),
+                    tabs = getTab.find("li");
+                return this.each(function(){
+                    $(tabs).click(function(e) {
+                        var index = $.inArray(this, $(this).parent().find("li"));//this指向li
+                        if (panels.eq(index)[0]) {
+                            $(tabs).removeClass("cur");
+                            $(this).addClass("cur");
+                            panels.css("display", "none").eq(index).css("display", "block");
+                        }
+                    });
+
+                });
+            }
+        })(jQuery);
+    </script>
     <script>
-
         $(function () {
-
             function GetQueryString(name)
             {
                 var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
@@ -57,7 +175,6 @@
                     + "<VideoRecord><PackType>0</PackType><MaxRecTime>0</MaxRecTime>"
                     + "<PackTime>100</PackTime><PackSize>100</PackSize><SaveFolder>C:\\hikvisiontest</SaveFolder><KeyWords></KeyWords></VideoRecord>";
                 var RecordParamstate = preview.SetRecordParam(_record);
-
 
             }
 

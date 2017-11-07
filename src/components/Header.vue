@@ -45,7 +45,7 @@
                         <div>
                             <p>静态源清单</p>
                             <a href="#/StaticOriginalList" style="font-family:宋体">污染源清单</a>
-                            <a style="font-family:宋体;margin-left: 16px">应急清单</a>
+                            <a href="#/Emergencylist" style="font-family:宋体;margin-left: 16px">应急清单</a>
                         </div>
                     </div>
                 </li>
