@@ -52,8 +52,8 @@
                         <div>
                             <h3>静态源清单</h3>
                             <a href="#/StaticOriginalList" >污染源清单</a>
-                          <div class="line"></div>
-                            <a >应急清单</a>
+                            <div class="line"></div>
+                            <a href="#/Emergencylist">应急清单</a>
                         </div>
                     </div>
                 </li>
