@@ -13,45 +13,53 @@
                 </li>
                 <li>
                     <a>监测调度<i></i></a>
-                    <div class="Twoitem submenu">
+                    <div class="Twoitem submenu same">
                         <div>
                             <h3>监测网</h3>
                             <a href="#/Monitor">国省控点监测</a>
+                          <div class="line"></div>
                             <a href="#/superstation">超级站</a>
+                          <div class="line"></div>
                             <a href="#/SensorNetwork">传感网</a>
                         </div>
                         <div>
                             <h3>散乱污监控</h3>
                             <a href="#/ScatteredDirtVideos">散乱污企业监控</a>
+                          <div class="line"></div>
                             <a href="#/Videos">VOCs企业监控</a>
+                          <div class="line"></div>
                             <a>高点监控</a>
                         </div>
                         <div>
                             <h3>GPS监控</h3>
                             <a>渣土车</a>
+                          <div class="line"></div>
                             <a>环卫车</a>
                         </div>
                     </div>
                 </li>
                 <li>
                     <a>源清单<i></i></a>
-                    <div class="Threeitem submenu">
+                    <div class="Threeitem submenu same">
                         <div>
-                            <p>动态源清单</p>
+                            <h3>动态源清单</h3>
                             <a href="#/EnterpriseEonitoring">企业在线监测</a>
+                          <div class="line"></div>
                             <a href="#/DustOnline">扬尘在线监测</a>
+                          <div class="line"></div>
                             <a>机动车路况</a>
                         </div>
                         <div>
-                            <p>静态源清单</p>
-                            <a href="#/StaticOriginalList" style="font-family:宋体">污染源清单</a>
-                            <a href="#/Emergencylist" style="font-family:宋体;margin-left: 16px">应急清单</a>
+                            <h3>静态源清单</h3>
+                            <a href="#/StaticOriginalList" >污染源清单</a>
+                          <div class="line"></div>
+                            <a >应急清单</a>
                         </div>
                     </div>
                 </li>
                 <li>
                     <a>气象监测与预报<i></i></a>
-                    <div class="Fouritem submenu">
+                    <div class="Fouritem submenu same">
                         <a href="#/weatherstation">气象站</a><br/>
                         <a href="#/GridPrediction">网格预测</a><br/>
                         <a href="#/DTweather">动态风场</a><br/>
@@ -63,33 +71,45 @@
                 </li>
                 <li>
                     <a>大数据资源<i></i></a>
-                    <div class="Fiveitem submenu">
+                    <div class="Fiveitem submenu same">
                         <div>
                             <h3>城市排名</h3>
                             <a>城市排名</a>
+                          <div class="line"></div>
                             <a>同期变化率</a>
+                          <div class="line"></div>
                             <a>百分比对比</a>
                         </div>
                         <div>
                             <h3>数据对比</h3>
                             <a>小时均值比</a>
+                          <div class="line"></div>
                             <a>日均值比</a>
+                          <div class="line"></div>
                             <a>污染物对比</a>
+                          <div class="line"></div>
                             <a>固定源统计</a>
-                            <a href="#/DustEmissionStatistics">扬尘源统计</a><br/>
+                          <div class="line"></div>
+                            <a href="#/DustEmissionStatistics">扬尘源统计</a>
+                          <div class="line"></div>
                             <a href="#/DistrictsCounties">区县打分</a>
                         </div>
                         <div>
                             <h3>传感网统计</h3>
                             <a>曲线对比</a>
+                          <div class="line"></div>
                             <a>均值比</a>
+                          <div class="line"></div>
                             <a>环比分析</a>
                         </div>
                         <div>
                             <h3>市政及经济数据</h3>
                             <a>煤改电</a>
+                          <div class="line"></div>
                             <a>煤改气</a>
+                          <div class="line"></div>
                             <a>用电量</a>
+                          <div class="line"></div>
                             <a>经济运行</a>
                         </div>
                         <div>
@@ -216,7 +236,7 @@
                     padding: 0 15px;
                 }
                 :active {
-                    color: #1080cc;
+                    color: #0070CE;
                 }
                 a {
                     color: #dee9f5 ;
@@ -235,7 +255,7 @@
                 :hover {
                     text-decoration: none;
                 }
-                .Oneitem {
+               /* .Oneitem {
                     display: none;
                     z-index: 100;
                     width: 120px;
@@ -257,73 +277,58 @@
                     :hover{
                         color: #1080cc;
                     }
-                }
-                .Twoitem {
-                    display: none;
-                    z-index: 100;
-                    width: 265px;
-                    padding: 10px 0;
-                    padding-left: 22px;
-                    position: absolute;
-                    top: 56px;
-                    left: 0;
-                    background: #fff;
-                    line-height: 22px;
-                    text-align: left;
-                    box-shadow: 0 0 5px #1080cc;
+                }*/
+              .line{
+                height:10px;
+                width:1px;
+               background:#DDDDDD;
+                margin:0 13px;
+                display:inline-block;
+              }
+                .same{
+                  z-index: 100;
+                  display:none;
+                  background: #fff;
+                  box-shadow:#ccc;
+                  border:1px solid #ccc;
+                  border-radius: 0 0 4px 4px;
+                  padding:4px 20px 20px 20px;
+                  text-align:left;
+                  line-height:20px;
+                  div{
+                    text-align:left;
+                    padding:0;
+                  }
                     a {
-                        display: inline-block;
-                        color: #666;
-                        font-size: 12px;
-                        padding: 0 10px;
-                        font-family: "Microsoft YaHei";
-                        cursor: pointer;
+                      color: #666;
+                      font-size: 14px;
+                      padding: 0;
+                      font-family: "Microsoft YaHei";
+                      cursor: pointer;
+                      font-weight:normal;
                     }
                     h3{
-                      text-align: left;
-                      font-weight: bold;
-                      font-size: 14px;
-                        margin: 4px;
-                      padding: 0;
+                      margin:16px 0 8px 0;
+                      color:#333333;
+                      font-size:14px;
+                      font-weight:bold;
                     }
                     :hover:not(h3){
-                        color: #1080cc;
+                        color: #0070CE;
                     }
                 }
-                .Threeitem {
-                    display: none;
-                    text-align: left;
-                    z-index: 100;
-                    width: 256px;
-                    position: absolute;
-                    top: 56px;
-                    left: 0;
-                    background: #fff;
-                    line-height: 25px;
-                    padding: 10px 20px;
-                    box-shadow: 0 0 5px #1080cc;
-                    div {
-                        float: left;
-                        margin-left: 10px;
-                        a {
-                            text-align: center;
-                            color: #666;
-                            font-size: 12px;
-                            padding: 0 10px;
-                            font-family: "Microsoft YaHei";
-                            cursor: pointer;
-                        }
-                        :hover:not(p){
-                            color: #1080cc;
-                        }
-                        p{
-                            font-weight: bold;
-                        }
-                        font {
-                            color: #a94442;
-                        }
-                    }
-                }
+              .Twoitem {
+                position: absolute;
+                top: 56px;
+                left: 0;
+                width:264px;
+              }
+              .Threeitem{
+                position: absolute;
+                top: 56px;
+                left: 0;
+                width:264px;
+              }
                 .Fouritem {
                     text-align: left;
                     display: none;
@@ -331,24 +336,24 @@
                     width: 184px;
                     position: absolute;
                     top: 56px;
-                    left: 0px;
+                    left: 0;
                     background: #fff;
-                    line-height: 25px;
-                    padding: 10px 0;
-                    box-shadow: 0 0 5px #1080cc;
+                    line-height: 30px;
+                    box-shadow: 0 0 5px #ccc;
+                  padding:10px 20px 30px;
                     a {
-                        text-align: left;
+                      padding-left:10px;
                         color: #666;
-                        font-size: 12px;
-                        padding: 0 52px;
+                        font-size: 14px;
                         font-family: "Microsoft YaHei";
                         cursor: pointer;
+
                     }
                     :hover {
-                        color: #1080cc;
+                        color: #0070CE;
                     }
                 }
-                .Fiveitem {
+                /*.Fiveitem {
                     text-align: left;
                     display: none;
                     z-index: 100;
@@ -357,32 +362,42 @@
                     top: 56px;
                     right: 0px;
                     background: #fff;
-                    line-height: 20px;
-                    padding: 10px 0;
-                    box-shadow: 0 0 5px #1080cc;
+                  box-shadow:#ccc;
+                  border:1px solid #ccc;
+                  border-radius: 0 0 4px 4px;
+                  padding:4px 20px 20px 20px;
+                  line-height:14px;
                     div {
-                        margin-left: 19px;
+                      text-align:left;
                         a {
-                            text-align: left;
-                            display: inline-block;
-                            width: 80px;
-                            color: #666;
-                            padding: 0 10px;
-                            font-size: 12px;
-                            font-family: "Microsoft YaHei";
-                            cursor: pointer;
+                          color: #666;
+                          font-size: 14px;
+                          padding: 0;
+                          font-family: "Microsoft YaHei";
+                          cursor: pointer;
+                          font-weight:normal;
+                          margin-right:28px;
+                          line-height:20px;
                         }
                         :hover:not(h3) {
                             color: #1080cc;
                         }
                         h3 {
-                            color: #000;
-                            margin: 4px!important;
-                            font-size: 14px;
-                            font-weight: bold;
+                          margin:16px 0 8px 0;
+                          !*margin-bottom:12px;
+                          margin-top:20px;*!
+                          color:#333333;
+                          font-size:14px;
+                          font-weight:bold;
                         }
                     }
-                }
+                }*/
+              .Fiveitem{
+                width: 460px;
+                position: absolute;
+                top: 56px;
+                right: 0px;
+              }
                 .Sixitem {
                     display: none;
                     z-index: 100;

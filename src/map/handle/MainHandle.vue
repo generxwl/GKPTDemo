@@ -383,7 +383,7 @@
           let charUrl = undefined;
           let pms = undefined;
           let displayName = undefined;
-          let infoWidth = 320;
+          let infoWidth = '420px';
           let ptType = attributes.ptType;
           switch (ptType.toUpperCase()) {
             case 'LAYER_CG':
@@ -474,7 +474,8 @@
       //国省控点
       setGSInfoWindow(data){
         let aqi = data.aqi;
-        return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
+        let time=data.time;
+        /*return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
           + '<table width=\'100%\' class=\'fitem\'>'
           + '</td></tr><tr><th>类型</th><td style=\'width:70px;text-align:center;\'>' + data.type
           + '</td></tr></tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(aqi)) + ';color:#fff\'>' + aqi
@@ -492,7 +493,53 @@
           + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data.time.replace(/T/g, ' ') + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
-          + '</tr></table><div id=\'citychart_' + data.citygid + '\' style=\'width:100%;height:110px\'>';
+          + '</tr></table><div id=\'citychart_' + data.citygid + '\' style=\'width:100%;height:110px\'></div>';*/
+
+        return '  <div class="param"><div class="line"></div>\n' +
+          '        <div class="item one">\n' +
+          '            <div class="above">\n' +
+          '            <div class="square"></div>\n' +
+          '            <span class="type">'+data.type+'</span>\n' +
+          '            </div>\n' +
+          '            <div class="data">'+time.replace('T', ' ')+'</div>\n' +
+          '        </div>\n' +
+          '        <div class="item second">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getAQILevelIndex(aqi))+'\'> AQI</div>\n' +
+          '            <div class="value">'+aqi+'</div>\n' +
+          '        </div>' +
+          '<div class="item third">' +
+          '<div class="key" style=\'background-color:' + getColorByIndex(getComplexIndex(data.complexindex))+'\'>综值</div>' +
+          '<div class="value">'+parseFloat(data.complexindex).toFixed(3)+'</div></div><br>\n' +
+          '        <div class="item secondLine">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25))+'\'>PM2.5</div>\n' +
+          '            <div class="value"> '+parseInt(data.pm25)+'</div>\n' +
+          '        </div>\n' +
+          '        <div class="item secondLine">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10))+'\'>PM10</div>\n' +
+          '            <div class="value">'+ parseInt(data.pm10)+'</div>\n' +
+          '        </div>\n' +
+          '        <div class="item secondLine">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getCOLevelIndex(data.co))+'\'>CO</div>\n' +
+          '            <div class="value">'+parseFloat(data.co).toFixed(1)+'</div>\n' +
+          '        </div>\n' +
+          '        <div class="item secondLine">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getNO2LevelIndex(data.no2))+'\'>NO2</div>\n' +
+          '            <div class="value">'+parseInt(data.no2)+'</div>\n' +
+          '        </div>\n' +
+          '        <div class="item secondLine">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getSO2LevelIndex(data.so2))+'\'>SO2</div>\n' +
+          '            <div class="value">'+parseInt(data.so2)+'</div>\n' +
+          '        </div>\n' +
+          '        <div class="item secondLine">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getO3LevelIndex(data.o3))+'\'>O3</div>\n' +
+          '            <div class="value">'+ parseInt(data.o3)+'</div>\n' +
+          '        </div>\n' +
+          '    </div><div class="index">' +
+          '<div class="item">温度：'+ parseInt(data.temp) + '℃'+'</div>' +
+          '<div class="item">湿度：' + parseInt(data.humi) + '%'+'</div>' +
+          '<div class="item">风向：' + data.winddirection+'</div>' +
+          '<div class="item">风级：' + (parseInt(data.windspeed) || 0) + '级'+'</div></div>' +
+          '<div id=\'citychart_' + data.citygid + '\' style=\'width:100%;height:110px\'></div>'
       },
 
       //国省图表
@@ -514,7 +561,7 @@
 
       //VOC监控
       setVOCInfoWindow(data){
-        return '<table width=\'100%\' ><tr><td style=\'font-size:14px\' valign=\'top\'>'
+       /* return '<table width=\'100%\' ><tr><td style=\'font-size:14px\' valign=\'top\'>'
           + '<table width=\'100%\' class=\'fitem\'>'
           + '<tr height=\'32px\'><th>TVOC</th><td style=\'width:70px;text-align:center;background-color:' + getVOCLeveColor(data.TVOC_V) + ';color:#fff\'>' + (data.TVOC_V ? data.TVOC_V : '--')
 //          + '</td></tr><tr height=\'32px\'><th>温度</th><td style=\'width:70px;text-align:center;background-color:#fff;color:#333\'>' + (data.TP_V ? parseInt(data.TP_V) + '℃' : '--')
@@ -523,12 +570,25 @@
           + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
-          + '</tr></table><div id=\'citychart_' + data.StationID + '\' style=\'width:100%;height:110px\'>';
+          + '</tr></table><div id=\'citychart_' + data.StationID + '\' style=\'width:100%;height:110px\'>';*/
+
+       return '<div class="param">\n' +
+         '    <div class="line"></div>\n' +
+         '    <div class="item vocItem one">\n' +
+         '        <div class="triangle"></div>\n' +
+         '        <div class="type">TVOC监测</div>\n' +
+         '        <div class="data">' + (data.CollectTime || data.RecordTime.replace('T', ' '))+'</div>\n' +
+         '    </div>\n' +
+         '    <div class="item vocItem">\n' +
+         '        <div class="key" style=\'background-color:' + getVOCLeveColor(data.TVOC_V)+'\'>TVOC</div>\n' +
+         '        <div class="value">'+ (data.TVOC_V ? data.TVOC_V : '--')+'</div>\n' +
+         '    </div>\n' +
+         '</div><div id=\'citychart_' + data.StationID + '\' style=\'width:100%;height:110px\'>'
       },
 
-      //传感器
+      //六参数
       setCGInfoWindow(data){
-        return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
+       /* return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
           + '<table width=\'100%\' class=\'fitem\'>'
           + '<tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(data.aqi)) + ';color:#fff\'>' + (data.aqi ? data.aqi : '--')
           + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + (data.pm25 ? parseInt(data.pm25) : '--')
@@ -540,7 +600,46 @@
           + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + ((data.CollectTime && data.CollectTime.replace(/T/g, ' ')) || data.RecordTime.replace(/T/g, ' ')) + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
-          + '</tr></table><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'>';
+          + '</tr></table><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'>';*/
+
+
+       return '<div class="param"><div class="line"></div>\n' +
+         '        <div class="item one">\n' +
+         '            <div class="above">\n' +
+         '            <div class="circle"></div>\n' +
+         '            <span class="type">六参数检测</span>\n' +
+         '            </div>\n' +
+         '            <div class="data">'+data.CollectTime.replace('T',' ')+'</div>\n' +
+         '        </div>\n' +
+         '        <div class="item">\n' +
+         '            <div class="key keyAqi" style=\'background-color:' + getColorByIndex(getAQILevelIndex(data.aqi))+'\'>AQI</div>\n' +
+         '            <div class="value">'+(data.aqi ? data.aqi : '--')+'</div>\n' +
+         '        </div><br>\n' +
+         '        <div class="item secondLine">\n' +
+         '            <div class="key" style=\'background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25))+'\'>PM2.5</div>\n' +
+         '            <div class="value">'+(data.pm25 ? parseInt(data.pm25) : '--')+'</div>\n' +
+         '        </div>\n' +
+         '        <div class="item secondLine">\n' +
+         '            <div class="key"  style=\'background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10))+'\'>PM10</div>\n' +
+         '            <div class="value">'+(data.pm10 ? parseInt(data.pm10) : '--')+'</div>\n' +
+         '        </div>\n' +
+         '        <div class="item secondLine">\n' +
+         '            <div class="key" style=\'background-color:' + getColorByIndex(getCOLevelIndex(data.co))+'\'>CO</div>\n' +
+         '            <div class="value">'+(data.co ? parseFloat(data.co).toFixed(1) : '--')+'</div>\n' +
+         '        </div>\n' +
+         '        <div class="item secondLine">\n' +
+         '            <div class="key" style=\'background-color:' + getColorByIndex(getNO2LevelIndex(data.no2))+'\'>NO2</div>\n' +
+         '            <div class="value">'+(data.no2 ? parseInt(data.no2) : '--')+'</div>\n' +
+         '        </div>\n' +
+         '        <div class="item secondLine">\n' +
+         '            <div class="key" style=\'background-color:' + getColorByIndex(getSO2LevelIndex(data.so2))+'\'>SO2</div>\n' +
+         '            <div class="value">'+(data.so2 ? parseInt(data.so2) : '--')+'</div>\n' +
+         '        </div>\n' +
+         '        <div class="item secondLine">\n' +
+         '            <div class="key" style=\'background-color:' + getColorByIndex(getO3LevelIndex(data.o3))+'\'>O3</div>\n' +
+         '            <div class="value">'+(data.o3 ? parseInt(data.o3) : '--')+'</div>\n' +
+         '        </div>\n' +
+         '    </div><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'>'
       },
 
       //传感器图表
@@ -1183,5 +1282,122 @@
     text-align: center;
     border: 1px solid #ddd;
     /*padding: 4px 2px;*/
+  }
+
+
+
+
+  .pop{
+    padding:12px 20px 20px 20px;
+    border:1px solid #ccc;
+    background:#FFFFFF;
+    border-radius: 2px;
+    margin:20px;
+    display:inline-block;
+
+  }
+  .param{
+    /*border-top:1px solid #DDDDDD;*/
+    padding:0 15px 20px;
+  }
+  .line{
+    height:1px;
+    width:100%;
+    background:#DDDDDD;
+    margin-bottom:12px;
+  }
+  .param .item{
+    background:#EBEBEB;
+    display:inline-block;
+    font-size:14px;
+    font-family:"Microsoft YaHei";
+  }
+  .data{
+    font-size:10px;
+    color:#666666;
+    line-height:10px;
+  }
+  .value{
+    font-size:14px;
+    color:#666666;
+    background:#EBEBEB;
+    text-align:center;
+  }
+  .key{
+    font-size:12px;
+    color:#333333;
+    font-weight:bold;
+    background:#2BE42F;
+    text-align:center;
+    height:20px;
+    line-height:20px;
+  }
+  .type{
+    font-size:14px;
+    color:#333333;
+    font-weight:bold;
+    display:inline-block;
+  }
+  .square ,.circle{
+    height:14px;
+    width:14px;
+    background:#2BE42F;
+    border:1px solid
+    #009C03;
+    display:inline-block;
+    margin-right:4px;
+
+  }
+  .circle{
+    border-radius: 50%;
+  }
+  .keyAqi{
+    width:190px;
+  }
+  .one{
+    text-align:center;
+    padding:10px 35px 10px;
+  }
+  .second .key,
+  .third .key
+  {
+    width:94px;
+  }
+  .second .value,
+  .third .value
+  {
+    height:28px;
+    width:94px;
+  }
+  .param .value{
+    height:28px;
+    line-height:28px;
+  }
+  .third{
+    margin-left:4px;
+  }
+  .secondLine{
+    width:61px;
+  }
+  .index{
+    padding:0 20px 10px;
+  }
+  .index .item{
+    display:inline-block;
+    font-size:12px;
+    color:#666666;
+    margin-right:30px;
+    font-family:'Microsoft YaHei'
+  }
+  .vocItem{
+    width:190px;
+  }
+  .triangle{
+    height:0;
+    width:0;
+    border-left:8px solid transparent;
+    border-right:8px solid transparent;
+    border-bottom:16px solid #FFB334;
+    display:inline-block;
   }
 </style>
