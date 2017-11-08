@@ -34,7 +34,8 @@
 
           map.addEventListener('tilesloaded', function () {
             bus.$emit('setMainMap', map);
-            bus.$emit('setMainMarkerLabel',map.getZoom() >= t.zoom);
+//            bus.$emit('setMainMarkerLabel',map.getZoom() >= t.zoom);//setMainMarkerLabel
+            bus.$emit('setMainValueLabel',map.getZoom() >= t.zoom);//setMainValueLabel
           });
         }
     },
