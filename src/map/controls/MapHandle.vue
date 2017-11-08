@@ -1,7 +1,10 @@
 <template>
   <div class="map-handle">
     <ul class="map-handle_ul">
-      <li v-for="(value,index) in handleItems" v-show="value.hasVisible" :data-index="index" :data-type="value.type" @click="liClickEvent"><img :title="value.name" :src="value.src"></li>
+      <li v-for="(value,index) in handleItems" v-show="value.hasVisible" :data-index="index" :data-type="value.type" @click="liClickEvent">
+        <img :title="value.name" :src="value.src">
+        <span>{{value.name}}</span>
+      </li>
     </ul>
   </div>
 </template>
@@ -28,26 +31,26 @@
           }, {
             name: '量算',
             type: 'LENGTH',
-            src: 'static/imgs/mapGJ/ceju.png',
-            checked: 'static/imgs/mapGJ/ceju1.png',
+            src: 'static/imgs/toor/icon_Ruler_1.png',
+            checked: 'static/imgs/toor/icon_Ruler_2.png',
             hasVisible:true
           }, {
             name: '抓取',
             type: 'HANDLE',
-            src: 'static/imgs/mapGJ/zhuashou.png',
-            checked: 'static/imgs/mapGJ/zhuashou1.png',
+            src: 'static/imgs/toor/icon_hand_1.png',
+            checked: 'static/toor/mapGJ/icon_hand_2.png',
             hasVisible:true
           },{
             name: '原范围',
             type: 'EXTENT',
-            src: 'static/imgs/mapGJ/fanhui.png',
-            checked: 'static/imgs/mapGJ/fanhui1.png',
+            src: 'static/imgs/toor/icon_Location_1.png',
+            checked: 'static/imgs/toor/icon_Location_2.png',
             hasVisible:true
           }, {
             name: '全屏',
             type: 'FULL',
-            src: 'static/imgs/mapGJ/quanpin.png',
-            checked: 'static/imgs/mapGJ/quanpin1.png',
+            src: 'static/imgs/toor/icon_quanping_1.png',
+            checked: 'static/imgs/toor/icon_quanping_2.png',
             hasVisible:true
           }
         ]
@@ -71,7 +74,7 @@
         t.ready();
       }, 1);
       $('.map-handle_ul li').on('click', function () {
-        //$(this).addClass('active').siblings().removeClass('active');
+        $(this).addClass('active').siblings().removeClass('active');
       })
     },
     methods: {
@@ -82,7 +85,6 @@
       },
       liClickEvent(e){
         //this.resetImg();
-
         let childElement = e.currentTarget;
         let imgElement = childElement.querySelector('img');
         let index = childElement.getAttribute('data-index');
@@ -112,7 +114,7 @@
               break;
             case 'FULL':
               this.fullScreen(this.map.getContainer());
-              childElement.style.backgroundColor = 'rgba(0, 79, 137, 0.6)';
+              childElement.style.backgroundColor = '#fff';
               break;
           }
         }
@@ -121,7 +123,7 @@
       resetImg(){
         let targets = this.$data.handleItems;
         jQuery.find('.map-handle li').forEach(function (value, index) {
-          value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)';
+          value.style.backgroundColor = '#fff';
         });
         jQuery.find('.map-handle li>img').forEach(function (value, index) {
           let target = targets[index];
@@ -148,37 +150,37 @@
     }
   };
 </script>
-<style scoped>
+<style lang="scss" scoped>
   .map-handle {
     position: absolute;
-    height: 37px;
+    height: 36px;
     z-index: 1;
-
   }
-
   .active {
     background: #1080cc !important;
+    color: #fff;
   }
-
+  span{
+    display: inline-block;
+    width: 60px;
+    text-align: left;
+    padding-left: 5px;
+  }
   .map-handle ul {
-
     height: auto;
-    border: solid 1px #1080CC;
+    border: solid 1px #ccc;
+    border-top: none;
   }
-
   .map-handle li {
-    background: rgba(0, 79, 137, 0.6);
+    background: #fff;
     list-style: none;
-    height: auto;
-    width: 40px;
-    padding: 5px 0;
+    height: 38px;
+    width: 104px;
   }
-
   .map-handle li:hover{
     cursor: pointer;
   }
-
   .map-handle li img {
-    margin: 5px 0;
+    margin-left: 10px;
   }
 </style>

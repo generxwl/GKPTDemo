@@ -1,8 +1,9 @@
 <template>
   <div class="layerSwitch">
     <ul>
-      <li class="title"><b class="b-icon"></b><span>图层控制</span></li>
+      <!--<li class="title"><b class="b-icon"></b><span>图层控制</span></li>-->
       <li :id="layers[0].id" data-attr="0" @click="radioClick" class="layer-checked">
+        <img :src="imgsrc" alt="">
         {{layers[0].name}}
         <!--<input data-attr="0" title="" @click="radioClick" name="layer" type="radio" checked/>{{layers[0].name}}-->
         <!--<div class="block layerSwitch-slider">-->
@@ -10,6 +11,7 @@
         <!--</div>-->
       </li>
       <li :id="layers[1].id" data-attr="1" @click="radioClick">
+        <img :src="imgsrc" alt="">
         {{layers[1].name}}
         <!--<input data-attr="1" title="" @click="radioClick" name="layer" type="radio"/>{{layers[1].name}}-->
         <!--<div class="block layerSwitch-slider">-->
@@ -17,6 +19,7 @@
         <!--</div>-->
       </li>
       <li :id="layers[2].id" data-attr="2" @click="radioClick">
+        <img :src="imgsrc" alt="">
         {{layers[2].name}}
         <!--<input data-attr="2" title="" @click="radioClick" name="layer" type="radio"/>{{layers[2].name}}-->
         <!--<div class="block layerSwitch-slider">-->
@@ -44,6 +47,8 @@
         disabledSlider1: true,
         disabledSlider2: true,
         checkedId: 0,
+        imgsrc:'static/imgs/toor/icon_network_1.png',
+        imgxzsrc:'static/imgs/toor/icon_network_2.png',
         layers: [
           {
             id: 'YW',
@@ -99,7 +104,7 @@
       },
       resetLi(hasReset = true){
         jQuery.find('.layerSwitch li').forEach(function (value, index) {
-          index !== 0 && (value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)');
+          index !== 0 && (value.style.backgroundColor = '#fff');
           !hasReset && (value.className = '');
         });
       }
@@ -108,20 +113,20 @@
   }
 
 </script>
-<style scoped>
+<style lang="scss" scoped>
   .layerSwitch {
     position: absolute;
     bottom: 30px;
     left: 0;
     z-index: 1;
-    width: 60px;
+    width: 132px;
     border-radius: 2px;
+
   }
 
   .b-icon {
     height: 18px;
     width: 18px;
-    /*display: inline-block;*/
     vertical-align: middle;
     margin: 0 5px;
     display: none;
@@ -129,42 +134,44 @@
   }
 
   .layerSwitch li:first-child {
-    line-height: 25px;
-    width: 60px;
+    line-height: 36px;
+    width: 132px;
     text-align: center;
     margin: 0;
     background-color: #fff;
-    font-size: 12px;
+    font-size: 14px;
   }
-
+  img{
+    margin-left: -20px;
+    padding-right: 5px;
+  }
   .layerSwitch li span {
-    font-size: 12px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 36px;
     vertical-align: middle;
     font-family: "Microsoft YaHei UI";
     color: #1080cc;
   }
 
   .layerSwitch ul {
-    border: solid 1px #fff;
-    box-shadow: 0 0 6px #666;
-    border-radius: 2px;
-    width: 62px;
+    width: 134px;
     list-style-type: none;
     padding: 0;
+    border: solid 1px #ccc;
+    border-top: none;
   }
 
   .layerSwitch li {
-    width: 60px;
+    width: 132px;
     list-style-type: none;
     text-align: center;
-    font-size: 12px;
+    font-size: 14px;
     margin: 0;
     border-radius: 0;
-    color: #fff;
+    color: #333;
     padding: 1px 5px;
-    line-height: 30px;
-    background-color: rgba(0, 79, 137, 0.6);
+    line-height: 36px;
+    background-color:#fff;
   }
 
   .layerSwitch li:hover {

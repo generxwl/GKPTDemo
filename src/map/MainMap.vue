@@ -1,7 +1,7 @@
 <template>
   <div class="main-map-content">
     <div id="main_map"></div>
-    <layer-switch></layer-switch>
+    <layer-switch style="display: none"></layer-switch>
     <main-layer-handle></main-layer-handle>
     <!--<map-handle></map-handle>-->
   </div>

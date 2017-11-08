@@ -2,9 +2,13 @@
     <div class="Paneldata">
         <!--监测点面板-->
         <div id="list">
-            <div class="qianren">
-                <img style="margin-top: -180px;margin-left: 12px" src="../assets/img/fulu.png" alt="">
-                <map-handle></map-handle>
+            <div class="gensui">
+                <div class="line_top">
+                    <toolbar></toolbar>
+                </div>
+                <div class="line_bottom">
+                    <tone-color></tone-color>
+                </div>
             </div>
             <div class="panel">
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
@@ -19,23 +23,6 @@
                             <a id="leiji" @click="CumulativeFatch()">累计</a>
                             <font class="time2">更新时间：{{uptime}}</font>
                         </div>
-                        <!--<div class="shijian">-->
-                            <!--&lt;!&ndash;时间选择&ndash;&gt;-->
-                            <!--<div class="block">-->
-                                <!--<el-date-picker-->
-                                        <!--v-model="value2"-->
-                                        <!--type="datetime"-->
-                                        <!--placeholder="选择日期时间"-->
-                                        <!--format="yyyy-MM-dd HH:mm:ss"-->
-                                        <!--align="right"-->
-                                        <!--:picker-options="pickerOptions1">-->
-                                <!--</el-date-picker>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                        <!--<div class="btnns">-->
-                            <!--<button @click="TimeChaXun()">查询</button>-->
-                        <!--</div>-->
-
                     </div>
 
                     <!--详细天气-->
@@ -219,7 +206,8 @@
 <script>
     import {bus} from '@/js/bus.js'
     import api from '../api/index'
-    import MapHandle from '@/map/controls/MapHandle'
+    import Toolbar from '@/components/Toolbar'
+    import ToneColor from '@/components/ToneColor'
     export default {
         name: 'paneldata',
         data () {
@@ -734,7 +722,7 @@
             },
             //fangfa
         },
-        components: {MapHandle}
+        components: {Toolbar,ToneColor}
     }
 </script>
 
@@ -758,10 +746,22 @@
             right: 0;
             z-index: 9;
             box-shadow: 0px 5px 15px #333333;
-            .qianren {
-                position: absolute;
-                left: -90px;
-                top: 64%;
+            .gensui {
+                .line_top{
+                    position: absolute;
+                    left: -368px;
+                    top: 24px;
+                    width: 352px;
+                    height: 46px;
+                    background: #fff;
+                    border:solid 1px #ccc;
+                }
+                .line_bottom{
+                    width: 320px;
+                    position: absolute;
+                    left: -309px;
+                    bottom: 56px;
+                }
             }
             .strong {
                 width: 100%;
