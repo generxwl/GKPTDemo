@@ -21,19 +21,19 @@
             type: 'ZOOMIN',
             src: 'static/imgs/mapGJ/ceju.png',
             checked: 'static/imgs/mapGJ/ceju1.png',
-            hasVisible:false
+            hasVisible: false
           }, {
             name: '缩小',
             type: 'ZOOMOUT',
             src: 'static/imgs/mapGJ/zhuashou.png',
             checked: 'static/imgs/mapGJ/zhuashou1.png',
-            hasVisible:false
+            hasVisible: false
           }, {
             name: '量算',
             type: 'LENGTH',
             src: 'static/imgs/toor/icon_Ruler_1.png',
             checked: 'static/imgs/toor/icon_Ruler_2.png',
-            hasVisible:true
+            hasVisible: true
           }, {
             name: '抓取',
             type: 'HANDLE',
@@ -45,13 +45,13 @@
             type: 'EXTENT',
             src: 'static/imgs/toor/icon_Location_1.png',
             checked: 'static/imgs/toor/icon_Location_2.png',
-            hasVisible:true
+            hasVisible: true
           }, {
             name: '全屏',
             type: 'FULL',
             src: 'static/imgs/toor/icon_quanping_1.png',
             checked: 'static/imgs/toor/icon_quanping_2.png',
-            hasVisible:true
+            hasVisible: true
           }
         ]
       };
@@ -59,20 +59,24 @@
     beforeCreate(){
     },
     created(){
-        bus.$once('getMap', this.getMap);
-        bus.$once('getSenseMap', this.getMap);
-        bus.$once('getDustMap', this.getMap);
-        bus.$once('getGridMap', this.getMap);
-        bus.$once('setMainMap', this.getMap);
-        bus.$once('setVideoMap',this.getMap);
-        bus.$once('setEnterpriseMap',this.getMap);
-        bus.$once('setStaticMap', this.getMap);
+
+//      bus.$once('getMap', this.getMap);
+//      bus.$once('getSenseMap', this.getMap);
+//      bus.$once('getDustMap', this.getMap);
+//      bus.$once('getGridMap', this.getMap);
+//      bus.$once('setMainMap', this.getMap);
+//      bus.$once('setVideoMap',this.getMap);
+//      bus.$once('setEnterpriseMap',this.getMap);
+//      bus.$once('setStaticMap', this.getMap);
+
     },
     mounted(){
       let t = this;
       setTimeout(function () {
+        t.map = t.$parent.$parent.$parent.map;
         t.ready();
-      }, 1);
+      }, 100);
+//      bus.$once('setToolMap', this.getMap);
       $('.map-handle_ul li').on('click', function () {
         //$(this).addClass('active').siblings().removeClass('active');
       })
@@ -82,6 +86,7 @@
       },
       getMap(map){
         this.map = map;
+        this.ready();
       },
       liClickEvent(e){
         //this.resetImg();
@@ -110,8 +115,8 @@
               this.map.setDefaultCursor();
               break;
             case 'LENGTH':
-              let distanceTool = new BMapLib.DistanceTool(this.map, {lineStroke : 2});
-              distanceTool && distanceTool.open();
+              let distanceTool = new BMapLib.DistanceTool(this.map, {lineStroke: 2});
+              distanceTool.open();
               break;
             case 'FULL':
               this.fullScreen(this.map.getContainer());
@@ -127,10 +132,10 @@
           value.style.backgroundColor = '#fff';
         });
         jQuery.find('.map-handle li>img').forEach(function (value, index) {
-          let target = targets[index];
-          value.src = target.src;
+//          let target = targets[index];
+//          value && (value.src = target.src);
         })
-      },fullScreen(docElm) {
+      }, fullScreen(docElm) {
         //W3C
         if (docElm.requestFullscreen) {
           docElm.requestFullscreen();
@@ -157,30 +162,36 @@
     height: 36px;
     z-index: 1;
   }
+
   .active {
     background: #1080cc !important;
     color: #fff;
   }
-  span{
+
+  span {
     display: inline-block;
     width: 60px;
     text-align: left;
     padding-left: 5px;
   }
+
   .map-handle ul {
     height: auto;
     border: solid 1px #ccc;
     border-top: none;
   }
+
   .map-handle li {
     background: #fff;
     list-style: none;
     height: 38px;
     width: 104px;
   }
-  .map-handle li:hover{
+
+  .map-handle li:hover {
     cursor: pointer;
   }
+
   .map-handle li img {
     margin-left: 10px;
   }

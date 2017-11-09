@@ -28,23 +28,35 @@
         }],
         labelSymbol: new BMap.Label()
       }
-    }, create(){
+    },
+    create(){
 
     },
     mounted() {
       let t = this;
       setTimeout(function () {
-        t.map = t.$parent.$parent.map;
-        t.map.addOverlay(t.labelSymbol);
-        t.labelSymbol.hide();
-        t.labelSymbol.setStyle({color: '#333', backgroundColor: '#fff', border: 'solid 1px #333'});
-        t.ready();
+        t.map = t.$parent.$parent.$parent.$parent.map;
+
+        if(t.map) {
+          t.map.addOverlay(t.labelSymbol);
+          t.labelSymbol.hide();
+          t.labelSymbol.setStyle({color: '#333', backgroundColor: '#fff', border: 'solid 1px #333'});
+          t.ready();
+        }
       }, 10);
+//      bus.$once('setPolygonMap', this.setMap);
       bus.$on('setVisible', this.setLayerVisible);
       bus.$on('setOpacity', this.setOpacity);//setLayerHide
       bus.$on('setLayerHide', this.setLayerHide);//setLayerHide
     },
     methods: {
+//      setMap(map){
+//        this.map = map;
+//        this.map.addOverlay(this.labelSymbol);
+//        this.labelSymbol.hide();
+//        this.labelSymbol.setStyle({color: '#333', backgroundColor: '#fff', border: 'solid 1px #333'});
+//        this.ready();
+//      },
       ready() {
         let t = this;
         for (let j = 0, count = this.layers.length; j < count; j++) {
@@ -199,13 +211,13 @@
         let sle = {};
         switch (type) {
           case 0:
-            sle = {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#0070CE', fillColor: '#2D96EF',fillOpacity:0.2};
+            sle = {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#0070CE', fillColor: '#2D96EF', fillOpacity: 0.2};
             break;
           case 1:
-            sle = {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#1C7B2A', fillColor: '#6FB779',fillOpacity:0.2};
+            sle = {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#1C7B2A', fillColor: '#6FB779', fillOpacity: 0.2};
             break;
           case 2:
-            sle = {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#BB2C00', fillColor: '#F48670',fillOpacity:0.2};
+            sle = {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#BB2C00', fillColor: '#F48670', fillOpacity: 0.2};
             break;
         }
         return sle;
