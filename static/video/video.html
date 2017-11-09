@@ -89,7 +89,7 @@
         <div class="tab_div">
             <div class="video"  style="display: block">
                 <div id="ocxContainer" style="width:500px;height:300px" dblclick="changeSize()"></div>
-                <div class="line"><font>首次运行请安装视频插件后再试！</font><a href="../Download/文件描述">插件下载</a></div>
+                <div class="line"><font>首次运行请安装视频插件后再试！</font><a href="../Download/WebCtrl_V4.2.3.exe">插件下载</a></div>
             </div>
             <div class="qiye"   style="display: none">
                 <ul class="uleft">
@@ -104,15 +104,15 @@
                     <li>监控类型</li>
                 </ul>
                 <ul class="uright">
-                    <li>-------</li>
-                    <li>-------</li>
-                    <li>-------</li>
-                    <li>-------</li>
-                    <li>-------</li>
-                    <li>-------</li>
-                    <li>-------</li>
-                    <li>-------</li>
-                    <li>-------</li>
+                    <li class="onlie1"></li>
+                    <li class="onlie2"></li>
+                    <li class="onlie3"></li>
+                    <li class="onlie4"></li>
+                    <li class="onlie5"></li>
+                    <li class="onlie6"></li>
+                    <li class="onlie7"></li>
+                    <li class="onlie8"></li>
+                    <li class="onlie9"></li>
                 </ul>
             </div>
         </div>
@@ -121,6 +121,44 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $("#setTab").setTab();
+            function GetQueryString(name)
+            {
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if(r!=null)return  decodeURIComponent(r[2]); return null;
+            }
+            var name = GetQueryString('name');
+            console.log(name)
+            if(name){
+                $.ajax({
+                    type: "GET",
+                    dataType : "json",
+                    url: 'http://10.6.80.93:8063/api/Video/GetVideoScatterInfo?name='+decodeURI(name),
+                    success: function (data) {
+                        console.log('获取成功')
+                        var textdata = data.ExtraData;
+                        //console.log(textdata)
+                         var text1 = textdata.CompanyName;//企业名称
+                        $(".onlie1").prepend(text1);
+                        var text2 = textdata.Industry ? textdata.Industry : '----';//行业类别
+                        $(".onlie2").prepend(text2);
+                        var text3 = textdata.ProductionContent ? textdata.ProductionContent : '----';//产品
+                        $(".onlie3").prepend(text3);
+                        var text4 = textdata.Area ? textdata.Area : '----';//所属区县
+                        $(".onlie4").prepend(text4);
+                        var text5 = textdata.CompanyAddress ? textdata.CompanyAddress : '----';//企业地址
+                        $(".onlie5").prepend(text5);
+                        var text6 = textdata.Grid ? textdata.Grid : '----';//所属网格
+                        $(".onlie6").prepend(text6);
+                        var text7 = textdata.Contact ? textdata.Contact : '----';//网格员
+                        $(".onlie7").prepend(text7);
+                        var text8 = textdata.Phone ? textdata.Phone : '----';//联系方式
+                        $(".onlie8").prepend(text8);
+                        var text9 = textdata.MonitoringType ? textdata.MonitoringType : '----';//监控类型
+                        $(".onlie9").prepend(text9);
+                    }
+                });
+            }
         });
         (function ($) {
             $.fn.setTab = function () {
@@ -216,6 +254,7 @@
               var camIndexCode = GetQueryString('camIndexCode');
               var devIndexCode = GetQueryString('devIndexCode');
               var name = GetQueryString('name');
+
                 if(ip && username && password && name && camIndexCode && devIndexCode && port) {
                   var _param = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
                     + "<Preview>"

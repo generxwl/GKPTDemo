@@ -530,43 +530,92 @@
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = echarts.init(document.getElementById('bing_item4'));
                 // 指定图表的配置项和数据
+//                let option = {
+//                    title: {
+//                        text: '网格员占比',
+//                        textStyle: {
+//                            fontSize: '14',
+//                            fontWeight: 'bold'
+//                        },
+//                        x: 'left'
+//                    },
+//                    tooltip: {
+//                        trigger: 'item',
+//                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+//                    },
+//                    legend: {
+//                        orient: 'vertical',
+//                        left: 'right',
+//                        top: 50
+//                    },
+//                    series: [
+//                        {
+//                            name: '网格员占比',
+//                            type: 'pie',
+//                            radius: '60%',
+//                            center: ['30%', '50%'],
+//                            label: {
+//                                normal: {
+//                                    show: false,
+//                                    position: 'center'
+//                                },
+//                                emphasis: {
+//                                    show: true,
+//                                    textStyle: {
+//                                        fontSize: '20',
+//                                        fontWeight: 'bold'
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    ]
+//                };
                 let option = {
-                    title: {
+                    title : {
                         text: '网格员占比',
                         textStyle: {
                             fontSize: '14',
                             fontWeight: 'bold'
                         },
-                        x: 'left'
+                        x:'center'
                     },
-                    tooltip: {
+                    tooltip : {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
                     },
                     legend: {
-                        orient: 'vertical',
-                        left: 'right',
-                        top: 50
+                        orient : 'vertical',
+                        x : 'left'
                     },
-                    series: [
-                        {
-                            name: '网格员占比',
-                            type: 'pie',
-                            radius: '60%',
-                            center: ['30%', '50%'],
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '20',
-                                        fontWeight: 'bold'
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: false, readOnly: false},
+                            magicType : {
+                                show: true,
+                                type: ['pie', 'funnel'],
+                                option: {
+                                    funnel: {
+                                        x: '25%',
+                                        width: '50%',
+                                        funnelAlign: 'left',
+                                        max: 1548
                                     }
                                 }
-                            }
+                            },
+                            restore : {show: false},
+                            saveAsImage : {show: false}
+                        }
+                    },
+                    calculable : true,
+                    series : [
+                        {
+                            name:'网格员占比',
+                            type:'pie',
+                            radius : '55%',
+                            center: ['50%', '60%'],
+
                         }
                     ]
                 };
