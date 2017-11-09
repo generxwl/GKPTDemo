@@ -26,6 +26,7 @@
     import MapHandle from '@/map/controls/MapHandle'
     import LayerSwitch from '@/map/controls/LayerSwitch'
     export default {
+        name : 'toolbar',
         data(){
             return {
                 //页面数据

@@ -23,6 +23,19 @@
       };
     },
     mounted(){
+      let lsScript = document.getElementsByTagName('script');
+      for (let i = 0, length = lsScript.length; i < length; i++) {
+        let value = lsScript[i];
+        if (value && value.src) {
+          if (value.src.indexOf('static/js/map/DistanceTool_min.js') > -1) {
+            document.body.removeChild(value);
+            break;
+          }
+        }
+      }
+      let el = document.createElement('script');
+      el.src = 'static/js/map/DistanceTool_min.js';
+      document.body.appendChild(el);
       this.ready();
     },
     methods: {
@@ -33,6 +46,7 @@
         mapStyle && map.setMapStyle(mapStyle);
         map.enableScrollWheelZoom();
         this.map = map;
+        this.$parent.map = map;
 
         bus.$emit('getDustMap', map);
         map.addEventListener('tilesloaded', function () {
