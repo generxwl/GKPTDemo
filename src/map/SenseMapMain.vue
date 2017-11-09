@@ -1,7 +1,7 @@
 <template>
   <div class="sense-map-content">
     <div id="sense_map"></div>
-    <layer-switch class="layer-switch" style="display: none"></layer-switch>
+    <!--<layer-switch class="layer-switch" style="display: none"></layer-switch>-->
     <sense-pollution></sense-pollution>
     <sense-switch :pollutionUrl="pollutionUrl" :charUrl="charUrl"></sense-switch>
     <!--<sense-map-handle></sense-map-handle>-->

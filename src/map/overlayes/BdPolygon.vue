@@ -36,10 +36,13 @@
       let t = this;
       setTimeout(function () {
         t.map = t.$parent.$parent.$parent.$parent.map;
-        t.map.addOverlay(t.labelSymbol);
-        t.labelSymbol.hide();
-        t.labelSymbol.setStyle({color: '#333', backgroundColor: '#fff', border: 'solid 1px #333'});
-        t.ready();
+
+        if(t.map) {
+          t.map.addOverlay(t.labelSymbol);
+          t.labelSymbol.hide();
+          t.labelSymbol.setStyle({color: '#333', backgroundColor: '#fff', border: 'solid 1px #333'});
+          t.ready();
+        }
       }, 10);
 //      bus.$once('setPolygonMap', this.setMap);
       bus.$on('setVisible', this.setLayerVisible);

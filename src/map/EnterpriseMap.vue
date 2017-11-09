@@ -1,7 +1,7 @@
 <template>
   <div class="enterprise-map-content">
     <div id="enterprise_map"></div>
-    <layer-switch style="display: none"></layer-switch>
+    <!--<layer-switch style="display: none"></layer-switch>-->
     <enterprise-target></enterprise-target>
     <!--<map-handle></map-handle>-->
   </div>

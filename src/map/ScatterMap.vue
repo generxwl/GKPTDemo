@@ -1,7 +1,7 @@
 <template>
   <div class="video-map-content">
     <div id="video_map"></div>
-    <layer-switch style="display: none"></layer-switch>
+    <!--<layer-switch style="display: none"></layer-switch>-->
     <scatter-handle></scatter-handle>
     <!--<map-handle></map-handle>-->
   </div>
