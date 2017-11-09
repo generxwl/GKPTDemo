@@ -49,6 +49,7 @@
 
 //        (new BMapLib.DistanceTool(this.map, {lineStroke: 12})).open();
 
+
         map.addEventListener('tilesloaded', function () {
           bus.$emit('setMainMap', map);
 //          bus.$emit('setToolMap',map);

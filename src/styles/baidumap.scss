@@ -10,7 +10,10 @@
 .BMapLib_SearchInfoWindow .BMapLib_bubble_tools div {
   background-color: rgba(0, 0, 0, 0);
 }
-
+.BMapLib_SearchInfoWindow .BMapLib_bubble_title{
+  background: #fff!important;
+  color: #333!important;
+}
 .BMapLib_SearchInfoWindow .BMapLib_sendToPhone {
   background: none;
 }

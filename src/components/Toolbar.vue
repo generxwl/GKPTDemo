@@ -9,7 +9,9 @@
             <img src="../../static/imgs/toor/icon_tool_1.png" alt="">
             <span>工具</span>
             <img src="../../static/imgs/toor/btn_jiantou_1.png" alt="">
-            <map-handle id="gj" class="css_toolbar"></map-handle>
+            <div id="gj" class="css_toolbar" >
+                <slot name="toors"></slot>
+            </div>
         </div>
         <div class="clolrbr" style="float: left;height:32px;width: 1px;border-right: solid 1px #ccc"></div>
         <div class="lein_3" id="tcbox">
@@ -23,7 +25,6 @@
 <script>
     import {bus} from '@/js/bus.js'
     import api from '../api/index'
-    import MapHandle from '@/map/controls/MapHandle'
     import LayerSwitch from '@/map/controls/LayerSwitch'
     export default {
         name : 'toolbar',
@@ -58,7 +59,7 @@
             // 所有方法
 
         },
-        components: {MapHandle,LayerSwitch}
+        components: {LayerSwitch}
     };
 </script>
 <style lang="scss" scoped>
@@ -80,7 +81,7 @@
             .css_toolbar{
                 display: none;
                 position: absolute;
-                top:46px;
+                top:44px;
                 left:0;
             }
         }
@@ -93,7 +94,7 @@
             .css_switch{
                 display: none;
                 position: absolute;
-                top:46px;
+                top:44px;
                 left:0;
             }
         }

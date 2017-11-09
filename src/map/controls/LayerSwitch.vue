@@ -179,7 +179,7 @@
   }
 
   .layer-checked {
-    background-color: #1080cc !important;
+    color: #1080cc !important;
   }
 
   .layerSwitch-slider {
