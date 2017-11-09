@@ -90,8 +90,8 @@ export default {
         )
     },
     //静态原清单右侧
-    GetsourcetypeAllInfo() {
-        return axios.get(GetsourcetypeAllInfoResource,{
+    GetsourcetypeAllInfo(typeid) {
+        return axios.get(GetsourcetypeAllInfoResource+typeid,{
 
             }
         )

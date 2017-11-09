@@ -17,29 +17,29 @@
             <a id="shishi" >污染源分类</a>
             <font @click="chengeteget()">{{wall}}</font>
           </div>
-          <div class="symume" v-show="symume">
+          <div class="symume" v-show="symume" @click='GetcheckboxData'>
             <div class="YuanType">
-              <input type="checkbox" name="sourceType" value="ps001" id="male" />
+              <input @click='changeChecked(1)' :class="checked.ps1 ? 'checked1' : 'bg1'" type="checkbox" name="code" value="ps001" id="male" />
               <label for="male">工业企业源</label>
             </div>
             <div class="YuanType">
-              <input type="checkbox" name="sourceType" value="ps002" id="male1" />
+              <input @click='changeChecked(2)' :class="checked.ps2 ? 'checked2' : 'bg2'" type="checkbox" name="code" value="ps002" id="male1" />
               <label for="male1">干洗</label>
             </div>
             <div class="YuanType">
-              <input type="checkbox" name="sourceType" value="ps003" id="male2" />
+              <input @click='changeChecked(3)' :class="checked.ps3 ? 'checked3' : 'bg3'" type="checkbox" name="code" value="ps003" id="male2" />
               <label for="male2">汽修</label>
             </div>
             <div class="YuanType">
-              <input type="checkbox" name="sourceType" value="ps004" id="male4" />
+              <input @click='changeChecked(4)' :class="checked.ps4 ? 'checked4' : 'bg4'" type="checkbox" name="code" value="ps004" id="male4" />
               <label for="male4">施工扬尘源</label>
             </div>
             <div class="YuanType">
-              <input type="checkbox" name="sourceType" value="ps005" id="male5" />
+              <input @click='changeChecked(5)' :class="checked.ps5 ? 'checked5' : 'bg5'" type="checkbox" name="code" value="ps005" id="male5" />
               <label for="male5">餐饮油烟</label>
             </div>
             <div class="YuanType">
-              <input type="checkbox" name="sourceType" value="ps006" id="male6" />
+              <input @click='changeChecked(6)' :class="checked.ps6 ? 'checked6' : 'bg6'" type="checkbox" name="code" value="ps006" id="male6" />
               <label for="male6">加油站</label>
             </div>
 
@@ -62,10 +62,10 @@
           <!---->
           <div class="sousuo">
             <div class="sleft">
-              <el-input v-model="filters.name" placeholder="请输入地址"></el-input>
+              <el-input v-model="filters.name" placeholder="请输入名称"></el-input>
             </div>
             <div class="sright">
-              <el-button type="primary" @click="searchData()">搜索</el-button>
+              <el-button type="primary" @click="searchAsName">搜索</el-button>
             </div>
 
           </div>
@@ -149,12 +149,26 @@
         totalCount: 0,
         value1: '',
         value2: '',
+        //用来存储搜索后的数据
+        choiceData: [],
+        //用来存储全部数据(变化)
+        totolData: [],
+        //用来存储全部数据(不变)
+        dataL: [],
+        checked: {
+          ps1: false,
+          ps2: false,  
+          ps3: false,  
+          ps4: false,  
+          ps5: false,  
+          ps6: false,  
+        }, 
       }
     },
     created(){
         bus.$on('setStaticTarget',this.switchRender);
         bus.$on('setStaticData',this.initlistData);
-        this.ChenageGetDataList()
+        // this.ChenageGetDataList()
     },
     mounted(){
       //右侧收放
@@ -186,15 +200,19 @@
       //多选请求
         GetcheckboxData(){
             let Newdata = [];
-            let student = $(".YuanType input[name='sourceType']:checked").serialize();
-            let Ayydata = student.split('sourceType=');
-            for(var i = 0; i < Ayydata.length; i++){
-              let a =  Ayydata[i].replace('&','')
-               // console.log(a)
-                Newdata.push(a)
-            }
-           // console.log(Newdata)
-            return Newdata
+            let student = $(".YuanType input[name='code']:checked").serialize();
+            let Ayydata = student.split('&code=').join(',')
+            // console.log(Ayydata)
+            this.ChenageGetDataList(Ayydata)
+           
+          //   let Ayydata = student.split('sourceType=');
+          //   for(var i = 0; i < Ayydata.length; i++){
+          //     let a =  Ayydata[i].replace('&','')
+          //      // console.log(a)
+          //       Newdata.push(a)
+          //   }
+          //  // console.log(Newdata)
+          //   return Newdata
         },
       //排序
       compare (propertyName) {
@@ -205,11 +223,14 @@
         }
       },
       initlistData(data, type){
+        // console.log(data)
         this.type = type;
         let sudata = data;
         this.SetDataList(sudata, type)
         this.totalCount = this.ALLdata.length;
         this.allData = this.ALLdata;
+        this.totolData = this.allData
+        this.dataL = this.allData
         this.setPageTable(10, 1);
       },
       getPollution(type){
@@ -257,7 +278,7 @@
       },
       //
       SetDataList(data, type){
-        console.log(data)
+        // console.log(data[1].jdjcBasGyqySn.so2)
         let t = this;
         data = typeof data === 'string' ? JSON.parse(data) : data;
         this.data = data;
@@ -272,7 +293,7 @@
           tableData.Name = item.entname;//名称
           tableData.Industry = item.polsorcode;//行业
           tableData.Emission = t.labelType;//排放物
-          tableData.EmissionAmount = item.jdjcBasGyqySn[(t.getPollution(type))];//排放量
+          tableData.EmissionAmount = item.jdjcBasGyqySn[(t.getPollution(type))] ? item.jdjcBasGyqySn[(t.getPollution(type))] : '--';//排放量
           tableData.citygid = item.id;//城市id
           this.ALLdata.push(tableData);
         })
@@ -402,17 +423,65 @@
         this.setPageTable(10, 1);
       },
       switchRender(type){
-          console.log(type)
+          // console.log(type)
           this.type = type;
           this.labelType = type;
           this.SetDataList(this.data, this.type)
       },
+      //获取后台分类数据
       ChenageGetDataList(typeid){
-          api.GetallInfoBySourceType(typeid).then(res => {
+          api.GetsourcetypeAllInfo(typeid).then(res => {
               let data = res.data.ExtraData;
-              //this.initlistData(data)
+              this.initlistData(data, this.type);
+               setTimeout(() => {
+                this.searchAsName()
+              },50)
           })
-      }
+      },
+      //通过输入名称获取数据
+      searchAsName() {
+        // console.log(this.totolData)
+        if(this.filters.name == '') {
+          this.allData = this.dataL
+          this.totalCount = this.dataL.length;
+          this.setPageTable(10, 1);
+        } else {
+          this.choiceData = []
+          for(var i = 0; i < this.totolData.length; i++) {
+            // console.log(this.totolData[1].Name,this.filters.name)
+            if(this.totolData[i].Name.indexOf(this.filters.name) >= 0) {
+              this.choiceData.push(this.totolData[i])
+            }
+          }
+          this.totalCount = this.choiceData.length;
+          this.allData = this.choiceData
+          this.setPageTable(10, 1);
+          // console.log(this.choiceData)
+        }
+      },
+      //点击切换复选框背景图片
+      changeChecked (index) {
+        switch (index) {
+          case 1:
+            this.checked.ps1 = !this.checked.ps1;
+            break;
+          case 2:
+            this.checked.ps2 = !this.checked.ps2;
+            break;
+          case 3:
+            this.checked.ps3 = !this.checked.ps3;
+            break;
+          case 4:
+            this.checked.ps4 = !this.checked.ps4;
+            break;
+          case 5:
+            this.checked.ps5 = !this.checked.ps5;
+            break;
+          case 6:
+            this.checked.ps6 = !this.checked.ps6;
+            break;
+        }
+      },
     },
       components: {Toolbar}
   }
@@ -447,7 +516,7 @@
       .symume{
         width: 100%;
         height: 68px;
-        padding-left: 20px;
+        padding-left: 17px;
         padding-bottom: 15px;
         .YuanType{
           width: 30%;
@@ -455,8 +524,59 @@
           float: left;
           text-align: left;
           padding-left: 8%;
+          label {
+            margin: 0;
+            vertical-align: middle;
+          }
+          input {
+            width: 15px;
+            height: 15px;
+            background-size: 15px 15px;
+            background-repeat: no-repeat;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            vertical-align: middle;
+            margin: 0;
+          }
+          .bg1 {
+            background-image: url('../../static/imgs/originallist/ps001.png');
+          }
+          .bg2 {
+            background-image: url('../../static/imgs/originallist/ps002.png');
+          }
+          .bg3 {
+            background-image: url('../../static/imgs/originallist/ps003.png');
+          }
+          .bg4 {
+            background-image: url('../../static/imgs/originallist/ps004.png');
+          }
+          .bg5 {
+            background-image: url('../../static/imgs/originallist/ps005.png');
+          }
+          .bg6 {
+            background-image: url('../../static/imgs/originallist/ps006.png');
+          }
+          .checked1 {
+            background-image: url('../../static/imgs/originallist/ps001checked.png');
+          }
+          .checked2 {
+            background-image: url('../../static/imgs/originallist/ps002checked.png');
+          }
+          .checked3 {
+            background-image: url('../../static/imgs/originallist/ps003checked.png');
+          }
+          .checked4 {
+            background-image: url('../../static/imgs/originallist/ps004checked.png');
+          }
+          .checked5 {
+            background-image: url('../../static/imgs/originallist/ps005checked.png');
+          }
+          .checked6 {
+            background-image: url('../../static/imgs/originallist/ps006checked.png');
+          }
         }
-        border-bottom:solid 1px #ccc ;
+        border-bottom:solid 1px #ccc;
       }
       .fenbutu{
         padding-top: 20px;
