@@ -4,7 +4,9 @@
         <div id="list">
             <div class="gensui">
                 <div class="line_top">
-                    <toolbar></toolbar>
+                    <toolbar>
+                        <map-handle slot="toors"></map-handle>
+                    </toolbar>
                 </div>
                 <div class="line_bottom">
                     <tone-color></tone-color>
@@ -193,6 +195,7 @@
     import api from '../api/index'
     import Toolbar from '@/components/Toolbar'
     import ToneColor from '@/components/ToneColor'
+    //import MapHandle from '@/map/controls/MapHandle'
     export default {
         name: 'paneldata',
         data () {
@@ -235,7 +238,7 @@
         mounted(){
             //右侧收放
             let that = this;
-            var flag = true;
+            let flag = true;
             //
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')

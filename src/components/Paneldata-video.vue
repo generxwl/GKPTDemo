@@ -4,7 +4,9 @@
         <div id="list">
             <div class="gensui">
                 <div class="line_top">
-                    <toolbar></toolbar>
+                    <toolbar>
+                        <map-handle slot="toors"></map-handle>
+                    </toolbar>
                 </div>
             </div>
             <div class="panel">
@@ -91,6 +93,7 @@
 <script>
     import {bus} from '@/js/bus.js'
     import Toolbar from '@/components/Toolbar'
+    //import MapHandle from '@/map/controls/MapHandle'
     export default {
         name: 'PaneldataGrid',
         data () {

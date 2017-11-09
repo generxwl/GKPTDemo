@@ -38,7 +38,7 @@
             name: '抓取',
             type: 'HANDLE',
             src: 'static/imgs/toor/icon_hand_1.png',
-            checked: 'static/toor/mapGJ/icon_hand_2.png',
+            checked: 'static/toor/toor/icon_hand_2.png',
             hasVisible:true
           },{
             name: '原范围',
@@ -59,14 +59,14 @@
     beforeCreate(){
     },
     created(){
-      bus.$once('getMap', this.getMap);
-      bus.$once('getSenseMap', this.getMap);
-      bus.$once('getDustMap', this.getMap);
-      bus.$once('getGridMap', this.getMap);
-      bus.$once('setMainMap', this.getMap);
-      bus.$once('setVideoMap',this.getMap);
-      bus.$once('setEnterpriseMap',this.getMap);
-      bus.$once('setStaticMap', this.getMap);
+        bus.$once('getMap', this.getMap);
+        bus.$once('getSenseMap', this.getMap);
+        bus.$once('getDustMap', this.getMap);
+        bus.$once('getGridMap', this.getMap);
+        bus.$once('setMainMap', this.getMap);
+        bus.$once('setVideoMap',this.getMap);
+        bus.$once('setEnterpriseMap',this.getMap);
+        bus.$once('setStaticMap', this.getMap);
     },
     mounted(){
       let t = this;
@@ -74,7 +74,7 @@
         t.ready();
       }, 1);
       $('.map-handle_ul li').on('click', function () {
-        $(this).addClass('active').siblings().removeClass('active');
+        //$(this).addClass('active').siblings().removeClass('active');
       })
     },
     methods: {
@@ -90,10 +90,11 @@
         let index = childElement.getAttribute('data-index');
         let targets = this.$data.handleItems;
         let item = targets[index];
-        childElement.style.backgroundColor = '#FFF';
+        //item.style.color = '#1080cc';
         imgElement.src = item.checked;
         let type = childElement.getAttribute('data-type');
         if (this.map) {
+            //alert(type.toUpperCase())
           let zoom = this.map.getZoom();
           switch (type.toUpperCase()) {
             case 'ZOOMIN':
@@ -114,7 +115,7 @@
               break;
             case 'FULL':
               this.fullScreen(this.map.getContainer());
-              childElement.style.backgroundColor = '#fff';
+              //childElement.style.backgroundColor = '#fff';
               break;
           }
         }

@@ -4,7 +4,9 @@
         <div id="list">
             <div class="gensui">
                 <div class="line_top">
-                    <toolbar></toolbar>
+                    <toolbar>
+                        <map-handle slot="toors"></map-handle>
+                    </toolbar>
                 </div>
                 <div class="line_bottom">
                     <tone-color></tone-color>
@@ -68,6 +70,7 @@
     import {bus} from '@/js/bus.js'
     import api from '../api/index'
     import Toolbar from '@/components/Toolbar'
+    //import MapHandle from '@/map/controls/MapHandle'
     import ToneColor from '@/components/ToneColor'
     export default {
         name: 'PaneldataCgw',

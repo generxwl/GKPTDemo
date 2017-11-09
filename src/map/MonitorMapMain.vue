@@ -41,7 +41,8 @@
 
         //初始化地图
         map.addEventListener('tilesloaded', function () {
-          bus.$emit('tilesLoaded', map);
+            bus.$emit('setMainMap', map);
+            bus.$emit('tilesLoaded', map);
         });
       },
       event() {
