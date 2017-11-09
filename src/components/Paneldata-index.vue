@@ -316,43 +316,41 @@
                 let myChart = echarts.init(document.getElementById('bing_item1'));
                 // 指定图表的配置项和数据
                 let option = {
-                    title: {
+                    title : {
                         text: '空气传感器占比',
                         textStyle: {
                             fontSize: '14',
                             fontWeight: 'bold'
                         },
-                        x: 'left'
+                        x:'center'
                     },
-                    tooltip: {
+                    tooltip : {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
                     },
-                    legend: {
-                        orient: 'vertical',
-                        left: 'right',
-                        textStyle: {
-                            fontSize: '10',
-                            fontWeight: 'bold'
-                        },
-                        top: 50
-                    },
-                    series: [
+                    series : [
                         {
-                            name: '空气传感器占比',
-                            type: 'pie',
-                            radius: '60%',
-                            center: ['30%', '60%'],
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
+                            name:'空气传感器占比',
+                            type:'pie',
+                            radius : ['0%', '75%'],
+                            hoverAnimation:false,
+                            itemStyle : {
+                                normal : {
+                                    label : {
+                                        show : false
+                                    },
+                                    labelLine : {
+                                        show : false
+                                    }
                                 },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '20',
-                                        fontWeight: 'bold'
+                                emphasis : {
+                                    label : {
+                                        show : false,
+                                        position : 'center',
+                                        textStyle : {
+                                            fontSize : '30',
+                                            fontWeight : 'bold'
+                                        }
                                     }
                                 }
                             }
@@ -363,11 +361,11 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-                    legend: {
-                        data: data.map(function (v) {
-                            return v.name
-                        })
-                    },
+//                    legend: {
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
                     series: [{
                         data: data,
                         color:[
@@ -389,43 +387,41 @@
                 let myChart = echarts.init(document.getElementById('bing_item2'));
                 // 指定图表的配置项和数据
                 let option = {
-                    title: {
+                    title : {
                         text: '视频类型占比',
                         textStyle: {
                             fontSize: '14',
                             fontWeight: 'bold'
                         },
-                        x: 'left'
+                        x:'center'
                     },
-                    tooltip: {
+                    tooltip : {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
                     },
-                    legend: {
-                        orient: 'vertical',
-                        left: 'right',
-                        textStyle: {
-                            fontSize: '10',
-                            fontWeight: 'bold'
-                        },
-                        top: 50
-                    },
-                    series: [
+                    series : [
                         {
-                            name: '视频类型占比',
-                            type: 'pie',
-                            radius: '60%',
-                            center: ['30%', '60%'],
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
+                            name:'视频类型占比',
+                            type:'pie',
+                            radius : ['0%', '75%'],
+                            hoverAnimation:false,
+                            itemStyle : {
+                                normal : {
+                                    label : {
+                                        show : false
+                                    },
+                                    labelLine : {
+                                        show : false
+                                    }
                                 },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '20',
-                                        fontWeight: 'bold'
+                                emphasis : {
+                                    label : {
+                                        show : false,
+                                        position : 'center',
+                                        textStyle : {
+                                            fontSize : '30',
+                                            fontWeight : 'bold'
+                                        }
                                     }
                                 }
                             }
@@ -436,11 +432,11 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-                    legend: {
-                        data: data.map(function (v) {
-                            return v.name
-                        })
-                    },
+//                    legend: {
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
                     series: [{
                         data: data,
                         color:[
@@ -462,39 +458,41 @@
                 let myChart = echarts.init(document.getElementById('bing_item3'));
                 // 指定图表的配置项和数据
                 let option = {
-                    title: {
+                    title : {
                         text: '网络类型占比',
                         textStyle: {
                             fontSize: '14',
                             fontWeight: 'bold'
                         },
-                        x: 'left'
+                        x:'center'
                     },
-                    tooltip: {
+                    tooltip : {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
                     },
-                    legend: {
-                        orient: 'vertical',
-                        left: 'right',
-                        top: 50
-                    },
-                    series: [
+                    series : [
                         {
-                            name: '网络类型占比',
-                            type: 'pie',
-                            radius: '60%',
-                            center: ['30%', '50%'],
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
+                            name:'网络类型占比',
+                            type:'pie',
+                            radius : ['0%', '75%'],
+                            hoverAnimation:false,
+                            itemStyle : {
+                                normal : {
+                                    label : {
+                                        show : false
+                                    },
+                                    labelLine : {
+                                        show : false
+                                    }
                                 },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '20',
-                                        fontWeight: 'bold'
+                                emphasis : {
+                                    label : {
+                                        show : false,
+                                        position : 'center',
+                                        textStyle : {
+                                            fontSize : '30',
+                                            fontWeight : 'bold'
+                                        }
                                     }
                                 }
                             }
@@ -505,11 +503,11 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-                    legend: {
-                        data: data.map(function (v) {
-                            return v.name
-                        })
-                    },
+//                    legend: {
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
                     series: [{
                         data: data,
                         color:[
@@ -530,46 +528,6 @@
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = echarts.init(document.getElementById('bing_item4'));
                 // 指定图表的配置项和数据
-//                let option = {
-//                    title: {
-//                        text: '网格员占比',
-//                        textStyle: {
-//                            fontSize: '14',
-//                            fontWeight: 'bold'
-//                        },
-//                        x: 'left'
-//                    },
-//                    tooltip: {
-//                        trigger: 'item',
-//                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-//                    },
-//                    legend: {
-//                        orient: 'vertical',
-//                        left: 'right',
-//                        top: 50
-//                    },
-//                    series: [
-//                        {
-//                            name: '网格员占比',
-//                            type: 'pie',
-//                            radius: '60%',
-//                            center: ['30%', '50%'],
-//                            label: {
-//                                normal: {
-//                                    show: false,
-//                                    position: 'center'
-//                                },
-//                                emphasis: {
-//                                    show: true,
-//                                    textStyle: {
-//                                        fontSize: '20',
-//                                        fontWeight: 'bold'
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    ]
-//                };
                 let option = {
                     title : {
                         text: '网格员占比',
@@ -583,39 +541,32 @@
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
                     },
-                    legend: {
-                        orient : 'vertical',
-                        x : 'left'
-                    },
-                    toolbox: {
-                        show : true,
-                        feature : {
-                            mark : {show: true},
-                            dataView : {show: false, readOnly: false},
-                            magicType : {
-                                show: true,
-                                type: ['pie', 'funnel'],
-                                option: {
-                                    funnel: {
-                                        x: '25%',
-                                        width: '50%',
-                                        funnelAlign: 'left',
-                                        max: 1548
-                                    }
-                                }
-                            },
-                            restore : {show: false},
-                            saveAsImage : {show: false}
-                        }
-                    },
-                    calculable : true,
                     series : [
                         {
                             name:'网格员占比',
                             type:'pie',
-                            radius : '55%',
-                            center: ['50%', '60%'],
-
+                            radius : ['0%', '75%'],
+                            hoverAnimation:false,
+                            itemStyle : {
+                                normal : {
+                                    label : {
+                                        show : false
+                                    },
+                                    labelLine : {
+                                        show : false
+                                    }
+                                },
+                                emphasis : {
+                                    label : {
+                                        show : false,
+                                        position : 'center',
+                                        textStyle : {
+                                            fontSize : '30',
+                                            fontWeight : 'bold'
+                                        }
+                                    }
+                                }
+                            }
                         }
                     ]
                 };
@@ -623,11 +574,11 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-                    legend: {
-                        data: data.map(function (v) {
-                            return v.name
-                        })
-                    },
+//                    legend: {
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
                     series: [{
                         data: data,
                         color:[
