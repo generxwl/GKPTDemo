@@ -417,7 +417,7 @@
               displayName = 'psname';
               charUrl = RequestHandle.getRequestUrl('ENTERPRISECHAR');
               pms = {pscode: attributes.pscode, type: 'nox'};
-              infoWidth = 410;
+              infoWidth = 588;
               break;
           }
           this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
@@ -501,7 +501,7 @@
           '            <div class="square"></div>\n' +
           '            <span class="type">'+data.type+'</span>\n' +
           '            </div>\n' +
-          '            <div class="data">'+time.replace('T', ' ')+'</div>\n' +
+          '            <div class="date">'+time.replace('T', ' ')+'</div>\n' +
           '        </div>\n' +
           '        <div class="item second">\n' +
           '            <div class="key" style=\'background-color:' + getColorByIndex(getAQILevelIndex(aqi))+'\'> AQI</div>\n' +
@@ -561,6 +561,8 @@
 
       //VOC监控
       setVOCInfoWindow(data){
+        console.log(333);
+        console.log(data);
        /* return '<table width=\'100%\' ><tr><td style=\'font-size:14px\' valign=\'top\'>'
           + '<table width=\'100%\' class=\'fitem\'>'
           + '<tr height=\'32px\'><th>TVOC</th><td style=\'width:70px;text-align:center;background-color:' + getVOCLeveColor(data.TVOC_V) + ';color:#fff\'>' + (data.TVOC_V ? data.TVOC_V : '--')
@@ -577,13 +579,14 @@
          '    <div class="item vocItem one">\n' +
          '        <div class="triangle"></div>\n' +
          '        <div class="type">TVOC监测</div>\n' +
-         '        <div class="data">' + (data.CollectTime || data.RecordTime.replace('T', ' '))+'</div>\n' +
+         '        <div class="date">' + (data.CollectTime || data.RecordTime.replace('T', ' '))+'</div>\n' +
          '    </div>\n' +
          '    <div class="item vocItem">\n' +
          '        <div class="key" style=\'background-color:' + getVOCLeveColor(data.TVOC_V)+'\'>TVOC</div>\n' +
          '        <div class="value">'+ (data.TVOC_V ? data.TVOC_V : '--')+'</div>\n' +
          '    </div>\n' +
-         '</div><div id=\'citychart_' + data.StationID + '\' style=\'width:100%;height:110px\'>'
+         '</div><div id=\'citychart_' + data.StationID + '\' style=\'width:100%;height:110px\'></div>' +
+         '<div class="vocIntroduce"><div class="vocNet">所属网络：开发区-耀华道办事处</div><div class="vocPerson">梨花村一区网络员：张三</div><div>联系方式：13693297681</div></div>'
       },
 
       //六参数
@@ -609,7 +612,7 @@
          '            <div class="circle"></div>\n' +
          '            <span class="type">六参数检测</span>\n' +
          '            </div>\n' +
-         '            <div class="data">'+data.CollectTime.replace('T',' ')+'</div>\n' +
+         '            <div class="date">'+data.CollectTime.replace('T',' ')+'</div>\n' +
          '        </div>\n' +
          '        <div class="item">\n' +
          '            <div class="key keyAqi" style=\'background-color:' + getColorByIndex(getAQILevelIndex(data.aqi))+'\'>AQI</div>\n' +
@@ -677,7 +680,7 @@
 
       //工地信息
       setGDInfoWindow(data){
-        return '<table width=\'100%\' class="fitem"><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + (data.pm25 ? parseInt(data.pm25) : '--')
+       /* return '<table width=\'100%\' class="fitem"><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + (data.pm25 ? parseInt(data.pm25) : '--')
           + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + (data.pm10 ? parseInt(data.pm10) : '--')
           + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + (data.temp ? (parseInt(data.temp) + '℃') : '--')
           + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + (data.humi ? (parseInt(data.humi) + '%') : '--')
@@ -686,7 +689,24 @@
           + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + (data.time && (data.time.replace(/T/g, ' ')) || '') + '</td></tr></table>'
           + '</td>'
           + '<td valign=\'top\' align=\'right\'><td>'
-          + '</tr></table><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;height:110px\'>';
+          + '</tr></table><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;height:110px\'>';*/
+
+        return '<div class="param gongDi">\n' +
+          '    <div class="line"></div>\n' +
+          '    <div class="item one">\n' +
+          '        <img src="../static/imgs/main/gd-g.png"></img>\n' +
+          '        <div class="type">工地扬尘监测</div>\n' +
+          '        <div class="date">' + (data.time && (data.time.replace(/T/g, ' ')) || '') + '</div>\n' +
+          '    </div>\n' +
+          '    <div class="item second">\n' +
+          '        <div class="key" style=\'background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25))+'\'>PM2.5</div>\n' +
+          '        <div class="value">' + (data.pm25 ? parseInt(data.pm25) : '--')+'</div>\n' +
+          '    </div>' +
+          '<div class="item third">' +
+          '<div class="key" style=\'background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10))+'\'>PM10</div>' +
+          '<div class="value">' + (data.pm10 ? parseInt(data.pm10) : '--')+'</div>' +
+          '</div>\n' +
+          '</div><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;color:#666666;font-weight:bold;height:110px\'>'
       },
 
       //工地
@@ -709,25 +729,25 @@
       //企业InfoWindow
       setQYInfoWindow(data){
         let dts = data || [];
-        let headerElements = '<tr><td rowspan="2">名称</td><td colspan="2">氮氧化物</td><td colspan="2">二氧化硫</td><td colspan="2">烟尘</td><td rowspan="2">总排放量</td></tr><tr><td>实测</td><td>折算</td><td>实测</td><td>折算</td><td>实测</td><td>折算</td></tr>';
+        let headerElements = '<tr class="qyTable"><td rowspan="2" style="width:138px;height:44px">名称</td><td colspan="2" style="width:86px">氮氧化物</td><td colspan="2" style="width:86px">二氧化硫</td><td colspan="2" style="width:86px">烟尘</td><td colspan="2" style="width:86px">含氧量</td><td rowspan="2" style="width:78px">总排放量</td></tr><tr class="qyTable"><td>实测</td><td>折算</td><td>实测</td><td>折算</td><td>实测</td><td>折算</td><td>实测</td><td>折算</td></tr>';
         let els = '';
         for (let i = 0, length = dts.length; i < length; i++) {
           let item = dts[i];
-          els += '<tr><td>' + item.outputname + '</td><td style="color:' + (item.noxStatus ? '#ff0000' : '') + '">' +
+          els += '<tr style="height:22px" class="qyNumber"><td class="qyTable">' + item.outputname + '</td><td style="color:' + (item.noxStatus ? '#ff0000' : '') + '">' +
             (item.nox || '--') + '</td><td>' +
             (item.nox_convert || '--') + '</td><td style="color:' + (item.so2Status ? '#ff0000' : '') + '">' +
             (item.so2 || '--') + '</td><td>' +
             (item.so2_convert || '--') + '</td><td style="color:' + (item.smokeStatus ? '#ff0000' : '') + '">' +
             (item.smoke || '--') + '</td><td>' +
-            (item.smoke_convert || '--') + '</td><td>' +
+            (item.smoke_convert || '--') + '</td><td>含氧量</td><td></td><td>' +
             (item.gasoutputflow || '--') + '</td></tr>';
           if (i === (dts.length - 1)) {
-            els += '<tr><td>排放限值(mg/m3)</td><td colspan="2">' + (item.NoxLimit || ' --') + '</td><td colspan="2">' + (item.So2Limit || ' --') + '</td><td colspan="2">' + (item.SmokeLimit || ' --') + '</td><td>--</td></tr>'
+            els += '<tr class="qyNumber" style="height:22px"><td  class="qyTable">排放限值(mg/m3)</td><td colspan="2">' + (item.NoxLimit || ' --') + '</td><td colspan="2">' + (item.So2Limit || ' --') + '</td><td colspan="2">' + (item.SmokeLimit || ' --') + '</td><td colspan="2"></td><td>--</td></tr>'
           }
         }
-        els += '<tr><td>时间</td><td colspan="7">' + ((data.length ? data[0].time : '--') || '--') + '</td></tr>';
+       /* els += '<tr><td>时间</td><td colspan="7">' + ((data.length ? data[0].time : '--') || '--') + '</td></tr>';*/
 
-        return '<table style="min-width:390px;" class="fitem" cellpadding="0" cellspacing="0">' + headerElements + els + '</table><div id=\'citychart_' + (data.length && data[0].pscode) + '\' style=\'width:100%;height:110px;\'>';
+        return '<div class="qyLine"><div class="line"></div></div><div class="qyPollution"><img class="qyImg" src="../static/imgs/main/qy-g.png" alt=""><div class="type">企业污染源监测</div><div class="data">'+data[0].time+'</div></div><table style="min-width:390px;margin-bottom:10px;" class="fitem" cellpadding="0" cellspacing="0">' + headerElements + els + '</table><div id=\'citychart_' + (data.length && data[0].pscode) + '\' style=\'width:100%;height:110px;\'>';
       },
 
       //企业24小时
@@ -1263,6 +1283,9 @@
   };
 </script>
 <style>
+  *{
+    font-family:'Microsoft YaHei'
+  }
   .fitem {
     border: 1px solid #ddd;
     margin: 2px auto;
@@ -1312,7 +1335,7 @@
     font-size:14px;
     font-family:"Microsoft YaHei";
   }
-  .data{
+  .date{
     font-size:10px;
     color:#666666;
     line-height:10px;
@@ -1327,7 +1350,7 @@
     font-size:12px;
     color:#333333;
     font-weight:bold;
-    background:#2BE42F;
+    /*background:#2BE42F;*/
     text-align:center;
     height:20px;
     line-height:20px;
@@ -1399,5 +1422,64 @@
     border-right:8px solid transparent;
     border-bottom:16px solid #FFB334;
     display:inline-block;
+  }
+  .gongDi .item{
+    display:inline-block;
+    height:48px;
+    vertical-align: top;
+  }
+  /*.fiveSide{
+    width: 18px;
+    position: relative;
+    border-width: 8px 6px 0;
+    border-style: solid;
+    border-color: #FF9639 transparent;
+    display:inline-block;
+  }
+  .fiveSide:before{
+    content: "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    top: -16px;
+    left: -5px;
+    border-width: 0 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent #FF9639;
+  }*/
+  .qyPollution div{
+    display:inline-block;
+  }
+  .qyPollution{
+    background:#EBEBEB;
+    padding:5px;
+    margin:0 12px;
+  }
+  .qyPollution .date{
+    margin-left:10px;
+  }
+  .qyTable{
+    background:#EBEBEB;
+    color:#666666;
+  }
+  .qyNumber{
+    color:#333333;
+  }
+  .qyImg{
+    margin-right:10px;
+  }
+  .qyLine{
+    padding:0 12px;
+  }
+  .vocIntroduce{
+    font-size:12px;
+    color:#999999;
+    padding:0 15px 15px;
+  }
+  .vocNet,.vocPerson{
+    display:inline-block;
+  }
+  .vocNet{
+    margin-right:10px;
   }
 </style>
