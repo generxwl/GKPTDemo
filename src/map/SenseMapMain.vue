@@ -24,7 +24,7 @@
         pollutionUrl: 'http://lftdkfc.zhiscity.com/api/FcStation/GetFcStationList',
         charUrl: 'http://lftdkfc.zhiscity.com/api/FcStation/GetSingleStationInfo',
         hasLoaded: false,
-        maxZoom: 13
+        maxZoom: 15
       }
     },
     mounted(){
@@ -47,7 +47,7 @@
       ready(){
         let t = this;
         let map = new BMap.Map('sense_map');
-        map.centerAndZoom('廊坊', 13);
+        map.centerAndZoom('廊坊', 12);
         map.enableScrollWheelZoom();
         mapStyle && map.setMapStyle(mapStyle);
         this.map = map;
