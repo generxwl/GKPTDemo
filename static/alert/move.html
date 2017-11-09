@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>施工扬尘</title>
+		<title>移动源</title>
 	</head>
 	<style>
 		html,body
@@ -22,18 +22,6 @@
 			border-radius: 2px;
 			/*padding: 0 15px;*/
 		}
-		.company-name
-		{
-			/*width: 100%;*/
-			color: #333333;
-			background: #EBEBEB;
-			font-size: 14PX;
-			height: 26px;
-			line-height: 26px;
-			padding-left: 10px;
-			margin: 0px 20px 10px 20px;
-		}
-		
 		.table-wrapper
 		{
 			padding: 0px 20px 20px 20px;
@@ -56,7 +44,7 @@
 		.table-up td:nth-child(odd)
 		{
 			text-align: center;
-			background: #EDEDED;
+			background: #EBEBEB;
 			color: #666666;
 			width: 93px;
 		}
@@ -76,46 +64,14 @@
 			height: 14px;
 			font-size: 14px;
 			color: #333333;
-			margin-bottom: 20px;
+			margin-bottom: 10px;
 		}
 		.msg-type-in
 		{
 			font-size: 12px;
 			color: #666666;
 		}
-		.look-btn
-		{
-			position: relative;
-			margin-bottom: 20px;
-			/*margin-top: 10px;*/
-			padding: 0px 20px;
-		}
-		.monitor
-		{
-			display: inline-block;
-			vertical-align: middle;
-			width: 180px;
-			height: 30px;
-			line-height: 30px;
-			border-radius: 2px;
-			background: #2494F2;
-			color: white;
-			text-align: center;
-			font-size: 14px;
-		}
-		.video
-		{
-			margin-right: 0;
-			width: 180px;
-			height: 30px;
-			line-height: 30px;
-			float: right;
-			border-radius: 2px;
-			background: #2494F2;
-			color: white;
-			text-align: center;
-			font-size: 14px;
-		}
+		
 		.arrow
 		{
 			position: relative;
@@ -139,67 +95,107 @@
 	</style>
 	<body>
 		<div class="all-wrapper">
-			<div class="company-name">霸州名堂温泉水疗养生度假村有限公司分公司</div>
-			<span class="line"></span>
-			<div class="table-wrapper">
-				<table class="table-up">
-				<tr>
-					<td>工地地址</td>
-					<td colspan="3">具体地址</td>
-				</tr>
-				<tr>
-					<td>联系人</td>
-					<td>张川</td>
-					<td>电话</td>
-					<td>188888888</td>
-				</tr>
-				<tr>
-					<td>所属网格</td>
-					<td colspan="3"></td>
-				</tr>
-				<tr>
-					<td>网格员</td>
-					<td>张川</td>
-					<td>网格员联络电话</td>
-					<td>188888888</td>
-				</tr>
-				<tr>
-					<td>占地面积</td>
-					<td></td>
-					<td>工程进度</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>防尘措施</td>
-					<td></td>
-					<td>防尘效率</td>
-					<td></td>
-				</tr>
-			</table>
-			</div>
-			
 			<div class="msg-type">
-				污染物排放信息<span class="msg-type-in">(吨/年)</span>
+				道路信息
 				<span class="arrow">
 					<span class="arrow-hide"><img src="hide.png" alt="" /></span>
 					<span class="arrow-show"><img src="show.png" alt="" /></span>
 				</span>
 			</div>
-			<div class="table-wrapper" id="hide">
+			<div class="table-wrapper">
 				<table class="table-up">
 				<tr>
-					<td>PM10</td>
+					<td>道路名称</td>
+					<td colspan="3"></td>
+				</tr>
+				<tr>
+					<td>道路等级</td>
 					<td></td>
-					<td>PM2.5</td>
+					<td>道路长度</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>道路宽度</td>
+					<td></td>
+					<td>车闸数</td>
 					<td></td>
 				</tr>
 			</table>
 			</div>
-			
-			<div class="look-btn">
-				<span class="monitor">查看在线监测</span>
-				<span class="video">查看视频监控</span>
+			<div class="msg-type">
+				车流信息
+				<span class="arrow">
+					<span class="arrow-hide"><img src="hide.png" alt="" /></span>
+					<span class="arrow-show"><img src="show.png" alt="" /></span>
+				</span>
 			</div>
+			<div class="table-wrapper">
+				<table class="table-up">
+				<tr>
+					<td>时间</td>
+					<td></td>
+					<td>总车流量</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>重型车车流量</td>
+					<td></td>
+					<td>轻型车车流量</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>本地车车流量</td>
+					<td></td>
+					<td>外地车车流量</td>
+					<td></td>
+				</tr>
+			</table>
+			</div>
+			<div class="msg-type">
+				污染物排放量
+				<span class="arrow">
+					<span class="arrow-hide"><img src="hide.png" alt="" /></span>
+					<span class="arrow-show"><img src="show.png" alt="" /></span>
+				</span>
+			</div>
+			<div class="table-wrapper">
+				<table class="table-up">
+					<tr>
+						<td>时间</td>
+						<td></td>
+						<td>SO2</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>NO2</td>
+						<td></td>
+						<td>CO</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>PM2.5</td>
+						<td></td>
+						<td>PM10</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>EC</td>
+						<td></td>
+						<td>OC</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>VOCS</td>
+						<td></td>
+						<td>NH3</td>
+						<td></td>
+					</tr>
+				</table>
+				
+			</div>
+			
+			
+			
 		</div>
 	</body>
 </html>
