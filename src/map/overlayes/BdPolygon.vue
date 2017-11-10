@@ -2,6 +2,7 @@
   import Axios from 'axios'
   import BMap from 'BMap'
   import Coordtransform from 'coordtransform'
+  import RequestHandle from '@/request/'
   import {bus} from '@/js/bus.js'
 
   export default {
@@ -37,7 +38,7 @@
       setTimeout(function () {
         t.map = t.$parent.$parent.$parent.$parent.map;
 
-        if(t.map) {
+        if (t.map) {
           t.map.addOverlay(t.labelSymbol);
           t.labelSymbol.hide();
           t.labelSymbol.setStyle({color: '#333', backgroundColor: '#fff', border: 'solid 1px #333'});
@@ -148,7 +149,38 @@
         let attributes = e.target.attributes;
 //        console.log(e);
         (attributes && displayFieldName) && (t.labelSymbol.setContent(attributes[displayFieldName]));
+
       },
+
+      //设置弹出层
+      setSearchInfoWindow(point, attributes){
+        let t = this;
+        let path = RequestHandle.getRequestUrl('');
+        let url = path + '?code=' + attributes['code'];
+        let params = {url: url , type: 'GET', pms: null};
+        RequestHandle.request(params, function (result) {
+          let res = t.setSearchInfoStyle(result.obj);
+          if(res) {
+            let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
+              title: '<sapn style="font-size:16px" ><b title="' + (attributes[displayFieldName] || '') + '">' + (attributes[displayFieldName] || '') + '</b>' + '</span>',             //标题
+              width: '120',
+              height: 'auto',
+              enableAutoPan: true,
+              enableSendToPhone: false,
+              searchTypes: []
+            });
+            searchInfoWindow.open(point);
+          }
+        }, function (e) {
+          console.error(e);
+        });
+      },
+
+      //设置弹出层样式
+      setSearchInfoStyle(attributes){
+      },
+
+      //获取面数据
       getBdPolygon(data) {
         let rtValue = [];
         let features = data.features || [];
@@ -161,6 +193,8 @@
         }
         return rtValue
       },
+
+      //面图层转换
       ringsTransform: function (data) {
         if (!data) {
           return undefined;
@@ -175,6 +209,8 @@
         }
         return rtValue;
       },
+
+      //WGS坐标转百度坐标
       wgsPointToBd: function (data) {
         let lsTransPoints = [];
         if (!this.convert) {
@@ -188,10 +224,14 @@
         }
         return lsTransPoints;
       },
+
+      //坐标转换
       transformFun: function (path) {
         let gcPoint = Coordtransform.wgs84togcj02(path[0], path[1]);
         return Coordtransform.gcj02tobd09(gcPoint[0], gcPoint[1]);
       },
+
+      //获取面字符串
       getStringPolygon: function (ring) {
         let rtValue = '';
         for (let i = 0; i < ring.length; i++) {
@@ -204,9 +244,13 @@
         }
         return rtValue;
       },
+
+      //获取随机颜色
       getRandomColor: function () {
         return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).substr(-6);
       },
+
+      //获取等级颜色
       getLeaveColor: function (type) {
         let sle = {};
         switch (type) {
