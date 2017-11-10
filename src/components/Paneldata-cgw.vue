@@ -4,7 +4,7 @@
         <div id="list">
             <div class="gensui">
                 <div class="line_top">
-                    <toolbar>
+                    <toolbar @RightslideToggle="togleclick">
                         <map-handle slot="toors"></map-handle>
                     </toolbar>
                 </div>
@@ -40,9 +40,14 @@
                                     width="80">
                             </el-table-column>
                             <el-table-column
+                                    property="Grid"
+                                    label="网格名称"
+                                    width="80">
+                            </el-table-column>
+                            <el-table-column
                                     property="stationname"
                                     label="名称"
-                                    width="220">
+                                    width="160">
                             </el-table-column>
                             <el-table-column
                                     property="aqi"
@@ -86,31 +91,10 @@
                 pagesize: 10,
                 currentPage: 1,
                 totalCount: 0,
-//                pickerOptions1: {
-//                    shortcuts: [{
-//                        text: '今天',
-//                        onClick(picker) {
-//                            picker.$emit('pick', new Date());
-//                        }
-//                    }, {
-//                        text: '昨天',
-//                        onClick(picker) {
-//                            const date = new Date();
-//                            date.setTime(date.getTime() - 3600 * 1000 * 24);
-//                            picker.$emit('pick', date);
-//                        }
-//                    }, {
-//                        text: '一周前',
-//                        onClick(picker) {
-//                            const date = new Date();
-//                            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-//                            picker.$emit('pick', date);
-//                        }
-//                    }]
-//                },
                 value1: '',
                 value2: '',
-                uptime:''
+                uptime:'',
+                flag:true
             }
         },
         created(){
@@ -121,27 +105,26 @@
         mounted(){
             //右侧收放
             let that = this;
-            var flag = true;
             //实时累计切换样式
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
             //右边伸缩框加载动画
             $('#list #shrink').on('click', function () {
-                if (flag) {
+                if (this.flag) {
                     that.zuo = true;
                     that.you = false;
                     $('#list').animate({
                         'right': '-437px'
                     });
-                    flag = false;
+                    this.flag = false;
                 } else {
                     that.zuo = false;
                     that.you = true;
                     $('#list').animate({
                         'right': '0px'
                     });
-                    flag = true;
+                    this.flag = true;
                 }
             })
             //
@@ -151,6 +134,24 @@
             },10000)
         },
         methods: {
+            togleclick(){
+                let that = this;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
+                    $('#list').animate({
+                        'right': '-437px'
+                    });
+                    this.flag = false;
+                } else {
+                    that.zuo = false;
+                    that.you = true;
+                    $('#list').animate({
+                        'right': '0px'
+                    });
+                    this.flag = true;
+                }
+            },
             //跟新数据时间
             UpTimesData(){
                 var date = new Date(),
@@ -236,6 +237,7 @@
                     tableData.stationid = item.stationid;//城市id
                     tableData.latitude = item.latitude;//纬度
                     tableData.longitude = item.longitude;//经度
+                    tableData.Grid = '----';//网格
                     tableData.aqi = item[type.toLowerCase()];//数值
                     tableData.dataType = item.hasOwnProperty('dataType') ? item['dataType'] : undefined;
                     this.ALLdata.push(tableData);

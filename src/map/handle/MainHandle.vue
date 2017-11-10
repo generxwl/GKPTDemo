@@ -391,7 +391,7 @@
         let t = this;
         if (attributes.hasOwnProperty('ptType') && (attributes.ptType.toUpperCase() === 'LAYER_SP' || attributes.ptType.toUpperCase() === 'LAYER_SP_VOC' || attributes.ptType.toUpperCase() === 'LAYER_SP_SLW' )) {
           let res = t.setCameraWindow(attributes);
-          !this.searchInfoWindow && (this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
+          (this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
             title: '<sapn style="font-size:16px"><b>' + (attributes['CamName'] || '') + ' - ' + (attributes['TypeName'] || '') + '</b>' + '</span>',             //标题
             width: 520,
             height: 400,
@@ -443,7 +443,7 @@
               infoWidth = 588;
               break;
           }
-          !this.searchInfoWindow && (this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
+           (this.searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
             title: '<sapn style="font-size:16px" ><b title="' + (attributes[displayName] || '') + '">' + (attributes[displayName] || '') + '</b>' + '</span>',             //标题
             width: infoWidth,
             height: "auto",

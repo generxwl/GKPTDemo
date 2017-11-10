@@ -4,7 +4,7 @@
         <div id="list">
             <div class="gensui">
                 <div class="line_top">
-                    <toolbar>
+                    <toolbar @RightslideToggle="togleclick">
                         <map-handle slot="toors"></map-handle>
                     </toolbar>
                 </div>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="sousuo">
                         <div class="sleft">
-                            <el-input v-model="filters.name" placeholder="请输入地址"></el-input>
+                            <el-input v-model="filters.name" placeholder="名称"></el-input>
                         </div>
                         <div class="sright">
                             <el-button type="primary" @click="searchData()">搜索</el-button>
@@ -56,9 +56,14 @@
                                     width="80">
                             </el-table-column>
                             <el-table-column
+                                    property="Grid"
+                                    label="网格名称"
+                                    width="80">
+                            </el-table-column>
+                            <el-table-column
                                     prop="CamName"
                                     label="视频名称"
-                                    width="220">
+                                    width="160">
                             </el-table-column>
                             <el-table-column
                                     prop="TypeName"
@@ -106,6 +111,7 @@
                 filters: {
                     name: ''
                 },
+                flag:true
             }
         },
         created(){
@@ -114,26 +120,25 @@
         mounted(){
             //右侧收放
             let that = this;
-            var flag = true;
             //
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
             $('#list #shrink').on('click', function () {
-                if (flag) {
-                    that.zuo=true;
-                    that.you=false;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
                     $('#list').animate({
                         'right': '-437px'
                     });
-                    flag = false;
+                    this.flag = false;
                 } else {
-                    that.zuo=false;
-                    that.you=true;
+                    that.zuo = false;
+                    that.you = true;
                     $('#list').animate({
                         'right': '0px'
                     });
-                    flag = true;
+                    this.flag = true;
                 }
             })
             //视频进度图
@@ -149,6 +154,24 @@
           });
         },
         methods: {
+            togleclick(){
+                let that = this;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
+                    $('#list').animate({
+                        'right': '-437px'
+                    });
+                    this.flag = false;
+                } else {
+                    that.zuo = false;
+                    that.you = true;
+                    $('#list').animate({
+                        'right': '0px'
+                    });
+                    this.flag = true;
+                }
+            },
             initlistData(data){
                 let sudata = data;
                 this.SetDataList(sudata)
@@ -410,6 +433,7 @@
                     tableData.Id = item.Id;//城市id
                     tableData.Latitude = item.Latitude;//纬度
                     tableData.Longitude = item.Longitude;//经度
+                    tableData.Grid = '----';//网格
                     this.ALLdata.push(tableData);
                 })
             },

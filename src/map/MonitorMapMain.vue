@@ -1,11 +1,11 @@
 <template>
   <div class="monitor-map-content">
     <div id="monitor_map"></div>
-    <layer-switch style="display: none"></layer-switch>
+    <!--<layer-switch style="display: none"></layer-switch>-->
     <pollution-target></pollution-target>
     <history-handle class="history-panel"></history-handle>
     <!--<main-layer-handle></main-layer-handle>-->
-    <!--<map-handle></map-handle>-->
+    <!--<map-handle ></map-handle>-->
   </div>
 </template>
 <script>
@@ -28,6 +28,20 @@
     created() {
     },
     mounted() {
+      let lsScript = document.getElementsByTagName('script');
+      for (let i = 0, length = lsScript.length; i < length; i++) {
+        let value = lsScript[i];
+        if (value && value.src) {
+          if (value.src.indexOf('static/js/map/DistanceTool_min.js') > -1) {
+            document.body.removeChild(value);
+            break;
+          }
+        }
+      }
+
+      let el = document.createElement('script');
+      el.src = 'static/js/map/DistanceTool_min.js';
+      document.body.appendChild(el);
       this.ready();
       this.event();
     },
@@ -38,6 +52,8 @@
         map.enableScrollWheelZoom();
         mapStyle && map.setMapStyle(mapStyle);
         this.map = map;
+        this.$parent.map = map;
+//        (new BMapLib.DistanceTool(this.map, {lineStroke: 2})).open();
 
         //初始化地图
         map.addEventListener('tilesloaded', function () {

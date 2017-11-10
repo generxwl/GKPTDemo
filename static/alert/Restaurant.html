@@ -8,37 +8,36 @@
 		html,body
 		{
 			font-size: 12px;
-			font-family: "微软雅黑";
+			font-family: "MicrosoftYaHei";
 		}
+		
 		.all-wrapper
 		{
-			width: 400px;
+			width: 420px;
 			max-height: 450px;
 			margin: 0 auto;
 			background: #FFFFFF;
-			border: 1px solid #000000;
-			box-shadow: 0px 6px 20px #000000;
-			border-radius: 3px;
+			border: 1px solid rgba(0,0,0,0.2);
+			box-shadow: 1px 3px 4px rgba(0,0,0,0.18);
+			border-radius: 2px;
+			/*padding: 0 20px;*/
 		}
 		.company-name
 		{
-			width: 100%;
-			padding: 10px 0px;
-			text-align: center;
+			/*width: 100%;*/
 			color: #333333;
+			background: #EBEBEB;
+			font-size: 14PX;
+			height: 26px;
+			line-height: 26px;
+			padding-left: 10px;
+			margin: 0px 20px;
+			margin-bottom: 10px;
 		}
-		.line
-		{
-			display: block;
-			width: 20px;
-			margin: 10px 0px;
-			margin: 0 auto;
-			
-			border-bottom: 2px solid #3783F1;
-		}
+		
 		.table-wrapper
 		{
-			padding: 10px 15px 15px 15px;
+			margin: 0px 20px 20px 20px;
 		}
 		/*.title
 		{
@@ -74,53 +73,93 @@
 		}
 		.table-up tr td
 		{
-			width: 25%;
+			/*width: 25%;*/
 			border: 1px solid #DDDDDD;
+			height: 22px;
+			line-height: 22px;
 		}
 		.table-up td:nth-child(odd)
 		{
 			text-align: center;
 			background: #EDEDED;
 			color: #666666;
+			width: 93px;
 		}
 		.table-up td:nth-child(even)
 		{
+			width: 98px;
 			text-align: left;
 			padding-left: 10px;
 			color: #333333;
 		}
 		.msg-type
 		{
-			margin-left: 15PX;
-			border-left: 3px solid #3783F1;
+			margin-left: 20px;
+			border-left: 4px solid #2494f2;
 			padding-left: 10px;
-			line-height: 12px;
-			height: 12px;
+			line-height: 14px;
+			height: 14px;
+			font-size: 14px;
+			color: #333333;
+			margin-bottom: 10px;
+		}
+		.msg-type-in
+		{
+			font-size: 12px;
+			color: #666666;
 		}
 		.look-btn
 		{
 			position: relative;
-			margin: 0px 50px 20px 50px;
+			margin-bottom: 20px;
+			/*margin-top: 10px;*/
+			padding:0px 20px ;
 		}
 		.monitor
 		{
 			display: inline-block;
 			vertical-align: middle;
-			width: auto;
-			padding: 3px 10px;
-			border-radius: 10px;
-			background: #1080CC;
+			width: 180px;
+			height: 30px;
+			line-height: 30px;
+			border-radius: 2px;
+			background: #2494F2;
 			color: white;
+			text-align: center;
+			font-size: 14px;
 		}
 		.video
 		{
 			margin-right: 0;
-			width: auto;
+			width: 180px;
+			height: 30px;
+			line-height: 30px;
 			float: right;
-			padding: 3px 10px;
-			border-radius: 10px;
-			background: #1080CC;
+			border-radius: 2px;
+			background: #2494F2;
 			color: white;
+			text-align: center;
+			font-size: 14px;
+		}
+		.arrow
+		{
+			position: relative;
+			display: inline-block;
+			vertical-align: top;
+			float: right;
+		}
+		.arrow-show
+		{
+			display: none;
+			position: absolute;
+			right: 20px;
+			top: 0;
+		}
+		.arrow-hide
+		{
+			position: absolute;
+			right: 20px;
+			top: 0;
 		}
 	</style>
 	<body>
@@ -130,7 +169,6 @@
 				<span class="title-close"></span>
 			</div>-->
 			<div class="company-name">霸州名堂温泉水疗养生度假村有限公司分公司</div>
-			<span class="line"></span>
 			<div class="table-wrapper">
 				<table class="table-up">
 				<tr>
@@ -167,15 +205,21 @@
 					<td>燃料类型</td>
 					<td>张川</td>
 					<td>年消耗量</td>
-					<td>188888888</td>
+					<td>434324<span style="color: #666666; float: right; margin-right: 5px;">(吨/年)</span></td>
 				</tr>
 			</table>
 			</div>
 			
 			<div class="msg-type">
-				污染物排放信息(吨/年)
+				污染物排放信息
+				<span class="msg-type-in">(吨/年)</span>
+				<span class="arrow">
+					<span class="arrow-hide"><img src="hide.png" alt="" /></span>
+					<span class="arrow-show"><img src="show.png" alt="" /></span>
+				</span>
+				
 			</div>
-			<div class="table-wrapper">
+			<div class="table-wrapper" id="hide">
 				<table class="table-up">
 				<tr>
 					<td>VOCs</td>
@@ -203,3 +247,36 @@
 		</div>
 	</body>
 </html>
+<script src="jquery-3.1.1.min.js"></script>
+<script>
+//	$(".arrow-hide").click(function(){
+//		$("#hide").slideUp()
+//		$(".arrow-hide").hide()
+//		$(".arrow-show").show()
+//		
+//		
+//	})
+//	$(".arrow-show").click(function(){
+//		$("#hide").slideDown()
+//		$(".arrow-show").hide()
+//		$(".arrow-hide").show()
+//		
+//	})
+var hide=$(".arrow-hide")
+	$.each(hide, function() {
+		$(this).click(function(){
+			$(this).css("display","none")
+			$(this).next().css("display","block")
+			$(this).parent().parent().next().slideUp()
+		})
+	});
+	var show=$(".arrow-show")
+	$.each(show, function() {
+		$(this).click(function(){
+			$(this).css("display","none")
+			$(this).prev().css("display","block")
+			$(this).parent().parent().next().slideDown()
+		})
+	});
+
+</script>

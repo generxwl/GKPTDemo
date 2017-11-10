@@ -199,7 +199,6 @@
         width: 100%;
         height: 56px;
         background: #2494F2;
-        //border-bottom: solid 2px #0b598e;
         .logo {
             float: left;
             width: auto;
@@ -330,45 +329,6 @@
                         color: #0070CE;
                     }
                 }
-                /*.Fiveitem {
-                    text-align: left;
-                    display: none;
-                    z-index: 100;
-                    width: 460px;
-                    position: absolute;
-                    top: 56px;
-                    right: 0px;
-                    background: #fff;
-                  box-shadow:#ccc;
-                  border:1px solid #ccc;
-                  border-radius: 0 0 4px 4px;
-                  padding:4px 20px 20px 20px;
-                  line-height:14px;
-                    div {
-                      text-align:left;
-                        a {
-                          color: #666;
-                          font-size: 14px;
-                          padding: 0;
-                          font-family: "Microsoft YaHei";
-                          cursor: pointer;
-                          font-weight:normal;
-                          margin-right:28px;
-                          line-height:20px;
-                        }
-                        :hover:not(h3) {
-                            color: #1080cc;
-                        }
-                        h3 {
-                          margin:16px 0 8px 0;
-                          !*margin-bottom:12px;
-                          margin-top:20px;*!
-                          color:#333333;
-                          font-size:14px;
-                          font-weight:bold;
-                        }
-                    }
-                }*/
               .Fiveitem{
                 width: 460px;
                 position: absolute;
