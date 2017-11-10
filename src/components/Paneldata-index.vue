@@ -72,18 +72,51 @@
                             </div>
                             <!--饼图展示-->
                             <div class="bing">
-                                <div class="bing_item1" id="bing_item1" style="width: 203px;height: 180px;">
-
+                                <div class="look">
+                                    <p>空气传感器占比</p>
+                                    <div class="bing_item1" id="bing_item1" style="width: 203px;height: 180px;"></div>
+                                    <div class="tuli">
+                                        <ul>
+                                            <li><img src="../../static/imgs/piebiao/icon_lan1.png" alt="">六参数传感器</li>
+                                            <li><img src="../../static/imgs/piebiao/icon_huang2.png" alt="">TVOC传感器</li>
+                                            <li><img src="../../static/imgs/piebiao/icon_lu3.png" alt="">工地传感器</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="bing_item2" id="bing_item2" style="width: 203px;height: 180px;">
-
+                                <div class="look">
+                                    <p>视频类型占比</p>
+                                    <div class="bing_item2" id="bing_item2" style="width: 203px;height: 180px;"></div>
+                                    <div class="tuli">
+                                        <ul>
+                                            <li><img src="../../static/imgs/piebiao/icon_lan1.png" alt="">VOCs企业</li>
+                                            <li><img src="../../static/imgs/piebiao/icon_huang2.png" alt="">高空五公里</li>
+                                            <li><img src="../../static/imgs/piebiao/icon_lu3.png" alt="">散乱污企业</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="bing_item3" id="bing_item3" style="width: 203px;height: 180px;">
-
+                                <div class="look" style="margin-top: 20px">
+                                    <p>网络类型占比</p>
+                                    <div class="bing_item3" id="bing_item3" style="width: 203px;height: 180px;"></div>
+                                    <div class="tuli">
+                                        <ul>
+                                            <li style="width: 66px"><img src="../../static/imgs/piebiao/icon_lan1.png" alt="">一级</li>
+                                            <li style="width: 66px"><img src="../../static/imgs/piebiao/icon_huang2.png" alt="">二级</li>
+                                            <li style="width: 66px"><img src="../../static/imgs/piebiao/icon_lu3.png" alt="">三级</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="bing_item4" id="bing_item4" style="width: 203px;height: 180px;">
-
+                                <div class="look" style="margin-top: 20px">
+                                    <p>网格员占比</p>
+                                    <div class="bing_item4" id="bing_item4" style="width: 203px;height: 180px;"></div>
+                                    <div class="tuli">
+                                        <ul>
+                                            <li style="width: 66px"><img src="../../static/imgs/piebiao/icon_lan1.png" alt="">开发区</li>
+                                            <li style="width: 66px"><img src="../../static/imgs/piebiao/icon_huang2.png" alt="">广阳区</li>
+                                            <li style="width: 66px"><img src="../../static/imgs/piebiao/icon_lu3.png" alt="">安次区</li>
+                                        </ul>
+                                    </div>
                                 </div>
+
                             </div>
                         </el-tab-pane>
                         <el-tab-pane label="各局数据接入进度" name="second">
@@ -316,14 +349,6 @@
                 let myChart = echarts.init(document.getElementById('bing_item1'));
                 // 指定图表的配置项和数据
                 let option = {
-                    title : {
-                        text: '空气传感器占比',
-                        textStyle: {
-                            fontSize: '14',
-                            fontWeight: 'bold'
-                        },
-                        x:'center'
-                    },
                     tooltip : {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -342,16 +367,6 @@
                                     labelLine : {
                                         show : false
                                     }
-                                },
-                                emphasis : {
-                                    label : {
-                                        show : false,
-                                        position : 'center',
-                                        textStyle : {
-                                            fontSize : '30',
-                                            fontWeight : 'bold'
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -361,13 +376,13 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-                    legend: {
-                        x : 'center',
-                        y : 'bottom',
-                        data: data.map(function (v) {
-                            return v.name
-                        })
-                    },
+//                    legend: {
+//                        x : 'center',
+//                        y : 'bottom',
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
                     series: [{
                         data: data,
                         color:[
@@ -389,14 +404,6 @@
                 let myChart = echarts.init(document.getElementById('bing_item2'));
                 // 指定图表的配置项和数据
                 let option = {
-                    title : {
-                        text: '视频类型占比',
-                        textStyle: {
-                            fontSize: '14',
-                            fontWeight: 'bold'
-                        },
-                        x:'center'
-                    },
                     tooltip : {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -414,16 +421,6 @@
                                     },
                                     labelLine : {
                                         show : false
-                                    }
-                                },
-                                emphasis : {
-                                    label : {
-                                        show : false,
-                                        position : 'center',
-                                        textStyle : {
-                                            fontSize : '30',
-                                            fontWeight : 'bold'
-                                        }
                                     }
                                 }
                             }
@@ -460,14 +457,6 @@
                 let myChart = echarts.init(document.getElementById('bing_item3'));
                 // 指定图表的配置项和数据
                 let option = {
-                    title : {
-                        text: '网络类型占比',
-                        textStyle: {
-                            fontSize: '14',
-                            fontWeight: 'bold'
-                        },
-                        x:'center'
-                    },
                     tooltip : {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -485,16 +474,6 @@
                                     },
                                     labelLine : {
                                         show : false
-                                    }
-                                },
-                                emphasis : {
-                                    label : {
-                                        show : false,
-                                        position : 'center',
-                                        textStyle : {
-                                            fontSize : '30',
-                                            fontWeight : 'bold'
-                                        }
                                     }
                                 }
                             }
@@ -531,14 +510,6 @@
                 let myChart = echarts.init(document.getElementById('bing_item4'));
                 // 指定图表的配置项和数据
                 let option = {
-                    title : {
-                        text: '网格员占比',
-                        textStyle: {
-                            fontSize: '14',
-                            fontWeight: 'bold'
-                        },
-                        x:'center'
-                    },
                     tooltip : {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -556,16 +527,6 @@
                                     },
                                     labelLine : {
                                         show : false
-                                    }
-                                },
-                                emphasis : {
-                                    label : {
-                                        show : false,
-                                        position : 'center',
-                                        textStyle : {
-                                            fontSize : '30',
-                                            fontWeight : 'bold'
-                                        }
                                     }
                                 }
                             }
@@ -796,7 +757,7 @@
                     margin: 0 auto;
                     margin-top: 10px;
                     border: solid 1px #ccc;
-                    background: #f0f7ff;
+                    background: #F6F6F6;
 
                     .table_item {
                         padding-top: 9px;
@@ -826,7 +787,35 @@
                     height: 366px;
                     margin: 0 auto;
                     margin-top: 20px;
-
+                    .look{
+                        width: 49%;
+                        height: auto;
+                        float: left;
+                        p{
+                            color: #434D55;
+                            font-size: 14px;
+                            font-weight:bold;
+                        }
+                        ul{
+                            li{
+                                list-style: none;
+                                font-size: 12px;
+                                width:100px ;
+                                height: 20px;
+                                float: left;
+                                text-align: left;
+                                padding-left: 5px;
+                                img{
+                                    position: inherit;
+                                    width:14px ;
+                                    height: auto;
+                                    vertical-align: middle;
+                                    margin-top: 4px;
+                                    margin-right: 5px;
+                                }
+                            }
+                        }
+                    }
                     .bing_item1 {
                         width: 203px;
                         height: 180px;
@@ -842,7 +831,7 @@
                     }
 
                     .bing_item3 {
-                        margin-top: 20px;
+
                         width: 203px;
                         height: 180px;
                         float: left;
@@ -850,7 +839,7 @@
                     }
 
                     .bing_item4 {
-                        margin-top: 20px;
+
                         width: 203px;
                         height: 180px;
                         float: left;

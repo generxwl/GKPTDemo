@@ -88,7 +88,7 @@
               <el-table-column
                       property="Name"
                       label="名称"
-                      width="110">
+                      width="120">
               </el-table-column>
               <el-table-column
                       property="Industry"
