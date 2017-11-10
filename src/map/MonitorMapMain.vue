@@ -1,7 +1,7 @@
 <template>
   <div class="monitor-map-content">
     <div id="monitor_map"></div>
-    <layer-switch></layer-switch>
+    <layer-switch style="display: none"></layer-switch>
     <pollution-target></pollution-target>
     <history-handle class="history-panel"></history-handle>
     <!--<main-layer-handle></main-layer-handle>-->
@@ -41,7 +41,8 @@
 
         //初始化地图
         map.addEventListener('tilesloaded', function () {
-          bus.$emit('tilesLoaded', map);
+            bus.$emit('setMainMap', map);
+            bus.$emit('tilesLoaded', map);
         });
       },
       event() {

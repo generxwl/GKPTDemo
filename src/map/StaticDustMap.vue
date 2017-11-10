@@ -1,7 +1,7 @@
 <template>
   <div class="static-map-content">
     <div id="static_map"></div>
-    <layer-switch></layer-switch>
+    <layer-switch style="display: none"></layer-switch>
     <static-dust-target></static-dust-target>
     <!--<map-handle></map-handle>-->
   </div>

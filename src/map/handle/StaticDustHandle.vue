@@ -82,8 +82,10 @@
         let markerManager = [];
         for (let i = 0, length = lsMarkers.length; i < length; i++) {
           let value = lsMarkers[i];
-          let latGPS = parseInt(value.latitude) + parseFloat(value.latitudem) / 60 + parseFloat(value.latitudes) / 3600;
-          let lngGPS = parseInt(value.longitude) + parseFloat(value.longitudem) / 60 + parseFloat(value.longitudes) / 3600;
+//          let latGPS = parseInt(value.latitude) + parseFloat(value.latitudem) / 60 + parseFloat(value.latitudes) / 3600;
+//          let lngGPS = parseInt(value.longitude) + parseFloat(value.longitudem) / 60 + parseFloat(value.longitudes) / 3600;
+          let latGPS = value.latitudenew;
+          let lngGPS = value.longitudenew;
           let pt = new BMap.Point(lngGPS, latGPS);
           let v = value.count;
           let marker = t.getMarker(pt, v);

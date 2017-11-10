@@ -6,13 +6,16 @@
         <!--地图-->
         <emergency-map></emergency-map>
         <!---->
+        <div class="warp_qd">
+            <toolbar></toolbar>
+        </div>
 
     </div>
 </template>
 
 <script>
     import EmergencyMap from '@/map/EmergencyMap' //0809
-    //import indexpanel from '@/components/Paneldata-index'
+    import Toolbar from '@/components/Toolbar'
     import MapHandle from '@/map/controls/MapHandle'
     export default {
         name: 'Emergencylist',
@@ -27,7 +30,7 @@
         methods: {
             //加载动画
         },
-        components: {EmergencyMap,MapHandle}//0809
+        components: {EmergencyMap,Toolbar}//0809
     }
 </script>
 
@@ -36,5 +39,13 @@
     .Emergencylist{
         width: 100%;
         height: 100%;
+        .warp_qd{
+            width: 350px;
+            height: 44px;
+            position: absolute;
+            top:80px;
+            right: 20px;
+            background: #fff;
+        }
     }
 </style>

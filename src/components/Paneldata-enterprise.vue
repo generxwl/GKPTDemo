@@ -2,8 +2,12 @@
     <div class="Paneldatavideo">
         <!--企业监测-->
         <div id="list">
-            <div class="qianren">
-               <map-handle></map-handle>
+            <div class="gensui">
+                <div class="line_top">
+                    <toolbar>
+                        <map-handle slot="toors"></map-handle>
+                    </toolbar>
+                </div>
             </div>
             <div class="panel">
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
@@ -86,7 +90,8 @@
 <script>
     import {bus} from '@/js/bus.js'
     import api from '../api/index'
-    import MapHandle from '@/map/controls/MapHandle'
+    import Toolbar from '@/components/Toolbar'
+    //import MapHandle from '@/map/controls/MapHandle'
     export default {
         name: 'PaneldataGrid',
         data () {
@@ -299,15 +304,7 @@
                 };
             }
         },
-//        filters: {
-//            two (value){
-//                if (!value) {
-//                    return ''
-//                };
-//                return value.toFixed(2);
-//            }
-//        },
-        components: {MapHandle}
+        components: {Toolbar}
     }
 </script>
 
@@ -334,10 +331,16 @@
             right: 0;
             z-index: 9;
             box-shadow: 0px 5px 15px #333333;
-            .qianren {
-                position: absolute;
-                left: -90px;
-                top:64%;
+            .gensui {
+                .line_top{
+                    position: absolute;
+                    left: -368px;
+                    top: 24px;
+                    width: 352px;
+                    height: 46px;
+                    background: #fff;
+                    border:solid 1px #ccc;
+                }
             }
             img {
                 position: absolute;

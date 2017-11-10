@@ -1,7 +1,7 @@
 <template>
   <div class="main-map-content">
     <div id="main_map"></div>
-    <layer-switch></layer-switch>
+    <layer-switch style="display: none"></layer-switch>
     <main-layer-handle></main-layer-handle>
     <!--<map-handle></map-handle>-->
   </div>
@@ -17,7 +17,8 @@
     name: 'MainMap',
     data () {
       return {
-        zoom:13
+        zoom:13,
+          map : null,
       };
     },
     mounted(){
@@ -33,8 +34,12 @@
           let t = this;
 
           map.addEventListener('tilesloaded', function () {
-            bus.$emit('setMainMap', map);
-            bus.$emit('setMainMarkerLabel',map.getZoom() >= t.zoom);
+              setTimeout(() => {
+                  bus.$emit('setMainMap', map);
+              })
+
+//            bus.$emit('setMainMarkerLabel',map.getZoom() >= t.zoom);//setMainMarkerLabel
+            bus.$emit('setMainValueLabel',map.getZoom() >= t.zoom);//setMainValueLabel
           });
         }
     },

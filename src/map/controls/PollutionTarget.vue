@@ -98,7 +98,7 @@
         let type = childElement.getAttribute('data-type');
         let targets = this.$data.targets;
         let item = targets[index];
-        childElement.style.backgroundColor = '#1080cc';
+        childElement.style.backgroundColor = '#2494F2';
         //imgElement.src = item.checked;
 
         bus.$emit('switchRender', type);
@@ -106,7 +106,7 @@
       resetImg(){
         let targets = this.$data.targets;
         jQuery.find('.target-content li').forEach(function (value, index) {
-          value.style.backgroundColor = 'rgba(0, 79, 137, 0.6)';
+          value.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
         });
 //        jQuery.find('.target-content li>img').forEach(function (value, index) {
 //          let target = targets[index];
@@ -127,22 +127,22 @@
     left: 0;
     top: 50px;
     z-index: 1;
-    box-shadow: 0 0 5px #666;
+
   }
 
   .target-header{
     width: 62px;
     background: #fff;
-    color: #1080cc;
-    border: solid 1px #fff;
-    line-height: 25px;
+    opacity: 0.8;
+    color: #2494F2;
+    font-weight: bold;
+    line-height: 34px;
   }
 
   .target-content ul {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    border: solid 1px #fff;
     width: 62px;
     color:#fff;
   }
@@ -151,7 +151,7 @@
     -webkit-border-radius: 1px;
     -moz-border-radius: 1px;
     border-radius: 1px;
-    background-color: rgba(0, 79, 137, 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     list-style: none;
     line-height: 30px;
     width: 60px;

@@ -1,7 +1,7 @@
 <template>
   <div class="sense-map-content">
     <div id="sense_map"></div>
-    <layer-switch></layer-switch>
+    <layer-switch style="display: none"></layer-switch>
     <dust-pollution></dust-pollution>
     <history-handle style="display: none;"></history-handle>
     <!--<map-handle></map-handle>-->

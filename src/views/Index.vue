@@ -13,11 +13,12 @@
 <script>
   import MainMap from '@/map/MainMap' //0809
   import indexpanel from '@/components/Paneldata-index'
-  import MapHandle from '@/map/controls/MapHandle'
+  //import MapHandle from '@/map/controls/MapHandle'
   export default {
     name: 'index',
     data () {
       return {
+        stateType : 1,
         fullscreenLoading: false
       }
     },
@@ -34,7 +35,7 @@
         }, 2000);
       }
     },
-    components: {MainMap,indexpanel,MapHandle}//0809
+    components: {MainMap,indexpanel}//0809
   }
 </script>
 

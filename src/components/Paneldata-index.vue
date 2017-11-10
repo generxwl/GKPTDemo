@@ -2,9 +2,15 @@
     <div class="Paneldataindex">
         <!--首页面板-->
         <div id="list">
-            <div class="qianren">
-                <img style="margin-top: -180px;margin-left: 12px" src="../assets/img/fulu.png" alt="">
-                <map-handle></map-handle>
+            <div class="gensui">
+                <div class="line_top">
+                    <toolbar>
+                        <map-handle slot="toors"></map-handle>
+                    </toolbar>
+                </div>
+                <div class="line_bottom">
+                    <tone-color></tone-color>
+                </div>
             </div>
             <div class="panel">
                 <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
@@ -187,7 +193,9 @@
 <script>
     import {bus} from '@/js/bus.js'
     import api from '../api/index'
-    import MapHandle from '@/map/controls/MapHandle'
+    import Toolbar from '@/components/Toolbar'
+    import ToneColor from '@/components/ToneColor'
+    //import MapHandle from '@/map/controls/MapHandle'
     export default {
         name: 'paneldata',
         data () {
@@ -230,7 +238,7 @@
         mounted(){
             //右侧收放
             let that = this;
-            var flag = true;
+            let flag = true;
             //
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
@@ -274,7 +282,6 @@
             },
             //监听数据
             setdata(data, type){
-
             },
             //渲染
             switchRender(type){
@@ -652,7 +659,7 @@
                 return fmt;
             },
         },
-        components: {MapHandle}
+        components: {Toolbar,ToneColor}
     }
 </script>
 
@@ -683,10 +690,22 @@
             right: 0;
             z-index: 9;
             box-shadow: 0px 5px 15px #333333;
-            .qianren {
-                position: absolute;
-                left: -80px;
-                top: 64%;
+            .gensui {
+                .line_top{
+                    position: absolute;
+                    left: -368px;
+                    top: 24px;
+                    width: 352px;
+                    height: 46px;
+                    background: #fff;
+                    border:solid 1px #ccc;
+                }
+                .line_bottom{
+                    width: 320px;
+                    position: absolute;
+                    left: -309px;
+                    bottom: 56px;
+                }
             }
 
             img {

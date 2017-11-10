@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>工业企业源</title>
+	</head>
+	<style>
+		html,body
+		{
+			font-size: 12px;
+			font-family: "微软雅黑";
+		}
+		.all-wrapper
+		{
+			width: 400px;
+			max-height: 450px;
+			overflow-y: scroll;
+			margin: 0 auto;
+			background: #FFFFFF;
+			border: 1px solid #000000;
+			box-shadow: 2px 6px 20px #000000;
+			border-radius: 3px;
+		}
+		.company-name
+		{
+			width: 100%;
+			padding: 10px 0px;
+			text-align: center;
+			color: #333333;
+		}
+		.line
+		{
+			display: block;
+			width: 20px;
+			margin: 10px 0px;
+			margin: 0 auto;
+			
+			border-bottom: 2px solid #3783F1;
+		}
+		.table-wrapper
+		{
+			padding: 10px 15px 15px 15px;
+		}
+		.table-wrapper2
+		{
+			padding: 0px 15px 15px 15px;
+		}
+		.table-up
+		{
+			width: 100%;
+			margin: 0 auto;
+			border: 1px solid #DDDDDD;
+			border-collapse: collapse;
+		}
+		.table-up tr td
+		{
+			width: 25%;
+			border: 1px solid #DDDDDD;
+		}
+		.table-up td:nth-child(odd)
+		{
+			text-align: center;
+			background: #EDEDED;
+			color: #666666;
+		}
+		.table-up td:nth-child(even)
+		{
+			text-align: left;
+			padding-left: 10px;
+			color: #333333;
+		}
+		.msg-type
+		{
+			margin-left: 15PX;
+			border-left: 3px solid #3783F1;
+			padding-left: 10px;
+			line-height: 12px;
+			height: 12px;
+		}
+		.msg-type2
+		{
+			margin-left: 15PX;
+			margin-bottom: 15px;
+			border-left: 3px solid #3783F1;
+			padding-left: 10px;
+			line-height: 12px;
+			height: 12px;
+		}
+		.table-down
+		{
+			width: 100%;
+			margin: 0 auto;
+			border: 1px solid #DDDDDD;
+			border-collapse: collapse;
+		}
+		.table-down tr td
+		{
+			width: 25%;
+			border: 1px solid #DDDDDD;
+		}
+		.table-down td:nth-child(odd)
+		{
+			text-align: center;
+			background: #EDEDED;
+			color: #666666;
+		}
+		.table-down td:nth-child(even)
+		{
+			text-align: left;
+			padding-left: 10px;
+			color: #333333;
+		}
+		.look-btn
+		{
+			position: relative;
+			margin: 0px 50px 20px 50px;
+		}
+		.monitor
+		{
+			display: inline-block;
+			vertical-align: middle;
+			width: auto;
+			padding: 3px 10px;
+			border-radius: 10px;
+			background: #1080CC;
+			color: white;
+		}
+		.video
+		{
+			margin-right: 0;
+			width: auto;
+			float: right;
+			padding: 3px 10px;
+			border-radius: 10px;
+			background: #1080CC;
+			color: white;
+		}
+		.table-down2
+		{
+			width: 100%;
+			margin: 0 auto;
+			border: 1px solid #CCCCCC;
+			border-collapse: collapse;
+		}
+		.table-down2 tr td
+		{
+			border: 1px solid #CCCCCC;
+		}
+		.table-down2 td:nth-child(odd)
+		{
+			width: 30%;
+			text-align: center;
+			background: #F6F6F6;
+			color: #666;
+		}
+		.table-down2 td:nth-child(even)
+		{
+			text-align: left;
+			padding-left: 10px;
+			color: #333333;
+		}
+	</style>
+	<body>
+		<div class="all-wrapper">
+			<div class="company-name">国安福京包装印刷有限公司</div>
+			<span class="line"></span>
+			<div class="table-wrapper">
+				<table class="table-up">
+				<tr>
+					<td>具体位置</td>
+					<td colspan="3"></td>
+				</tr>
+				<tr>
+					<td>联系人</td>
+					<td>张川</td>
+					<td>电话</td>
+					<td>188888888</td>
+				</tr>
+				<tr>
+					<td>所属网格</td>
+					<td colspan="3"></td>
+				</tr>
+				<tr>
+					<td>联系人</td>
+					<td>张川</td>
+					<td>网格员联系电话</td>
+					<td>188888888</td>
+				</tr>
+				<tr>
+					<td>主要产品</td>
+					<td colspan="3"></td>
+				</tr>
+				<tr>
+					<td>所属行业</td>
+					<td colspan="3"></td>
+				</tr>
+				<tr>
+					<td>燃料类型</td>
+					<td></td>
+					<td>燃料消耗量</td>
+					<td>188888888</td>
+				</tr>
+			</table>
+			</div>
+			<div class="msg-type">
+				污染物处理技术与效率(吨/年)
+			</div>
+			<div class="table-wrapper">
+				<table class="table-down">
+				<tr>
+					<td>脱硫技术</td>
+					<td></td>
+					<td>去除效率</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>脱硫技术</td>
+					<td></td>
+					<td>去除效率</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>脱硫技术</td>
+					<td></td>
+					<td>去除效率</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>VOCs回收工艺</td>
+					<td></td>
+					<td>去除效率</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>脱硫技术</td>
+					<td></td>
+					<td>去除效率</td>
+					<td></td>
+				</tr>
+			</table>
+			</div>
+			<div class="msg-type">
+				污染物排放信息(吨/年)
+			</div>
+			<div class="table-wrapper">
+				<table class="table-down">
+				<tr>
+					<td>SO2</td>
+					<td></td>
+					<td>VOCS3</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>NOX</td>
+					<td></td>
+					<td>NH3</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>CO</td>
+					<td></td>
+					<td>BC</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>PM10</td>
+					<td></td>
+					<td>OC</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>PM2.5</td>
+					<td></td>
+				</tr>
+			</table>
+			</div>
+			<div class="msg-type">
+				溶剂实用信息
+			</div>
+			<div class="table-wrapper">
+				<table class="table-down">
+					<tr>
+						<td>容积名称</td>
+						<td></td>
+						<td>容积使用量</td>
+						<td>44<span style="color: #ACACAC; float: right; margin-right: 5px;">(吨/年)</span></td>
+					</tr>
+					<tr>
+						<td>容积名称</td>
+						<td></td>
+						<td>容积使用量</td>
+						<td>334<span style="color: #ACACAC; float: right; margin-right: 5px;">(吨/年)</span></td>
+					</tr>
+					<tr>
+						<td>容积名称</td>
+						<td></td>
+						<td>容积使用量</td>
+						<td>2222<span style="color: #ACACAC; float: right; margin-right: 5px;">(吨/年)</span></td>
+					</tr>
+				</table>
+				
+			</div>
+			
+			
+			<div class="msg-type2" id="hide">
+				锅炉信息1
+			</div>
+			<div class="table-wrapper2" id="hide-one">
+				<table class="table-down2" >
+					<tr>
+						<td>锅炉类型</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>锅炉蒸吨数</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>燃料类型</td>
+						<td></td>
+					</tr>
+				</table>
+				
+			</div>
+			
+			<div class="msg-type2" id="hide2">
+				锅炉信息2
+			</div>
+			<div class="table-wrapper2" id="hide-two">
+				<table class="table-down2" >
+					<tr>
+						<td>锅炉类型</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>锅炉蒸吨数</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>燃料类型</td>
+						<td></td>
+					</tr>
+				</table>
+				
+			</div>
+			
+			<div class="msg-type2" id="hide3">
+				锅炉信息3
+			</div>
+			<div class="table-wrapper2" id="hide-three">
+				<table class="table-down2" >
+					<tr>
+						<td>锅炉类型</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>锅炉蒸吨数</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>燃料类型</td>
+						<td></td>
+					</tr>
+				</table>
+				
+			</div>
+			<div class="look-btn">
+				<span class="monitor">查看在线监测</span>
+				<span class="video">查看视频监控</span>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="jquery-3.1.1.min.js"></script>
+<script>	
+	$("#hide").click(function(){
+		$("#hide-one").slideToggle()
+	})
+	$("#hide2").click(function(){
+		$("#hide-two").slideToggle()
+	})
+	$("#hide3").click(function(){
+		$("#hide-three").slideToggle()
+	})
+</script>

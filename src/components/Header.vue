@@ -52,8 +52,8 @@
                         <div>
                             <h3>静态源清单</h3>
                             <a href="#/StaticOriginalList" >污染源清单</a>
-                          <div class="line"></div>
-                            <a >应急清单</a>
+                            <div class="line"></div>
+                            <a href="#/Emergencylist">应急清单</a>
                         </div>
                     </div>
                 </li>
@@ -255,29 +255,6 @@
                 :hover {
                     text-decoration: none;
                 }
-               /* .Oneitem {
-                    display: none;
-                    z-index: 100;
-                    width: 120px;
-                    position: absolute;
-                    top: 56px;
-                    left: 0;
-                    background: #fff;
-                    line-height: 25px;
-                    padding: 10px 0;
-                    box-shadow: 0 0 5px #1080cc;
-                    a {
-                        text-align: center;
-                        color: #666;
-                        padding: 0 10px;
-                        font-size: 14px;
-                        font-family: "Microsoft YaHei";
-                        cursor: pointer;
-                    }
-                    :hover{
-                        color: #1080cc;
-                    }
-                }*/
               .line{
                 height:10px;
                 width:1px;
@@ -321,13 +298,13 @@
                 position: absolute;
                 top: 56px;
                 left: 0;
-                width:264px;
+                width:301px;
               }
               .Threeitem{
                 position: absolute;
                 top: 56px;
                 left: 0;
-                width:264px;
+                width:277px;
               }
                 .Fouritem {
                     text-align: left;
