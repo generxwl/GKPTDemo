@@ -19,7 +19,7 @@
     name: 'DustMapMain',
     data () {
       return {
-        maxZoom: 13
+        maxZoom: 15
       };
     },
     mounted(){
@@ -42,7 +42,7 @@
       ready(){
         let t = this;
         let map = new BMap.Map('sense_map');
-        map.centerAndZoom('廊坊', 13);
+        map.centerAndZoom('廊坊', 12);
         mapStyle && map.setMapStyle(mapStyle);
         map.enableScrollWheelZoom();
         this.map = map;
