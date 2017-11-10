@@ -4,7 +4,7 @@
         <div id="list">
             <div class="gensui">
                 <div class="line_top">
-                    <toolbar>
+                    <toolbar @RightslideToggle="togleclick">
                         <map-handle slot="toors"></map-handle>
                     </toolbar>
                 </div>
@@ -126,6 +126,7 @@
                 filters: {
                     name: ''
                 },
+                flag:true
             }
         },
         created(){
@@ -135,30 +136,47 @@
         mounted(){
             //右侧收放
             let that = this;
-            var flag = true;
             //
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
             $('#list #shrink').on('click', function () {
-                if (flag) {
-                    that.zuo=true;
-                    that.you=false;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
                     $('#list').animate({
                         'right': '-437px'
                     });
-                    flag = false;
+                    this.flag = false;
                 } else {
-                    that.zuo=false;
-                    that.you=true;
+                    that.zuo = false;
+                    that.you = true;
                     $('#list').animate({
                         'right': '0px'
                     });
-                    flag = true;
+                    this.flag = true;
                 }
             })
         },
         methods: {
+            togleclick(){
+                let that = this;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
+                    $('#list').animate({
+                        'right': '-437px'
+                    });
+                    this.flag = false;
+                } else {
+                    that.zuo = false;
+                    that.you = true;
+                    $('#list').animate({
+                        'right': '0px'
+                    });
+                    this.flag = true;
+                }
+            },
             initlistData(data){
                 let sudata = data;
                 this.SetDataList(sudata)

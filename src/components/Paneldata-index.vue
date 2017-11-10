@@ -4,7 +4,7 @@
         <div id="list">
             <div class="gensui">
                 <div class="line_top">
-                    <toolbar>
+                    <toolbar @RightslideToggle="togleclick">
                         <map-handle slot="toors"></map-handle>
                     </toolbar>
                 </div>
@@ -245,6 +245,7 @@
                 GridPie: [],//网格类
                 GridMemberPie: [],//网格员
                 RightStatistics:{},//右侧栏统计2
+                flag:true
             }
         },
         created(){
@@ -271,31 +272,48 @@
         mounted(){
             //右侧收放
             let that = this;
-            let flag = true;
             //
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
             //
             $('#list #shrink').on('click', function () {
-                if (flag) {
+                if (this.flag) {
                     that.zuo = true;
                     that.you = false;
                     $('#list').animate({
                         'right': '-437px'
                     });
-                    flag = false;
+                    this.flag = false;
                 } else {
                     that.zuo = false;
                     that.you = true;
                     $('#list').animate({
                         'right': '0px'
                     });
-                    flag = true;
+                    this.flag = true;
                 }
             })
         },
         methods: {
+            togleclick(){
+                let that = this;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
+                    $('#list').animate({
+                        'right': '-437px'
+                    });
+                    this.flag = false;
+                } else {
+                    that.zuo = false;
+                    that.you = true;
+                    $('#list').animate({
+                        'right': '0px'
+                    });
+                    this.flag = true;
+                }
+            },
             //排序
             compare (propertyName) {
                 return function (object1, object2) {
