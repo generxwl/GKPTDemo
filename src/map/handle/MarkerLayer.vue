@@ -586,8 +586,8 @@
     /*background:#2BE42F;*/
     text-align:center;
     height:20px;
-    line-height:20px;}
-
+    line-height:20px;
+  }
 
   .keyAqi {
     width: 190px;
@@ -616,7 +616,8 @@
 
   .one {
     text-align: center;
-    padding: 10px 36px 10px;
+    padding: 10px 0;
+    width:190px;
   }
 
   .second .key,

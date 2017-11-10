@@ -1378,7 +1378,8 @@
 
   .one {
     text-align: center;
-    padding: 10px 36px 10px;
+    padding: 10px 0;
+    width:190px;
   }
 
   .second .key,

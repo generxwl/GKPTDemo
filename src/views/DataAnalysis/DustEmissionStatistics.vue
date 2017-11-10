@@ -57,7 +57,7 @@
 				<el-table-column prop="pm2_5" label="PM2.5" width="200">
 				</el-table-column>
 				<el-table-column prop="windDirection" label="风向统计">
-					<template scope="scope">
+					<template slot-scope="scope">
 						<el-button @click="tanchukuang(scope.$index, scope.row)" type="text" size="small">查看</el-button>
 					</template>
 				</el-table-column>

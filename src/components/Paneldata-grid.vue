@@ -32,7 +32,7 @@
                                     property="actions"
                                     label="查看地址"
                                     width="80">
-                                <template scope="scope">
+                                <template slot-scope="scope">
                                     <el-button @click="ChakanClick(scope.$index, scope.row)" type="text" size="small">
                                         <img class="mapdw" src="../assets/img/map.png" alt="">
 
