@@ -241,7 +241,7 @@
                     tableData.NetworkName = item.psname;//企业名称
                     tableData.pscode = item.pscode;//城市id
                     tableData.Statues = this.ChaoBiaoData(item.NoxStatus);//是否超标
-                    tableData.WanggeName ='----' ;//网格名称item.WanggeName
+                    tableData.WanggeName =  item.gridName ? item.gridName : '----' ;//网格名称item.WanggeName
                     tableData.latitude = item.latitude;//纬度
                     tableData.longitude = item.longitude;//经度
                     this.ALLdata.push(tableData);
@@ -262,6 +262,20 @@
             },
             //数据
             GetListqyData(){
+                //污染源统计
+                api.GetCompanyStatistics().then(res => {
+                    let data = res.data.obj;
+                    this.tableList = [];
+                    let i = 1;
+                    data.forEach(item => {
+                        const tData = {};
+                        tData.NetworkName = item.GridName;//序号
+                        tData.PollutionSourceNum = item.PollutionCount;//企业名称
+                        tData.PollutionSourceCBNum = item.PollutionOverCount;//城市id
+                        this.tableList.push(tData);
+                    })
+                })
+                //污染企业列表
                 api.GetCompanyPointList().then(res => {
                     let data = res.data;
                     data = typeof data === 'string' ? JSON.parse(data) : data;

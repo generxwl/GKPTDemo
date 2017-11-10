@@ -284,7 +284,7 @@
           tableData.citygid = item.deviceid;//城市id
           tableData.latitude = item.latitude;//纬度
           tableData.longitude = item.longitude;//经度
-          tableData.Grid = '----';//网格
+          tableData.Grid = item.gridname;//网格
           tableData.aqi = item[this.getPollution(type)];//数值
           this.ALLdata.push(tableData);
         })

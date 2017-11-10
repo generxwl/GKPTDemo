@@ -31,6 +31,7 @@ import {
     GetsourcetypeAllInfoResource,//静态原清单右侧
     GetallInfoBySourceTypeResource,//静态原清单类型
     GetEnterpriseDataResource,//静态原清单222
+    GetCompanyStatisticsResource,//企业污染统计
 } from './resource'
 export default {
   //首页天气面板数据
@@ -40,6 +41,13 @@ export default {
       }
     )
   },
+    //企业污染统计
+    GetCompanyStatistics() {
+        return axios.get(GetCompanyStatisticsResource,{
+
+            }
+        )
+    },
     //冬防战报表1
     GetWinterPreCompanyControl() {
         return axios.get(GetWinterPreCompanyControlResource,{

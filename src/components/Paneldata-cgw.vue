@@ -237,7 +237,7 @@
                     tableData.stationid = item.stationid;//城市id
                     tableData.latitude = item.latitude;//纬度
                     tableData.longitude = item.longitude;//经度
-                    tableData.Grid = '----';//网格
+                    tableData.Grid = item.gridName ? item.gridName : '----';//网格
                     tableData.aqi = item[type.toLowerCase()];//数值
                     tableData.dataType = item.hasOwnProperty('dataType') ? item['dataType'] : undefined;
                     this.ALLdata.push(tableData);

@@ -21,17 +21,17 @@
                     <div class="yuanzhan">
                         <div class="jdflaot" style="margin-left: 30px">
                             <div id="guang1" style="width: 90px;height: 90px;"></div>
-                            <div class="texts">0</div>
+                            <div class="texts">58</div>
                             <p>开发区</p>
                         </div>
                         <div class="jdflaot">
                             <div id="guang2" style="width: 90px;height: 90px"></div>
-                            <div class="texts">10</div>
+                            <div class="texts">62</div>
                             <p>广阳区</p>
                         </div>
                         <div class="jdflaot">
                             <div id="guang4" style="width: 90px;height: 90px"></div>
-                            <div class="texts">0</div>
+                            <div class="texts">236</div>
                             <p>安次区</p>
                         </div>
                     </div>
@@ -249,8 +249,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 100, name: '未铺设'},
-                            {value:0, name: '设备'}
+                            {value: 200, name: '未铺设'},
+                            {value:58, name: '设备'}
 
                         ],
                         color: [
@@ -314,8 +314,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 90, name: '未铺设'},
-                            {value:10, name: '设备'}
+                            {value: 200, name: '未铺设'},
+                            {value:62, name: '设备'}
 
                         ],
                         color: [
@@ -379,8 +379,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 100, name: '未铺设'},
-                            {value: 0, name: '设备'}
+                            {value: 200, name: '未铺设'},
+                            {value: 236, name: '设备'}
 
                         ],
                         color: [
@@ -422,6 +422,7 @@
             },
             //设置分页所需要数据
             SetDataList(data){
+                console.log(data)
                 this.data = this.getPointByType(this.type,data);
                 this.ALLdata = [];
                 let i = 1;
@@ -433,7 +434,7 @@
                     tableData.Id = item.Id;//城市id
                     tableData.Latitude = item.Latitude;//纬度
                     tableData.Longitude = item.Longitude;//经度
-                    tableData.Grid = '----';//网格
+                    tableData.Grid = item.gridname ? item.gridname : '----';//网格
                     this.ALLdata.push(tableData);
                 })
             },

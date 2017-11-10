@@ -29,13 +29,14 @@ const apilangfangTDK= {
   GetDustHourRanking:apiconfig.devt+'/api/Dust/GetDustHourRanking?',//在线源清单查询
   GetLfAirAlert:apiconfig.devt+'/api/LfAir/GetLfAirAlert',//冬防战报模块一02轮播预警
   GetLfAirWinterPre:apiconfig.devt+'/api/LfAir/GetLfAirWinterPre',//冬防战报模块一01空气预报
-    GetWinterPreCompanyControl:apiconfig.devt1+'/api/WinterPre/GetWinterPreCompanyControl',//冬防战报列表1
-    GetWinterPreAirControl:apiconfig.devt1+'/api/WinterPre/GetWinterPreAirControl',//冬防战报列表2
-    GetWinterPreDustControl:apiconfig.devt1+'/api/WinterPre/GetWinterPreDustControl',//冬防战报列表3
+  GetWinterPreCompanyControl:apiconfig.devt1+'/api/WinterPre/GetWinterPreCompanyControl',//冬防战报列表1
+  GetWinterPreAirControl:apiconfig.devt1+'/api/WinterPre/GetWinterPreAirControl',//冬防战报列表2
+  GetWinterPreDustControl:apiconfig.devt1+'/api/WinterPre/GetWinterPreDustControl',//冬防战报列表3
   GetWeatherWinterPre:apiconfig.devt+'/api/Weather/GetWeatherWinterPre',//冬防战报模块六天气排名
   GetsourcetypeAllInfo:'http://117.119.97.150:8061/servicePlatform/enterprise/allInfo?',//静态原清单1
   GetallInfoBySourceType:'http://117.119.97.150:8061/servicePlatform/enterprise/allInfoBySourceType?',//静态原清单2
-  GetEnterpriseData:'http://10.6.80.93:8080/servicePlatform/enterprise/sourceOutCount?'//静态原清单3
+  GetEnterpriseData:'http://10.6.80.93:8080/servicePlatform/enterprise/sourceOutCount?',//静态原清单3
+  GetCompanyStatistics:apiconfig.devt1+'/api/Company/GetCompanyStatistics',//企业污染统计
 }
 
 export const GetLfAirResource = API_ROOT.concat(apilangfangTDK.GetLfAir);
@@ -58,7 +59,6 @@ export const GetycXhHbPointsRaiseResource = API_ROOT.concat(apilangfangTDK.Getyc
 export const GetDustHourRankingResource = API_ROOT.concat(apilangfangTDK.GetDustHourRanking);
 export const GetLfAirAlertResource = API_ROOT.concat(apilangfangTDK.GetLfAirAlert);
 export const GetLfAirWinterPreResource = API_ROOT.concat(apilangfangTDK.GetLfAirWinterPre);
-
 export const GetWinterPreCompanyControlResource = API_ROOT.concat(apilangfangTDK.GetWinterPreCompanyControl);
 export const GetWinterPreAirControlResource = API_ROOT.concat(apilangfangTDK.GetWinterPreAirControl);
 export const GetWinterPreDustControlResource = API_ROOT.concat(apilangfangTDK.GetWinterPreDustControl);
@@ -66,3 +66,4 @@ export const GetWeatherWinterPreResource = API_ROOT.concat(apilangfangTDK.GetWea
 export const GetsourcetypeAllInfoResource = API_ROOT.concat(apilangfangTDK.GetsourcetypeAllInfo);
 export const GetallInfoBySourceTypeResource = API_ROOT.concat(apilangfangTDK.GetallInfoBySourceType)
 export const GetEnterpriseDataResource = API_ROOT.concat(apilangfangTDK.GetEnterpriseData);
+export const GetCompanyStatisticsResource = API_ROOT.concat(apilangfangTDK.GetCompanyStatistics);

@@ -21,22 +21,22 @@
                     <div class="yuanzhan">
                         <div class="jdflaot" style="margin-left: 30px">
                             <div id="guang1" style="width: 90px;height: 90px;"></div>
-                            <div class="texts">0</div>
+                            <div class="texts">54</div>
                             <p>开发区</p>
                         </div>
                         <div class="jdflaot">
                             <div id="guang2" style="width: 90px;height: 90px"></div>
-                            <div class="texts">10</div>
+                            <div class="texts">44</div>
                             <p>广阳区</p>
                         </div>
-                        <div class="jdflaot">
-                            <div id="guang3" style="width: 90px;height: 90px"></div>
-                            <div class="texts">0</div>
-                            <p>建设局</p>
-                        </div>
+                        <!--<div class="jdflaot">-->
+                            <!--<div id="guang3" style="width: 90px;height: 90px"></div>-->
+                            <!--<div class="texts">0</div>-->
+                            <!--<p>建设局</p>-->
+                        <!--</div>-->
                         <div class="jdflaot">
                             <div id="guang4" style="width: 90px;height: 90px"></div>
-                            <div class="texts">0</div>
+                            <div class="texts">149</div>
                             <p>安次区</p>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
             setTimeout(function () {
                 that.yuantuset1();
                 that.yuantuset2();
-                that.yuantuset3();
+                //that.yuantuset3();
                 that.yuantuset4()
             }, 500)
           $("body").keydown(function(evt) {
@@ -258,8 +258,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 100, name: '未铺设'},
-                            {value:0, name: '设备'}
+                            {value: 200, name: '未铺设'},
+                            {value:54, name: '设备'}
 
                         ],
                         color: [
@@ -323,8 +323,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 90, name: '未铺设'},
-                            {value:10, name: '设备'}
+                            {value: 200, name: '未铺设'},
+                            {value:44, name: '设备'}
 
                         ],
                         color: [
@@ -335,70 +335,70 @@
                 })
             },
             //建设局进度
-            yuantuset3(){
-//                let Datavlue = 112.53 - this.Datalist.ComplexIndex;
-//                let Bianvlue = this.Datalist.ComplexIndex;
-//                let Color = this.Datalist.aqiColor;
-                // 基于准备好的dom，初始化echarts实例
-                var myChart = echarts.init(document.getElementById('guang3'));
-                app.title = '';
-                // 指定图表的配置项和数据
-                let option = {
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b}: {c} ({d}%)"
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        x: 'left',
-
-                    },
-                    series: [
-                        {
-                            name: '在线监测',
-                            type: 'pie',
-                            radius: ['100%', '80%'],
-                            avoidLabelOverlap: false,
-                            hoverAnimation:false,
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: false,
-                                    textStyle: {
-                                        fontSize: '20',
-                                        fontWeight: 'bold'
-                                    }
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    show: false
-                                }
-                            }
-                        }
-                    ]
-                };
-
-                // 使用刚指定的配置项和数据显示图表。
-                myChart.setOption(option);
-                //动态设置参数
-                myChart.setOption({
-                    series: [{
-                        data: [
-                            {value: 100, name: '未铺设'},
-                            {value: 0, name: '设备'}
-
-                        ],
-                        color: [
-                            '#ccc',
-                            "#00e401"
-                        ]
-                    }]
-                })
-            },
+//            yuantuset3(){
+////                let Datavlue = 112.53 - this.Datalist.ComplexIndex;
+////                let Bianvlue = this.Datalist.ComplexIndex;
+////                let Color = this.Datalist.aqiColor;
+//                // 基于准备好的dom，初始化echarts实例
+//                var myChart = echarts.init(document.getElementById('guang3'));
+//                app.title = '';
+//                // 指定图表的配置项和数据
+//                let option = {
+//                    tooltip: {
+//                        trigger: 'item',
+//                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+//                    },
+//                    legend: {
+//                        orient: 'vertical',
+//                        x: 'left',
+//
+//                    },
+//                    series: [
+//                        {
+//                            name: '在线监测',
+//                            type: 'pie',
+//                            radius: ['100%', '80%'],
+//                            avoidLabelOverlap: false,
+//                            hoverAnimation:false,
+//                            label: {
+//                                normal: {
+//                                    show: false,
+//                                    position: 'center'
+//                                },
+//                                emphasis: {
+//                                    show: false,
+//                                    textStyle: {
+//                                        fontSize: '20',
+//                                        fontWeight: 'bold'
+//                                    }
+//                                }
+//                            },
+//                            labelLine: {
+//                                normal: {
+//                                    show: false
+//                                }
+//                            }
+//                        }
+//                    ]
+//                };
+//
+//                // 使用刚指定的配置项和数据显示图表。
+//                myChart.setOption(option);
+//                //动态设置参数
+//                myChart.setOption({
+//                    series: [{
+//                        data: [
+//                            {value: 100, name: '未铺设'},
+//                            {value: 0, name: '设备'}
+//
+//                        ],
+//                        color: [
+//                            '#ccc',
+//                            "#00e401"
+//                        ]
+//                    }]
+//                })
+//            },
             //安次区进度
             yuantuset4(){
 //                let Datavlue = 112.53 - this.Datalist.ComplexIndex;
@@ -453,8 +453,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 100, name: '未铺设'},
-                            {value: 0, name: '设备'}
+                            {value: 200, name: '未铺设'},
+                            {value: 149, name: '设备'}
 
                         ],
                         color: [
@@ -508,7 +508,7 @@
                     tableData.Id = item.Id;//城市id
                     tableData.Latitude = item.Latitude;//纬度
                     tableData.Longitude = item.Longitude;//经度
-                    tableData.Grid = '----';//网格
+                    tableData.Grid = item.gridname ? item.gridname : '----';//网格
                     this.ALLdata.push(tableData);
                 })
             },
@@ -623,7 +623,7 @@
                         margin-top: 25px;
                         margin-bottom: 25px;
                         float: left;
-                        margin-left: 8px;
+                        margin-left: 40px;
                         p {
                             text-align: center;
                             font-size: 14px;
