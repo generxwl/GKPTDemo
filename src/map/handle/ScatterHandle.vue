@@ -71,9 +71,9 @@
               marker && (this.map.addOverlay(marker), marker.setLabel(label), this.lsMarkers.push(marker), marker.addEventListener('click', function (e) {
                 t.showCameraWindow(e);
               }),marker.addEventListener('mouseover', function (e) {
-                t.showCameraWindow(e);
+                //t.showCameraWindow(e);
               }),marker.addEventListener('mouseout', function (e) {
-                t.showCameraWindow(e);
+                //t.showCameraWindow(e);
               }));
             }
           }
