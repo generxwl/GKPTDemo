@@ -261,7 +261,7 @@
             sle = {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#1C7B2A', fillColor: '#6FB779', fillOpacity: 0.2};
             break;
           case 2:
-            sle = {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#BB2C00', fillColor: '#F48670', fillOpacity: 0.2};
+            sle = {strokeWeight: 1, strokeStyle: 'dashed', strokeColor: '#8441c9', fillColor: '#E8AAFF', fillOpacity: 0.2};
             break;
         }
         return sle;
