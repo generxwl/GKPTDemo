@@ -38,7 +38,7 @@
             name: '抓取',
             type: 'HANDLE',
             src: 'static/imgs/toor/icon_hand_1.png',
-            checked: 'static/toor/toor/icon_hand_2.png',
+            checked: 'static/imgs/toor/icon_hand_2.png',
             hasVisible:true
           },{
             name: '原范围',

@@ -361,11 +361,13 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-//                    legend: {
-//                        data: data.map(function (v) {
-//                            return v.name
-//                        })
-//                    },
+                    legend: {
+                        x : 'center',
+                        y : 'bottom',
+                        data: data.map(function (v) {
+                            return v.name
+                        })
+                    },
                     series: [{
                         data: data,
                         color:[
