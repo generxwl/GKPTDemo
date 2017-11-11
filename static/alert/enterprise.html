@@ -203,7 +203,7 @@
 	</style>
 	<body>
 		<div class="all-wrapper">
-			<div class="company-name">国安福京包装印刷有限公司</div>
+			<div class="company-name"><!--国安福京包装印刷有限公司--></div>
 			<div class="table-wrapper">
 				<table class="table-up" id="insert1">
 				<!--<tr>
@@ -291,8 +291,8 @@
 				</span>
 			</div>
 			<div class="table-wrapper">
-				<table class="table-down">
-				<tr>
+				<table class="table-down" id="insert2">
+				<!--<tr>
 					<td>SO2</td>
 					<td></td>
 					<td>VOCS3</td>
@@ -319,7 +319,7 @@
 				<tr>
 					<td>PM2.5</td>
 					<td></td>
-				</tr>
+				</tr>-->
 			</table>
 			</div>
 			<div class="msg-type">
@@ -465,17 +465,29 @@
 		success:function(res){
 			var all2=JSON.parse(res);
 		
-		console.log(all2.ExtraData)
-		var all=all2.ExtraData
+		console.log(all2.ExtraData);
+		var all=all2.ExtraData;
+		
+		console.log(all.person);
+		$(".company-name").html(all.entname)
 		var content1="";
 		content1+="<tr><td>地址</td><td colspan='3'>"+(all.province?all.province:'')+(all.city?all.city:'')+(all.area?all.area:'')+"</td></tr>"+
 			"<tr><td>联系人</td><td>"+(all.legalpersoname?all.legalpersoname:'')+"</td><td>电话</td><td>"+(all.legalpersontel?all.legalpersontel:'')+"</td></tr>"+
 			"<tr><td>所属网格</td><td colspan='3'>"+(all.gridname?all.gridname:'')+"</td></tr>"+
-			"<tr><td>网格员</td><td>"+(all.person?all.person:'')+"</td><td>网格员联络电话</td><td>"+(all.legalpersontel?all.legalpersontel:'')+"</td></tr>"+
-			"<tr><td>主要产品</td><td colspan='3'></td></tr>"+
+			"<tr><td>网格员</td><td>"+(all.person?all.person:'')+"</td><td>网格员联络电话</td><td>"+(all.tel?all.tel:'')+"</td></tr>"+
+			"<tr><td>主要产品</td><td colspan='3'>"+(all.productName?all.productName:'')+"</td></tr>"+
 			"<tr><td>所属行业</td><td colspan='3'></td></tr>"+
-			"<tr><td>燃料类型</td><td></td><td>燃料消耗量</td><td>188888888</td></tr>"
+			"<tr><td>燃料类型</td><td>"+(all.fuel?all.fuel:'')+"</td><td>燃料消耗量</td><td>"+(all.fueluse?all.fueluse:'')+"</td></tr>"
 			$("#insert1").html(content1)
+			
+			
+		var content2=""
+		content2+="<tr><td>SO2</td><td>"+(all.so2?all.so2:'')+"</td><td>VOCS3</td><td>"+(all.vocoutVal?all.vocoutVal:'')+"</td></tr>"+
+				"<tr><td>NOX</td><td>"+(all.nox?all.nox:'')+"</td><td>NH3</td><td>"+(all.nh3?all.nh3:'')+"</td></tr>"+
+				"<tr><td>CO</td><td></td><td>BC</td><td></td></tr>"+
+				"<tr><td>PM10</td><td></td><td>OC</td><td></td></tr>"+
+				"<tr><td>PM2.5</td><td></td></tr>"
+				$("#insert2").html(content2)
 		}
 	});
 </script>
