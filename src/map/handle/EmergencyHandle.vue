@@ -98,8 +98,8 @@
         this.eventCameraWindow(tg.attributes, tg.getPosition().lng, tg.getPosition().lat);
       },
       setCameraWindow(data){
-        let url = 'static/emergency/.html?id=' + (data['id'] || '');
-        return url ? '<iframe style="height:auto;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
+        let url = 'static/emergency/emergency.html?id=' + (data['id'] || '');
+        return url ? '<iframe style="height:340px;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
       },
       //获取图标对象
       getMarker(pt, value){
