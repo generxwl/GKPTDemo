@@ -3,7 +3,7 @@
     <ul class="map-handle_ul">
       <li v-for="(value,index) in handleItems" v-show="value.hasVisible" :data-index="index" :data-type="value.type" @click="liClickEvent">
         <img :title="value.name" :src="value.src">
-        <span>{{value.name}}</span>
+        <span style="color: #333">{{value.name}}</span>
       </li>
     </ul>
   </div>
@@ -95,8 +95,8 @@
         let index = childElement.getAttribute('data-index');
         let targets = this.$data.handleItems;
         let item = targets[index];
-        //item.style.color = '#1080cc';
-        imgElement.src = item.checked;
+        //imgElement.src = item.checked;
+        imgElement.getAttribute('src') !== item.src ? imgElement.src = item.src : imgElement.src = item.checked;
         let type = childElement.getAttribute('data-type');
         if (this.map) {
             //alert(type.toUpperCase())
@@ -167,7 +167,9 @@
     background: #1080cc !important;
     color: #fff;
   }
-
+  .activecolor{
+    color: #2494F2;
+  }
   span {
     display: inline-block;
     width: 60px;
