@@ -259,7 +259,7 @@
         if (res) {
           let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
             title: '<sapn style="font-size:16px" ><b title="' + (attributes[displayFieldName] || '') + '">' + (attributes[displayFieldName] || '') + '</b>' + '</span>',             //标题
-            width: '420',
+            width: '460',
             height: 'auto',
             enableAutoPan: true,
             enableSendToPhone: false,
@@ -272,29 +272,29 @@
       //设置弹出层样式
       setSearchInfoStyle(attributes){
         let url = undefined;
-        if (attributes.hasOwnProperty('id')) {
-          let ptType = this.getPointType(attributes['type']);
+        if (attributes.hasOwnProperty('po')) {
+          let ptType = this.getPointType(attributes['tp']);//this.getPointType('PS001');//
           switch (ptType) {
             case 0:
-              url = 'static/alert/carRepair.html' + '?id=' + attributes.id;//汽修站
+              url = 'static/alert/carRepair.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//汽修站
               break;
             case 1:
-              url = 'static/alert/dryClean.html' + '?id=' + attributes.id;//干洗店
+              url = 'static/alert/dryClean.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//干洗店
               break;
             case 2:
-              url = 'static/alert/Dust.html' + '?id=' + attributes.id;//施工扬尘
+              url = 'static/alert/Dust.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//施工扬尘
               break;
             case 3:
-              url = 'static/alert/enterprise.html' + '?id=' + attributes.id;//企业
+              url = 'static/alert/enterprise.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//企业
               break;
             case 4:
-              url = 'static/alert/gasStation.html' + '?id=' + attributes.id;//加油站
+              url = 'static/alert/gasStation.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//加油站
               break;
             case 5:
-              url = 'static/alert/three.html' + '?id=' + attributes.id;//移动源
+              url = 'static/alert/three.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//移动源
               break;
             case 6:
-              url = 'static/alert/three.html' + '?id=' + attributes.id;//餐饮油烟
+              url = 'static/alert/three.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//餐饮油烟
               break;
           }
         }
@@ -304,25 +304,25 @@
       getPointType(type){
         let rtValue = -1;
         switch (type.toUpperCase()) {
-          case '':
+          case 'PS003':
             rtValue = 0;
             break;
-          case '':
+          case 'PS002':
             rtValue = 1;
             break;
-          case '':
+          case 'PS004':
             rtValue = 2;
             break;
-          case '':
+          case 'PS001':
             rtValue = 3;
             break;
-          case '':
+          case 'PS006':
             rtValue = 4;
             break;
-          case '':
+          case 'PS007':
             rtValue = 5;
             break;
-          case '':
+          case 'PS005':
             rtValue = 6;
             break;
           default:
