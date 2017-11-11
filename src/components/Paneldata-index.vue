@@ -367,10 +367,10 @@
                 let myChart = echarts.init(document.getElementById('bing_item1'));
                 // 指定图表的配置项和数据
                 let option = {
-                    tooltip : {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
+//                    tooltip : {
+//                        trigger: 'item',
+//                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+//                    },
                     series : [
                         {
                             name:'空气传感器占比',
@@ -405,10 +405,8 @@
                         data: data,
                         color:[
                             '#0392e0',
-                            '#a0cb3e',
                             '#f7cc5c',
-                            '#91dfcf',
-                            '#d190e2'
+                            '#a0cb3e',
                         ]
                     }]
                 })
@@ -422,10 +420,10 @@
                 let myChart = echarts.init(document.getElementById('bing_item2'));
                 // 指定图表的配置项和数据
                 let option = {
-                    tooltip : {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
+//                    tooltip : {
+//                        trigger: 'item',
+//                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+//                    },
                     series : [
                         {
                             name:'视频类型占比',
@@ -458,8 +456,8 @@
                         data: data,
                         color:[
                             '#0392e0',
-                            '#a0cb3e',
                             '#f7cc5c',
+                            '#a0cb3e',
                         ]
                     }]
                 })
@@ -473,10 +471,10 @@
                 let myChart = echarts.init(document.getElementById('bing_item3'));
                 // 指定图表的配置项和数据
                 let option = {
-                    tooltip : {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
+//                    tooltip : {
+//                        trigger: 'item',
+//                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+//                    },
                     series : [
                         {
                             name:'网络类型占比',
@@ -509,10 +507,8 @@
                         data: data,
                         color:[
                             '#0392e0',
-                            '#a0cb3e',
                             '#f7cc5c',
-                            '#91dfcf',
-                            '#d190e2'
+                            '#a0cb3e',
                         ]
                     }],
                 })
@@ -526,10 +522,10 @@
                 let myChart = echarts.init(document.getElementById('bing_item4'));
                 // 指定图表的配置项和数据
                 let option = {
-                    tooltip : {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b} : {c} ({d}%)"
-                    },
+//                    tooltip : {
+//                        trigger: 'item',
+//                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+//                    },
                     series : [
                         {
                             name:'网格员占比',
@@ -544,7 +540,8 @@
                                     labelLine : {
                                         show : false
                                     }
-                                }
+                                },
+
                             }
                         }
                     ]
@@ -562,10 +559,8 @@
                         data: data,
                         color:[
                             '#0392e0',
-                            '#a0cb3e',
                             '#f7cc5c',
-                            '#91dfcf',
-                            '#d190e2'
+                            '#a0cb3e',
                         ]
                     }],
                 })
@@ -672,9 +667,9 @@
             .gensui {
                 .line_top{
                     position: absolute;
-                    left: -368px;
+                    left: -258px;
                     top: 24px;
-                    width: 352px;
+                    width: 245px;
                     height: 46px;
                     background: #fff;
                     border:solid 1px #ccc;

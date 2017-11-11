@@ -403,9 +403,9 @@
             .gensui {
                 .line_top{
                     position: absolute;
-                    left: -368px;
+                    left: -258px;
                     top: 24px;
-                    width: 352px;
+                    width: 245px;
                     height: 46px;
                     background: #fff;
                     border:solid 1px #ccc;

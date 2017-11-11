@@ -616,7 +616,7 @@
           '        <div class="item one">\n' +
           '            <div class="above">\n' +
           '            <div class="circle"></div>\n' +
-          '            <span class="type">六参数检测</span>\n' +
+          '            <span class="type">六参数监测</span>\n' +
           '            </div>\n' +
           '            <div class="date">' + data.CollectTime.replace('T', ' ') + '</div>\n' +
           '        </div>\n' +

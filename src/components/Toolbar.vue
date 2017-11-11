@@ -1,10 +1,10 @@
 <template>
     <div class="toolbar">
-        <div class="lein_1 activecolor" @click="radioClick">
-            <img src="../../static/imgs/toor/icon_Statistics_2.png" alt="">
-            <span>统计一览</span>
-            <img src="" style="display: none">
-        </div>
+        <!--<div class="lein_1 activecolor" @click="radioClick">-->
+            <!--<img src="../../static/imgs/toor/icon_Statistics_2.png" alt="">-->
+            <!--<span>统计一览</span>-->
+            <!--<img src="" style="display: none">-->
+        <!--</div>-->
         <div class="clolrbr" style="float: left;height:32px;width: 1px;border-right: solid 1px #ccc"></div>
         <div class="lein_2" id="gjbox" @click="radioClick2">
             <img src="../../static/imgs/toor/icon_tool_1.png" alt="">

@@ -33,10 +33,10 @@ const apilangfangTDK= {
   GetWinterPreAirControl:apiconfig.devt1+'/api/WinterPre/GetWinterPreAirControl',//冬防战报列表2
   GetWinterPreDustControl:apiconfig.devt1+'/api/WinterPre/GetWinterPreDustControl',//冬防战报列表3
   GetWeatherWinterPre:apiconfig.devt+'/api/Weather/GetWeatherWinterPre',//冬防战报模块六天气排名
-  GetsourcetypeAllInfo:'http://10.6.80.93:8080/servicePlatform/enterprise/allInfo?',//静态原清单1
+  GetsourcetypeAllInfo:'http://117.119.97.150:8061/servicePlatform/enterprise/allInfo?',//静态原清单1
   GetallInfoBySourceType:'http://117.119.97.150:8061/servicePlatform/enterprise/allInfoBySourceType?',//静态原清单2
   GetEnterpriseData:'http://10.6.80.93:8080/servicePlatform/enterprise/sourceOutCount?',//静态原清单3
-  GetCompanyStatistics:apiconfig.devt1+'/api/Company/GetCompanyStatistics',//企业污染统计
+  GetCompanyStatistics:apiconfig.devt+'/api/Company/GetCompanyStatistics',//企业污染统计
   GetEmergencyList:apiconfig.devc1+'/api/EmergencyPlan/GetEmergencyList',//应急清单....
 }
 

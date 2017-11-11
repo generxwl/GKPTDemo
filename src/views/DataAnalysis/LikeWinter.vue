@@ -476,7 +476,7 @@
             </div>
             <div class="Window_Five htt-five" style="margin-left: 20px;margin-top: -54px">
                 <el-tabs v-model="activeName_f" @tab-click="">
-                    <el-tab-pane label="空气质量检测" name="first_f">
+                    <el-tab-pane label="空气质量监测" name="first_f">
                         <div class="table_container">
                             <el-table
                                     :data="kongqiData"

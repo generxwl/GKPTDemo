@@ -80,15 +80,15 @@
                     highlight-current-row
                     @current-change="RowCurrentChange"
                     style="width: 400px">
-              <el-table-column
-                      property="NetworkName"
-                      label="网络名称"
-                      width="90">
-              </el-table-column>
+              <!--<el-table-column-->
+                      <!--property="NetworkName"-->
+                      <!--label="网络名称"-->
+                      <!--width="90">-->
+              <!--</el-table-column>-->
               <el-table-column
                       property="Name"
                       label="名称"
-                      width="120">
+                      width="210">
               </el-table-column>
               <el-table-column
                       property="Industry"
@@ -139,9 +139,7 @@
         type: 'SO2',
         labelType: 'SO2',
         ALLdata: [],
-        filters: {
-              name: ''
-          },
+        filters: {name: ''},
         tableData: [],
         allData: [],
         currentRow: null,
@@ -169,8 +167,8 @@
     },
     created(){
         bus.$on('setStaticTarget',this.switchRender);
-        bus.$on('setStaticData',this.initlistData);
-        // this.ChenageGetDataList()
+        //bus.$on('setStaticData',this.initlistData);
+        this.ChenageGetDataList()
     },
     mounted(){
       //右侧收放
@@ -300,8 +298,8 @@
         this.ALLdata = [];
         let i = 1;
           let dt1 = this.getPointByType(type);
-          let dt2 = dt1.sort(this.getPollution(type));
-        dt2.forEach(item => {
+          //let dt2 = dt1.sort(this.getPollution(type));
+        dt1.forEach(item => {
           const tableData = {};
           tableData.ranking = i++;//排名
           tableData.NetworkName = '---';//网格名称
@@ -338,10 +336,10 @@
                     },
                     x:'left'
                 },
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
-                },
+//                tooltip : {
+//                    trigger: 'item',
+//                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+//                },
 
                 series : [
                     {
@@ -442,6 +440,7 @@
       ChenageGetDataList(typeid){
           api.GetsourcetypeAllInfo(typeid).then(res => {
               let data = res.data.ExtraData;
+              data = typeof data === 'string' ? JSON.parse(data) : data;
               this.initlistData(data, this.type);
                setTimeout(() => {
                 this.searchAsName()
@@ -627,9 +626,9 @@
       .gensui {
         .line_top{
           position: absolute;
-          left: -368px;
+          left: -258px;
           top: 24px;
-          width: 352px;
+          width: 245px;
           height: 46px;
           background: #fff;
           border:solid 1px #ccc;

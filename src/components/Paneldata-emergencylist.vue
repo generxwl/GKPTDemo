@@ -355,7 +355,7 @@
                     tableData.SerialNumber = i++;//序号
                     tableData.NetworkName = item.companyname;//企业名称
                     tableData.pscode = item.id;//城市id
-                    tableData.Statues = '----';//行业
+                    tableData.Statues = item.category?item.category:'----';//行业
                     tableData.StartingState = item.buttonstate ? '启动' : '关闭';//状态
                     tableData.WanggeName =  item.threeGridName ? item.threeGridName : '----' ;//网格名称item.WanggeName
                     tableData.latitude = item.latitude;//纬度
@@ -463,9 +463,9 @@
             .gensui {
                 .line_top{
                     position: absolute;
-                    left: -368px;
+                    left: -258px;
                     top: 24px;
-                    width: 352px;
+                    width: 245px;
                     height: 46px;
                     background: #fff;
                     border:solid 1px #ccc;
