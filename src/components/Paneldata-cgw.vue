@@ -13,8 +13,8 @@
                 </div>
             </div>
             <div class="panel">
-                <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
-                <img id="shrink" src="../assets/img/右.png" v-if="you"/>
+                <img class="shrink" src="../assets/img/左.png" v-if="zuo"/>
+                <img class="shrink" src="../assets/img/右.png" v-if="you"/>
                 <div class="main">
                     <!--选项查询-->
                     <div class="first">
@@ -110,7 +110,7 @@
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
             //右边伸缩框加载动画
-            $('#list #shrink').on('click', function () {
+            $('.shrink').on('click', function () {
                 if (this.flag) {
                     that.zuo = true;
                     that.you = false;

@@ -13,8 +13,8 @@
                 </div>
             </div>
             <div class="panel">
-                <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
-                <img id="shrink" src="../assets/img/右.png" v-if="you"/>
+                <img class="shrink" src="../assets/img/左.png" v-if="zuo"/>
+                <img class="shrink" src="../assets/img/右.png" v-if="you"/>
                 <div class="main">
                     <!--切换部分-->
                     <el-tabs v-model="activeName">
@@ -277,7 +277,7 @@
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
             //
-            $('#list #shrink').on('click', function () {
+            $('.shrink').on('click', function () {
                 if (this.flag) {
                     that.zuo = true;
                     that.you = false;
@@ -359,7 +359,7 @@
                 return rtValue;
             },
             //空气传感器占比图
-            yuantuset1(){
+            AirSensorRatio(){
                 let data = this.AirPie.map(function (v) {
                         return {value: v.count, name: v.name}
                     }) || [];
@@ -414,7 +414,7 @@
                 })
             },
             //视频类型占比
-            yuantuset2(){
+            VideoratioPie(){
                 let data = this.VideoPie.map(function (v) {
                         return {value: v.count, name: v.name}
                     }) || [];
@@ -460,14 +460,12 @@
                             '#0392e0',
                             '#a0cb3e',
                             '#f7cc5c',
-                            '#91dfcf',
-                            '#d190e2'
                         ]
                     }]
                 })
             },
             //网络类型占比
-            yuantuset3(){
+            GridTypeProportionPie(){
                 let data = this.GridPie.map(function (v) {
                         return {value: v.count, name: v.name}
                     }) || [];
@@ -520,7 +518,7 @@
                 })
             },
             //网格员占比
-            yuantuset4(){
+            GridSharePie(){
                 let data = this.GridMemberPie.map(function (v) {
                         return {value: v.count, name: v.name}
                     }) || [];
@@ -584,7 +582,7 @@
                         obj: data.obj || data.ExtraData
                     };
                     t.AirPie = charData.obj;
-                    t.yuantuset1();
+                    t.AirSensorRatio();
                 })
                 //视频
                 api.GetVideoPie().then(res => {
@@ -595,7 +593,7 @@
                         obj: data.obj || data.ExtraData
                     };
                     t.VideoPie = charData.obj;
-                    t.yuantuset2();
+                    t.VideoratioPie();
                 })
                 //网格类
                 api.GetGridPie().then(res => {
@@ -606,7 +604,7 @@
                         obj: data.obj || data.ExtraData
                     };
                     t.GridPie = charData.obj;
-                    t.yuantuset3();
+                    t.GridTypeProportionPie();
                 })
                 //网格员
                 api.GetGridMemberPie().then(res => {
@@ -618,7 +616,7 @@
                     };
                     t.GridMemberPie = charData.obj;
                     //console.log(t.GridMemberPie)
-                    t.yuantuset4();
+                    t.GridSharePie();
                 })
             },
             //时间转换

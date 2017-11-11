@@ -25,7 +25,7 @@
       loadEmergencyData(){
         this.requestEmergencyData();
       },
-      refreshEmergency(attributes,lng, lat){
+      refreshEmergency(attributes, lng, lat){
         let point = new BMap.Point(lng, lat);
         let transPoint = this.wgsPointToBd(point);
         this.eventCameraWindow(attributes, transPoint.lng, transPoint.lat);
@@ -77,7 +77,8 @@
         this.eventCameraWindow(tg.attributes, tg.getPosition().lng, tg.getPosition().lat);
       },
       setCameraWindow(data){
-          return '<iframe style="height:100%;width:100%;border:none;" src="/static/video/video.html?camIndexCode=' + data['CamIndexCode'] + '&devIndexCode=' + data['DevIndexCode'] + '&area=' + data['Area'] +'&name=' + data['CamName'] + '"></iframe>';
+        let url = 'static/emergency/html?id=' + (data['id'] || '');
+        return url ? '<iframe style="height:100%;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
       },
       //获取图标对象
       getMarker(pt, value){
@@ -102,34 +103,36 @@
         let t = this;
         let point = new BMap.Point(lng, lat);
         let res = t.setCameraWindow(attributes);
-        let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
-          title: '<sapn style="font-size:16px"><b>' + attributes['CamName'] + '</b>' + '</span>',             //标题
-          width: 520,
-          height: 350,
-          enableAutoPan: true,
-          searchTypes: []
-        });
-        searchInfoWindow.open(point);
+        if (res) {
+          let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
+            title: '<sapn style="font-size:16px"><b>' + attributes['CamName'] + '</b>' + '</span>',             //标题
+            width: 520,
+            height: 350,
+            enableAutoPan: true,
+            searchTypes: []
+          });
+          searchInfoWindow.open(point);
+        }
       },
       //获取图标地址，根据指标参考值
       getImgUrl(value){
         let imgPath = undefined;
-        switch(value){
+        switch (value) {
           case 0:
-          imgPath = '/static/imgs/emergency/e-no.png';
-        break;
+            imgPath = '/static/imgs/emergency/e-no.png';
+            break;
           case 1:
-          imgPath = '/static/imgs/emergency/e-o.png';
-          break;
+            imgPath = '/static/imgs/emergency/e-o.png';
+            break;
           case 2:
             imgPath = '/static/imgs/emergency/e-r.png';
-              break;
+            break;
           case 3:
             imgPath = '/static/imgs/emergency/e-y.png';
-              break;
+            break;
           case 4:
             imgPath = '/static/imgs/emergency/e-b.png';
-              break;
+            break;
         }
         return imgPath;
       },
