@@ -14,7 +14,7 @@
 		.all-wrapper
 		{
 			width: 420px;
-			max-height: 450px;
+			/*max-height: 450px;*/
 			margin: 0 auto;
 			background: #FFFFFF;
 			border: 1px solid rgba(0,0,0,0.2);
@@ -170,8 +170,8 @@
 			</div>-->
 			<div class="company-name">霸州名堂温泉水疗养生度假村有限公司分公司</div>
 			<div class="table-wrapper">
-				<table class="table-up">
-				<tr>
+				<table class="table-up" id="insert1">
+				<!--<tr>
 					<td>地址</td>
 					<td colspan="3"></td>
 				</tr>
@@ -190,8 +190,8 @@
 					<td>张川</td>
 					<td>网格员联络电话</td>
 					<td>188888888</td>
-				</tr>
-				<tr>
+				</tr>-->
+				<!--<tr>
 					<td>餐饮店规模</td>
 					<td colspan="3"></td>
 				</tr>
@@ -206,7 +206,7 @@
 					<td>张川</td>
 					<td>年消耗量</td>
 					<td>434324<span style="color: #666666; float: right; margin-right: 5px;">(吨/年)</span></td>
-				</tr>
+				</tr>-->
 			</table>
 			</div>
 			
@@ -264,5 +264,34 @@ var hide=$(".arrow-hide")
 			$(this).parent().parent().next().slideDown()
 		})
 	});
-
+	function GetQueryString(name)
+            {
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if(r!=null)return  decodeURIComponent(r[2]); return null;
+            }
+     var polcode = GetQueryString('polcode');
+     var sourceType = GetQueryString('sourceType');
+$.ajax({
+	type:"get",
+	url:"http://10.6.80.93:8080/servicePlatform/enterprise/infoByPolcode?polcode="+polcode+"&sourceType=ps005",
+	async:true,
+	success:function(res){
+		
+		var all2=JSON.parse(res);
+		
+		console.log(all2.ExtraData)
+		var all=all2.ExtraData
+		var content1="";
+		content1+="<tr><td>地址</td><td colspan='3'>"+all.province+all.city+all.area+"</td></tr>"+
+			"<tr><td>联系人</td><td>"+all.legalpersoname+"</td><td>电话</td><td>"+all.legalpersontel+"</td></tr>"+
+			"<tr><td>所属网格</td><td colspan='3'>"+all.gridname+"</td></tr>"+
+			"<tr><td>网格员</td><td>"+all.person+"</td><td>网格员联络电话</td><td>"+all.legalpersontel+"</td></tr>"+
+			"<tr><td>餐饮店规模</td><td colspan='3'></td></tr>"+
+			"<tr><td>油烟净化设施</td><td>张川</td><td>油烟去除效率</td><td>188888888</td></tr>"+
+			"<tr><td>燃料类型</td><td>张川</td><td>年消耗量</td><td>434324<span style='color: #666666; float: right; margin-right: 5px;'>(吨/年)</span></td></tr>"
+			$("#insert1").html(content1)
+		
+	}
+});
 </script>

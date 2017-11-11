@@ -14,9 +14,9 @@
 		.all-wrapper
 		{
 			width: 420px;
-			height: 450px;
+			/*height: 450px;*/
 			/*overflow: hidden;*/
-			overflow-y: scroll;
+			/*overflow-y: scroll;*/
 			margin: 0 auto;
 			background: #FFFFFF;
 			border: 1px solid rgba(0,0,0,0.2);
@@ -205,8 +205,8 @@
 		<div class="all-wrapper">
 			<div class="company-name">国安福京包装印刷有限公司</div>
 			<div class="table-wrapper">
-				<table class="table-up">
-				<tr>
+				<table class="table-up" id="insert1">
+				<!--<tr>
 					<td>具体位置</td>
 					<td colspan="3"></td>
 				</tr>
@@ -225,8 +225,8 @@
 					<td>张川</td>
 					<td>网格员联系电话</td>
 					<td>188888888</td>
-				</tr>
-				<tr>
+				</tr>-->
+				<!--<tr>
 					<td>主要产品</td>
 					<td colspan="3"></td>
 				</tr>
@@ -239,7 +239,7 @@
 					<td></td>
 					<td>燃料消耗量</td>
 					<td>188888888</td>
-				</tr>
+				</tr>-->
 			</table>
 			</div>
 			<div class="msg-type">
@@ -449,5 +449,33 @@
 			$(this).prev().css("display","block")
 			$(this).parent().parent().next().slideDown()
 		})
+	});
+	
+	function GetQueryString(name)
+            {
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if(r!=null)return  decodeURIComponent(r[2]); return null;
+            }
+     var polcode = GetQueryString('polcode');
+	$.ajax({
+		type:"get",
+	url:"http://10.6.80.93:8080/servicePlatform/enterprise/infoByPolcode?polcode="+polcode+"&sourceType=ps001",
+		async:true,
+		success:function(res){
+			var all2=JSON.parse(res);
+		
+		console.log(all2.ExtraData)
+		var all=all2.ExtraData
+		var content1="";
+		content1+="<tr><td>地址</td><td colspan='3'>"+all.province+all.city+all.area+"</td></tr>"+
+			"<tr><td>联系人</td><td>"+all.legalpersoname+"</td><td>电话</td><td>"+all.legalpersontel+"</td></tr>"+
+			"<tr><td>所属网格</td><td colspan='3'>"+all.gridname+"</td></tr>"+
+			"<tr><td>网格员</td><td>"+all.person+"</td><td>网格员联络电话</td><td>"+all.legalpersontel+"</td></tr>"+
+			"<tr><td>主要产品</td><td colspan='3'></td></tr>"+
+			"<tr><td>所属行业</td><td colspan='3'></td></tr>"+
+			"<tr><td>燃料类型</td><td></td><td>燃料消耗量</td><td>188888888</td></tr>"
+			$("#insert1").html(content1)
+		}
 	});
 </script>
