@@ -9,17 +9,17 @@ export default {
     path: '/api'
   }],
   release: [{
-    site: 'http://devgkptfc.zhiscity.com',//gkpt.zq12369.com:8015',
+    site: 'http://gkpt.zq12369.com:8015',//'http://devgkptfc.zhiscity.com',//
     port: '',
     path: '/api'
   }, {
-    site: 'http://devgkptplat.zhiscity.com',//gkpt.zq12369.com:8016',
+    site: 'http://gkpt.zq12369.com:8016',//'http://devgkptplat.zhiscity.com',//gkpt.zq12369.com:8016',
     port: '',
     path: '/api'
   }, {
-    // site: 'http://117.119.97.150',
-      site: 'http://10.6.80.93',
-      port: '8080',
+      site: 'http://117.119.97.150',
+     // site: 'http://10.6.80.93',
+      port: '8061',
     path: '/servicePlatform'
   }],
   getRequestUrlByType(type){

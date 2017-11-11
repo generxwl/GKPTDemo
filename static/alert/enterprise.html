@@ -460,7 +460,7 @@
      var polcode = GetQueryString('polcode');
 	$.ajax({
 		type:"get",
-	url:"http://10.6.80.93:8080/servicePlatform/enterprise/infoByPolcode?polcode="+polcode+"&sourceType=ps001",
+	url:"http://117.119.97.150:8061/servicePlatform/enterprise/infoByPolcode?polcode="+polcode+"&sourceType=ps001",
 		async:true,
 		success:function(res){
 			var all2=JSON.parse(res);
