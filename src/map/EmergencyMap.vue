@@ -1,6 +1,7 @@
 <template>
   <div class="emergency-map-content">
     <div id="emergency_map"></div>
+    <emergency-handle></emergency-handle>
     <!--<map-handle></map-handle>-->
   </div>
 </template>
@@ -9,10 +10,11 @@
   import LayerSwitch from '@/map/controls/LayerSwitch'
   import MainLayerHandle from '@/map/controls/MainLayerHandle'
   import MapHandle from '@/map/controls/MapHandle'
+  import EmergencyHandle from '@/map/handle/EmergencyHandle'
   import {bus} from '@/js/bus.js'
 
   export default {
-    name: 'MainMap',
+    name: 'EmergencyMap',
     data () {
       return {
         zoom:13
@@ -49,7 +51,7 @@
           });
         }
     },
-    components:{}
+    components:{EmergencyHandle}
   };
 </script>
 <style scoped>

@@ -106,7 +106,7 @@ export default {
         break;
       case 'EMERGENCY':
         cf = this.release[0];
-        url = cf.site + cf.port + cf.path + '/FcStation/GetSingleStationInfo';
+        url = cf.site + cf.port + cf.path + '/EmergencyPlan/GetEmergencyList';
         break;
     }
     return url;

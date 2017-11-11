@@ -10,6 +10,7 @@
       return {
         videoType: '',
         map: undefined,
+        mouseLabel: new BMap.Label(''),
         lsMarkers: []
       };
     },
@@ -21,6 +22,14 @@
     methods: {
       setMap(map){
         !this.map && ((this.map = map), this.map && this.loadEmergencyData());
+        this.mouseLabel.setStyle({
+          color: '#333',
+          backgroundColor: '#fff',
+          border: 'none',
+          fontSize: '12px'
+        });
+        this.mouseLabel.hide();
+        this.map.addOverlay(this.mouseLabel);
       },
       loadEmergencyData(){
         this.requestEmergencyData();
@@ -52,7 +61,7 @@
             let companyName = value.companyname;
             let pt = new BMap.Point(value.longitude, value.latitude);
             let marker = this.getMarker(pt, value);
-            if(marker) {
+            if (marker) {
               marker.attributes = value;
               let label = new BMap.Label(companyName || '');
               label.setStyle({
@@ -66,6 +75,18 @@
               label.setOffset(new BMap.Size(-(companyName.length * 4), 15));
               marker && (this.map.addOverlay(marker), marker.setLabel(label), this.lsMarkers.push(marker), marker.addEventListener('click', function (e) {
                 t.showCameraWindow(e);
+              }), marker.addEventListener('mouseover', function (e) {
+                let tg = e.target || e.currentTarget;
+                let attr = tg.attributes;
+                let ptName = attr['companyname'] || '';
+                if(ptName) {
+                  t.mouseLabel.setContent(ptName);
+                  t.mouseLabel.setPosition(tg.getPosition());
+                  t.mouseLabel.setOffset(new BMap.Size(-ptName.length * 6 - 6, 8));
+                  t.mouseLabel.show();
+                }
+              }), marker.addEventListener('mouseout', function (e) {
+                  t.mouseLabel.hide();
               }));
             }
           }
@@ -85,10 +106,10 @@
         let marker = undefined;
         if (pt && value) {
           let imgUrl = this.getImgUrl(value);
-          if(imgUrl) {
+          if (imgUrl) {
             let conPoint = this.wgsPointToBd(pt);
             let icon = new BMap.Icon(imgUrl, new BMap.Size(25, 25));
-            marker = new BMap.Marker(conPoint, {icon: icon, offset: new BMap.Size(0, 0)});
+            marker = new BMap.Marker(pt, {icon: icon, offset: new BMap.Size(0, 0)});
           }
         }
         return marker;
@@ -107,7 +128,7 @@
         let res = t.setCameraWindow(attributes);
         if (res) {
           let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
-            title: '<sapn style="font-size:16px"><b>' + attributes['CamName'] + '</b>' + '</span>',             //标题
+            title: '<sapn style="font-size:16px"><b>' + attributes['companyname'] + '</b>' + '</span>',             //标题
             width: 520,
             height: 350,
             enableAutoPan: true,
@@ -119,8 +140,8 @@
       //获取图标地址，根据指标参考值
       getImgUrl(value){
         let imgPath = undefined;
-        if(value){
-            imgPath = '/static/imgs/emergency/' + value.whetherpeak + '-' + value.buttonstate;
+        if (value) {
+          imgPath = '/static/imgs/emergency/' + value.whetherpeak + '-' + value.buttonstate + '.png';
         }
 //        switch (value) {
 //          case 0:
@@ -150,7 +171,7 @@
       clearMarkerLayer(){
       }
     },
-    components: {CameraComponent}
+    components: {}
   };
 </script>
 <style scoped>
