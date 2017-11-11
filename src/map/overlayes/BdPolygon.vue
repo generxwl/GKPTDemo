@@ -27,7 +27,8 @@
           displayFieldName: 'FCNAME',
           geometry: []
         }],
-        labelSymbol: new BMap.Label()
+        labelSymbol: new BMap.Label(),
+        checkLayerIndex: 0
       }
     },
     create(){
@@ -87,6 +88,7 @@
       },
       setLayerVisible(index, hasVisible) {
         this.setLayerHide();
+        this.checkLayerIndex = index;
         let layer = this.layers[index];
         let geometry = layer.geometry;
         for (let i = 0, length = geometry.length; i < length; i++) {
@@ -149,35 +151,63 @@
         let attributes = e.target.attributes;
 //        console.log(e);
         (attributes && displayFieldName) && (t.labelSymbol.setContent(attributes[displayFieldName]));
-
+        (attributes && displayFieldName) && (t.setSearchInfoWindow(e.point, attributes, displayFieldName));
       },
 
       //设置弹出层
-      setSearchInfoWindow(point, attributes){
+      setSearchInfoWindow(point, attributes, displayFieldName){
         let t = this;
-        let path = RequestHandle.getRequestUrl('');
-        let url = path + '?code=' + attributes['code'];
-        let params = {url: url , type: 'GET', pms: null};
-        RequestHandle.request(params, function (result) {
-          let res = t.setSearchInfoStyle(result.obj);
-          if(res) {
-            let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
-              title: '<sapn style="font-size:16px" ><b title="' + (attributes[displayFieldName] || '') + '">' + (attributes[displayFieldName] || '') + '</b>' + '</span>',             //标题
-              width: '120',
-              height: 'auto',
-              enableAutoPan: true,
-              enableSendToPhone: false,
-              searchTypes: []
-            });
-            searchInfoWindow.open(point);
-          }
-        }, function (e) {
-          console.error(e);
-        });
+        let res = t.setSearchInfoStyle(attributes);
+        if (res) {
+          let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
+            title: '<sapn style="font-size:16px" ><b title="' + (attributes[displayFieldName] || '') + '">' + (attributes[displayFieldName] || '') + '</b>' + '</span>',             //标题
+            width: '420',
+            height: 'auto',
+            enableAutoPan: true,
+            enableSendToPhone: false,
+            searchTypes: []
+          });
+          searchInfoWindow.open(point);
+        }
+//        let t = this;
+//        let path = RequestHandle.getRequestUrl('');
+//        let url = path + '?code=' + attributes['code'];
+//        let params = {url: url, type: 'GET', pms: null};
+//        RequestHandle.request(params, function (result) {
+//          let res = t.setSearchInfoStyle(result.obj);
+//          if (res) {
+//            let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
+//              title: '<sapn style="font-size:16px" ><b title="' + (attributes[displayFieldName] || '') + '">' + (attributes[displayFieldName] || '') + '</b>' + '</span>',             //标题
+//              width: '120',
+//              height: 'auto',
+//              enableAutoPan: true,
+//              enableSendToPhone: false,
+//              searchTypes: []
+//            });
+//            searchInfoWindow.open(point);
+//          }
+//        }, function (e) {
+//          console.error(e);
+//        });
       },
 
       //设置弹出层样式
       setSearchInfoStyle(attributes){
+        let url = undefined;
+        if (attributes.hasOwnProperty('gridcode')) {
+          switch (parseInt(this.checkLayerIndex)) {
+            case 0:
+              url = 'static/alert3/one.html' + '?gridcode=' + attributes.gridcode;
+              break;
+            case 1:
+              url = 'static/alert3/two.html' + '?gridcode=' + attributes.gridcode;
+              break;
+            case 2:
+              url = 'static/alert3/three.html' + '?gridcode=' + attributes.gridcode;
+              break;
+          }
+        }
+        return url ? '<iframe style="height:100%;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
       },
 
       //获取面数据
