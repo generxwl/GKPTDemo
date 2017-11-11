@@ -341,12 +341,12 @@
                 myChart.setOption({
                     series: [{
                        data: [
-                            {value:335, name:'应急企业'},
-                            {value:310, name:'采暖期错峰企业'},
+                            {value:27, name:'应急企业'},
+                            {value:4, name:'采暖期错峰企业'},
                         ],
                         color:[
-                            '#0392e0',
-                            '#a0cb3e'
+                            '#5A95F0',
+                            '#FB9B42'
                         ]
                     }]
                 })
@@ -386,12 +386,12 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value:335, name:'开发区'},
-                            {value:310, name:'文安县'},
+                            {value:4, name:'开发区'},
+                            {value:27, name:'文安县'},
                         ],
                         color:[
-                            '#0392e0',
-                            '#a0cb3e'
+                            '#5A95F0',
+                            '#FB9B42'
                         ]
                     }]
                 })
