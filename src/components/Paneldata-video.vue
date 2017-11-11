@@ -10,8 +10,8 @@
                 </div>
             </div>
             <div class="panel">
-                <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
-                <img id="shrink" src="../assets/img/右.png" v-if="you"/>
+                <img class="shrink" src="../assets/img/左.png" v-if="zuo"/>
+                <img class="shrink" src="../assets/img/右.png" v-if="you"/>
                 <div class="main">
                     <div class="tables">
                         <!--选项-->
@@ -130,7 +130,7 @@
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
-            $('#list #shrink').on('click', function () {
+            $('.shrink').on('click', function () {
                 if (this.flag) {
                     that.zuo = true;
                     that.you = false;
@@ -151,7 +151,6 @@
             setTimeout(function () {
                 that.yuantuset1();
                 that.yuantuset2();
-                //that.yuantuset3();
                 that.yuantuset4()
             }, 500)
           $("body").keydown(function(evt) {

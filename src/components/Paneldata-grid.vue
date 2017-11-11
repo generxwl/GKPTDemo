@@ -3,8 +3,8 @@
         <!--网格预测-->
         <div id="list">
             <div class="panel">
-                <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
-                <img id="shrink" src="../assets/img/右.png" v-if="you"/>
+                <img class="shrink" src="../assets/img/左.png" v-if="zuo"/>
+                <img class="shrink" src="../assets/img/右.png" v-if="you"/>
                 <div class="main">
                     <div class="kbiaoti">京津冀地区污染排放对廊坊的影响贡献及重点源分布</div>
                     <div class="bluexian"></div>
@@ -86,7 +86,7 @@
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
-            $('#list #shrink').on('click', function () {
+            $('.shrink').on('click', function () {
                 if (flag) {
                     that.zuo=true;
                     that.you=false;

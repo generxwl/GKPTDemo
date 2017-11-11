@@ -4,14 +4,14 @@
     <div id="list">
       <div class="gensui">
         <div class="line_top">
-          <toolbar>
+          <toolbar @RightslideToggle="togleclick">
             <map-handle slot="toors"></map-handle>
           </toolbar>
         </div>
       </div>
       <div class="panel">
-        <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
-        <img id="shrink" src="../assets/img/右.png" v-if="you"/>
+        <img class="shrink" src="../assets/img/左.png" v-if="zuo"/>
+        <img class="shrink" src="../assets/img/右.png" v-if="you"/>
         <div class="main">
           <!---->
           <div class="tables">
@@ -163,7 +163,8 @@
           ps4: false,  
           ps5: false,  
           ps6: false,  
-        }, 
+        },
+        flag:true
       }
     },
     created(){
@@ -174,25 +175,23 @@
     mounted(){
       //右侧收放
       let that = this;
-      var flag = true;
-      $('#list #shrink').on('click', function () {
-        if (flag) {
-          that.zuo = true;
-          that.you = false;
-          $('#list').animate({
-            'right': '-437px'
-          });
-          flag = false;
-        } else {
-          that.zuo = false;
-          that.you = true;
-          $('#list').animate({
-            'right': '0px'
-          });
-          flag = true;
-        }
+      $('.shrink').on('click', function () {
+          if (this.flag) {
+              that.zuo = true;
+              that.you = false;
+              $('#list').animate({
+                  'right': '-437px'
+              });
+              this.flag = false;
+          } else {
+              that.zuo = false;
+              that.you = true;
+              $('#list').animate({
+                  'right': '0px'
+              });
+              this.flag = true;
+          }
       })
-        //
         //
         $("#context").click(function() {
             $(this).text($("#content").is(":hidden") ? "收起∧" : "展开∨");
@@ -204,6 +203,24 @@
         }, 500);
     },
     methods: {
+        togleclick(){
+            let that = this;
+            if (this.flag) {
+                that.zuo = true;
+                that.you = false;
+                $('#list').animate({
+                    'right': '-437px'
+                });
+                this.flag = false;
+            } else {
+                that.zuo = false;
+                that.you = true;
+                $('#list').animate({
+                    'right': '0px'
+                });
+                this.flag = true;
+            }
+        },
       //多选请求
         GetcheckboxData(){
             let Newdata = [];

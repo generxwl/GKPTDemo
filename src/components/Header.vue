@@ -214,6 +214,9 @@
             float: right;
             height: 56px;
             margin-right: 0px;
+            h3:hover{
+                cursor: alias;
+            }
             li {
                 float: left;
                 width: auto;

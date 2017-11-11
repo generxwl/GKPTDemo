@@ -36,8 +36,8 @@
                 </div>
             </div>
             <div class="panel">
-                <img id="shrink" src="../assets/img/左.png" v-if="zuo"/>
-                <img id="shrink" src="../assets/img/右.png" v-if="you"/>
+                <img class="shrink" src="../assets/img/左.png" v-if="zuo"/>
+                <img class="shrink" src="../assets/img/右.png" v-if="you"/>
                 <div class="main">
                     <div class="tables">
                         <!--选项-->
@@ -131,34 +131,76 @@
             return {
                 zuo:false,
                 you:true,
-                tableData:[],
-                tableList:[
+                tableData:[
                     {
-                        NetworkName:'开发区',
-                        PollutionSourceNum:'--',
-                        PollutionSourceCBNum:'--'
+                        NetworkName:'香河热四力',
+                        StartingState:'启动状态',
+                        Statues:'印刷',
+                        WanggeName:'开发区'
                     },
                     {
-                        NetworkName:'广阳区',
-                        PollutionSourceNum:'--',
-                        PollutionSourceCBNum:'--'
+                        NetworkName:'香河热四力',
+                        StartingState:'启动状态',
+                        Statues:'印刷',
+                        WanggeName:'开发区'
                     },
                     {
-                        NetworkName:'安次区',
-                        PollutionSourceNum:'--',
-                        PollutionSourceCBNum:'--'
+                        NetworkName:'香河热四力',
+                        StartingState:'启动状态',
+                        Statues:'印刷',
+                        WanggeName:'开发区'
+                    },
+                    {
+                        NetworkName:'香河热四力',
+                        StartingState:'启动状态',
+                        Statues:'印刷',
+                        WanggeName:'开发区'
+                    },
+                    {
+                        NetworkName:'香河热四力',
+                        StartingState:'启动状态',
+                        Statues:'印刷',
+                        WanggeName:'开发区'
+                    },
+                    {
+                        NetworkName:'香河热四力',
+                        StartingState:'启动状态',
+                        Statues:'印刷',
+                        WanggeName:'开发区'
+                    },
+                    {
+                        NetworkName:'香河热四力',
+                        StartingState:'启动状态',
+                        Statues:'印刷',
+                        WanggeName:'开发区'
+                    },
+                    {
+                        NetworkName:'香河热四力',
+                        StartingState:'启动状态',
+                        Statues:'印刷',
+                        WanggeName:'开发区'
+                    },
+                    {
+                        NetworkName:'香河热四力',
+                        StartingState:'启动状态',
+                        Statues:'印刷',
+                        WanggeName:'开发区'
+                    },
+                    {
+                        NetworkName:'香河热四力',
+                        StartingState:'启动状态',
+                        Statues:'印刷',
+                        WanggeName:'开发区'
                     }
                 ],
                 allData:[],
-                labelType:"NOX排放量",
+                labelType:"----",
                 currentRow: null,
                 pagesize: 10,
                 currentPage: 1,
                 totalCount:0,
                 value2: '',
-                filters: {
-                    name: ''
-                },
+                filters: {name: ''},
                 flag:true
             }
         },
@@ -173,7 +215,7 @@
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
-            $('#shrink').on('click', function () {
+            $('.shrink').on('click', function () {
                 if (this.flag) {
                     that.zuo = true;
                     that.you = false;
@@ -199,8 +241,8 @@
             });
             //
             setTimeout(function () {
-                that.yuantuset1();
-                that.yuantuset2()
+                that.EmergencyEnterprisePie();
+                that.RegionalStatisticsPie()
             },400)
         },
         methods: {
@@ -265,7 +307,7 @@
                 return rtValue;
             },
             //应急企业图1
-            yuantuset1(){
+            EmergencyEnterprisePie(){
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = echarts.init(document.getElementById('bing_item1'));
                 // 指定图表的配置项和数据
@@ -310,7 +352,7 @@
                 })
             },
             //分区图2
-            yuantuset2(){
+            RegionalStatisticsPie(){
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = echarts.init(document.getElementById('bing_item2'));
                 // 指定图表的配置项和数据
@@ -407,7 +449,7 @@
         top: 56px;
         right: 0;
         .table_container {
-            margin-left: 0px;
+            margin-left: 10px;
             margin-top: 20px;
         }
         .bing {
