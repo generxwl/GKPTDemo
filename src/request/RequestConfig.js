@@ -103,6 +103,10 @@ export default {
         cf = this.release[1];
         url = cf.site + cf.port + cf.path + '/Company/GetCompanyDetai';
         break;
+      case 'EMERGENCY':
+        cf = this.release[0];
+        url = cf.site + cf.port + cf.path + '/FcStation/GetSingleStationInfo';
+        break;
     }
     return url;
   }

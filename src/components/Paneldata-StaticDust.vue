@@ -158,11 +158,11 @@
         dataL: [],
         checked: {
           ps1: false,
-          ps2: false,  
-          ps3: false,  
-          ps4: false,  
-          ps5: false,  
-          ps6: false,  
+          ps2: false,
+          ps3: false,
+          ps4: false,
+          ps5: false,
+          ps6: false,
         },
         flag:true
       }

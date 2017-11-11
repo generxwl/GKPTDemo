@@ -32,7 +32,7 @@
       },
       requestEmergencyData(){
         let t = this;
-        let url = RequestHandle.getRequestUrl('VIDEOTAEGET');
+        let url = RequestHandle.getRequestUrl('EMERGENCY');
         let params = {url: url, type: 'GET', pms: null};
         RequestHandle.request(params, function (result) {
           if (result.status) {
@@ -49,12 +49,12 @@
           let t = this;
           for (let i = 0, length = data.length; i < length; i++) {
             let value = data[i];
-            if (value && value['Type'] && value['Type'] === 4) {
-              let camName = value.CamName;
-              let pt = new BMap.Point(value.Longitude, value.Latitude);
-              let marker = this.getMarker(pt, 1);
+            let companyName = value.companyname;
+            let pt = new BMap.Point(value.longitude, value.latitude);
+            let marker = this.getMarker(pt, value);
+            if(marker) {
               marker.attributes = value;
-              let label = new BMap.Label(camName || '');
+              let label = new BMap.Label(companyName || '');
               label.setStyle({
                 display: 'none',
                 border: 'none',
@@ -63,7 +63,7 @@
                 fontSize: '14px',
                 fontFamily: 'Microsoft YaHei'
               });
-              label.setOffset(new BMap.Size(-(camName.length * 4), 15));
+              label.setOffset(new BMap.Size(-(companyName.length * 4), 15));
               marker && (this.map.addOverlay(marker), marker.setLabel(label), this.lsMarkers.push(marker), marker.addEventListener('click', function (e) {
                 t.showCameraWindow(e);
               }));
@@ -77,17 +77,19 @@
         this.eventCameraWindow(tg.attributes, tg.getPosition().lng, tg.getPosition().lat);
       },
       setCameraWindow(data){
-        let url = 'static/emergency/html?id=' + (data['id'] || '');
-        return url ? '<iframe style="height:100%;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
+        let url = 'static/emergency/.html?id=' + (data['id'] || '');
+        return url ? '<iframe style="height:auto;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
       },
       //获取图标对象
       getMarker(pt, value){
         let marker = undefined;
         if (pt && value) {
           let imgUrl = this.getImgUrl(value);
-          let conPoint = this.wgsPointToBd(pt);
-          let icon = new BMap.Icon(imgUrl, new BMap.Size(25, 25));
-          marker = new BMap.Marker(conPoint, {icon: icon, offset: new BMap.Size(0, 0)});
+          if(imgUrl) {
+            let conPoint = this.wgsPointToBd(pt);
+            let icon = new BMap.Icon(imgUrl, new BMap.Size(25, 25));
+            marker = new BMap.Marker(conPoint, {icon: icon, offset: new BMap.Size(0, 0)});
+          }
         }
         return marker;
       },
@@ -117,23 +119,26 @@
       //获取图标地址，根据指标参考值
       getImgUrl(value){
         let imgPath = undefined;
-        switch (value) {
-          case 0:
-            imgPath = '/static/imgs/emergency/e-no.png';
-            break;
-          case 1:
-            imgPath = '/static/imgs/emergency/e-o.png';
-            break;
-          case 2:
-            imgPath = '/static/imgs/emergency/e-r.png';
-            break;
-          case 3:
-            imgPath = '/static/imgs/emergency/e-y.png';
-            break;
-          case 4:
-            imgPath = '/static/imgs/emergency/e-b.png';
-            break;
+        if(value){
+            imgPath = '/static/imgs/emergency/' + value.whetherpeak + '-' + value.buttonstate;
         }
+//        switch (value) {
+//          case 0:
+//            imgPath = '/static/imgs/emergency/e-no.png';
+//            break;
+//          case 1:
+//            imgPath = '/static/imgs/emergency/e-o.png';
+//            break;
+//          case 2:
+//            imgPath = '/static/imgs/emergency/e-r.png';
+//            break;
+//          case 3:
+//            imgPath = '/static/imgs/emergency/e-y.png';
+//            break;
+//          case 4:
+//            imgPath = '/static/imgs/emergency/e-b.png';
+//            break;
+//        }
         return imgPath;
       },
       refreshData(data){

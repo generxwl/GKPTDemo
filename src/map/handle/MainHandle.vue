@@ -439,7 +439,7 @@
             case 'LAYER_QY':
               displayName = 'psname';
               charUrl = RequestHandle.getRequestUrl('ENTERPRISECHAR');
-              pms = {pscode: attributes.pscode, type: 'nox'};
+              pms = {pscode: attributes.pscode, type: 'smoke'};
               infoWidth = 588;
               break;
           }
