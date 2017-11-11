@@ -1,7 +1,7 @@
 <template>
   <div class="sense-map-content">
     <div id="sense_map"></div>
-    <layer-switch style="display: none"></layer-switch>
+    <!--<layer-switch style="display: none"></layer-switch>-->
     <dust-pollution></dust-pollution>
     <history-handle style="display: none;"></history-handle>
     <!--<map-handle></map-handle>-->
@@ -19,20 +19,34 @@
     name: 'DustMapMain',
     data () {
       return {
-        maxZoom: 13
+        maxZoom: 15
       };
     },
     mounted(){
+      let lsScript = document.getElementsByTagName('script');
+      for (let i = 0, length = lsScript.length; i < length; i++) {
+        let value = lsScript[i];
+        if (value && value.src) {
+          if (value.src.indexOf('static/js/map/DistanceTool_min.js') > -1) {
+            document.body.removeChild(value);
+            break;
+          }
+        }
+      }
+      let el = document.createElement('script');
+      el.src = 'static/js/map/DistanceTool_min.js';
+      document.body.appendChild(el);
       this.ready();
     },
     methods: {
       ready(){
         let t = this;
         let map = new BMap.Map('sense_map');
-        map.centerAndZoom('廊坊', 13);
+        map.centerAndZoom('廊坊', 12);
         mapStyle && map.setMapStyle(mapStyle);
         map.enableScrollWheelZoom();
         this.map = map;
+        this.$parent.map = map;
 
         bus.$emit('getDustMap', map);
         map.addEventListener('tilesloaded', function () {

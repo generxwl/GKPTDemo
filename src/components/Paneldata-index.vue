@@ -4,7 +4,7 @@
         <div id="list">
             <div class="gensui">
                 <div class="line_top">
-                    <toolbar>
+                    <toolbar @RightslideToggle="togleclick">
                         <map-handle slot="toors"></map-handle>
                     </toolbar>
                 </div>
@@ -72,18 +72,51 @@
                             </div>
                             <!--饼图展示-->
                             <div class="bing">
-                                <div class="bing_item1" id="bing_item1" style="width: 203px;height: 180px;">
-
+                                <div class="look">
+                                    <p>空气传感器占比</p>
+                                    <div class="bing_item1" id="bing_item1" style="width: 203px;height: 180px;"></div>
+                                    <div class="tuli">
+                                        <ul>
+                                            <li><img src="../../static/imgs/piebiao/icon_lan1.png" alt="">六参数传感器</li>
+                                            <li><img src="../../static/imgs/piebiao/icon_huang2.png" alt="">TVOC传感器</li>
+                                            <li><img src="../../static/imgs/piebiao/icon_lu3.png" alt="">工地传感器</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="bing_item2" id="bing_item2" style="width: 203px;height: 180px;">
-
+                                <div class="look">
+                                    <p>视频类型占比</p>
+                                    <div class="bing_item2" id="bing_item2" style="width: 203px;height: 180px;"></div>
+                                    <div class="tuli">
+                                        <ul>
+                                            <li><img src="../../static/imgs/piebiao/icon_lan1.png" alt="">VOCs企业</li>
+                                            <li><img src="../../static/imgs/piebiao/icon_huang2.png" alt="">高空五公里</li>
+                                            <li><img src="../../static/imgs/piebiao/icon_lu3.png" alt="">散乱污企业</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="bing_item3" id="bing_item3" style="width: 203px;height: 180px;">
-
+                                <div class="look" style="margin-top: 20px">
+                                    <p>网络类型占比</p>
+                                    <div class="bing_item3" id="bing_item3" style="width: 203px;height: 180px;"></div>
+                                    <div class="tuli">
+                                        <ul>
+                                            <li style="width: 66px"><img src="../../static/imgs/piebiao/icon_lan1.png" alt="">一级</li>
+                                            <li style="width: 66px"><img src="../../static/imgs/piebiao/icon_huang2.png" alt="">二级</li>
+                                            <li style="width: 66px"><img src="../../static/imgs/piebiao/icon_lu3.png" alt="">三级</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="bing_item4" id="bing_item4" style="width: 203px;height: 180px;">
-
+                                <div class="look" style="margin-top: 20px">
+                                    <p>网格员占比</p>
+                                    <div class="bing_item4" id="bing_item4" style="width: 203px;height: 180px;"></div>
+                                    <div class="tuli">
+                                        <ul>
+                                            <li style="width: 66px"><img src="../../static/imgs/piebiao/icon_lan1.png" alt="">开发区</li>
+                                            <li style="width: 66px"><img src="../../static/imgs/piebiao/icon_huang2.png" alt="">广阳区</li>
+                                            <li style="width: 66px"><img src="../../static/imgs/piebiao/icon_lu3.png" alt="">安次区</li>
+                                        </ul>
+                                    </div>
                                 </div>
+
                             </div>
                         </el-tab-pane>
                         <el-tab-pane label="各局数据接入进度" name="second">
@@ -212,6 +245,7 @@
                 GridPie: [],//网格类
                 GridMemberPie: [],//网格员
                 RightStatistics:{},//右侧栏统计2
+                flag:true
             }
         },
         created(){
@@ -238,31 +272,48 @@
         mounted(){
             //右侧收放
             let that = this;
-            let flag = true;
             //
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
             //
             $('#list #shrink').on('click', function () {
-                if (flag) {
+                if (this.flag) {
                     that.zuo = true;
                     that.you = false;
                     $('#list').animate({
                         'right': '-437px'
                     });
-                    flag = false;
+                    this.flag = false;
                 } else {
                     that.zuo = false;
                     that.you = true;
                     $('#list').animate({
                         'right': '0px'
                     });
-                    flag = true;
+                    this.flag = true;
                 }
             })
         },
         methods: {
+            togleclick(){
+                let that = this;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
+                    $('#list').animate({
+                        'right': '-437px'
+                    });
+                    this.flag = false;
+                } else {
+                    that.zuo = false;
+                    that.you = true;
+                    $('#list').animate({
+                        'right': '0px'
+                    });
+                    this.flag = true;
+                }
+            },
             //排序
             compare (propertyName) {
                 return function (object1, object2) {
@@ -316,43 +367,23 @@
                 let myChart = echarts.init(document.getElementById('bing_item1'));
                 // 指定图表的配置项和数据
                 let option = {
-                    title: {
-                        text: '空气传感器占比',
-                        textStyle: {
-                            fontSize: '14',
-                            fontWeight: 'bold'
-                        },
-                        x: 'left'
-                    },
-                    tooltip: {
+                    tooltip : {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
                     },
-                    legend: {
-                        orient: 'vertical',
-                        left: 'right',
-                        textStyle: {
-                            fontSize: '10',
-                            fontWeight: 'bold'
-                        },
-                        top: 50
-                    },
-                    series: [
+                    series : [
                         {
-                            name: '空气传感器占比',
-                            type: 'pie',
-                            radius: '60%',
-                            center: ['30%', '60%'],
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '20',
-                                        fontWeight: 'bold'
+                            name:'空气传感器占比',
+                            type:'pie',
+                            radius : ['0%', '75%'],
+                            hoverAnimation:false,
+                            itemStyle : {
+                                normal : {
+                                    label : {
+                                        show : false
+                                    },
+                                    labelLine : {
+                                        show : false
                                     }
                                 }
                             }
@@ -363,11 +394,13 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-                    legend: {
-                        data: data.map(function (v) {
-                            return v.name
-                        })
-                    },
+//                    legend: {
+//                        x : 'center',
+//                        y : 'bottom',
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
                     series: [{
                         data: data,
                         color:[
@@ -389,43 +422,23 @@
                 let myChart = echarts.init(document.getElementById('bing_item2'));
                 // 指定图表的配置项和数据
                 let option = {
-                    title: {
-                        text: '视频类型占比',
-                        textStyle: {
-                            fontSize: '14',
-                            fontWeight: 'bold'
-                        },
-                        x: 'left'
-                    },
-                    tooltip: {
+                    tooltip : {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
                     },
-                    legend: {
-                        orient: 'vertical',
-                        left: 'right',
-                        textStyle: {
-                            fontSize: '10',
-                            fontWeight: 'bold'
-                        },
-                        top: 50
-                    },
-                    series: [
+                    series : [
                         {
-                            name: '视频类型占比',
-                            type: 'pie',
-                            radius: '60%',
-                            center: ['30%', '60%'],
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '20',
-                                        fontWeight: 'bold'
+                            name:'视频类型占比',
+                            type:'pie',
+                            radius : ['0%', '75%'],
+                            hoverAnimation:false,
+                            itemStyle : {
+                                normal : {
+                                    label : {
+                                        show : false
+                                    },
+                                    labelLine : {
+                                        show : false
                                     }
                                 }
                             }
@@ -436,11 +449,11 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-                    legend: {
-                        data: data.map(function (v) {
-                            return v.name
-                        })
-                    },
+//                    legend: {
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
                     series: [{
                         data: data,
                         color:[
@@ -462,39 +475,23 @@
                 let myChart = echarts.init(document.getElementById('bing_item3'));
                 // 指定图表的配置项和数据
                 let option = {
-                    title: {
-                        text: '网络类型占比',
-                        textStyle: {
-                            fontSize: '14',
-                            fontWeight: 'bold'
-                        },
-                        x: 'left'
-                    },
-                    tooltip: {
+                    tooltip : {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
                     },
-                    legend: {
-                        orient: 'vertical',
-                        left: 'right',
-                        top: 50
-                    },
-                    series: [
+                    series : [
                         {
-                            name: '网络类型占比',
-                            type: 'pie',
-                            radius: '60%',
-                            center: ['30%', '50%'],
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '20',
-                                        fontWeight: 'bold'
+                            name:'网络类型占比',
+                            type:'pie',
+                            radius : ['0%', '75%'],
+                            hoverAnimation:false,
+                            itemStyle : {
+                                normal : {
+                                    label : {
+                                        show : false
+                                    },
+                                    labelLine : {
+                                        show : false
                                     }
                                 }
                             }
@@ -505,11 +502,11 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-                    legend: {
-                        data: data.map(function (v) {
-                            return v.name
-                        })
-                    },
+//                    legend: {
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
                     series: [{
                         data: data,
                         color:[
@@ -531,39 +528,23 @@
                 let myChart = echarts.init(document.getElementById('bing_item4'));
                 // 指定图表的配置项和数据
                 let option = {
-                    title: {
-                        text: '网格员占比',
-                        textStyle: {
-                            fontSize: '14',
-                            fontWeight: 'bold'
-                        },
-                        x: 'left'
-                    },
-                    tooltip: {
+                    tooltip : {
                         trigger: 'item',
                         formatter: "{a} <br/>{b} : {c} ({d}%)"
                     },
-                    legend: {
-                        orient: 'vertical',
-                        left: 'right',
-                        top: 50
-                    },
-                    series: [
+                    series : [
                         {
-                            name: '网格员占比',
-                            type: 'pie',
-                            radius: '60%',
-                            center: ['30%', '50%'],
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '20',
-                                        fontWeight: 'bold'
+                            name:'网格员占比',
+                            type:'pie',
+                            radius : ['0%', '75%'],
+                            hoverAnimation:false,
+                            itemStyle : {
+                                normal : {
+                                    label : {
+                                        show : false
+                                    },
+                                    labelLine : {
+                                        show : false
                                     }
                                 }
                             }
@@ -574,11 +555,11 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-                    legend: {
-                        data: data.map(function (v) {
-                            return v.name
-                        })
-                    },
+//                    legend: {
+//                        data: data.map(function (v) {
+//                            return v.name
+//                        })
+//                    },
                     series: [{
                         data: data,
                         color:[
@@ -794,7 +775,7 @@
                     margin: 0 auto;
                     margin-top: 10px;
                     border: solid 1px #ccc;
-                    background: #f0f7ff;
+                    background: #F6F6F6;
 
                     .table_item {
                         padding-top: 9px;
@@ -824,7 +805,35 @@
                     height: 366px;
                     margin: 0 auto;
                     margin-top: 20px;
-
+                    .look{
+                        width: 49%;
+                        height: auto;
+                        float: left;
+                        p{
+                            color: #434D55;
+                            font-size: 14px;
+                            font-weight:bold;
+                        }
+                        ul{
+                            li{
+                                list-style: none;
+                                font-size: 12px;
+                                width:100px ;
+                                height: 20px;
+                                float: left;
+                                text-align: left;
+                                padding-left: 5px;
+                                img{
+                                    position: inherit;
+                                    width:14px ;
+                                    height: auto;
+                                    vertical-align: middle;
+                                    margin-top: 4px;
+                                    margin-right: 5px;
+                                }
+                            }
+                        }
+                    }
                     .bing_item1 {
                         width: 203px;
                         height: 180px;
@@ -840,7 +849,7 @@
                     }
 
                     .bing_item3 {
-                        margin-top: 20px;
+
                         width: 203px;
                         height: 180px;
                         float: left;
@@ -848,7 +857,7 @@
                     }
 
                     .bing_item4 {
-                        margin-top: 20px;
+
                         width: 203px;
                         height: 180px;
                         float: left;

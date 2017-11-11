@@ -149,14 +149,6 @@
             src: 'static/imgs/mues/video/voc.png',
             checkedSrc: 'static/imgs/mues/video/voc_c.png'
           },
-//          {
-//            name: 'layer_sp_gd',
-//            parentName: 'layer_sp',
-//            parentIndex: '4',
-//            value: '工地扬尘',
-//            src: 'static/imgs/mues/video/gdyc.png',
-//            checkedSrc: 'static/imgs/mues/video/gdyc_c.png'
-//          },
           {
             name: 'layer_sp_gkw',
             value: '高空五公里',

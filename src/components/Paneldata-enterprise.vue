@@ -4,7 +4,7 @@
         <div id="list">
             <div class="gensui">
                 <div class="line_top">
-                    <toolbar>
+                    <toolbar @RightslideToggle="togleclick">
                         <map-handle slot="toors"></map-handle>
                     </toolbar>
                 </div>
@@ -126,6 +126,7 @@
                 filters: {
                     name: ''
                 },
+                flag:true
             }
         },
         created(){
@@ -135,30 +136,47 @@
         mounted(){
             //右侧收放
             let that = this;
-            var flag = true;
             //
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
             $('#list #shrink').on('click', function () {
-                if (flag) {
-                    that.zuo=true;
-                    that.you=false;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
                     $('#list').animate({
                         'right': '-437px'
                     });
-                    flag = false;
+                    this.flag = false;
                 } else {
-                    that.zuo=false;
-                    that.you=true;
+                    that.zuo = false;
+                    that.you = true;
                     $('#list').animate({
                         'right': '0px'
                     });
-                    flag = true;
+                    this.flag = true;
                 }
             })
         },
         methods: {
+            togleclick(){
+                let that = this;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
+                    $('#list').animate({
+                        'right': '-437px'
+                    });
+                    this.flag = false;
+                } else {
+                    that.zuo = false;
+                    that.you = true;
+                    $('#list').animate({
+                        'right': '0px'
+                    });
+                    this.flag = true;
+                }
+            },
             initlistData(data){
                 let sudata = data;
                 this.SetDataList(sudata)
@@ -223,7 +241,7 @@
                     tableData.NetworkName = item.psname;//企业名称
                     tableData.pscode = item.pscode;//城市id
                     tableData.Statues = this.ChaoBiaoData(item.NoxStatus);//是否超标
-                    tableData.WanggeName ='----' ;//网格名称item.WanggeName
+                    tableData.WanggeName =  item.gridName ? item.gridName : '----' ;//网格名称item.WanggeName
                     tableData.latitude = item.latitude;//纬度
                     tableData.longitude = item.longitude;//经度
                     this.ALLdata.push(tableData);
@@ -244,6 +262,20 @@
             },
             //数据
             GetListqyData(){
+                //污染源统计
+                api.GetCompanyStatistics().then(res => {
+                    let data = res.data.obj;
+                    this.tableList = [];
+                    let i = 1;
+                    data.forEach(item => {
+                        const tData = {};
+                        tData.NetworkName = item.GridName;//序号
+                        tData.PollutionSourceNum = item.PollutionCount;//企业名称
+                        tData.PollutionSourceCBNum = item.PollutionOverCount;//城市id
+                        this.tableList.push(tData);
+                    })
+                })
+                //污染企业列表
                 api.GetCompanyPointList().then(res => {
                     let data = res.data;
                     data = typeof data === 'string' ? JSON.parse(data) : data;

@@ -9,11 +9,11 @@ export default {
     path: '/api'
   }],
   release: [{
-    site: 'http://gkpt.zq12369.com:8015',
+    site: 'http://devgkptfc.zhiscity.com',//gkpt.zq12369.com:8015',
     port: '',
     path: '/api'
   }, {
-    site: 'http://gkpt.zq12369.com:8016',
+    site: 'http://devgkptplat.zhiscity.com',//gkpt.zq12369.com:8016',
     port: '',
     path: '/api'
   }, {

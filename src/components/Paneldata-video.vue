@@ -4,7 +4,7 @@
         <div id="list">
             <div class="gensui">
                 <div class="line_top">
-                    <toolbar>
+                    <toolbar @RightslideToggle="togleclick">
                         <map-handle slot="toors"></map-handle>
                     </toolbar>
                 </div>
@@ -21,28 +21,28 @@
                     <div class="yuanzhan">
                         <div class="jdflaot" style="margin-left: 30px">
                             <div id="guang1" style="width: 90px;height: 90px;"></div>
-                            <div class="texts">0</div>
+                            <div class="texts">54</div>
                             <p>开发区</p>
                         </div>
                         <div class="jdflaot">
                             <div id="guang2" style="width: 90px;height: 90px"></div>
-                            <div class="texts">10</div>
+                            <div class="texts">44</div>
                             <p>广阳区</p>
                         </div>
-                        <div class="jdflaot">
-                            <div id="guang3" style="width: 90px;height: 90px"></div>
-                            <div class="texts">0</div>
-                            <p>建设局</p>
-                        </div>
+                        <!--<div class="jdflaot">-->
+                            <!--<div id="guang3" style="width: 90px;height: 90px"></div>-->
+                            <!--<div class="texts">0</div>-->
+                            <!--<p>建设局</p>-->
+                        <!--</div>-->
                         <div class="jdflaot">
                             <div id="guang4" style="width: 90px;height: 90px"></div>
-                            <div class="texts">0</div>
+                            <div class="texts">149</div>
                             <p>安次区</p>
                         </div>
                     </div>
                     <div class="sousuo">
                         <div class="sleft">
-                            <el-input v-model="filters.name" placeholder="请输入地址"></el-input>
+                            <el-input v-model="filters.name" placeholder="名称"></el-input>
                         </div>
                         <div class="sright">
                             <el-button type="primary" @click="searchData()">搜索</el-button>
@@ -61,9 +61,14 @@
                                     width="80">
                             </el-table-column>
                             <el-table-column
+                                    property="Grid"
+                                    label="网格名称"
+                                    width="80">
+                            </el-table-column>
+                            <el-table-column
                                     prop="CamName"
                                     label="视频名称"
-                                    width="220">
+                                    width="160">
                             </el-table-column>
                             <el-table-column
                                     prop="TypeName"
@@ -111,7 +116,8 @@
                 filters: {
                     name: ''
                 },
-                styresdata:[]
+                styresdata:[],
+                flag:true
             }
         },
         created(){
@@ -120,33 +126,32 @@
         mounted(){
             //右侧收放
             let that = this;
-            var flag = true;
             //
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
             $('#list #shrink').on('click', function () {
-                if (flag) {
-                    that.zuo=true;
-                    that.you=false;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
                     $('#list').animate({
                         'right': '-437px'
                     });
-                    flag = false;
+                    this.flag = false;
                 } else {
-                    that.zuo=false;
-                    that.you=true;
+                    that.zuo = false;
+                    that.you = true;
                     $('#list').animate({
                         'right': '0px'
                     });
-                    flag = true;
+                    this.flag = true;
                 }
             })
             //视频进度图
             setTimeout(function () {
                 that.yuantuset1();
                 that.yuantuset2();
-                that.yuantuset3();
+                //that.yuantuset3();
                 that.yuantuset4()
             }, 500)
           $("body").keydown(function(evt) {
@@ -156,6 +161,24 @@
           });
         },
         methods: {
+            togleclick(){
+                let that = this;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
+                    $('#list').animate({
+                        'right': '-437px'
+                    });
+                    this.flag = false;
+                } else {
+                    that.zuo = false;
+                    that.you = true;
+                    $('#list').animate({
+                        'right': '0px'
+                    });
+                    this.flag = true;
+                }
+            },
             initlistData(data){
                 let sudata = data;
                 this.styresdata = sudata;
@@ -235,8 +258,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 100, name: '未铺设'},
-                            {value:0, name: '设备'}
+                            {value: 200, name: '未铺设'},
+                            {value:54, name: '设备'}
 
                         ],
                         color: [
@@ -300,8 +323,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 90, name: '未铺设'},
-                            {value:10, name: '设备'}
+                            {value: 200, name: '未铺设'},
+                            {value:44, name: '设备'}
 
                         ],
                         color: [
@@ -312,70 +335,70 @@
                 })
             },
             //建设局进度
-            yuantuset3(){
-//                let Datavlue = 112.53 - this.Datalist.ComplexIndex;
-//                let Bianvlue = this.Datalist.ComplexIndex;
-//                let Color = this.Datalist.aqiColor;
-                // 基于准备好的dom，初始化echarts实例
-                var myChart = echarts.init(document.getElementById('guang3'));
-                app.title = '';
-                // 指定图表的配置项和数据
-                let option = {
-                    tooltip: {
-                        trigger: 'item',
-                        formatter: "{a} <br/>{b}: {c} ({d}%)"
-                    },
-                    legend: {
-                        orient: 'vertical',
-                        x: 'left',
-
-                    },
-                    series: [
-                        {
-                            name: '在线监测',
-                            type: 'pie',
-                            radius: ['100%', '80%'],
-                            avoidLabelOverlap: false,
-                            hoverAnimation:false,
-                            label: {
-                                normal: {
-                                    show: false,
-                                    position: 'center'
-                                },
-                                emphasis: {
-                                    show: false,
-                                    textStyle: {
-                                        fontSize: '20',
-                                        fontWeight: 'bold'
-                                    }
-                                }
-                            },
-                            labelLine: {
-                                normal: {
-                                    show: false
-                                }
-                            }
-                        }
-                    ]
-                };
-
-                // 使用刚指定的配置项和数据显示图表。
-                myChart.setOption(option);
-                //动态设置参数
-                myChart.setOption({
-                    series: [{
-                        data: [
-                            {value: 100, name: '未铺设'},
-                            {value: 0, name: '设备'}
-
-                        ],
-                        color: [
-                            '#ccc',
-                            "#00e401"
-                        ]
-                    }]
-                })
-            },
+//            yuantuset3(){
+////                let Datavlue = 112.53 - this.Datalist.ComplexIndex;
+////                let Bianvlue = this.Datalist.ComplexIndex;
+////                let Color = this.Datalist.aqiColor;
+//                // 基于准备好的dom，初始化echarts实例
+//                var myChart = echarts.init(document.getElementById('guang3'));
+//                app.title = '';
+//                // 指定图表的配置项和数据
+//                let option = {
+//                    tooltip: {
+//                        trigger: 'item',
+//                        formatter: "{a} <br/>{b}: {c} ({d}%)"
+//                    },
+//                    legend: {
+//                        orient: 'vertical',
+//                        x: 'left',
+//
+//                    },
+//                    series: [
+//                        {
+//                            name: '在线监测',
+//                            type: 'pie',
+//                            radius: ['100%', '80%'],
+//                            avoidLabelOverlap: false,
+//                            hoverAnimation:false,
+//                            label: {
+//                                normal: {
+//                                    show: false,
+//                                    position: 'center'
+//                                },
+//                                emphasis: {
+//                                    show: false,
+//                                    textStyle: {
+//                                        fontSize: '20',
+//                                        fontWeight: 'bold'
+//                                    }
+//                                }
+//                            },
+//                            labelLine: {
+//                                normal: {
+//                                    show: false
+//                                }
+//                            }
+//                        }
+//                    ]
+//                };
+//
+//                // 使用刚指定的配置项和数据显示图表。
+//                myChart.setOption(option);
+//                //动态设置参数
+//                myChart.setOption({
+//                    series: [{
+//                        data: [
+//                            {value: 100, name: '未铺设'},
+//                            {value: 0, name: '设备'}
+//
+//                        ],
+//                        color: [
+//                            '#ccc',
+//                            "#00e401"
+//                        ]
+//                    }]
+//                })
+//            },
             //安次区进度
             yuantuset4(){
 //                let Datavlue = 112.53 - this.Datalist.ComplexIndex;
@@ -430,8 +453,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 100, name: '未铺设'},
-                            {value: 0, name: '设备'}
+                            {value: 200, name: '未铺设'},
+                            {value: 149, name: '设备'}
 
                         ],
                         color: [
@@ -485,6 +508,7 @@
                     tableData.Id = item.Id;//城市id
                     tableData.Latitude = item.Latitude;//纬度
                     tableData.Longitude = item.Longitude;//经度
+                    tableData.Grid = item.gridname ? item.gridname : '----';//网格
                     this.ALLdata.push(tableData);
                 })
             },
@@ -599,7 +623,7 @@
                         margin-top: 25px;
                         margin-bottom: 25px;
                         float: left;
-                        margin-left: 8px;
+                        margin-left: 40px;
                         p {
                             text-align: center;
                             font-size: 14px;

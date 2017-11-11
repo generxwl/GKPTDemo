@@ -4,7 +4,7 @@
         <div id="list">
             <div class="gensui">
                 <div class="line_top">
-                    <toolbar>
+                    <toolbar @RightslideToggle="togleclick">
                         <map-handle slot="toors"></map-handle>
                     </toolbar>
                 </div>
@@ -21,23 +21,23 @@
                     <div class="yuanzhan">
                         <div class="jdflaot" style="margin-left: 30px">
                             <div id="guang1" style="width: 90px;height: 90px;"></div>
-                            <div class="texts">0</div>
+                            <div class="texts">58</div>
                             <p>开发区</p>
                         </div>
                         <div class="jdflaot">
                             <div id="guang2" style="width: 90px;height: 90px"></div>
-                            <div class="texts">10</div>
+                            <div class="texts">62</div>
                             <p>广阳区</p>
                         </div>
                         <div class="jdflaot">
                             <div id="guang4" style="width: 90px;height: 90px"></div>
-                            <div class="texts">0</div>
+                            <div class="texts">236</div>
                             <p>安次区</p>
                         </div>
                     </div>
                     <div class="sousuo">
                         <div class="sleft">
-                            <el-input v-model="filters.name" placeholder="请输入地址"></el-input>
+                            <el-input v-model="filters.name" placeholder="名称"></el-input>
                         </div>
                         <div class="sright">
                             <el-button type="primary" @click="searchData()">搜索</el-button>
@@ -56,9 +56,14 @@
                                     width="80">
                             </el-table-column>
                             <el-table-column
+                                    property="Grid"
+                                    label="网格名称"
+                                    width="80">
+                            </el-table-column>
+                            <el-table-column
                                     prop="CamName"
                                     label="视频名称"
-                                    width="220">
+                                    width="160">
                             </el-table-column>
                             <el-table-column
                                     prop="TypeName"
@@ -106,6 +111,7 @@
                 filters: {
                     name: ''
                 },
+                flag:true
             }
         },
         created(){
@@ -114,26 +120,25 @@
         mounted(){
             //右侧收放
             let that = this;
-            var flag = true;
             //
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
             $('#list #shrink').on('click', function () {
-                if (flag) {
-                    that.zuo=true;
-                    that.you=false;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
                     $('#list').animate({
                         'right': '-437px'
                     });
-                    flag = false;
+                    this.flag = false;
                 } else {
-                    that.zuo=false;
-                    that.you=true;
+                    that.zuo = false;
+                    that.you = true;
                     $('#list').animate({
                         'right': '0px'
                     });
-                    flag = true;
+                    this.flag = true;
                 }
             })
             //视频进度图
@@ -149,6 +154,24 @@
           });
         },
         methods: {
+            togleclick(){
+                let that = this;
+                if (this.flag) {
+                    that.zuo = true;
+                    that.you = false;
+                    $('#list').animate({
+                        'right': '-437px'
+                    });
+                    this.flag = false;
+                } else {
+                    that.zuo = false;
+                    that.you = true;
+                    $('#list').animate({
+                        'right': '0px'
+                    });
+                    this.flag = true;
+                }
+            },
             initlistData(data){
                 let sudata = data;
                 this.SetDataList(sudata)
@@ -226,8 +249,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 100, name: '未铺设'},
-                            {value:0, name: '设备'}
+                            {value: 200, name: '未铺设'},
+                            {value:58, name: '设备'}
 
                         ],
                         color: [
@@ -291,8 +314,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 90, name: '未铺设'},
-                            {value:10, name: '设备'}
+                            {value: 200, name: '未铺设'},
+                            {value:62, name: '设备'}
 
                         ],
                         color: [
@@ -356,8 +379,8 @@
                 myChart.setOption({
                     series: [{
                         data: [
-                            {value: 100, name: '未铺设'},
-                            {value: 0, name: '设备'}
+                            {value: 200, name: '未铺设'},
+                            {value: 236, name: '设备'}
 
                         ],
                         color: [
@@ -399,6 +422,7 @@
             },
             //设置分页所需要数据
             SetDataList(data){
+                console.log(data)
                 this.data = this.getPointByType(this.type,data);
                 this.ALLdata = [];
                 let i = 1;
@@ -410,6 +434,7 @@
                     tableData.Id = item.Id;//城市id
                     tableData.Latitude = item.Latitude;//纬度
                     tableData.Longitude = item.Longitude;//经度
+                    tableData.Grid = item.gridname ? item.gridname : '----';//网格
                     this.ALLdata.push(tableData);
                 })
             },

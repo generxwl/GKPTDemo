@@ -88,7 +88,7 @@
               <el-table-column
                       property="Name"
                       label="名称"
-                      width="110">
+                      width="120">
               </el-table-column>
               <el-table-column
                       property="Industry"
@@ -207,15 +207,6 @@
             let Ayydata = student.split('&code=').join(',')
             // console.log(Ayydata)
             this.ChenageGetDataList(Ayydata)
-           
-          //   let Ayydata = student.split('sourceType=');
-          //   for(var i = 0; i < Ayydata.length; i++){
-          //     let a =  Ayydata[i].replace('&','')
-          //      // console.log(a)
-          //       Newdata.push(a)
-          //   }
-          //  // console.log(Newdata)
-          //   return Newdata
         },
       //排序
       compare (propertyName) {

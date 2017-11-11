@@ -455,7 +455,7 @@
       //图标点击显示图表信息
       showCityPointChart (attr, point) {
         let t = this;
-        let charUrl = attr.hasOwnProperty('dataType') ? RequestHandle.getRequestUrl('XHDUSTCHAR') :  RequestHandle.getRequestUrl('DUSTCHART');
+        let charUrl = attr.hasOwnProperty('dataType') ? RequestHandle.getRequestUrl('XHDUSTCHAR') : RequestHandle.getRequestUrl('DUSTCHART');
         let code = attr['deviceid'];
         let url = charUrl + '?deviceid=' + code + '&ptype=' + this.item.replace('.', '').toLowerCase();
 //        console.log(code + this.item);
@@ -467,8 +467,8 @@
 //            console.log(res);
             let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
               title: '<sapn style="font-size:16px"><b>' + (data.name || '') + '</b>' + '</span>',             //标题
-              width: 320,
-              height: 200,
+              width: 420,
+              height: 'auto',
               enableAutoPan: true,
               searchTypes: []
             });
@@ -510,16 +510,38 @@
       //设置弹出框信息
       setInfoWindow(data){
         //console.log(data)
-        return '<table width=\'100%\' class="fitem"><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
-          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
-          + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.temp) + '℃'
-          + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.humi) + '%'
-          + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data.wdirection
-          + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + (data.windspeed || 0) + '级'
-          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + (data.time.replace(/T/g, ' ') || '') + '</td></tr></table>'
-          + '</td>'
-          + '<td valign=\'top\' align=\'right\'><td>'
-          + '</tr></table><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;height:110px\'>';
+        /* return '<table width=\'100%\' class="fitem"><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
+         + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
+         + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.temp) + '℃'
+         + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.humi) + '%'
+         + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data.wdirection
+         + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + (data.windspeed || 0) + '级'
+         + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + (data.time.replace(/T/g, ' ') || '') + '</td></tr></table>'
+         + '</td>'
+         + '<td valign=\'top\' align=\'right\'><td>'
+         + '</tr></table><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;height:110px\'>';*/
+
+        let gridName = (data.firstGridName || '') + '-' + (data.secodGridName || '') + '-' + (data.threeGridName || '');
+        let tel = data.Contact || '';
+        let memberName = data.memberName || '';
+
+        return '<div class="param gongDi">\n' +
+          '    <div class="line"></div>\n' +
+          '    <div class="item one">\n' +
+          '        <img src="../static/imgs/main/gd-g.png"></img>\n' +
+          '        <div class="type">工地扬尘监测</div>\n' +
+          '        <div class="date">' + (data.time && (data.time.replace(/T/g, ' ')) || '') + '</div>\n' +
+          '    </div>\n' +
+          '    <div class="item second">\n' +
+          '        <div class="key" style=\'background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + '\'>PM2.5</div>\n' +
+          '        <div class="value">' + (data.pm25 ? parseInt(data.pm25) : '--') + '</div>\n' +
+          '    </div>' +
+          '<div class="item third">' +
+          '<div class="key" style=\'background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + '\'>PM10</div>' +
+          '<div class="value">' + (data.pm10 ? parseInt(data.pm10) : '--') + '</div>' +
+          '</div>\n' +
+          '</div><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;color:#666666;font-weight:bold;height:110px\'></div>' +
+          '<div class="Introduce"><div class="Net">所属网络：' + gridName + '</div><div class="Person">网络员代表：' + memberName + '</div><div>联系方式：' + tel + '</div></div>'
       },
 
       //加载Chart数据
@@ -699,5 +721,108 @@
 
   .BMapLib_SearchInfoWindow .BMapLib_sendToPhone {
     background: none;
+  }
+
+  .param {
+    /*border-top:1px solid #DDDDDD;*/
+    padding: 0 15px 20px;
+  }
+
+  .line {
+    height: 1px;
+    width: 100%;
+    background: #DDDDDD;
+    margin-bottom: 12px;
+  }
+
+  .param .item {
+    background: #EBEBEB;
+    display: inline-block;
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+  }
+
+  .date {
+    font-size: 10px;
+    color: #666666;
+    line-height: 10px;
+  }
+
+  .value {
+    font-size: 14px;
+    color: #666666;
+    background: #EBEBEB;
+    text-align: center;
+  }
+
+  .key {
+    font-size: 12px;
+    color: #333333;
+    font-weight: bold;
+    /*background:#2BE42F;*/
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+  }
+
+  .type {
+    font-size: 14px;
+    color: #333333;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .one {
+    text-align: center;
+    padding: 10px 0;
+    width: 190px;
+  }
+
+  .second .key,
+  .third .key {
+    width: 93px;
+  }
+
+  .second .value,
+  .third .value {
+    height: 28px;
+    width: 93px;
+  }
+
+  .param .value {
+    height: 28px;
+    line-height: 28px;
+  }
+
+  .third {
+    margin-left: 4px;
+  }
+
+  .index .item {
+    display: inline-block;
+    font-size: 12px;
+    color: #666666;
+    margin-right: 30px;
+    font-family: 'Microsoft YaHei'
+  }
+
+  .gongDi .item {
+    display: inline-block;
+    height: 48px;
+    vertical-align: top;
+  }
+
+  .Introduce {
+    font-size: 12px;
+    color: #999999;
+    padding: 0 15px 15px;
+  }
+
+  .Net, .Person {
+    display: inline-block;
+  }
+
+  .Net {
+    margin-right: 10px;
   }
 </style>

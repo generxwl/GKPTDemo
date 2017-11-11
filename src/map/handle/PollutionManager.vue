@@ -16,9 +16,9 @@
         lsRenderOverlay: [],
         lsSearchInfoWindow: [],
         lsRenderMarker: [],
-        lsRedLabels:[],
-        historyData:[],
-        hasHistory:false,
+        lsRedLabels: [],
+        historyData: [],
+        hasHistory: false,
         data: [],
         checkedName: 'AQI'
       }
@@ -98,7 +98,7 @@
       },
 
       //刷新覆盖物
-      refreshLayer(data,hasHistory = true){
+      refreshLayer(data, hasHistory = true){
         if (data) {
           //this.data = data;
           hasHistory && (this.data = data);
@@ -115,11 +115,11 @@
           let url = urlHistoryLCS + '2017103014.json';//+ tm.replace(/-/g,'').replace(/' '/g,'').replace(/:/g,'') + '.json';
           RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
 //            if (result.status === 1) {
-              let data = result || [];
-              t.historyData = data;
-              if (data.length) {
-                t.refreshLayer(data, false);
-              }
+            let data = result || [];
+            t.historyData = data;
+            if (data.length) {
+              t.refreshLayer(data, false);
+            }
 //            }
           }, function (ex) {
             console.log(ex);
@@ -555,7 +555,7 @@
             let infoContent = t.setGSInfoWindow(obj);
             let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, infoContent, {
               title: '<sapn style="font-size:16px"><b>' + (obj.pointname || '') + '</b>' + '</span>',             //标题
-              width: 320,
+              width: 420,
               height: 'auto',
               enableAutoPan: true,
               searchTypes: []
@@ -576,25 +576,77 @@
       //设置国省控点详细信息框Element
       setGSInfoWindow(data){
         let aqi = data.aqi;
-        return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
-          + '<table width=\'100%\' class=\'fitem\'>'
-          + '</td></tr><tr><th>类型</th><td style=\'width:70px;text-align:center;\'>' + data.type
-          + '</td></tr></tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(aqi)) + ';color:#fff\'>' + aqi
-          + '</td><th>综指</th><td  style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getComplexIndex(data.complexindex)) + ';color:#fff\'>' + parseFloat(data.complexindex).toFixed(3)
-          + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
-          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
-          + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + parseFloat(data.co).toFixed(1)
-          + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + parseInt(data.no2)
-          + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + parseInt(data.so2)
-          + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + parseInt(data.o3)
-          + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.temp) + '℃'
-          + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.humi) + '%'
-          + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data.winddirection
-          + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + (parseInt(data.windspeed) || 0) + '级'
-          + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data.time.replace(/T/g, ' ') + '</td></tr></table>'
-          + '</td>'
-          + '<td valign=\'top\' align=\'right\'><td>'
-          + '</tr></table><div id=\'citychart_' + data.citygid + '\' style=\'width:100%;height:110px\'>';
+        let time = data.time;
+        let gridName = (data.firstGridName || '') + '-' + (data.secodGridName || '') + '-' + (data.threeGridName || '');
+        let tel = data.Contact || '';
+        let memberName = data.memberName || '';
+        /* return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
+         + '<table width=\'100%\' class=\'fitem\'>'
+         + '</td></tr><tr><th>类型</th><td style=\'width:70px;text-align:center;\'>' + data.type
+         + '</td></tr></tr><th>AQI</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(aqi)) + ';color:#fff\'>' + aqi
+         + '</td><th>综指</th><td  style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getComplexIndex(data.complexindex)) + ';color:#fff\'>' + parseFloat(data.complexindex).toFixed(3)
+         + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + parseInt(data.pm25)
+         + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + parseInt(data.pm10)
+         + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + parseFloat(data.co).toFixed(1)
+         + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + parseInt(data.no2)
+         + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + parseInt(data.so2)
+         + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + parseInt(data.o3)
+         + '</td></tr><tr><th>温度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.temp) + '℃'
+         + '</td><th>湿度</th><td style=\'width:70px;text-align:center;\'>' + parseInt(data.humi) + '%'
+         + '</td></tr><tr><th>风向</th><td style=\'width:70px;text-align:center;\'>' + data.winddirection
+         + '</td><th>风级</th><td style=\'width:70px;text-align:center;\'>' + (parseInt(data.windspeed) || 0) + '级'
+         + '</td></tr><tr><th>时间</th><td colspan=\'5\' style=\'text-align:left;padding-left:7px;\'>' + data.time.replace(/T/g, ' ') + '</td></tr></table>'
+         + '</td>'
+         + '<td valign=\'top\' align=\'right\'><td>'
+         + '</tr></table><div id=\'citychart_' + data.citygid + '\' style=\'width:100%;height:110px\'>';*/
+
+
+        return '  <div class="param"><div class="line"></div>\n' +
+          '        <div class="item one">\n' +
+          '            <div class="above">\n' +
+          '            <div class="square"></div>\n' +
+          '            <span class="type">' + data.type + '</span>\n' +
+          '            </div>\n' +
+          '            <div class="date">' + time.replace('T', ' ') + '</div>\n' +
+          '        </div>\n' +
+          '        <div class="item second">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getAQILevelIndex(aqi)) + '\'> AQI</div>\n' +
+          '            <div class="value">' + aqi + '</div>\n' +
+          '        </div>' +
+          '<div class="item third">' +
+          '<div class="key" style=\'background-color:' + getColorByIndex(getComplexIndex(data.complexindex)) + '\'>综值</div>' +
+          '<div class="value">' + parseFloat(data.complexindex).toFixed(3) + '</div></div><br>\n' +
+          '        <div class="item secondLine">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + '\'>PM2.5</div>\n' +
+          '            <div class="value"> ' + parseInt(data.pm25) + '</div>\n' +
+          '        </div>\n' +
+          '        <div class="item secondLine">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + '\'>PM10</div>\n' +
+          '            <div class="value">' + parseInt(data.pm10) + '</div>\n' +
+          '        </div>\n' +
+          '        <div class="item secondLine">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + '\'>CO</div>\n' +
+          '            <div class="value">' + parseFloat(data.co).toFixed(1) + '</div>\n' +
+          '        </div>\n' +
+          '        <div class="item secondLine">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + '\'>NO2</div>\n' +
+          '            <div class="value">' + parseInt(data.no2) + '</div>\n' +
+          '        </div>\n' +
+          '        <div class="item secondLine">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + '\'>SO2</div>\n' +
+          '            <div class="value">' + parseInt(data.so2) + '</div>\n' +
+          '        </div>\n' +
+          '        <div class="item secondLine">\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + '\'>O3</div>\n' +
+          '            <div class="value">' + parseInt(data.o3) + '</div>\n' +
+          '        </div>\n' +
+          '    </div><div class="index">' +
+          '<div class="item">温度：' + parseInt(data.temp) + '℃' + '</div>' +
+          '<div class="item">湿度：' + parseInt(data.humi) + '%' + '</div>' +
+          '<div class="item">风向：' + data.winddirection + '</div>' +
+          '<div class="item">风级：' + (parseInt(data.windspeed) || 0) + '级' + '</div></div>' +
+          '<div id=\'citychart_' + data.citygid + '\' style=\'width:100%;height:110px\'></div>' +
+          '<div class="Introduce"><div class="Net">所属网络：' + gridName + '</div><div class="Person">网络员代表：' + memberName + '</div><div>联系方式：' + tel + '</div></div>'
       },
 
       //加载24小时数据
@@ -830,5 +882,110 @@
 
   .BMapLib_SearchInfoWindow .BMapLib_sendToPhone {
     background: none;
+  }
+
+  .param {
+    /*border-top:1px solid #DDDDDD;*/
+    padding: 0 15px 20px;
+  }
+
+  .line {
+    height: 1px;
+    width: 100%;
+    background: #DDDDDD;
+    margin-bottom: 12px;
+  }
+
+  .param .item {
+    background: #EBEBEB;
+    display: inline-block;
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+  }
+
+  .date {
+    font-size: 10px;
+    color: #666666;
+    line-height: 10px;
+  }
+
+  .value {
+    font-size: 14px;
+    color: #666666;
+    background: #EBEBEB;
+    text-align: center;
+  }
+
+  .key {
+    font-size: 12px;
+    color: #333333;
+    font-weight: bold;
+    /*background:#2BE42F;*/
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+  }
+
+  .type {
+    font-size: 14px;
+    color: #333333;
+    font-weight: bold;
+    display: inline-block;
+  }
+
+  .one {
+    text-align: center;
+    padding: 10px 0;
+    width: 190px;
+  }
+
+  .second .key,
+  .third .key {
+    width: 93px;
+  }
+
+  .second .value,
+  .third .value {
+    height: 28px;
+    width: 93px;
+  }
+
+  .param .value {
+    height: 28px;
+    line-height: 28px;
+  }
+
+  .third {
+    margin-left: 4px;
+  }
+
+  .secondLine {
+    width: 61px;
+  }
+
+  .index {
+    padding: 0 20px 10px;
+  }
+
+  .index .item {
+    display: inline-block;
+    font-size: 12px;
+    color: #666666;
+    margin-right: 30px;
+    font-family: 'Microsoft YaHei'
+  }
+
+  .Introduce {
+    font-size: 12px;
+    color: #999999;
+    padding: 0 15px 15px;
+  }
+
+  .Net, .Person {
+    display: inline-block;
+  }
+
+  .Net {
+    margin-right: 10px;
   }
 </style>
