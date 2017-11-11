@@ -84,13 +84,13 @@
           let value = lsMarkers[i];
 //          let latGPS = parseInt(value.latitude) + parseFloat(value.latitudem) / 60 + parseFloat(value.latitudes) / 3600;
 //          let lngGPS = parseInt(value.longitude) + parseFloat(value.longitudem) / 60 + parseFloat(value.longitudes) / 3600;
-          let latGPS = value.latitudenew;
-          let lngGPS = value.longitudenew;
+          let latGPS = value.la;
+          let lngGPS = value.lo;
           let pt = new BMap.Point(lngGPS, latGPS);
-          let v = value.count;
+          let v = value.p.no || 0;
           let marker = t.getMarker(pt, v);
 
-          let label = new BMap.Label(value.entname);
+          let label = new BMap.Label(value.e);
           label.setStyle({
             border: 'none',
             color: '#333',
@@ -99,14 +99,15 @@
             fontFamily: 'Microsoft YaHei',
             textShadow: '0 0 2px #fff'
           });
-          let offsetLength = value.entname.length * 14 / 2 || 0;//('' + value.count).length >= 4 ? (('' + value.count).length === 5 ? -2 : 2) : (('' + value.count).length > 1 ? 8 : 12);
+          let offsetLength = value.e.length * 14 / 2 || 0;//('' + value.count).length >= 4 ? (('' + value.count).length === 5 ? -2 : 2) : (('' + value.count).length > 1 ? 8 : 12);
           label.setOffset(new BMap.Size(-offsetLength, 18));
 
           //t.map.addOverlay(marker),
-          marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = {stationName: value.stationname}, t.markers.push(marker), marker.addEventListener('click', function (e) {
-            let tg = e.target;
-            let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
-            t.markerClick(value, point);
+          marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = value, t.markers.push(marker), marker.addEventListener('click', function (e) {
+            let tg = e.target || e.currentTarget;
+            let point = e.point;//new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
+            let atr = tg.attributes;
+            t.markerClick(atr, point);
           }), marker.addEventListener('mouseover', function (e) {
 //            let tg = e.target;
 //            let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
@@ -223,7 +224,7 @@
 
       //图标点击事件
       markerClick(obj, point){
-        this.setSearchInfoWindow(point, obj, 'entname');
+        this.setSearchInfoWindow(point, obj, 'e');
 //        let t = this;
 //        let charUrl = RequestHandle.getRequestUrl('STATICTARGET');
 //        let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
@@ -269,25 +270,66 @@
       },
 
       //设置弹出层样式
-      setSearchInfoStyle(staticType, attributes){
+      setSearchInfoStyle(attributes){
         let url = undefined;
         if (attributes.hasOwnProperty('id')) {
-          switch (parseInt(staticType)) {
+          let ptType = this.getPointType(attributes['type']);
+          switch (ptType) {
             case 0:
-              url = 'static/alert/one.html' + '?id=' + attributes.id;
+              url = 'static/alert/carRepair.html' + '?id=' + attributes.id;//汽修站
               break;
             case 1:
-              url = 'static/alert/two.html' + '?id=' + attributes.id;
+              url = 'static/alert/dryClean.html' + '?id=' + attributes.id;//干洗店
               break;
             case 2:
-              url = 'static/alert/three.html' + '?id=' + attributes.id;
+              url = 'static/alert/Dust.html' + '?id=' + attributes.id;//施工扬尘
               break;
             case 3:
-              url = 'static/alert/three.html' + '?id=' + attributes.id;
+              url = 'static/alert/enterprise.html' + '?id=' + attributes.id;//企业
+              break;
+            case 4:
+              url = 'static/alert/gasStation.html' + '?id=' + attributes.id;//加油站
+              break;
+            case 5:
+              url = 'static/alert/three.html' + '?id=' + attributes.id;//移动源
+              break;
+            case 6:
+              url = 'static/alert/three.html' + '?id=' + attributes.id;//餐饮油烟
               break;
           }
         }
         return url ? '<iframe style="height:100%;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
+      },
+
+      getPointType(type){
+        let rtValue = -1;
+        switch (type.toUpperCase()) {
+          case '':
+            rtValue = 0;
+            break;
+          case '':
+            rtValue = 1;
+            break;
+          case '':
+            rtValue = 2;
+            break;
+          case '':
+            rtValue = 3;
+            break;
+          case '':
+            rtValue = 4;
+            break;
+          case '':
+            rtValue = 5;
+            break;
+          case '':
+            rtValue = 6;
+            break;
+          default:
+            rtValue = -1;
+            break;
+        }
+        return rtValue;
       },
 
       //获取图标对象
