@@ -13,7 +13,7 @@
         map: undefined,
         markers: [],
         hasVisible: true,
-        checkedName: 'AQI',
+        checkedName: 'NO',
         mouseLabel: new BMap.Label(''),
         data: [],
         mkm: undefined,
@@ -64,7 +64,7 @@
       //加载marker数据
       loadMarkerLayer(data){
         this.markers && this.clearMarker();
-        !this.mkm && (this.mkm = new BMapLib.MarkerClusterer(this.map,{},"111"));
+        !this.mkm && (this.mkm = new BMapLib.MarkerClusterer(this.map,{},this.checkedName.toLocaleLowerCase()));
         this.map && this.map.addOverlay(this.mouseLabel);
         this.mouseLabel.setStyle({
           background: 'none',
@@ -87,7 +87,7 @@
           let latGPS = value.la;
           let lngGPS = value.lo;
           let pt = new BMap.Point(lngGPS, latGPS);
-          let v = value.p.no || 0;
+          let v = value.p[this.checkedName.toLocaleLowerCase()] || 0;
           let marker = t.getMarker(pt, v);
 
           let label = new BMap.Label(value.e);
@@ -129,19 +129,19 @@
           url: this.markUrl + '0.png',
           size: new BMap.Size(30, 26),
           opt_anchor: [16, 0],
-          textColor: '#ffffff',
+          textColor: '#333',
           opt_textSize: 10
         }, {
           url: this.markUrl + '1.png',
           size: new BMap.Size(40, 35),
           opt_anchor: [40, 35],
-          textColor: '#666fff',
+          textColor: '#333',
           opt_textSize: 12
         }, {
           url: this.markUrl + '2.png',
           size: new BMap.Size(50, 44),
           opt_anchor: [32, 0],
-          textColor: '#cccccc',
+          textColor: '#333',
           opt_textSize: 14
         }];
         this.mkm.setStyles(myStyles);

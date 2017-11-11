@@ -119,7 +119,6 @@ var BMapLib = window.BMapLib = BMapLib || {};
             if (!map){
                 return;
             }
-            alert(otype)
             this._map = map;
             this.otype = otype;
             this._markers = [];
@@ -584,9 +583,9 @@ var BMapLib = window.BMapLib = BMapLib || {};
             var myObj = obj;
             var allNum = 0;
             for(var i = 0 ; i < myLength ; i ++){
-                allNum += parseFloat(myObj[i].attributes.p.no) || 0 ;
+                allNum += parseFloat(myObj[i].attributes.p.no) || 0.0 ;
             }
-            return allNum.toFixed(3)
+            return allNum.toFixed(1)
         }
         this._clusterMarker.setText(computNum(this._markers,this._markerClusterer.otype));
 
