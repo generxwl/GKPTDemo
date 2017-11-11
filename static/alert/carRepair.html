@@ -144,9 +144,9 @@
 		var all=all2.ExtraData
 		var content1="";
 		content1+="<tr><td>地址</td><td colspan='3'>"+(all.province?all.province:'')+(all.city?all.city:'')+(all.area?all.area:'')+"</td></tr>"+
-			"<tr><td>联系人</td><td>"+all.legalpersoname+"</td><td>电话</td><td>"+all.legalpersontel+"</td></tr>"+
-			"<tr><td>所属网格</td><td colspan='3'>"+all.gridname+"</td></tr>"+
-			"<tr><td>网格员</td><td>"+all.person+"</td><td>网格员联络电话</td><td>"+all.legalpersontel+"</td></tr>"+
+			"<tr><td>联系人</td><td>"+(all.legalpersoname?all.legalpersoname:'')+"</td><td>电话</td><td>"+(all.legalpersontel?all.legalpersontel:"")+"</td></tr>"+
+			"<tr><td>所属网格</td><td colspan='3'>"+(all.gridname?all.gridname:'')+"</td></tr>"+
+			"<tr><td>网格员</td><td>"+(all.person?all.person:'')+"</td><td>网格员联络电话</td><td>"+(all.legalpersontel?all.legalpersontel:'')+"</td></tr>"+
 			"<tr><td>喷烘两用房个数</td><td colspan='3'></td></tr>"+
 			"<tr><td>废弃处理方式</td><td></td><td>废弃处理效率</td><td></td></tr>"+
 			"<tr><td>溶剂性质</td><td colspan='3'></td></tr>"+
