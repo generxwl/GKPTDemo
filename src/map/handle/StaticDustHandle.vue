@@ -17,7 +17,7 @@
         mouseLabel: new BMap.Label(''),
         data: [],
         mkm: undefined,
-        markUrl:'/static/imgs/duststatic/',
+        markUrl: '/static/imgs/duststatic/',
         infoWindowConfig: {
           width: 250,     // 信息窗口宽度
           height: 240,     // 信息窗口高度
@@ -36,18 +36,18 @@
       //页面初始化
       ready(){
         bus.$once('setStaticMap', this.getMap);
-        bus.$on('refreshStaticMap',this.refreshData);
-        bus.$on('setStaticTarget',this.setStaticTarget)
+        bus.$on('refreshStaticMap', this.refreshData);
+        bus.$on('setStaticTarget', this.setStaticTarget)
       },
       getMap(map){
         this.map = map;
         this.loadStaticMarker();
       },
       setStaticTarget(type){
-          type && (this.checkedName = type);
+        type && (this.checkedName = type);
       },
       refreshData(data){
-          data && (this.loadMarkerLayer(data),this.data = data);
+        data && (this.loadMarkerLayer(data), this.data = data);
       },
       loadStaticMarker(){
         let t = this;
@@ -75,7 +75,7 @@
         });
         if (!this.data.length) {
           this.data = data;
-          bus.$emit('setStaticData',this.data);
+          bus.$emit('setStaticData', this.data);
         }
         let t = this;
         let lsMarkers = this.data;//this.getPollutionByType(this.checkedName);
@@ -99,14 +99,14 @@
             fontFamily: 'Microsoft YaHei',
             textShadow: '0 0 2px #fff'
           });
-          let offsetLength = value.entname.length*14/2 || 0;//('' + value.count).length >= 4 ? (('' + value.count).length === 5 ? -2 : 2) : (('' + value.count).length > 1 ? 8 : 12);
+          let offsetLength = value.entname.length * 14 / 2 || 0;//('' + value.count).length >= 4 ? (('' + value.count).length === 5 ? -2 : 2) : (('' + value.count).length > 1 ? 8 : 12);
           label.setOffset(new BMap.Size(-offsetLength, 18));
 
           //t.map.addOverlay(marker),
           marker && ((t.hasVisible ? marker.show() : marker.hide()), marker.setLabel(label), marker.attributes = {stationName: value.stationname}, t.markers.push(marker), marker.addEventListener('click', function (e) {
             let tg = e.target;
             let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
-            t.markerClick(value.stationid, point);
+            t.markerClick(value, point);
           }), marker.addEventListener('mouseover', function (e) {
 //            let tg = e.target;
 //            let point = new BMap.Point(tg.getPosition().lng, tg.getPosition().lat);
@@ -175,9 +175,9 @@
       },
 
       //刷新Chart数据
-      refreshLoadChart(lng, lat, code){
+      refreshLoadChart(lng, lat, obj){
         let point = new BMap.Point(lng, lat);
-        this.markerClick(code, point);
+        this.markerClick(obj, point);
       },
 
       getPollutionLeave(value){
@@ -222,32 +222,72 @@
       },
 
       //图标点击事件
-      markerClick(code, point){
+      markerClick(obj, point){
+        this.setSearchInfoWindow(point, obj, 'entname');
+//        let t = this;
+//        let charUrl = RequestHandle.getRequestUrl('STATICTARGET');
+//        let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
+//
+//        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
+//          if (result.status === 0) {
+//            let data = result.obj;
+//            let res = t.setInfoWindow(data);
+//
+//            let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
+//              title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
+//              width: 320,
+//              height: 200,
+//              enableAutoPan: true,
+//              searchTypes: []
+//            });
+//            searchInfoWindow.open(point);
+//            setTimeout(function () {
+//              let title = '最近24小时' + t.checkedName + '变化趋势';
+//              t.loadChar(code, t.checkedName, t.getHourData(data.hourdatas), title);
+//            }, 100);
+//          }
+//        }, function (ex) {
+//          console.error(ex);
+//        });
+      },
+
+      //设置弹出层
+      setSearchInfoWindow(point, attributes, displayFieldName){
         let t = this;
-        let charUrl = RequestHandle.getRequestUrl('STATICTARGET');
-        let url = charUrl + '?stationid=' + code + '&pollute=' + this.checkedName;
+        let res = t.setSearchInfoStyle(attributes);
+        if (res) {
+          let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
+            title: '<sapn style="font-size:16px" ><b title="' + (attributes[displayFieldName] || '') + '">' + (attributes[displayFieldName] || '') + '</b>' + '</span>',             //标题
+            width: '420',
+            height: 'auto',
+            enableAutoPan: true,
+            enableSendToPhone: false,
+            searchTypes: []
+          });
+          searchInfoWindow.open(point);
+        }
+      },
 
-        RequestHandle.request({url: url, type: 'GET', pms: {}}, function (result) {
-          if (result.status === 0) {
-            let data = result.obj;
-            let res = t.setInfoWindow(data);
-
-            let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
-              title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
-              width: 320,
-              height: 200,
-              enableAutoPan: true,
-              searchTypes: []
-            });
-            searchInfoWindow.open(point);
-            setTimeout(function () {
-              let title = '最近24小时' + t.checkedName + '变化趋势';
-              t.loadChar(code, t.checkedName, t.getHourData(data.hourdatas), title);
-            }, 100);
+      //设置弹出层样式
+      setSearchInfoStyle(staticType, attributes){
+        let url = undefined;
+        if (attributes.hasOwnProperty('id')) {
+          switch (parseInt(staticType)) {
+            case 0:
+              url = 'static/alert/one.html' + '?id=' + attributes.id;
+              break;
+            case 1:
+              url = 'static/alert/two.html' + '?id=' + attributes.id;
+              break;
+            case 2:
+              url = 'static/alert/three.html' + '?id=' + attributes.id;
+              break;
+            case 3:
+              url = 'static/alert/three.html' + '?id=' + attributes.id;
+              break;
           }
-        }, function (ex) {
-          console.error(ex);
-        });
+        }
+        return url ? '<iframe style="height:100%;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
       },
 
       //获取图标对象
