@@ -13,9 +13,9 @@
         markers: [],
         lsLabels: [],
         hasVisible: true,
-        hasAnalysis:false,
+        hasAnalysis: false,
         checkedName: 'AQI',
-        maxZoom:13,
+        maxZoom: 13,
         mouseLabel: new BMap.Label(''),
         data: [],
         historyData: [],
@@ -43,8 +43,8 @@
         bus.$on('loadChart', this.refreshLoadChart);
         bus.$on('refreshMarker', this.refreshLayer);
         bus.$on('historySenseMarker', this.historyMarker);
-        bus.$on('setLabelVisible',this.labelVisibleTarget);
-        bus.$emit('setLayerType','SENSE');//设置时间轴图层类型
+        bus.$on('setLabelVisible', this.labelVisibleTarget);
+        bus.$emit('setLayerType', 'SENSE');//设置时间轴图层类型
       },
 
       //加载marker数据
@@ -154,7 +154,7 @@
             if (result.status === 1) {
               let data = result.obj;
               t.historyData = data;
-              if(data.length) {
+              if (data.length) {
                 t.refreshMarker(data, false);
               }
             }
@@ -350,58 +350,61 @@
 
       //设置弹出框信息
       setInfoWindow(data){
-      /*  return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
-          + '<table width=\'100%\' class=\'fitem\'>'
-          + '<tr><th></th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(data.aqi)) + ';color:#fff\'>' + (data.aqi || '--')
-          + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + (parseInt(data.pm25) || '--')
-          + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + (parseInt(data.pm10) || '--')
-          + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + (data.co || '--') /!*parseFloat(data.co).toFixed(1)*!/
-          + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + (parseInt(data.no2) || '--')
-          + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + (parseInt(data.so2) || '--')
-          + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + (parseInt(data.o3) || '--')
-          + '</td></tr></table>'
-          + '</td>'
-          + '<td valign=\'top\' align=\'right\'><td>'
-          + '</tr></table><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'>';*/
+        /*  return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
+         + '<table width=\'100%\' class=\'fitem\'>'
+         + '<tr><th></th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getAQILevelIndex(data.aqi)) + ';color:#fff\'>' + (data.aqi || '--')
+         + '</td></tr><tr><th>PM2.5</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + ';color:#fff\'>' + (parseInt(data.pm25) || '--')
+         + '</td><th>PM10</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + ';color:#fff\'>' + (parseInt(data.pm10) || '--')
+         + '</td><th>CO</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + ';color:#fff\'>' + (data.co || '--') /!*parseFloat(data.co).toFixed(1)*!/
+         + '</td></tr><tr><th>NO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + ';color:#fff\'>' + (parseInt(data.no2) || '--')
+         + '</td><th>SO2</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + ';color:#fff\'>' + (parseInt(data.so2) || '--')
+         + '</td><th>O3</th><td style=\'width:70px;text-align:center;background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + ';color:#fff\'>' + (parseInt(data.o3) || '--')
+         + '</td></tr></table>'
+         + '</td>'
+         + '<td valign=\'top\' align=\'right\'><td>'
+         + '</tr></table><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'>';*/
 
+        let gridName = (data.firstGridName || '') + '-' + (data.secodGridName || '') + '-' + (data.threeGridName || '');
+        let tel = data.Contact || '';
+        let memberName = data.memberName || '';
         return '<div class="param"><div class="line"></div>\n' +
           '        <div class="item one">\n' +
           '            <div class="above">\n' +
           '            <div class="circle"></div>\n' +
           '            <span class="type">六参数检测</span>\n' +
           '            </div>\n' +
-          '            <div class="date">'+data.CollectTime.replace('T',' ')+'</div>\n' +
+          '            <div class="date">' + ((data.hasOwnProperty('RecordTime') && data.RecordTime.replace('T', ' ')) || (data.hasOwnProperty('RecordTime') && data.CollectTime.replace('T', ' '))) + '</div>\n' +
           '        </div>\n' +
           '        <div class="item">\n' +
-          '            <div class="key keyAqi" style=\'background-color:' + getColorByIndex(getAQILevelIndex(data.aqi))+'\'>AQI</div>\n' +
-          '            <div class="value">'+(data.aqi ? data.aqi : '--')+'</div>\n' +
+          '            <div class="key keyAqi" style=\'background-color:' + getColorByIndex(getAQILevelIndex(data.aqi)) + '\'>AQI</div>\n' +
+          '            <div class="value">' + (data.aqi ? data.aqi : '--') + '</div>\n' +
           '        </div><br>\n' +
           '        <div class="item secondLine">\n' +
-          '            <div class="key" style=\'background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25))+'\'>PM2.5</div>\n' +
-          '            <div class="value">'+(data.pm25 ? parseInt(data.pm25) : '--')+'</div>\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + '\'>PM2.5</div>\n' +
+          '            <div class="value">' + (data.pm25 ? parseInt(data.pm25) : '--') + '</div>\n' +
           '        </div>\n' +
           '        <div class="item secondLine">\n' +
-          '            <div class="key"  style=\'background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10))+'\'>PM10</div>\n' +
-          '            <div class="value">'+(data.pm10 ? parseInt(data.pm10) : '--')+'</div>\n' +
+          '            <div class="key"  style=\'background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + '\'>PM10</div>\n' +
+          '            <div class="value">' + (data.pm10 ? parseInt(data.pm10) : '--') + '</div>\n' +
           '        </div>\n' +
           '        <div class="item secondLine">\n' +
-          '            <div class="key" style=\'background-color:' + getColorByIndex(getCOLevelIndex(data.co))+'\'>CO</div>\n' +
-          '            <div class="value">'+(data.co ? parseFloat(data.co).toFixed(1) : '--')+'</div>\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + '\'>CO</div>\n' +
+          '            <div class="value">' + (data.co ? parseFloat(data.co).toFixed(1) : '--') + '</div>\n' +
           '        </div>\n' +
           '        <div class="item secondLine">\n' +
-          '            <div class="key" style=\'background-color:' + getColorByIndex(getNO2LevelIndex(data.no2))+'\'>NO2</div>\n' +
-          '            <div class="value">'+(data.no2 ? parseInt(data.no2) : '--')+'</div>\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + '\'>NO2</div>\n' +
+          '            <div class="value">' + (data.no2 ? parseInt(data.no2) : '--') + '</div>\n' +
           '        </div>\n' +
           '        <div class="item secondLine">\n' +
-          '            <div class="key" style=\'background-color:' + getColorByIndex(getSO2LevelIndex(data.so2))+'\'>SO2</div>\n' +
-          '            <div class="value">'+(data.so2 ? parseInt(data.so2) : '--')+'</div>\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + '\'>SO2</div>\n' +
+          '            <div class="value">' + (data.so2 ? parseInt(data.so2) : '--') + '</div>\n' +
           '        </div>\n' +
           '        <div class="item secondLine">\n' +
-          '            <div class="key" style=\'background-color:' + getColorByIndex(getO3LevelIndex(data.o3))+'\'>O3</div>\n' +
-          '            <div class="value">'+(data.o3 ? parseInt(data.o3) : '--')+'</div>\n' +
+          '            <div class="key" style=\'background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + '\'>O3</div>\n' +
+          '            <div class="value">' + (data.o3 ? parseInt(data.o3) : '--') + '</div>\n' +
           '        </div>\n' +
           '    </div><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'></div>' +
-          '<div class="Introduce"><div class="Net">所属网络：开发区-耀华道办事处梨花村一区</div><div class="Person">网络员代表：张三</div><div>联系方式：13693297681</div></div>'
+          '<div class="Introduce"><div class="Net">所属网络：' + gridName + '</div><div class="Person">网络员代表：' + memberName + '</div><div>联系方式：' + tel + '</div></div>'
       },
 
       //设置Chart展示数据
@@ -547,7 +550,6 @@
     background: none;
   }
 
-
   .param {
     /*border-top:1px solid #DDDDDD;*/
     padding: 0 15px 20px;
@@ -572,6 +574,7 @@
     color: #666666;
     line-height: 10px;
   }
+
   .value {
     font-size: 14px;
     color: #666666;
@@ -579,14 +582,14 @@
     text-align: center;
   }
 
-  .key{
-    font-size:12px;
-    color:#333333;
-    font-weight:bold;
+  .key {
+    font-size: 12px;
+    color: #333333;
+    font-weight: bold;
     /*background:#2BE42F;*/
-    text-align:center;
-    height:20px;
-    line-height:20px;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
   }
 
   .keyAqi {
@@ -617,7 +620,7 @@
   .one {
     text-align: center;
     padding: 10px 0;
-    width:190px;
+    width: 190px;
   }
 
   .second .key,
@@ -647,15 +650,18 @@
     margin-right: 30px;
     font-family: 'Microsoft YaHei'
   }
-  .Introduce{
-    font-size:12px;
-    color:#999999;
-    padding:0 15px 15px;
+
+  .Introduce {
+    font-size: 12px;
+    color: #999999;
+    padding: 0 15px 15px;
   }
-  .Net,.Person{
-    display:inline-block;
+
+  .Net, .Person {
+    display: inline-block;
   }
-  .Net{
-    margin-right:10px;
+
+  .Net {
+    margin-right: 10px;
   }
 </style>
