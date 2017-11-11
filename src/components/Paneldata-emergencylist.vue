@@ -12,11 +12,11 @@
                     <div class="tuli_02">
                         <ul>
                             <li>
-                                <img src="../../static/imgs/yingji/icon_1.png" alt="">
+                                <img style="position: inherit;margin: 12px 4px;" src="../../static/imgs/yingji/icon_1.png" alt="">
                                 <span>采暖期错峰企业</span>
                             </li>
                             <li>
-                                <img src="../../static/imgs/yingji/icon_2.png" alt="">
+                                <img style="position: inherit;margin: 12px 6px;" src="../../static/imgs/yingji/icon_2.png" alt="">
                                 <span>应急企业</span>
                             </li>
                         </ul>
@@ -41,18 +41,18 @@
                 <div class="main">
                     <div class="tables">
                         <!--选项-->
-                        <a>应急污染源统计</a>
+                        <a style="margin-left: -280px;">应急污染源统计</a>
+                        <strong id="context" style="position: absolute;right: 20px">收起∧</strong>
                         <div class="xian"></div>
                     </div>
                     <!--饼图-->
-                    <div class="bing">
+                    <div class="bing" id="content">
                         <div class="look">
                             <div class="bing_item1" id="bing_item1" style="width: 203px;height: 180px;"></div>
                             <div class="tuli">
                                 <ul>
-                                    <li><img src="../../static/imgs/piebiao/icon_lan1.png" alt="">应急企业</li>
-                                    <li><img src="../../static/imgs/piebiao/icon_huang2.png" alt="">采暖期错峰企业</li>
-
+                                    <li><img style="position: inherit" src="../../static/imgs/piebiao/icon_lan1.png" alt="">应急企业</li>
+                                    <li style="width: 120px"><img style="position: inherit" src="../../static/imgs/piebiao/icon_huang2.png" alt="">采暖期错峰企业</li>
                                 </ul>
                             </div>
                         </div>
@@ -60,9 +60,8 @@
                             <div class="bing_item2" id="bing_item2" style="width: 203px;height: 180px;"></div>
                             <div class="tuli">
                                 <ul>
-                                    <li><img src="../../static/imgs/piebiao/icon_lan1.png" alt="">开发区</li>
-                                    <li><img src="../../static/imgs/piebiao/icon_huang2.png" alt="">文安县</li>
-
+                                    <li style="margin-left: 30px"><img style="position: inherit" src="../../static/imgs/piebiao/icon_lan1.png" alt="">开发区</li>
+                                    <li><img style="position: inherit" src="../../static/imgs/piebiao/icon_huang2.png" alt="">文安县</li>
                                 </ul>
                             </div>
                         </div>
@@ -126,7 +125,6 @@
     import {bus} from '@/js/bus.js'
     import api from '../api/index'
     import Toolbar from '@/components/Toolbar'
-
     export default {
         name: 'emergencylist',
         data () {
@@ -175,7 +173,7 @@
             $('.first .tables a').on('click', function () {
                 $(this).addClass('bai').siblings().removeClass('bai')
             })
-            $('#list #shrink').on('click', function () {
+            $('#shrink').on('click', function () {
                 if (this.flag) {
                     that.zuo = true;
                     that.you = false;
@@ -191,7 +189,19 @@
                     });
                     this.flag = true;
                 }
+//                $("#list").toggleClass('sidebar');
+//                return false;
             })
+            //
+            $("#context").click(function() {
+                $(this).text($("#content").is(":hidden") ? "收起∧" : "展开∨");
+                $("#content").slideToggle();
+            });
+            //
+            setTimeout(function () {
+                that.yuantuset1();
+                that.yuantuset2()
+            },400)
         },
         methods: {
             togleclick(){
@@ -254,9 +264,8 @@
                 }
                 return rtValue;
             },
-            //图1
+            //应急企业图1
             yuantuset1(){
-
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = echarts.init(document.getElementById('bing_item1'));
                 // 指定图表的配置项和数据
@@ -267,7 +276,7 @@
                     },
                     series : [
                         {
-                            name:'空气传感器占比',
+                            name:'---',
                             type:'pie',
                             radius : ['0%', '75%'],
                             hoverAnimation:false,
@@ -288,26 +297,19 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-//                    legend: {
-//                        x : 'center',
-//                        y : 'bottom',
-//                        data: data.map(function (v) {
-//                            return v.name
-//                        })
-//                    },
                     series: [{
-                        data: data,
+                       data: [
+                            {value:335, name:'应急企业'},
+                            {value:310, name:'采暖期错峰企业'},
+                        ],
                         color:[
                             '#0392e0',
-                            '#a0cb3e',
-                            '#f7cc5c',
-                            '#91dfcf',
-                            '#d190e2'
+                            '#a0cb3e'
                         ]
                     }]
                 })
             },
-            //图2
+            //分区图2
             yuantuset2(){
                 // 基于准备好的dom，初始化echarts实例
                 let myChart = echarts.init(document.getElementById('bing_item2'));
@@ -319,7 +321,7 @@
                     },
                     series : [
                         {
-                            name:'视频类型占比',
+                            name:'---',
                             type:'pie',
                             radius : ['0%', '75%'],
                             hoverAnimation:false,
@@ -340,19 +342,14 @@
                 myChart.setOption(option);
                 //动态设置参数
                 myChart.setOption({
-//                    legend: {
-//                        data: data.map(function (v) {
-//                            return v.name
-//                        })
-//                    },
                     series: [{
-                        data: data,
+                        data: [
+                            {value:335, name:'开发区'},
+                            {value:310, name:'文安县'},
+                        ],
                         color:[
                             '#0392e0',
-                            '#a0cb3e',
-                            '#f7cc5c',
-                            '#91dfcf',
-                            '#d190e2'
+                            '#a0cb3e'
                         ]
                     }]
                 })
@@ -385,25 +382,14 @@
                     this.ALLdata.push(tableData);
                 })
             },
-
             //数据
             GetListqyData(){
 
                 //污染企业列表
-                api.GetCompanyPointList().then(res => {
-                    let data = res.data;
-                    data = typeof data === 'string' ? JSON.parse(data) : data;
-                    data = {
-                        status: data.hasOwnProperty('status') ? data.status : data.Status,
-                        obj: data.obj || data.ExtraData
-                    };
-                    let shoulist = data;
-                    let sudata = shoulist.obj;
-                    this.SetDataList(sudata, this.type)
-                    this.totalCount = this.ALLdata.length;
-                    this.allData = this.ALLdata;
-                    this.setPageTable(10, 1);
-                })
+//                api.GetCompanyPointList().then(res => {
+//                    let data = res.data;
+//
+//                })
             },
 
         },
@@ -421,7 +407,7 @@
         top: 56px;
         right: 0;
         .table_container {
-            margin-left: 16px;
+            margin-left: 0px;
             margin-top: 20px;
         }
         .bing {
@@ -433,16 +419,11 @@
                 width: 49%;
                 height: auto;
                 float: left;
-                p{
-                    color: #434D55;
-                    font-size: 14px;
-                    font-weight:bold;
-                }
                 ul{
                     li{
                         list-style: none;
-                        font-size: 12px;
-                        width:100px ;
+                        font-size: 10px;
+                        width:80px ;
                         height: 20px;
                         float: left;
                         text-align: left;
@@ -551,9 +532,10 @@
                                 height: 38px;
                                 width: 50%;
                                 line-height: 38px;
+                                text-align: left;
                                 float: left;
                                 color: #fff;
-                                padding-left: 20px;
+                                padding-left:10px;
                                 img{}
                                 span{}
                             }

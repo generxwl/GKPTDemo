@@ -17,9 +17,9 @@
           <div class="tables">
             <!--选项-->
             <a id="shishi" >污染源分类</a>
-            <font @click="chengeteget()">{{wall}}</font>
+            <font id="context">收起∧</font>
           </div>
-          <div class="symume" v-show="symume" @click='GetcheckboxData'>
+          <div class="symume" id="content">
             <div class="YuanType">
               <input @click='changeChecked(1)' :class="checked.ps1 ? 'checked1' : 'bg1'" type="checkbox" name="code" value="ps001" id="male" />
               <label for="male">工业企业源</label>
@@ -143,8 +143,6 @@
               name: ''
           },
         tableData: [],
-        symume:true,
-        wall:'收起∧',
         allData: [],
         currentRow: null,
         pagesize: 10,
@@ -194,6 +192,12 @@
           flag = true;
         }
       })
+        //
+        //
+        $("#context").click(function() {
+            $(this).text($("#content").is(":hidden") ? "收起∧" : "展开∨");
+            $("#content").slideToggle();
+        });
       //饼图
         setTimeout(function () {
             that.yuantuset1();
@@ -397,15 +401,6 @@
           }
         }
         return rtValue;
-      },
-      //改变收起状态
-      chengeteget(){
-          this.symume = !this.symume;
-          if(this.symume == false ){
-              this.wall = '展开∨'
-          }else {
-              this.wall = '收起∧'
-          }
       },
       //type更改
       refreshTable(type){

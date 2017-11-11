@@ -508,7 +508,7 @@
                     tableData.Id = item.Id;//城市id
                     tableData.Latitude = item.Latitude;//纬度
                     tableData.Longitude = item.Longitude;//经度
-                    tableData.Grid = item.gridname ? item.gridname : '----';//网格
+                    tableData.Grid = item.Area ? item.Area : '----';//网格
                     this.ALLdata.push(tableData);
                 })
             },
