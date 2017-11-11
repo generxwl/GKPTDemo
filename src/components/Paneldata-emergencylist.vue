@@ -106,7 +106,6 @@
                         <!--分页条-->
                         <div class="Pagination" style="text-align: left;margin-top: 10px;">
                             <el-pagination
-                                    @size-change="handleSizeChange"
                                     @current-change="handleCurrentChange"
                                     :current-page="currentPage"
                                     :page-size="pagesize"
@@ -131,68 +130,7 @@
             return {
                 zuo:false,
                 you:true,
-                tableData:[
-                    {
-                        NetworkName:'香河热四力',
-                        StartingState:'启动状态',
-                        Statues:'印刷',
-                        WanggeName:'开发区'
-                    },
-                    {
-                        NetworkName:'香河热四力',
-                        StartingState:'启动状态',
-                        Statues:'印刷',
-                        WanggeName:'开发区'
-                    },
-                    {
-                        NetworkName:'香河热四力',
-                        StartingState:'启动状态',
-                        Statues:'印刷',
-                        WanggeName:'开发区'
-                    },
-                    {
-                        NetworkName:'香河热四力',
-                        StartingState:'启动状态',
-                        Statues:'印刷',
-                        WanggeName:'开发区'
-                    },
-                    {
-                        NetworkName:'香河热四力',
-                        StartingState:'启动状态',
-                        Statues:'印刷',
-                        WanggeName:'开发区'
-                    },
-                    {
-                        NetworkName:'香河热四力',
-                        StartingState:'启动状态',
-                        Statues:'印刷',
-                        WanggeName:'开发区'
-                    },
-                    {
-                        NetworkName:'香河热四力',
-                        StartingState:'启动状态',
-                        Statues:'印刷',
-                        WanggeName:'开发区'
-                    },
-                    {
-                        NetworkName:'香河热四力',
-                        StartingState:'启动状态',
-                        Statues:'印刷',
-                        WanggeName:'开发区'
-                    },
-                    {
-                        NetworkName:'香河热四力',
-                        StartingState:'启动状态',
-                        Statues:'印刷',
-                        WanggeName:'开发区'
-                    },
-                    {
-                        NetworkName:'香河热四力',
-                        StartingState:'启动状态',
-                        Statues:'印刷',
-                        WanggeName:'开发区'
-                    }
-                ],
+                tableData:[],
                 allData:[],
                 labelType:"----",
                 currentRow: null,
@@ -206,7 +144,7 @@
         },
         created(){
             //bus.$on('loadVideoData', this.initlistData);
-            //this.GetListqyData()
+            this.GetListqyData()
         },
         mounted(){
             //右侧收放
@@ -288,7 +226,7 @@
             },
             //页码变更
             handleCurrentChange(val) {
-              //  this.setPageTable(10,val);
+               this.setPageTable(10,val);
                 //console.log(val)
             },
             handleSizeChange(){},
@@ -300,7 +238,7 @@
                     for (let i = 0, length = dt.length; i < length; i++) {
                         let item = dt[i];
 //                        if (item.type === type) {
-//                            rtValue.push(dt[i]);
+                          rtValue.push(dt[i]);
 //                        }
                     }
                 }
@@ -415,10 +353,11 @@
                 this.data.forEach(item => {
                     const tableData = {};
                     tableData.SerialNumber = i++;//序号
-                    tableData.NetworkName = item.psname;//企业名称
-                    tableData.pscode = item.pscode;//城市id
-                    tableData.Statues = this.ChaoBiaoData(item.NoxStatus);//是否超标
-                    tableData.WanggeName =  item.gridName ? item.gridName : '----' ;//网格名称item.WanggeName
+                    tableData.NetworkName = item.companyname;//企业名称
+                    tableData.pscode = item.id;//城市id
+                    tableData.Statues = '----';//行业
+                    tableData.StartingState = item.buttonstate ? '启动' : '关闭';//状态
+                    tableData.WanggeName =  item.threeGridName ? item.threeGridName : '----' ;//网格名称item.WanggeName
                     tableData.latitude = item.latitude;//纬度
                     tableData.longitude = item.longitude;//经度
                     this.ALLdata.push(tableData);
@@ -426,12 +365,12 @@
             },
             //数据
             GetListqyData(){
-
                 //污染企业列表
-//                api.GetCompanyPointList().then(res => {
-//                    let data = res.data;
-//
-//                })
+                api.GetEmergencyList().then(res => {
+                    let data = res.data.ExtraData;
+                    //console.log(data)
+                    this.initlistData(data)
+                })
             },
 
         },

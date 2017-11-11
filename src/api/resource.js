@@ -37,6 +37,7 @@ const apilangfangTDK= {
   GetallInfoBySourceType:'http://117.119.97.150:8061/servicePlatform/enterprise/allInfoBySourceType?',//静态原清单2
   GetEnterpriseData:'http://10.6.80.93:8080/servicePlatform/enterprise/sourceOutCount?',//静态原清单3
   GetCompanyStatistics:apiconfig.devt1+'/api/Company/GetCompanyStatistics',//企业污染统计
+  GetEmergencyList:apiconfig.devc1+'/api/EmergencyPlan/GetEmergencyList',//应急清单....
 }
 
 export const GetLfAirResource = API_ROOT.concat(apilangfangTDK.GetLfAir);
@@ -67,3 +68,4 @@ export const GetsourcetypeAllInfoResource = API_ROOT.concat(apilangfangTDK.Getso
 export const GetallInfoBySourceTypeResource = API_ROOT.concat(apilangfangTDK.GetallInfoBySourceType)
 export const GetEnterpriseDataResource = API_ROOT.concat(apilangfangTDK.GetEnterpriseData);
 export const GetCompanyStatisticsResource = API_ROOT.concat(apilangfangTDK.GetCompanyStatistics);
+export const GetEmergencyListResource = API_ROOT.concat(apilangfangTDK.GetEmergencyList);
