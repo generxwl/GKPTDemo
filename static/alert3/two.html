@@ -19,7 +19,7 @@
 			margin: 0 auto;
 			background: #FFFFFF;
 			border: 1px solid rgba(0, 0, 0, 0.2);
-			box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.18);
+			/*box-shadow: 1px 3px 4px rgba(0, 0, 0, 0.18);*/
 			border-radius: 2px;
 			/*padding: 0 15px;*/
 		}
@@ -109,10 +109,17 @@
 </html>
 <script src="../js/jquery.min.js"></script>
 <script>
+	 function GetQueryString(name)
+            {
+                var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if(r!=null)return  decodeURIComponent(r[2]); return null;
+            }
+     var gridcode = GetQueryString('gridcode');
 	//	document.getElementsByClassName('for').html=re;
 	$.ajax({
 		type: "get",
-		url: "http://gkpt.zq12369.com:8016/api/Grid/GetGridInfo?gridcode=131002204000",
+		url: "http://gkpt.zq12369.com:8016/api/Grid/GetGridInfo?gridcode="+gridcode,
 		success: function(res) {
 			console.log(res)
 			var all = res.ExtraData.GridMembers
@@ -127,17 +134,17 @@
 var re = "";
 			if(all.length % 2 == 0){
 				for(var i = 0; i < all.length; i+= 2) {
-					re += "<tr><td>" + all[i].GridMemberName + "</td><td>" + all[i].Contact + 
-					"</td><td>" + all[i + 1].GridMemberName + "</td><td>" + all[i + 1].Contact + "</td></tr>"
+					re += "<tr><td>" + all[i].GridMemberName + "</td><td>" + (all[i].Contact?all[i].Contact:'----')+ 
+					"</td><td>" + all[i + 1].GridMemberName + "</td><td>" + (all[i + 1].Contact?all[i + 1].Contact:'----')+ "</td></tr>"
 				}
 			}else{
 				for(var i = 0; i < all.length; i+= 2) {
 					if(i == (all.length - 1)){
-						re += "<tr><td>" + all[i].GridMemberName + "</td><td>" + all[i].Contact + 
+						re += "<tr><td>" + all[i].GridMemberName + "</td><td>" + (all[i].Contact?all[i].Contact:'----') + 
 						"</td><td>" + "</td><td>" + "</td></tr>"
 					}else{
-						re += "<tr><td>" + all[i].GridMemberName + "</td><td>" + all[i].Contact + 
-						"</td><td>" + all[i + 1].GridMemberName + "</td><td>" + all[i + 1].Contact + "</td></tr>"
+						re += "<tr><td>" + all[i].GridMemberName + "</td><td>" + (all[i].Contact?all[i].Contact:'----') + 
+						"</td><td>" + all[i + 1].GridMemberName + "</td><td>" + (all[i + 1].Contact?all[i + 1].Contact:'----') + "</td></tr>"
 					}
 				}
 			}
