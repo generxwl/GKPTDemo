@@ -137,7 +137,8 @@
                     success: function (data) {
                         console.log('获取成功')
                         var textdata = data.ExtraData;
-                        //console.log(textdata)
+                        //console.log(textdata)\
+
                          var text1 = textdata.CompanyName;//企业名称
                         $(".onlie1").prepend(text1);
                         var text2 = textdata.Industry ? textdata.Industry : '----';//行业类别

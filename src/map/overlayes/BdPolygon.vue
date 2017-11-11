@@ -161,7 +161,7 @@
         if (res) {
           let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res || '无数据', {
             title: '<sapn style="font-size:16px" ><b title="' + (attributes[displayFieldName] || '') + '">' + (attributes[displayFieldName] || '') + '</b>' + '</span>',             //标题
-            width: '420',
+            width: '450',
             height: 'auto',
             enableAutoPan: true,
             enableSendToPhone: false,
@@ -207,7 +207,7 @@
               break;
           }
         }
-        return url ? '<iframe style="height:100%;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
+        return url ? '<iframe style="height:100%;min-height: 260px;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
       },
 
       //获取面数据
