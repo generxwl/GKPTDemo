@@ -294,7 +294,7 @@
               url = 'static/alert/three.html' + '?polcode=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//移动源
               break;
             case 6:
-              url = 'static/alert/three.html' + '?polcode=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//餐饮油烟
+              url = 'static/alert/Restaurant.html' + '?polcode=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//餐饮油烟
               break;
           }
         }
