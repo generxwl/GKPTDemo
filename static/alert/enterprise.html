@@ -468,10 +468,10 @@
 		console.log(all2.ExtraData)
 		var all=all2.ExtraData
 		var content1="";
-		content1+="<tr><td>地址</td><td colspan='3'>"+all.province+all.city+all.area+"</td></tr>"+
-			"<tr><td>联系人</td><td>"+all.legalpersoname+"</td><td>电话</td><td>"+all.legalpersontel+"</td></tr>"+
-			"<tr><td>所属网格</td><td colspan='3'>"+all.gridname+"</td></tr>"+
-			"<tr><td>网格员</td><td>"+all.person+"</td><td>网格员联络电话</td><td>"+all.legalpersontel+"</td></tr>"+
+		content1+="<tr><td>地址</td><td colspan='3'>"+(all.province?all.province:'')+(all.city?all.city:'')+(all.area?all.area:'')+"</td></tr>"+
+			"<tr><td>联系人</td><td>"+(all.legalpersoname?all.legalpersoname:'')+"</td><td>电话</td><td>"+(all.legalpersontel?all.legalpersontel:'')+"</td></tr>"+
+			"<tr><td>所属网格</td><td colspan='3'>"+(all.gridname?all.gridname:'')+"</td></tr>"+
+			"<tr><td>网格员</td><td>"+(all.person?all.person:'')+"</td><td>网格员联络电话</td><td>"+(all.legalpersontel?all.legalpersontel:'')+"</td></tr>"+
 			"<tr><td>主要产品</td><td colspan='3'></td></tr>"+
 			"<tr><td>所属行业</td><td colspan='3'></td></tr>"+
 			"<tr><td>燃料类型</td><td></td><td>燃料消耗量</td><td>188888888</td></tr>"

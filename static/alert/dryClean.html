@@ -155,10 +155,10 @@
 		console.log(all2.ExtraData)
 		var all=all2.ExtraData
 		var content1="";
-		content1+="<tr><td>地址</td><td colspan='3'>"+all.province+all.city+all.area+"</td></tr>"+
-			"<tr><td>联系人</td><td>"+all.legalpersoname+"</td><td>电话</td><td>"+all.legalpersontel+"</td></tr>"+
-			"<tr><td>所属网格</td><td colspan='3'>"+all.gridname+"</td></tr>"+
-			"<tr><td>网格员</td><td>"+all.person+"</td><td>网格员联络电话</td><td>"+all.legalpersontel+"</td></tr>"+
+		content1+="<tr><td>地址</td><td colspan='3'>"+(all.province?all.province:'')+(all.city?all.city:'')+(all.area?all.area:'')+"</td></tr>"+
+			"<tr><td>联系人</td><td>"+(all.legalpersoname?all.legalpersoname:'')+"</td><td>电话</td><td>"+(all.legalpersontel?all.legalpersontel:'')+"</td></tr>"+
+			"<tr><td>所属网格</td><td colspan='3'>"+(all.gridname?all.gridname:'')+"</td></tr>"+
+			"<tr><td>网格员</td><td>"+(all.person?all.person:'')+"</td><td>网格员联络电话</td><td>"+(all.legalpersontel?all.legalpersontel:'')+"</td></tr>"+
 			"<tr><td>干洗设备台数</td><td></td><td>设备总容量</td><td>334<span style='color: #666666; float: right; margin-right: 5px;'>(升)</span></td></tr>"+
 			"<tr><td>溶剂使用量</td><td colspan='3'></td></tr><tr><td>年废弃溶剂量</td><td></td><td>废弃溶剂处理方式</td><td></td></tr>"+
 			"<tr><td>VOSc排放量</td><td colspan='3'>434324<span style='color: #666666; float: right; margin-right: 5px;'>(吨/年)</span></td></tr>"

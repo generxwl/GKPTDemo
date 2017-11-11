@@ -154,9 +154,9 @@
 		var all=all2.ExtraData
 		var content1="";
 		content1+="<tr><td>地址</td><td colspan='3'>"+(all.province?all.province:'')+(all.city?all.city:'')+(all.area?all.area:'')+"</td></tr>"+
-			"<tr><td>联系人</td><td>"+all.legalpersoname+"</td><td>电话</td><td>"+all.legalpersontel+"</td></tr>"+
-			"<tr><td>所属网格</td><td colspan='3'>"+all.gridname+"</td></tr>"+
-			"<tr><td>网格员</td><td>"+all.person+"</td><td>网格员联络电话</td><td>"+all.legalpersontel+"</td></tr>"+
+			"<tr><td>联系人</td><td>"+(all.legalpersoname?all.legalpersoname:'')+"</td><td>电话</td><td>"+(all.legalpersontel?all.legalpersontel:'')+"</td></tr>"+
+			"<tr><td>所属网格</td><td colspan='3'>"+(all.gridname?all.gridname:'')+"</td></tr>"+
+			"<tr><td>网格员</td><td>"+(all.person?all.person:'')+"</td><td>网格员联络电话</td><td>"+(all.legalpersontel?all.legalpersontel:'')+"</td></tr>"+
 			"<tr><td>汽油销量</td><td></td><td>柴油销量</td><td></td></tr>"+
 			"<tr><td>回收方式</td><td colspan='3'></td></tr>"+
 			"<tr><td>VOSc排放量</td><td colspan='3'>0.98989898<span style='color: #666666; float: right; margin-right: 5px;'>(吨/年)</span></td></tr>"
