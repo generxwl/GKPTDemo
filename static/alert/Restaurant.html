@@ -286,7 +286,7 @@ $.ajax({
 		content1+="<tr><td>地址</td><td colspan='3'>"+(all.province?all.province:'')+(all.city?all.city:'')+(all.area?all.area:'')+"</td></tr>"+
 			"<tr><td>联系人</td><td>"+(all.legalpersoname?all.legalpersoname:'')+"</td><td>电话</td><td>"+(all.legalpersontel?all.legalpersontel:'')+"</td></tr>"+
 			"<tr><td>所属网格</td><td colspan='3'>"+(all.gridname?all.gridname:'')+"</td></tr>"+
-			"<tr><td>网格员</td><td>"+(all.person?all.person:'')+"</td><td>网格员联络电话</td><td>"+(all.legalpersontel?all.legalpersontel:'')+"</td></tr>"+
+			"<tr><td>网格员</td><td>"+(all.person===NULL?"":all.person)+"</td><td>网格员联络电话</td><td>"+(all.tel?all.tel:'')+"</td></tr>"+
 			"<tr><td>餐饮店规模</td><td colspan='3'></td></tr>"+
 			"<tr><td>油烟净化设施</td><td>张川</td><td>油烟去除效率</td><td>188888888</td></tr>"+
 			"<tr><td>燃料类型</td><td>张川</td><td>年消耗量</td><td>434324<span style='color: #666666; float: right; margin-right: 5px;'>(吨/年)</span></td></tr>"
