@@ -64,7 +64,7 @@
       //加载marker数据
       loadMarkerLayer(data){
         this.markers && this.clearMarker();
-        !this.mkm && (this.mkm = new BMapLib.MarkerClusterer(this.map));
+        !this.mkm && (this.mkm = new BMapLib.MarkerClusterer(this.map,{},"111"));
         this.map && this.map.addOverlay(this.mouseLabel);
         this.mouseLabel.setStyle({
           background: 'none',
@@ -135,13 +135,13 @@
           url: this.markUrl + '1.png',
           size: new BMap.Size(40, 35),
           opt_anchor: [40, 35],
-          textColor: '#ffffff',
+          textColor: '#666fff',
           opt_textSize: 12
         }, {
           url: this.markUrl + '2.png',
           size: new BMap.Size(50, 44),
           opt_anchor: [32, 0],
-          textColor: '#ffffff',
+          textColor: '#cccccc',
           opt_textSize: 14
         }];
         this.mkm.setStyles(myStyles);
