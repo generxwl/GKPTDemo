@@ -64,7 +64,7 @@
           <!---->
           <div class="sousuo">
             <div class="sleft">
-              <el-input v-model="filters.name" placeholder="请输入名称"></el-input>
+              <el-input v-model="filters.name" placeholder="名称"></el-input>
             </div>
             <div class="sright">
               <el-button type="primary" @click="searchAsName">搜索</el-button>
@@ -252,10 +252,10 @@
         let rtValue = type;
         switch (type) {
           case 'PM2.5':
-            rtValue = 'pm25';
+            rtValue = 'm2';
             break;
           case 'PM10':
-            rtValue = 'pm10';
+            rtValue = 'm1';
             break;
           case 'NH3':
             rtValue = 'nh3';
@@ -264,7 +264,7 @@
                 rtValue = 'so2';
                 break;
             case 'NO2':
-                rtValue = 'no2';
+                rtValue = 'no';
                 break;
           case 'BC':
             rtValue = 'bc';
@@ -276,7 +276,7 @@
             rtValue = 'oc';
             break;
           case 'VOC':
-            rtValue = 'vocoutval';
+            rtValue = 'voc';
             break;
         }
         //console.log(rtValue);
@@ -293,7 +293,7 @@
       },
       //
       SetDataList(data, type){
-        // console.log(data[1].jdjcBasGyqySn.so2)
+        //console.log(data)
         let t = this;
         data = typeof data === 'string' ? JSON.parse(data) : data;
         this.data = data;
@@ -305,11 +305,13 @@
           const tableData = {};
           tableData.ranking = i++;//排名
           tableData.NetworkName = '---';//网格名称
-          tableData.Name = item.entname;//名称
-          tableData.Industry = item.polsorcode;//行业
+          tableData.Name = item.e;//名称
+          tableData.Industry = item.po;//行业
           tableData.Emission = t.labelType;//排放物
-          tableData.EmissionAmount = item.jdjcBasGyqySn[(t.getPollution(type))] ? item.jdjcBasGyqySn[(t.getPollution(type))] : '--';//排放量
-          tableData.citygid = item.id;//城市id
+          tableData.EmissionAmount = item.p[(t.getPollution(type))] ? item.p[(t.getPollution(type))] : '--';//排放量
+          tableData.citygid = item.i;//城市id
+          tableData.lo = item.lo;//城市经度
+          tableData.la = item.la;//城市纬度
           this.ALLdata.push(tableData);
         })
       },
@@ -324,11 +326,9 @@
       },
       //行业排放量分布图
       yuantuset1(){
-
             // 基于准备好的dom，初始化echarts实例
             let myChart = echarts.init(document.getElementById('bing_item1'));
             // 指定图表的配置项和数据
-//
             let option = {
                 title : {
                     text: '行业排放量分布图',
@@ -349,6 +349,7 @@
                         type: 'pie',
                         radius : '70%',
                         center: ['50%', '60%'],
+                        hoverAnimation:false,
                         label: {
                             normal: {
                                 show: false,
@@ -375,24 +376,27 @@
                     }
                 ]
             };
-
-
             // 使用刚指定的配置项和数据显示图表。
             myChart.setOption(option);
             //动态设置参数
-//                myChart.setOption({
-//                    series: [{
+                myChart.setOption({
+                    series: [{
 //                        data: [
 //                            {value: Datavlue, name: '占比'},
 //                            {value: Bianvlue, name: 'api'}
 //
 //                        ],
-//                        color: [
-//                            '#ccc',
-//                            Color
-//                        ]
-//                    }]
-//                })
+                        color: [
+                            '#08a1ed',
+                            '#a2c73b',
+                            '#f2cd49',
+                            '#85dbce',
+                            '#ce93e3',
+                            '#6c68e1',
+                            '#e5763f'
+                        ]
+                    }]
+                })
         },
       setPageTable(pageSize, pageNum){
         let rtValue = [];

@@ -17,8 +17,9 @@ export default {
     port: '',
     path: '/api'
   }, {
-    site: 'http://117.119.97.150',
-    port: '8061',
+    // site: 'http://117.119.97.150',
+      site: 'http://10.6.80.93',
+      port: '8080',
     path: '/servicePlatform'
   }],
   getRequestUrlByType(type){

@@ -276,29 +276,29 @@
           let ptType = this.getPointType(attributes['tp']);//this.getPointType('PS001');//
           switch (ptType) {
             case 0:
-              url = 'static/alert/carRepair.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//汽修站
+              url = 'static/alert/carRepair.html' + '?polcode=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//汽修站
               break;
             case 1:
-              url = 'static/alert/dryClean.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//干洗店
+              url = 'static/alert/dryClean.html' + '?polcode=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//干洗店
               break;
             case 2:
-              url = 'static/alert/Dust.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//施工扬尘
+              url = 'static/alert/Dust.html' + '?polcode=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//施工扬尘
               break;
             case 3:
-              url = 'static/alert/enterprise.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//企业
+              url = 'static/alert/enterprise.html' + '?polcode=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//企业
               break;
             case 4:
-              url = 'static/alert/gasStation.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//加油站
+              url = 'static/alert/gasStation.html' + '?polcode=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//加油站
               break;
             case 5:
-              url = 'static/alert/three.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//移动源
+              url = 'static/alert/three.html' + '?polcode=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//移动源
               break;
             case 6:
-              url = 'static/alert/three.html' + '?po=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//餐饮油烟
+              url = 'static/alert/three.html' + '?polcode=' + (attributes.po || '') + '&tp=' + (attributes.tp || '');//餐饮油烟
               break;
           }
         }
-        return url ? '<iframe style="height:100%;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
+        return url ? '<iframe style="height:400px;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
       },
 
       getPointType(type){
