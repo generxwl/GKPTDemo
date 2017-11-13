@@ -18,6 +18,10 @@
       return {};
     },
     mounted(){
+
+        this.ready();
+    },
+    activated(){
       let lsScript = document.getElementsByTagName('script');
       for (let i = 0, length = lsScript.length; i < length; i++) {
         let value = lsScript[i];
@@ -31,16 +35,23 @@
       let el = document.createElement('script');
       el.src = 'static/js/map/DistanceTool_min.js';
       document.body.appendChild(el);
-        this.ready();
+
+      let map = this.map;
+      map.centerAndZoom('廊坊', 10);
+      map.enableScrollWheelZoom();
+      mapStyle && map.setMapStyle(mapStyle);
+      this.$parent.map = map;
+
+//      bus.$emit('setEnterpriseMap', map);
     },
     methods:{
         ready(){
           let map = new BMap.Map('enterprise_map');
-          map.centerAndZoom('廊坊', 10);
-          map.enableScrollWheelZoom();
-          mapStyle && map.setMapStyle(mapStyle);
+//          map.centerAndZoom('廊坊', 10);
+//          map.enableScrollWheelZoom();
+//          mapStyle && map.setMapStyle(mapStyle);
           this.map = map;
-          this.$parent.map = map;
+//          this.$parent.map = map;
 
           map.addEventListener('tilesloaded', function () {
             bus.$emit('setEnterpriseMap', map);

@@ -1,6 +1,8 @@
 <template>
     <div id="app">
+      <keep-alive>
         <router-view></router-view>
+      </keep-alive>
     </div>
 </template>
 
@@ -8,6 +10,11 @@
 	import router from './router/index.js'
     export default {
         name: 'app',
+        data(){
+          return {
+            layerId : 0,
+          }
+        },
         computed : {
         		userState(){
         			return this.$store.state.userData

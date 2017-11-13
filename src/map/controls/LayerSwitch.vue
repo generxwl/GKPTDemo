@@ -47,8 +47,8 @@
         disabledSlider1: true,
         disabledSlider2: true,
         checkedId: 0,
-        imgsrc:'static/imgs/toor/icon_network_1.png',
-        imgxzsrc:'static/imgs/toor/icon_network_2.png',
+        imgsrc: 'static/imgs/toor/icon_network_1.png',
+        imgxzsrc: 'static/imgs/toor/icon_network_2.png',
         layers: [
           {
             id: 'YW',
@@ -62,12 +62,26 @@
             id: 'SW',
             name: '三级网格',
             url: ''
-          }]
+          }],
+        myE:undefined,
+        layerId:0
       }
     },
     mounted() {
       this.ready();
       bus.$on('resetLayerLi', this.resetLi);
+    },
+    activated(){
+      this.resetLi();
+      var qel = $('#' + this.$parent.$parent.$parent.$parent.layerId);
+      let ckLayerId = qel[0].getAttribute('data-attr');
+      let hasChecked = false;
+        (qel.addClass('layer-checked').siblings().removeClass('layer-checked'), hasChecked = true);
+      bus.$on('myAjaxLoad', () => {
+        bus.$emit('setVisible', ckLayerId, hasChecked);
+        bus.$emit('setLabelVisible', ckLayerId);
+      })
+
     },
     methods: {
       ready() {
@@ -78,7 +92,7 @@
         let el = e.target;
         let qel = jQuery(el);
         let ckLayerId = el.getAttribute('data-attr');
-
+        this.$parent.$parent.$parent.$parent.layerId = el.id;
         this.setSliderDisable(ckLayerId);
         this.checkedId = ckLayerId;
         let hasChecked = false;
@@ -141,10 +155,12 @@
     background-color: #fff;
     font-size: 14px;
   }
-  img{
+
+  img {
     margin-left: -20px;
     padding-right: 5px;
   }
+
   .layerSwitch li span {
     font-size: 14px;
     line-height: 36px;
@@ -171,7 +187,7 @@
     color: #333;
     padding: 1px 5px;
     line-height: 36px;
-    background-color:#fff;
+    background-color: #fff;
   }
 
   .layerSwitch li:hover {
