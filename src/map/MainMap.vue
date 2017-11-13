@@ -22,6 +22,10 @@
       };
     },
     mounted(){
+      this.ready();
+    },
+    activated(){
+        let t = this;
       let lsScript = document.getElementsByTagName('script');
       for (let i = 0, length = lsScript.length; i < length; i++) {
         let value = lsScript[i];
@@ -35,26 +39,34 @@
       let el = document.createElement('script');
       el.src = 'static/js/map/DistanceTool_min.js';
       document.body.appendChild(el);
-      this.ready();
+
+      this.$parent.map = this.map;
+      this.map.centerAndZoom('廊坊', 10);
+      this.map.enableScrollWheelZoom();
+      mapStyle && this.map.setMapStyle(mapStyle);
+      bus.$emit('setMainMap', t.map);
+//          bus.$emit('setToolMap',map);
+//            bus.$emit('setMainMarkerLabel',map.getZoom() >= t.zoom);//setMainMarkerLabel
+      bus.$emit('setMainValueLabel', t.map.getZoom() >= t.zoom);//setMainValueLabel
     },
     methods: {
       ready(){
         let map = new BMap.Map('main_map');
-        map.centerAndZoom('廊坊', 10);
-        map.enableScrollWheelZoom();
-        mapStyle && map.setMapStyle(mapStyle);
+//        map.centerAndZoom('廊坊', 10);
+//        map.enableScrollWheelZoom();
+//        mapStyle && map.setMapStyle(mapStyle);
         this.map = map;
-        this.$parent.map = map;
+//        this.$parent.map = map;
         let t = this;
 
 //        (new BMapLib.DistanceTool(this.map, {lineStroke: 12})).open();
 
 
         map.addEventListener('tilesloaded', function () {
-          bus.$emit('setMainMap', map);
+          bus.$emit('setMainMap', t.map);
 //          bus.$emit('setToolMap',map);
 //            bus.$emit('setMainMarkerLabel',map.getZoom() >= t.zoom);//setMainMarkerLabel
-          bus.$emit('setMainValueLabel', map.getZoom() >= t.zoom);//setMainValueLabel
+          bus.$emit('setMainValueLabel', t.map.getZoom() >= t.zoom);//setMainValueLabel
         });
       }
     },

@@ -28,6 +28,24 @@
     created() {
     },
     mounted() {
+//      let lsScript = document.getElementsByTagName('script');
+//      for (let i = 0, length = lsScript.length; i < length; i++) {
+//        let value = lsScript[i];
+//        if (value && value.src) {
+//          if (value.src.indexOf('static/js/map/DistanceTool_min.js') > -1) {
+//            document.body.removeChild(value);
+//            break;
+//          }
+//        }
+//      }
+//
+//      let el = document.createElement('script');
+//      el.src = 'static/js/map/DistanceTool_min.js';
+//      document.body.appendChild(el);
+      this.ready();
+      this.event();
+    },
+    activated(){
       let lsScript = document.getElementsByTagName('script');
       for (let i = 0, length = lsScript.length; i < length; i++) {
         let value = lsScript[i];
@@ -38,21 +56,26 @@
           }
         }
       }
-
       let el = document.createElement('script');
       el.src = 'static/js/map/DistanceTool_min.js';
       document.body.appendChild(el);
-      this.ready();
-      this.event();
+
+      this.$parent.map = this.map;
+      this.map.centerAndZoom('廊坊', 10);
+      this.map.enableScrollWheelZoom();
+      mapStyle && this.map.setMapStyle(mapStyle);
+
+      //bus.$emit('setMainMap', this.map);
+      //bus.$emit('tilesLoaded', this.map);
     },
     methods: {
       ready: function () {
         let map = new BMap.Map('monitor_map');
-        map.centerAndZoom('廊坊', 10);
-        map.enableScrollWheelZoom();
-        mapStyle && map.setMapStyle(mapStyle);
+//        map.centerAndZoom('廊坊', 10);
+//        map.enableScrollWheelZoom();
+//        mapStyle && map.setMapStyle(mapStyle);
         this.map = map;
-        this.$parent.map = map;
+//        this.$parent.map = map;
 //        (new BMapLib.DistanceTool(this.map, {lineStroke: 2})).open();
 
         //初始化地图

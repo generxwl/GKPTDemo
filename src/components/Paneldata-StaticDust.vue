@@ -168,7 +168,10 @@
     created(){
         bus.$on('setStaticTarget',this.switchRender);
         //bus.$on('setStaticData',this.initlistData);
-        this.ChenageGetDataList()
+//        this.ChenageGetDataList()
+    },
+    activated(){
+      this.ChenageGetDataList()
     },
     mounted(){
       //右侧收放

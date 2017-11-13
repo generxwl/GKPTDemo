@@ -144,8 +144,11 @@
         },
         created(){
             //bus.$on('loadVideoData', this.initlistData);
-            this.GetListqyData()
+//          this.GetListqyData()
         },
+      activated(){
+        this.GetListqyData()
+      },
         mounted(){
             //右侧收放
             let that = this;
