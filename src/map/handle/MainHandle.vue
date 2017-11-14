@@ -406,7 +406,7 @@
           let charUrl = undefined;
           let pms = undefined;
           let displayName = undefined;
-          let infoWidth = '420px';
+          let infoWidth = '410px';
           let ptType = attributes.ptType;
           switch (ptType.toUpperCase()) {
             case 'LAYER_CG':
@@ -537,11 +537,11 @@
           '<div class="item third">' +
           '<div class="key" style=\'background-color:' + getColorByIndex(getComplexIndex(data.complexindex)) + '\'>综值</div>' +
           '<div class="value">' + parseFloat(data.complexindex).toFixed(3) + '</div></div><br>\n' +
-          '        <div class="item secondLine">\n' +
+          '        <div class="item secondLine secondLine1">\n' +
           '            <div class="key" style=\'background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + '\'>PM2.5</div>\n' +
           '            <div class="value"> ' + parseInt(data.pm25) + '</div>\n' +
           '        </div>\n' +
-          '        <div class="item secondLine">\n' +
+          '        <div class="item secondLine secondLine1">\n' +
           '            <div class="key" style=\'background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + '\'>PM10</div>\n' +
           '            <div class="value">' + parseInt(data.pm10) + '</div>\n' +
           '        </div>\n' +
@@ -549,11 +549,11 @@
           '            <div class="key" style=\'background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + '\'>CO</div>\n' +
           '            <div class="value">' + parseFloat(data.co).toFixed(1) + '</div>\n' +
           '        </div>\n' +
-          '        <div class="item secondLine">\n' +
+          '        <div class="item secondLine ">\n' +
           '            <div class="key" style=\'background-color:' + getColorByIndex(getNO2LevelIndex(data.no2)) + '\'>NO2</div>\n' +
           '            <div class="value">' + parseInt(data.no2) + '</div>\n' +
           '        </div>\n' +
-          '        <div class="item secondLine">\n' +
+          '        <div class="item secondLine ">\n' +
           '            <div class="key" style=\'background-color:' + getColorByIndex(getSO2LevelIndex(data.so2)) + '\'>SO2</div>\n' +
           '            <div class="value">' + parseInt(data.so2) + '</div>\n' +
           '        </div>\n' +
@@ -566,7 +566,7 @@
           '<div class="item">湿度：' + parseInt(data.humi) + '%' + '</div>' +
           '<div class="item">风向：' + data.winddirection + '</div>' +
           '<div class="item">风级：' + (parseInt(data.windspeed) || 0) + '级' + '</div></div>' +
-          '<div id=\'citychart_' + data.citygid + '\' style=\'width:100%;height:110px\'></div>' +
+          '<div class="chart"><div id=\'citychart_' + data.citygid + '\' style=\'width:100%;height:110px\'></div></div>' +
           '<div class="Introduce"><div class="Net">所属网络：' + gridName + '</div><div class="Person">网络员代表：' + memberName + '</div><div>联系方式：' + tel + '</div></div>'
       },
 
@@ -624,11 +624,11 @@
           '            <div class="key keyAqi" style=\'background-color:' + getColorByIndex(getAQILevelIndex(data.aqi)) + '\'>AQI</div>\n' +
           '            <div class="value">' + (data.aqi ? data.aqi : '--') + '</div>\n' +
           '        </div><br>\n' +
-          '        <div class="item secondLine">\n' +
+          '        <div class="item secondLine secondLine1">\n' +
           '            <div class="key" style=\'background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + '\'>PM2.5</div>\n' +
           '            <div class="value">' + (data.pm25 ? parseInt(data.pm25) : '--') + '</div>\n' +
           '        </div>\n' +
-          '        <div class="item secondLine">\n' +
+          '        <div class="item secondLine secondLine1">\n' +
           '            <div class="key"  style=\'background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + '\'>PM10</div>\n' +
           '            <div class="value">' + (data.pm10 ? parseInt(data.pm10) : '--') + '</div>\n' +
           '        </div>\n' +
@@ -648,7 +648,7 @@
           '            <div class="key" style=\'background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + '\'>O3</div>\n' +
           '            <div class="value">' + (data.o3 ? parseInt(data.o3) : '--') + '</div>\n' +
           '        </div>\n' +
-          '    </div><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'></div>' +
+          '    </div><div class="chart"><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'></div></div>' +
           '<div class="Introduce"><div class="Net">所属网络：' + gridName + '</div><div class="Person">网络员代表：' + memberName + '</div><div>联系方式：' + tel + '</div></div>'
       },
 
@@ -716,7 +716,7 @@
           '<div class="key" style=\'background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + '\'>PM10</div>' +
           '<div class="value">' + (data.pm10 ? parseInt(data.pm10) : '--') + '</div>' +
           '</div>\n' +
-          '</div><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;color:#666666;font-weight:bold;height:110px\'></div>' +
+          '</div><div class="chart"><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;color:#666666;font-weight:bold;height:110px\'></div></div>' +
           '<div class="Introduce"><div class="Net">所属网络：' + gridName + '</div><div class="Person">网络员代表：' + memberName + '</div><div>联系方式：' + tel + '</div></div>'
       },
 
@@ -764,7 +764,7 @@
         }
         /* els += '<tr><td>时间</td><td colspan="7">' + ((data.length ? data[0].time : '--') || '--') + '</td></tr>';*/
 
-        return '<div class="qyLine"><div class="line"></div></div><div class="qyPollution"><img class="qyImg" src="../static/imgs/main/qy-g.png" alt=""><div class="type">企业污染源监测</div><div class="date">' + data[0].time + '</div></div><table style="min-width:390px;margin-bottom:10px;" class="fitem" cellpadding="0" cellspacing="0">' + headerElements + els + '</table><div id=\'citychart_' + (data.length && data[0].pscode) + '\' style=\'width:100%;height:110px;\'></div>' +
+        return '<div class="qyLine"><div class="line"></div></div><div class="qyPollution"><img class="qyImg" src="../static/imgs/main/qy-g.png" alt=""><div class="type">企业污染源监测</div><div class="date">' + data[0].time + '</div></div><table style="min-width:390px;margin-bottom:10px;" class="fitem" cellpadding="0" cellspacing="0">' + headerElements + els + '</table><div class="chart"><div id=\'citychart_' + (data.length && data[0].pscode) + '\' style=\'width:100%;height:110px;\'></div></div>' +
           '<div class="Introduce"><div class="Net">所属网络：' + gridName + '</div><div class="Person">网络员代表：' + memberName + '</div><div>联系方式：' + tel + '</div></div>';
       },
 
@@ -1307,7 +1307,7 @@
 
   .fitem {
     border: 1px solid #ddd;
-    margin: 2px auto;
+    margin: 2px 15px;
     line-height: 18px;
   }
 
@@ -1390,7 +1390,7 @@
   }
 
   .keyAqi {
-    width: 190px;
+    width: 186px;
   }
 
   .one {
@@ -1401,13 +1401,13 @@
 
   .second .key,
   .third .key {
-    width: 93px;
+    width: 91px;
   }
 
   .second .value,
   .third .value {
     height: 28px;
-    width: 93px;
+    width: 91px;
   }
 
   .param .value {
@@ -1419,10 +1419,13 @@
     margin-left: 4px;
   }
 
-  .secondLine {
+  .secondLine{
+    width: 60px;
+    margin-top:5px;
+  }
+  .secondLine1{
     width: 61px;
   }
-
   .index {
     padding: 0 20px 10px;
   }
@@ -1436,7 +1439,7 @@
   }
 
   .vocItem {
-    width: 190px;
+    width: 188px;
   }
 
   .triangle {
@@ -1461,7 +1464,7 @@
   .qyPollution {
     background: #EBEBEB;
     padding: 5px;
-    margin: 0 12px;
+    margin: 0 15px;
   }
 
   .qyPollution .date {
@@ -1482,7 +1485,7 @@
   }
 
   .qyLine {
-    padding: 0 12px;
+    padding: 0 15px;
   }
 
   .Introduce {
@@ -1497,5 +1500,8 @@
 
   .Net {
     margin-right: 10px;
+  }
+  .chart{
+    padding:15px;
   }
 </style>

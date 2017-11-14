@@ -467,7 +467,7 @@
 //            console.log(res);
             let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
               title: '<sapn style="font-size:16px"><b>' + (data.name || '') + '</b>' + '</span>',             //标题
-              width: 420,
+              width: 410,
               height: 'auto',
               enableAutoPan: true,
               searchTypes: []
@@ -540,7 +540,7 @@
           '<div class="key" style=\'background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + '\'>PM10</div>' +
           '<div class="value">' + (data.pm10 ? parseInt(data.pm10) : '--') + '</div>' +
           '</div>\n' +
-          '</div><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;color:#666666;font-weight:bold;height:110px\'></div>' +
+          '</div><div class="chart"><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;color:#666666;font-weight:bold;height:110px\'></div></div>' +
           '<div class="Introduce"><div class="Net">所属网络：' + gridName + '</div><div class="Person">网络员代表：' + memberName + '</div><div>联系方式：' + tel + '</div></div>'
       },
 
@@ -780,13 +780,13 @@
 
   .second .key,
   .third .key {
-    width: 93px;
+    width: 91px;
   }
 
   .second .value,
   .third .value {
     height: 28px;
-    width: 93px;
+    width: 91px;
   }
 
   .param .value {
@@ -824,5 +824,8 @@
 
   .Net {
     margin-right: 10px;
+  }
+  .chart{
+    padding:0 15px;
   }
 </style>

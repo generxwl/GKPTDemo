@@ -210,8 +210,8 @@
           }
         }
 
-        return '<div class="qyLine"><div class="line"></div><div class="qyPollution" style="margin:0"><img class="qyImg" src="../static/imgs/main/qy-g.png" alt=""><div class="type">企业污染源监测</div><div class="date">' + ((data.length ? data[0].time : '--') || '--') + '</div></div><table style="min-width:390px;margin-bottom:10px" class="fitem" cellpadding="0" cellspacing="0">' + headerElements + els + '</table><div id=\'citychart_' + (data.length && data[0].pscode) + '\' style=\'width:100%;height:110px;\'></div>' +
-          '<div class="Introduce"><div class="Net">所属网络：' + gridName + '</div><div class="Person">网络员代表：' + memberName + '</div><div>联系方式：' + tel + '</div></div>';
+        return '<div class="qyLine"><div class="line"></div></div><div class="qyPollution" ><img class="qyImg" src="../static/imgs/main/qy-g.png" alt=""><div class="type">企业污染源监测</div><div class="date">' + ((data.length ? data[0].time : '--') || '--') + '</div></div><table style="min-width:390px;margin-bottom:10px" class="fitem" cellpadding="0" cellspacing="0">' + headerElements + els + '</table><div class="chart"><div id=\'citychart_' + (data.length && data[0].pscode) + '\' style=\'width:100%;height:110px;\'></div></div>' +
+          '<div class="Introduce"><div class="Net">所属网络：' + gridName + '</div><div class="Person">网络员代表：' + memberName + '</div><div>联系方式：' + tel + '</div>';
 
 
         /*let headerElements = '<tr class="qyTable"><td rowspan="2" style="width:138px;height:44px">名称</td><td colspan="2" style="width:86px">氮氧化物</td><td colspan="2" style="width:86px">二氧化硫</td><td colspan="2" style="width:86px">烟尘</td><td colspan="2" style="width:86px">含氧量</td><td rowspan="2" style="width:78px">总排放量</td></tr><tr class="qyTable"><td>实测</td><td>折算</td><td>实测</td><td>折算</td><td>实测</td><td>折算</td><td>实测</td><td>折算</td></tr>';
@@ -358,7 +358,7 @@
 <style scope>
   .fitem {
     border: 1px solid #ddd;
-    margin: 2px auto;
+    margin: 2px 15px;
     line-height: 18px;
   }
 
@@ -416,7 +416,7 @@
   .qyPollution {
     background: #EBEBEB;
     padding: 5px;
-    margin: 0 12px;
+    margin: 0 15px;
   }
 
   .qyPollution .date {
@@ -437,7 +437,7 @@
   }
 
   .qyLine {
-    padding: 0 12px;
+    padding: 0 15px;
   }
 
   .Introduce {
@@ -452,5 +452,8 @@
 
   .Net {
     margin-right: 10px;
+  }
+  .chart{
+    padding:0 15px;
   }
 </style>

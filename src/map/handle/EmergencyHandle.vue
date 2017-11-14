@@ -99,7 +99,7 @@
       },
       setCameraWindow(data){
         let url = 'static/emergency/emergency.html?id=' + (data['id'] || '');
-        return url ? '<iframe style="height:340px;width:100%;border:none;" src="' + url + '"></iframe>' : undefined;
+        return url ? '<iframe style="height:340px;width:100%;border:none;"  src="' + url + '"></iframe>' : undefined;
       },
       //获取图标对象
       getMarker(pt, value){

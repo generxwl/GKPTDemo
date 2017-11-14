@@ -49,9 +49,10 @@
             color:#666666;
         }
         .qyBox{
-            border:1px solid #ddd;
-            padding:20px;
-            width:420px;
+            /*border:1px solid #ddd;*/
+            padding:0 15px 15px;
+           /* width:380px;*/
+
         }
         .qyBox .compony{
             background:#EBEBEB;
@@ -59,6 +60,9 @@
             color:#333333;
             padding:5px 10px;
             font-weight:bold;
+        }
+        .qyBox::-webkit-scrollbar {
+          display: none;
         }
         .qyBox .line{
             height:1px;
@@ -109,7 +113,7 @@
             padding:0;
         }
        .warning .selected{
-           color : #333333;
+         /*  color : #333333;*/
            font-weight:bolder;
            border-bottom: 3px solid #333333;
            position: relative;
@@ -156,12 +160,31 @@
         #active{
             display:block;
         }
+      #myHtml{
+             /*       padding:0;*/
+      }
+
+
+
+        .outer-container {
+          overflow: hidden;
+        }
+        .inner-container {
+          overflow-x: hidden;
+          overflow-y: scroll;
+
+        }
+
+        /* for Chrome */
+        .inner-container::-webkit-scrollbar {
+          display: none;
+        }
     </style>
 </head>
 <body >
-<div id = "myHtml" style="margin:auto" class="qyBox">
+<div class="outer-container"><div class="inner-container"><div id = "myHtml" class="qyBox content">
 
-</div>
+</div></div></div>
 <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 <script>
 
@@ -689,33 +712,47 @@ $.ajax({
 
 
 
-                onLoad(myData.buttonState)
+                onLoad(myData.buttonState);
+                var num=myData.buttonState;
+                var color;
                 function onLoad(num){
-                    if(num == 0){
-                        num = 0
-                    }else if(num == 1){
-                        num = 3
+                    if(num == 1){
+                        num = 3;
+                        color='#E81616'
                     }else if(num == 2){
-                        num = 2
+                        num = 2;
+                        color='#FF592C';
                     }else if(num == 4){
-                        num = 1
+                        num = 2;
+                        color='#FF9800'
                     }else if(num == 8){
-                        num = 0
+                        num = 1;
+                        color='#2494F2'
+                    }else if(num == 0){
+                        num = 3;
+                        color='#E81616'
                     }
 
                     var oul=document.getElementsByClassName('warning')[0];
                     var oli=oul.getElementsByTagName('li');
                     var alist=document.getElementsByClassName('blsit-list')[0];
                     var ali=alist.getElementsByTagName('li');
-                    $(oli[num]).addClass('selected');
+                    $(oli[num]).addClass('selected').css('color',color).css('borderColor',color);
                     $(ali[num]).attr('id','active')
                 }
 
-
+var colorArr={
+  0:'#2494F2',
+  1:'#FF9800',
+  2:'#FC5E4A',
+  3:'#E81616'
+}
 
                 $(".warning li").on("click",function(){
                     var index = $(this).index();
                     $(this).addClass("selected").siblings().removeClass("selected");
+                    $(this).css('color',colorArr[index]).siblings().css('color','#666666');
+                    $(this).css('borderColor',colorArr[index])
                     $(this).parents(".wrap").find(".blsit-list li").eq(index).show().siblings().hide();
                 })
             })

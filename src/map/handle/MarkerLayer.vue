@@ -231,7 +231,7 @@
 
           let searchInfoWindow = new BMapLib.SearchInfoWindow(t.map, res, {
             title: '<sapn style="font-size:16px"><b>' + data.stationname + '</b>' + '</span>',             //标题
-            width: 420,
+            width: 410,
             height: 'auto',
             enableAutoPan: true,
             searchTypes: []
@@ -379,15 +379,15 @@
           '            <div class="key keyAqi" style=\'background-color:' + getColorByIndex(getAQILevelIndex(data.aqi)) + '\'>AQI</div>\n' +
           '            <div class="value">' + (data.aqi ? data.aqi : '--') + '</div>\n' +
           '        </div><br>\n' +
-          '        <div class="item secondLine">\n' +
+          '        <div class="item secondLine secondLine1">\n' +
           '            <div class="key" style=\'background-color:' + getColorByIndex(getPM25LevelIndex(data.pm25)) + '\'>PM2.5</div>\n' +
           '            <div class="value">' + (data.pm25 ? parseInt(data.pm25) : '--') + '</div>\n' +
           '        </div>\n' +
-          '        <div class="item secondLine">\n' +
+          '        <div class="item secondLine secondLine1">\n' +
           '            <div class="key"  style=\'background-color:' + getColorByIndex(getPM10LevelIndex(data.pm10)) + '\'>PM10</div>\n' +
           '            <div class="value">' + (data.pm10 ? parseInt(data.pm10) : '--') + '</div>\n' +
           '        </div>\n' +
-          '        <div class="item secondLine">\n' +
+          '        <div class="item secondLine secondLine1">\n' +
           '            <div class="key" style=\'background-color:' + getColorByIndex(getCOLevelIndex(data.co)) + '\'>CO</div>\n' +
           '            <div class="value">' + (data.co ? parseFloat(data.co).toFixed(1) : '--') + '</div>\n' +
           '        </div>\n' +
@@ -403,7 +403,7 @@
           '            <div class="key" style=\'background-color:' + getColorByIndex(getO3LevelIndex(data.o3)) + '\'>O3</div>\n' +
           '            <div class="value">' + (data.o3 ? parseInt(data.o3) : '--') + '</div>\n' +
           '        </div>\n' +
-          '    </div><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'></div>' +
+          '    </div><div class="chart"><div id=\'citychart_' + data.stationid + '\' style=\'width:100%;height:110px\'></div></div>' +
           '<div class="Introduce"><div class="Net">所属网络：' + gridName + '</div><div class="Person">网络员代表：' + memberName + '</div><div>联系方式：' + tel + '</div></div>'
       },
 
@@ -516,7 +516,7 @@
   }
   ;
 </script>
-<style scoped>
+<style scope>
   .fitem {
     border: 1px solid #ddd;
     margin-right: 10px;
@@ -593,7 +593,7 @@
   }
 
   .keyAqi {
-    width: 190px;
+    width: 186px;
   }
 
   .type {
@@ -640,9 +640,12 @@
   }
 
   .secondLine {
-    width: 61px;
+    width: 60px;
+    margin-top:5px;
   }
-
+.secondLine1{
+  width:61px;
+}
   .index .item {
     display: inline-block;
     font-size: 12px;
@@ -663,5 +666,8 @@
 
   .Net {
     margin-right: 10px;
+  }
+  .chart{
+    padding:0 15px;
   }
 </style>
