@@ -35,6 +35,7 @@
 
     },
     mounted() {
+
       let t = this;
       setTimeout(function () {
         t.map = t.$parent.$parent.$parent.$parent.map;
@@ -50,6 +51,9 @@
       bus.$on('setVisible', this.setLayerVisible);
       bus.$on('setOpacity', this.setOpacity);//setLayerHide
       bus.$on('setLayerHide', this.setLayerHide);//setLayerHide
+    },
+    activated(){
+//
     },
     methods: {
 //      setMap(map){
@@ -80,6 +84,7 @@
                 t.map.addOverlay(ply);
                 visible ? ply.show() : ply.hide();
               }
+              bus.$emit('myAjaxLoad')
             }
           }).catch(function (ex) {
 //            console.log(ex)

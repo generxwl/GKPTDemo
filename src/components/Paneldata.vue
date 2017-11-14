@@ -263,16 +263,26 @@
             }
         },
         created(){
-            api.GetLfAirData().then(res => {
-                let shoulist = res.data;
-                shoulist = typeof shoulist === 'string' ? JSON.parse(shoulist) : shoulist;
-                this.Datalist = shoulist.obj
-//                console.log(this.Datalist)
-                this.UpTimesData(this.Datalist.time)
-                bus.$on('switchRender', this.switchRender);
-            })
+//            api.GetLfAirData().then(res => {
+//                let shoulist = res.data;
+//                shoulist = typeof shoulist === 'string' ? JSON.parse(shoulist) : shoulist;
+//                this.Datalist = shoulist.obj
+////                console.log(this.Datalist)
+//                this.UpTimesData(this.Datalist.time)
+//                bus.$on('switchRender', this.switchRender);
+//            })
 
         },
+      activated(){
+        api.GetLfAirData().then(res => {
+          let shoulist = res.data;
+          shoulist = typeof shoulist === 'string' ? JSON.parse(shoulist) : shoulist;
+          this.Datalist = shoulist.obj
+//                console.log(this.Datalist)
+          this.UpTimesData(this.Datalist.time)
+          bus.$on('switchRender', this.switchRender);
+        })
+      },
         mounted(){
             //右侧收放
             let that = this;

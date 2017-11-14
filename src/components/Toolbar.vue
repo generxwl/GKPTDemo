@@ -39,7 +39,8 @@
                 tcsrc:'../../static/imgs/toor/icon_layer_2.png',
                 tcchesrc:'../../static/imgs/toor/icon_layer_1.png',
                 jtsrc:'../../static/imgs/toor/btn_jiantou_1.png',
-                jtchesrc:'../../static/imgs/toor/btn_jiantou_2.png'
+                jtchesrc:'../../static/imgs/toor/btn_jiantou_2.png',
+              layerId : 0
             };
         },
         beforeCreate() {

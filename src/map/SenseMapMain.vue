@@ -28,6 +28,10 @@
       }
     },
     mounted(){
+
+      this.ready();
+    },
+    activated(){
       let lsScript = document.getElementsByTagName('script');
       for (let i = 0, length = lsScript.length; i < length; i++) {
         let value = lsScript[i];
@@ -41,17 +45,24 @@
       let el = document.createElement('script');
       el.src = 'static/js/map/DistanceTool_min.js';
       document.body.appendChild(el);
-      this.ready();
+
+      let map = this.map;
+      map.centerAndZoom('廊坊', 12);
+      map.enableScrollWheelZoom();
+      mapStyle && map.setMapStyle(mapStyle);
+      this.$parent.map = map;
+//      bus.$emit('tilesSenseLoaded', map);
+//      bus.$emit('setLabelVisible', map.getZoom() >= this.maxZoom);
     },
     methods: {
       ready(){
         let t = this;
         let map = new BMap.Map('sense_map');
-        map.centerAndZoom('廊坊', 12);
-        map.enableScrollWheelZoom();
-        mapStyle && map.setMapStyle(mapStyle);
+//        map.centerAndZoom('廊坊', 12);
+//        map.enableScrollWheelZoom();
+//        mapStyle && map.setMapStyle(mapStyle);
         this.map = map;
-        this.$parent.map = map;
+//        this.$parent.map = map;
 
         map.addEventListener('tilesloaded', function () {
           bus.$emit('tilesSenseLoaded', map);
