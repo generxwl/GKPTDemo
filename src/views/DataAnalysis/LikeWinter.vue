@@ -25,6 +25,7 @@
                 </div>
                 <div class="item_text4">
                     <el-carousel indicator-position="outside">
+                        <!--轮播图单页-->
                         <el-carousel-item v-if="SouData.coPro">
                             <div class="pm">
                                 <h2>{{SouData.coPro.ItemName}}
