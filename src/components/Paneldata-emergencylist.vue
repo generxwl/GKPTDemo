@@ -69,7 +69,7 @@
                     <!---->
                     <div class="tables">
                         <!--选项-->
-                        <a >已启动应急污染数量:55/75</a>
+                        <a >应急污染企业数量:{{totalCount}}</a>
                         <div class="xian"></div>
                     </div>
                     <!---->
@@ -84,13 +84,13 @@
                             <el-table-column
                                     property="NetworkName"
                                     label="污染源名称"
-                                    width="120">
+                                    width="220">
                             </el-table-column>
-                            <el-table-column
-                                    property="StartingState"
-                                    label="启动状态"
-                                    width="100">
-                            </el-table-column>
+                            <!--<el-table-column-->
+                                    <!--property="StartingState"-->
+                                    <!--label="启动状态"-->
+                                    <!--width="100">-->
+                            <!--</el-table-column>-->
                             <el-table-column
                                     property="Statues"
                                     label="行业"
@@ -144,8 +144,11 @@
         },
         created(){
             //bus.$on('loadVideoData', this.initlistData);
-            this.GetListqyData()
+//          this.GetListqyData()
         },
+      activated(){
+        this.GetListqyData()
+      },
         mounted(){
             //右侧收放
             let that = this;
@@ -356,7 +359,7 @@
                     tableData.NetworkName = item.companyname;//企业名称
                     tableData.pscode = item.id;//城市id
                     tableData.Statues = item.category?item.category:'----';//行业
-                    tableData.StartingState = item.buttonstate ? '启动' : '关闭';//状态
+                   // tableData.StartingState = item.buttonstate ? '启动' : '关闭';//状态
                     tableData.WanggeName =  item.threeGridName ? item.threeGridName : '----' ;//网格名称item.WanggeName
                     tableData.latitude = item.latitude;//纬度
                     tableData.longitude = item.longitude;//经度

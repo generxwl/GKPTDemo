@@ -248,7 +248,7 @@
                 flag:true
             }
         },
-        created(){
+      activated(){
             api.GetXhHbPoints().then(res => {
                 let data = res.data;
                 data = typeof data === 'string' ? JSON.parse(data) : data;

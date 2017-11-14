@@ -22,27 +22,27 @@
           <div class="symume" id="content">
             <div class="YuanType">
               <input @click='changeChecked(1)' :class="checked.ps1 ? 'checked1' : 'bg1'" type="checkbox" name="code" value="ps001" id="male" />
-              <label for="male">工业企业源</label>
+              <label :class="checked.ps1 ? 'labeled' : ''" for="male">工业企业源</label>
             </div>
             <div class="YuanType">
               <input @click='changeChecked(2)' :class="checked.ps2 ? 'checked2' : 'bg2'" type="checkbox" name="code" value="ps002" id="male1" />
-              <label for="male1">干洗</label>
+              <label :class="checked.ps2 ? 'labeled' : ''" for="male1">干洗</label>
             </div>
             <div class="YuanType">
               <input @click='changeChecked(3)' :class="checked.ps3 ? 'checked3' : 'bg3'" type="checkbox" name="code" value="ps003" id="male2" />
-              <label for="male2">汽修</label>
+              <label :class="checked.ps3 ? 'labeled' : ''" for="male2">汽修</label>
             </div>
             <div class="YuanType">
               <input @click='changeChecked(4)' :class="checked.ps4 ? 'checked4' : 'bg4'" type="checkbox" name="code" value="ps004" id="male4" />
-              <label for="male4">施工扬尘源</label>
+              <label :class="checked.ps4 ? 'labeled' : ''" for="male4">施工扬尘源</label>
             </div>
             <div class="YuanType">
               <input @click='changeChecked(5)' :class="checked.ps5 ? 'checked5' : 'bg5'" type="checkbox" name="code" value="ps005" id="male5" />
-              <label for="male5">餐饮油烟</label>
+              <label :class="checked.ps5 ? 'labeled' : ''" for="male5">餐饮油烟</label>
             </div>
             <div class="YuanType">
               <input @click='changeChecked(6)' :class="checked.ps6 ? 'checked6' : 'bg6'" type="checkbox" name="code" value="ps006" id="male6" />
-              <label for="male6">加油站</label>
+              <label :class="checked.ps6 ? 'labeled' : ''" for="male6">加油站</label>
             </div>
 
           </div>
@@ -168,7 +168,10 @@
     created(){
         bus.$on('setStaticTarget',this.switchRender);
         //bus.$on('setStaticData',this.initlistData);
-        this.ChenageGetDataList()
+//        this.ChenageGetDataList()
+    },
+    activated(){
+      this.ChenageGetDataList()
     },
     mounted(){
       //右侧收放
@@ -220,13 +223,13 @@
             }
         },
       //多选请求
-        GetcheckboxData(){
-            let Newdata = [];
-            let student = $(".YuanType input[name='code']:checked").serialize();
-            let Ayydata = student.split('&code=').join(',')
-            // console.log(Ayydata)
-            this.ChenageGetDataList(Ayydata)
-        },
+      // GetcheckboxData(){
+      //     let Newdata = [];
+      //     let student = $(".YuanType input[name='code']:checked").serialize();
+      //     let Ayydata = student.split('&code=').join(',')
+      //     // console.log(Ayydata)
+      //     this.ChenageGetDataList(Ayydata)
+      // },
       //排序
       compare (propertyName) {
         return function (object1, object2) {
@@ -469,7 +472,7 @@
         }
       },
       //点击切换复选框背景图片
-      changeChecked (index) {
+      changeChecked (index, event) {
         switch (index) {
           case 1:
             this.checked.ps1 = !this.checked.ps1;
@@ -490,6 +493,12 @@
             this.checked.ps6 = !this.checked.ps6;
             break;
         }
+        //多选请求
+        let Newdata = [];
+        let student = $(".YuanType input[name='code']:checked").serialize();
+        let Ayydata = student.split('&code=').join(',');
+        // console.log(Ayydata)
+        this.ChenageGetDataList(Ayydata);
       },
     },
       components: {Toolbar}
@@ -519,13 +528,13 @@
       .tables{
         font{
           float: right;
-          margin-right: 30px;
+          margin-right: 20px;
         }
       }
       .symume{
         width: 100%;
         height: 68px;
-        padding-left: 17px;
+        margin-left: 17px;
         padding-bottom: 15px;
         .YuanType{
           width: 30%;
@@ -536,6 +545,10 @@
           label {
             margin: 0;
             vertical-align: middle;
+            color: #666;
+          }
+          .labeled {
+            color: #2494f2;
           }
           input {
             width: 15px;
