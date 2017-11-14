@@ -191,7 +191,7 @@
         let dts = data || [];
         let gridAttr = dts[dts.length - 1] || {};
         let gridName = (gridAttr.firstGridName || '') + '-' + (gridAttr.secodGridName || '') + '-' + (gridAttr.threeGridName || '');
-        let tel = gridAttr.Contact || '';
+        let tel = gridAttr.Contact || gridAttr.contact || '';
         let memberName = gridAttr.memberName || '';
         let headerElements = '<tr class="qyTable"><td rowspan="2" style="width:138px;height:44px">名称</td><td colspan="2" style="width:86px">氮氧化物</td><td colspan="2" style="width:86px">二氧化硫</td><td colspan="2" style="width:86px">烟尘</td><td colspan="2" style="width:86px">含氧量</td><td rowspan="2" style="width:78px">总排放量</td></tr><tr class="qyTable"><td>实测</td><td>折算</td><td>实测</td><td>折算</td><td>实测</td><td>折算</td><td>实测</td><td>折算</td></tr>';
         let els = '';

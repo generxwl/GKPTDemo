@@ -522,7 +522,7 @@
          + '</tr></table><div id=\'citychart_' + data.deviceid + '\' style=\'width:100%;height:110px\'>';*/
 
         let gridName = (data.firstGridName || '') + '-' + (data.secodGridName || '') + '-' + (data.threeGridName || '');
-        let tel = data.Contact || '';
+        let tel = data.Contact || data.contact || '';
         let memberName = data.memberName || '';
 
         return '<div class="param gongDi">\n' +

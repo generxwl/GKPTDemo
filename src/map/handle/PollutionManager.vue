@@ -578,7 +578,7 @@
         let aqi = data.aqi;
         let time = data.time;
         let gridName = (data.firstGridName || '') + '-' + (data.secodGridName || '') + '-' + (data.threeGridName || '');
-        let tel = data.Contact || '';
+        let tel = data.Contact || data.contact || '';
         let memberName = data.memberName || '';
         /* return '<table width=\'100%\'><tr><td style=\'font-size:12px\' valign=\'top\'>'
          + '<table width=\'100%\' class=\'fitem\'>'
